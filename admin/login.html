@@ -3,90 +3,166 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>دخول لوحة التحكم | خليك مكانك</title>
+    <title>دخول | خليك مكانك</title>
     <link rel="icon" type="image/jpeg" href="../assets/images/logo.jpg">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <style>
-        :root{--primary:#FFD700;--primary-dark:#F5C400;--dark:#1A1A1A;--gray:#666}
+        :root{--primary:#FFD700;--primary-dark:#F5C400;--primary-light:#FFF8DC;--dark:#1A1A1A;--gray:#666;--white:#fff}
         *{margin:0;padding:0;box-sizing:border-box}
-        body{font-family:'Cairo',sans-serif;background:linear-gradient(135deg,#FFF8DC,#fff,#FFF8DC);min-height:100vh;display:flex;align-items:center;justify-content:center;padding:1rem}
-        .login-card{background:#fff;border-radius:24px;box-shadow:0 20px 60px rgba(0,0,0,.1);width:100%;max-width:420px;overflow:hidden}
-        .login-header{background:linear-gradient(135deg,var(--primary),var(--primary-dark));padding:2.5rem 2rem;text-align:center}
-        .login-logo{width:80px;height:80px;border-radius:50%;margin:0 auto 1rem;border:4px solid rgba(255,255,255,.5);overflow:hidden}
-        .login-logo img{width:100%;height:100%;object-fit:cover}
-        .login-header h1{font-size:1.5rem;font-weight:800;color:var(--dark)}
-        .login-header p{color:var(--dark);opacity:.7;font-size:.9rem}
-        .login-body{padding:2rem}
-        .form-group{margin-bottom:1.2rem}
-        .form-group label{display:block;font-weight:600;font-size:.9rem;margin-bottom:.4rem;color:var(--dark)}
-        .form-input{width:100%;padding:.8rem 1rem;border:2px solid #eee;border-radius:12px;font-family:'Cairo',sans-serif;font-size:1rem;transition:.3s}
-        .form-input:focus{border-color:var(--primary);outline:none;box-shadow:0 0 0 .2rem rgba(255,215,0,.2)}
-        .btn-login{width:100%;padding:.9rem;background:linear-gradient(135deg,var(--primary),var(--primary-dark));color:var(--dark);border:none;border-radius:12px;font-family:'Cairo',sans-serif;font-weight:800;font-size:1.1rem;cursor:pointer;transition:.3s;margin-top:.5rem}
-        .btn-login:hover{transform:translateY(-2px);box-shadow:0 5px 20px rgba(255,215,0,.4)}
+        body{font-family:'Cairo',sans-serif;min-height:100vh;display:flex;overflow:hidden}
+
+        /* === Left Side - Branding === */
+        .brand-side{flex:1;background:linear-gradient(135deg,#1A1A1A 0%,#2D2D2D 50%,#1A1A1A 100%);display:flex;flex-direction:column;align-items:center;justify-content:center;position:relative;overflow:hidden;padding:3rem}
+        .brand-side::before{content:'';position:absolute;width:500px;height:500px;background:radial-gradient(circle,rgba(255,215,0,.15),transparent 70%);top:-100px;left:-100px;border-radius:50%}
+        .brand-side::after{content:'';position:absolute;width:300px;height:300px;background:radial-gradient(circle,rgba(255,215,0,.1),transparent 70%);bottom:-50px;right:-50px;border-radius:50%}
+        .brand-content{position:relative;z-index:1;text-align:center;color:#fff}
+        .brand-logo{width:120px;height:120px;border-radius:30px;overflow:hidden;margin:0 auto 2rem;box-shadow:0 10px 40px rgba(255,215,0,.3);border:3px solid rgba(255,215,0,.3)}
+        .brand-logo img{width:100%;height:100%;object-fit:cover}
+        .brand-content h1{font-size:2.5rem;font-weight:900;margin-bottom:.5rem}
+        .brand-content h1 span{color:var(--primary)}
+        .brand-content p{color:rgba(255,255,255,.6);font-size:1.1rem;max-width:350px;line-height:1.8}
+        .brand-features{margin-top:3rem;display:flex;flex-direction:column;gap:1.2rem}
+        .brand-feature{display:flex;align-items:center;gap:1rem;color:rgba(255,255,255,.8);font-size:.95rem}
+        .brand-feature i{width:45px;height:45px;background:rgba(255,215,0,.15);border-radius:12px;display:flex;align-items:center;justify-content:center;color:var(--primary);font-size:1.1rem;flex-shrink:0}
+        .brand-bg-text{position:absolute;bottom:2rem;font-size:8rem;font-weight:900;color:rgba(255,255,255,.03);white-space:nowrap;z-index:0}
+
+        /* === Right Side - Login Form === */
+        .login-side{width:520px;display:flex;align-items:center;justify-content:center;padding:3rem;background:var(--white);position:relative}
+        .login-container{width:100%;max-width:380px}
+        .login-header{text-align:center;margin-bottom:2.5rem}
+        .login-header .mobile-logo{display:none;width:60px;height:60px;border-radius:16px;overflow:hidden;margin:0 auto 1rem;box-shadow:0 5px 20px rgba(255,215,0,.3)}
+        .login-header .mobile-logo img{width:100%;height:100%;object-fit:cover}
+        .login-header h2{font-size:1.8rem;font-weight:900;color:var(--dark);margin-bottom:.3rem}
+        .login-header p{color:var(--gray);font-size:.95rem}
+        .form-group{margin-bottom:1.5rem}
+        .form-group label{display:flex;align-items:center;gap:.5rem;font-weight:600;font-size:.9rem;margin-bottom:.5rem;color:var(--dark)}
+        .form-group label i{color:var(--primary-dark);font-size:.85rem}
+        .input-wrap{position:relative}
+        .input-wrap i{position:absolute;left:1rem;top:50%;transform:translateY(-50%);color:#ccc;transition:.3s;font-size:.9rem}
+        .input-wrap input{width:100%;padding:1rem 1rem 1rem 2.8rem;border:2px solid #eee;border-radius:14px;font-family:'Cairo',sans-serif;font-size:1rem;transition:.3s;background:#fafafa}
+        .input-wrap input:focus{border-color:var(--primary);background:#fff;box-shadow:0 0 0 .2rem rgba(255,215,0,.15)}
+        .input-wrap input:focus+i{color:var(--primary-dark)}
+        .remember-row{display:flex;justify-content:space-between;align-items:center;margin-bottom:1.5rem}
+        .remember-row label{display:flex;align-items:center;gap:.5rem;font-size:.85rem;color:var(--gray);cursor:pointer}
+        .remember-row label input{accent-color:var(--primary)}
+        .remember-row a{font-size:.85rem;color:var(--primary-dark);font-weight:600}
+        .btn-login{width:100%;padding:1rem;background:linear-gradient(135deg,var(--primary),var(--primary-dark));color:var(--dark);border:none;border-radius:14px;font-family:'Cairo',sans-serif;font-weight:800;font-size:1.1rem;cursor:pointer;transition:.3s;position:relative;overflow:hidden}
+        .btn-login::before{content:'';position:absolute;top:0;left:-100%;width:100%;height:100%;background:linear-gradient(90deg,transparent,rgba(255,255,255,.3),transparent);transition:.5s}
+        .btn-login:hover::before{left:100%}
+        .btn-login:hover{transform:translateY(-2px);box-shadow:0 8px 30px rgba(255,215,0,.4)}
         .btn-login:active{transform:scale(.98)}
-        .error-msg{background:#fee2e2;color:#991b1b;padding:.8rem 1rem;border-radius:10px;font-size:.9rem;display:none;margin-bottom:1rem;text-align:center}
-        .hint{text-align:center;margin-top:1.5rem;padding-top:1.5rem;border-top:1px solid #eee}
-        .hint p{color:var(--gray);font-size:.85rem}
-        .hint strong{color:var(--primary-dark)}
-        .back-link{text-align:center;margin-top:1rem}
-        .back-link a{color:var(--gray);text-decoration:none;font-size:.9rem}
+        .error-box{background:#fee2e2;color:#991b1b;padding:.8rem 1rem;border-radius:12px;font-size:.9rem;display:none;margin-bottom:1rem;text-align:center;border:1px solid #fecaca}
+        .divider{display:flex;align-items:center;gap:1rem;margin:1.5rem 0;color:#ccc;font-size:.85rem}
+        .divider::before,.divider::after{content:'';flex:1;height:1px;background:#eee}
+        .demo-box{background:var(--primary-light);border:1px solid rgba(255,215,0,.3);border-radius:14px;padding:1.2rem;text-align:center}
+        .demo-box p{font-size:.85rem;color:var(--gray);margin-bottom:.5rem}
+        .demo-creds{display:flex;justify-content:center;gap:1rem}
+        .demo-creds span{background:var(--white);padding:.3rem .8rem;border-radius:8px;font-size:.85rem;font-weight:700;color:var(--dark);border:1px solid rgba(255,215,0,.3)}
+        .back-link{text-align:center;margin-top:1.5rem}
+        .back-link a{color:var(--gray);text-decoration:none;font-size:.9rem;transition:.3s}
         .back-link a:hover{color:var(--primary-dark)}
+
+        /* Decorative */
+        .corner-deco{position:absolute;top:20px;left:20px;font-size:1.5rem;color:rgba(255,215,0,.2)}
+
+        @media(max-width:991px){
+            .brand-side{display:none}
+            .login-side{width:100%}
+            .login-header .mobile-logo{display:block}
+        }
+        @media(max-width:575px){
+            .login-side{padding:2rem 1.5rem}
+        }
     </style>
 </head>
 <body>
-    <div class="login-card">
-        <div class="login-header">
-            <div class="login-logo">
+    <!-- Brand Side -->
+    <div class="brand-side">
+        <div class="brand-content">
+            <div class="brand-logo">
                 <img src="../assets/images/logo.jpg" alt="خليك مكانك">
             </div>
-            <h1>لوحة التحكم</h1>
-            <p>خليك مكانك - إدارة الطلبات</p>
+            <h1>خليك مكانك</h1>
+            <p>لوحة التحكم الذكية لإدارة الطلبات والمناديب والعملاء</p>
+            <div class="brand-features">
+                <div class="brand-feature"><i class="fas fa-shopping-cart"></i><span>إدارة الطلبات وال-track</span></div>
+                <div class="brand-feature"><i class="fas fa-motorcycle"></i><span>تعيين المناديب ومتابعتهم</span></div>
+                <div class="brand-feature"><i class="fas fa-chart-line"></i><span>تقارير وإحصائيات مفصلة</span></div>
+                <div class="brand-feature"><i class="fas fa-bell"></i><span>إشعارات حية للطلبات الجديدة</span></div>
+            </div>
         </div>
-        <div class="login-body">
-            <div class="error-msg" id="errorMsg"></div>
+        <div class="brand-bg-text">DASHBOARD</div>
+    </div>
+
+    <!-- Login Side -->
+    <div class="login-side">
+        <i class="fas fa-lock corner-deco"></i>
+        <div class="login-container">
+            <div class="login-header">
+                <div class="mobile-logo"><img src="../assets/images/logo.jpg" alt="خليك مكانك"></div>
+                <h2>أهلاً بيك!</h2>
+                <p>سجل دخولك عشان تدير الموقع</p>
+            </div>
+
+            <div class="error-box" id="errorMsg"></div>
+
             <form id="loginForm">
                 <div class="form-group">
-                    <label>البريد الإلكتروني</label>
-                    <input type="text" class="form-input" id="email" placeholder="admin" required>
+                    <label><i class="fas fa-user"></i> اسم المستخدم</label>
+                    <div class="input-wrap">
+                        <input type="text" id="email" placeholder="admin" required autocomplete="username">
+                        <i class="fas fa-user"></i>
+                    </div>
                 </div>
                 <div class="form-group">
-                    <label>كلمة المرور</label>
-                    <input type="password" class="form-input" id="password" placeholder="••••••••" required>
+                    <label><i class="fas fa-lock"></i> كلمة المرور</label>
+                    <div class="input-wrap">
+                        <input type="password" id="password" placeholder="••••••••" required autocomplete="current-password">
+                        <i class="fas fa-lock"></i>
+                    </div>
                 </div>
-                <button type="submit" class="btn-login">دخول</button>
+                <div class="remember-row">
+                    <label><input type="checkbox" checked> تذكرني</label>
+                </div>
+                <button type="submit" class="btn-login" id="loginBtn">
+                    <i class="fas fa-sign-in-alt ms-2"></i> دخول
+                </button>
             </form>
-            <div class="hint">
-                <p>بيانات الدخول: <strong>admin</strong> / <strong>123456</strong></p>
+
+            <div class="divider">أو</div>
+
+            <div class="demo-box">
+                <p>بيانات التجربة</p>
+                <div class="demo-creds">
+                    <span><i class="fas fa-user ms-1"></i> admin</span>
+                    <span><i class="fas fa-lock ms-1"></i> 123456</span>
+                </div>
             </div>
+
             <div class="back-link">
-                <a href="../index.html">← العودة للموقع</a>
+                <a href="../index.html"><i class="fas fa-arrow-right ms-1"></i> العودة للموقع</a>
             </div>
         </div>
     </div>
 
     <script>
-        // Check if already logged in
-        if (localStorage.getItem('admin_logged_in') === 'true') {
-            location.href = 'dashboard.html';
-        }
-
+        if (localStorage.getItem('admin_logged_in') === 'true') location.href = 'dashboard.html';
         document.getElementById('loginForm').addEventListener('submit', function(e) {
             e.preventDefault();
             const email = document.getElementById('email').value.trim();
             const password = document.getElementById('password').value;
             const error = document.getElementById('errorMsg');
-
-            // Hardcoded admin credentials
             if ((email === 'admin' || email === 'admin@khalikmakana.com') && password === '123456') {
                 localStorage.setItem('admin_logged_in', 'true');
                 localStorage.setItem('admin_user', 'Admin');
-                location.href = 'dashboard.html';
+                document.getElementById('loginBtn').innerHTML = '<i class="fas fa-spinner fa-spin ms-2"></i> جاري الدخول...';
+                setTimeout(() => location.href = 'dashboard.html', 500);
             } else {
-                error.textContent = 'بيانات الدخول غير صحيحة';
+                error.textContent = 'بيانات الدخول غير صحيحة - جرب again';
                 error.style.display = 'block';
-                setTimeout(() => error.style.display = 'none', 3000);
+                error.style.animation = 'shake .5s ease';
+                setTimeout(() => { error.style.display = 'none'; error.style.animation = ''; }, 3000);
             }
         });
     </script>

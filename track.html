@@ -5,135 +5,139 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>تتبع طلبك | خليك مكانك</title>
     <link rel="icon" type="image/jpeg" href="assets/images/logo.jpg">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <style>
-        :root {
-            --primary: #FFD700;
-            --primary-dark: #F5C400;
-            --primary-light: #FFF8DC;
-            --dark: #1A1A1A;
-            --gray: #666;
-        }
-        * { margin:0; padding:0; box-sizing:border-box; }
-        body { font-family:'Cairo',sans-serif; background:linear-gradient(135deg,var(--primary-light),#fff); min-height:100vh; }
+        :root{--primary:#FFD700;--primary-dark:#F5C400;--primary-light:#FFF8DC;--dark:#1A1A1A;--dark-2:#2D2D2D;--gray:#666;--green:#22c55e;--blue:#3b82f6;--wa:#25D366}
+        *{margin:0;padding:0;box-sizing:border-box}
+        body{font-family:'Cairo',sans-serif;background:var(--dark-2);min-height:100vh;display:flex;align-items:center;justify-content:center;padding:1.5rem}
 
-        .container { max-width:700px; margin:0 auto; padding:2rem 1rem; }
+        .page-wrapper{width:100%;max-width:650px}
 
-        .header { text-align:center; margin-bottom:2rem; }
-        .logo { width:80px; height:80px; background:linear-gradient(135deg,var(--primary),var(--primary-dark)); border-radius:50%; display:flex; align-items:center; justify-content:center; margin:0 auto 1rem; font-size:2rem; color:var(--dark); }
-        .header h1 { font-size:1.8rem; font-weight:800; color:var(--dark); }
-        .header p { color:var(--gray); }
+        .header{text-align:center;margin-bottom:2rem}
+        .logo-wrap{width:80px;height:80px;border-radius:20px;overflow:hidden;margin:0 auto 1rem;box-shadow:0 8px 30px rgba(255,215,0,.3);border:3px solid rgba(255,215,0,.2)}
+        .logo-wrap img{width:100%;height:100%;object-fit:cover}
+        .header h1{font-size:1.8rem;font-weight:900;color:#fff;margin-bottom:.3rem}
+        .header p{color:rgba(255,255,255,.5);font-size:.95rem}
 
-        /* Search */
-        .search-card { background:#fff; border-radius:20px; padding:2rem; box-shadow:0 10px 40px rgba(0,0,0,.1); margin-bottom:1.5rem; }
-        .search-card h2 { font-size:1.1rem; font-weight:700; margin-bottom:1rem; display:flex; align-items:center; gap:.5rem; }
-        .search-card h2 i { color:var(--primary-dark); }
-        .input-group-custom { display:flex; gap:.5rem; }
-        .input-group-custom input { flex:1; padding:1rem 1.2rem; border-radius:12px; border:2px solid #eee; font-family:'Cairo',sans-serif; font-size:1.05rem; outline:none; transition:.3s; }
-        .input-group-custom input:focus { border-color:var(--primary); }
-        .input-group-custom button { padding:1rem 1.5rem; background:linear-gradient(135deg,var(--primary),var(--primary-dark)); color:var(--dark); border:none; border-radius:12px; font-weight:700; font-family:'Cairo',sans-serif; cursor:pointer; transition:.3s; white-space:nowrap; }
-        .input-group-custom button:hover { transform:translateY(-2px); }
+        /* Search Card */
+        .search-card{background:#fff;border-radius:20px;padding:2rem;box-shadow:0 15px 50px rgba(0,0,0,.3);margin-bottom:1.5rem}
+        .search-card h2{font-size:1.1rem;font-weight:800;margin-bottom:1rem;display:flex;align-items:center;gap:.5rem;color:var(--dark)}
+        .search-card h2 i{color:var(--primary-dark);font-size:.95rem}
+        .input-group-custom{display:flex;gap:.5rem}
+        .input-group-custom input{flex:1;padding:.9rem 1.2rem;border-radius:12px;border:2px solid #eee;font-family:'Cairo',sans-serif;font-size:1rem;transition:.3s;background:#fafafa}
+        .input-group-custom input:focus{border-color:var(--primary);box-shadow:0 0 0 .15rem rgba(255,215,0,.15);outline:none;background:#fff}
+        .input-group-custom button{padding:.9rem 1.8rem;background:linear-gradient(135deg,var(--primary),var(--primary-dark));color:var(--dark);border:none;border-radius:12px;font-weight:800;font-family:'Cairo',sans-serif;font-size:.95rem;cursor:pointer;transition:.3s;white-space:nowrap;display:flex;align-items:center;gap:.4rem}
+        .input-group-custom button:hover{transform:translateY(-2px);box-shadow:0 4px 15px rgba(255,215,0,.4)}
 
-        /* Tabs */
-        .tab-hint { display:flex; gap:.5rem; margin-top:.8rem; }
-        .tab-hint span { padding:.3rem .8rem; background:#f8f9fa; border-radius:8px; font-size:.8rem; color:var(--gray); cursor:pointer; transition:.3s; }
-        .tab-hint span.active { background:var(--primary-light); color:var(--primary-dark); font-weight:600; }
+        .tab-hint{display:flex;gap:.5rem;margin-top:.8rem}
+        .tab-hint span{padding:.4rem 1rem;background:#f5f6fa;border-radius:8px;font-size:.82rem;color:var(--gray);cursor:pointer;transition:.3s;font-weight:600}
+        .tab-hint span.active{background:var(--primary-light);color:var(--primary-dark)}
 
         /* Loading */
-        .loading { text-align:center; padding:3rem; display:none; }
-        .loading.show { display:block; }
-        .spinner { width:45px; height:45px; border:4px solid #eee; border-top-color:var(--primary); border-radius:50%; animation:spin 1s linear infinite; margin:0 auto 1rem; }
-        @keyframes spin { to{transform:rotate(360deg)} }
+        .loading{text-align:center;padding:3rem;display:none}
+        .loading.show{display:block;animation:fadeUp .3s ease}
+        .spinner{width:45px;height:45px;border:4px solid #f0f0f0;border-top-color:var(--primary);border-radius:50%;animation:spin .8s linear infinite;margin:0 auto 1rem}
+        @keyframes spin{to{transform:rotate(360deg)}}
 
         /* Not Found */
-        .not-found { text-align:center; padding:3rem; display:none; }
-        .not-found.show { display:block; }
-        .not-found i { font-size:3.5rem; color:#ddd; margin-bottom:1rem; }
-        .not-found h3 { color:var(--gray); font-weight:600; }
+        .not-found{text-align:center;padding:3rem;display:none;background:#fff;border-radius:20px;box-shadow:0 15px 50px rgba(0,0,0,.3)}
+        .not-found.show{display:block;animation:fadeUp .4s ease}
+        .not-found .nf-icon{width:80px;height:80px;background:#f5f6fa;border-radius:50%;display:flex;align-items:center;justify-content:center;margin:0 auto 1rem}
+        .not-found .nf-icon i{font-size:2rem;color:#ccc}
+        .not-found h3{color:var(--dark);font-weight:800;font-size:1.1rem;margin-bottom:.3rem}
+        .not-found p{color:var(--gray);font-size:.9rem}
+
+        @keyframes fadeUp{from{opacity:0;transform:translateY(15px)}to{opacity:1;transform:translateY(0)}}
 
         /* Result */
-        .result { display:none; }
-        .result.show { display:block; }
+        .result{display:none;background:#fff;border-radius:20px;padding:2rem;box-shadow:0 15px 50px rgba(0,0,0,.3)}
+        .result.show{display:block;animation:fadeUp .4s ease}
 
-        .result-top { background:linear-gradient(135deg,var(--primary),var(--primary-dark)); border-radius:16px; padding:1.5rem; display:flex; justify-content:space-between; align-items:center; margin-bottom:1.5rem; }
-        .result-top h3 { font-size:1.1rem; font-weight:700; margin:0; }
-        .order-badge { background:var(--dark); color:#fff; padding:.3rem 1rem; border-radius:50px; font-size:.85rem; font-weight:600; direction:ltr; display:inline-block; }
+        .result-top{background:linear-gradient(135deg,var(--primary),var(--primary-dark));border-radius:16px;padding:1.5rem;display:flex;justify-content:space-between;align-items:center;margin-bottom:1.5rem;position:relative;overflow:hidden}
+        .result-top::before{content:'';position:absolute;width:80px;height:80px;background:rgba(255,255,255,.15);border-radius:50%;top:-20px;left:-20px}
+        .result-top h3{font-size:1.05rem;font-weight:800;margin:0;position:relative;z-index:1}
+        .result-top h3 i{margin-left:.5rem}
+        .order-badge{background:var(--dark);color:#fff;padding:.4rem 1.2rem;border-radius:50px;font-size:.82rem;font-weight:700;direction:ltr;display:inline-block;position:relative;z-index:1}
 
-        /* Status */
-        .status-badge-lg { display:inline-flex; align-items:center; gap:.5rem; padding:.5rem 1.2rem; border-radius:50px; font-weight:700; font-size:.95rem; margin-bottom:1.5rem; }
-        .status-badge-lg.pending { background:#fff3cd; color:#856404; }
-        .status-badge-lg.confirmed { background:#cce5ff; color:#004085; }
-        .status-badge-lg.picked { background:#d4edda; color:#155724; }
-        .status-badge-lg.delivering { background:#e2d5f1; color:#563d7c; }
-        .status-badge-lg.completed { background:#d4edda; color:#155724; }
-        .status-badge-lg.cancelled { background:#f8d7da; color:#721c24; }
+        .status-badge-lg{display:inline-flex;align-items:center;gap:.5rem;padding:.5rem 1.2rem;border-radius:50px;font-weight:700;font-size:.88rem;margin-bottom:1.5rem}
+        .status-badge-lg i{font-size:.75rem}
+        .status-badge-lg.pending{background:#fef3c7;color:#92400e}
+        .status-badge-lg.confirmed{background:#dbeafe;color:#1e40af}
+        .status-badge-lg.picked{background:#dcfce7;color:#166534}
+        .status-badge-lg.delivering{background:#ede9fe;color:#5b21b6}
+        .status-badge-lg.completed{background:#dcfce7;color:#166534}
+        .status-badge-lg.cancelled{background:#fee2e2;color:#991b1b}
 
         /* Timeline */
-        .timeline { position:relative; padding-right:2rem; margin-bottom:1.5rem; }
-        .tl-item { position:relative; padding-bottom:2rem; padding-right:2rem; }
-        .tl-item:last-child { padding-bottom:0; }
-        .tl-dot { position:absolute; right:-2rem; top:0; width:20px; height:20px; border-radius:50%; background:#eee; border:3px solid #fff; z-index:1; transition:.3s; }
-        .tl-item.done .tl-dot { background:var(--primary); }
-        .tl-item.active .tl-dot { background:var(--primary); animation:pulse 2s infinite; }
-        @keyframes pulse { 0%,100%{transform:scale(1);box-shadow:0 0 0 0 rgba(255,215,0,.4)} 50%{transform:scale(1.15);box-shadow:0 0 0 8px rgba(255,215,0,0)} }
-        .tl-line { position:absolute; right:-13px; top:20px; bottom:0; width:2px; background:#eee; }
-        .tl-item.done .tl-line { background:var(--primary); }
-        .tl-item:last-child .tl-line { display:none; }
-        .tl-content h4 { font-size:.95rem; font-weight:700; margin-bottom:.2rem; color:var(--dark); }
-        .tl-content p { font-size:.85rem; color:var(--gray); margin:0; }
-        .tl-content .tl-time { font-size:.75rem; color:#aaa; margin-top:.2rem; }
-
-        /* Order Info */
-        .info-box { background:#f8f9fa; border-radius:14px; padding:1.5rem; margin-bottom:1.5rem; }
-        .info-box h4 { font-size:.95rem; font-weight:700; margin-bottom:1rem; display:flex; align-items:center; gap:.5rem; }
-        .info-box h4 i { color:var(--primary-dark); }
-        .info-row { display:flex; justify-content:space-between; padding:.5rem 0; border-bottom:1px solid #eee; font-size:.9rem; }
-        .info-row:last-child { border-bottom:none; }
-        .info-row .lbl { color:var(--gray); }
-        .info-row .val { font-weight:600; text-align:right; max-width:55%; }
+        .timeline{position:relative;padding-right:1.5rem;margin-bottom:2rem}
+        .tl-item{position:relative;padding-bottom:1.5rem;padding-right:2.5rem;opacity:.4;transition:.4s}
+        .tl-item.done,.tl-item.active{opacity:1}
+        .tl-dot{position:absolute;right:-1.5rem;top:2px;width:22px;height:22px;border-radius:50%;background:#e5e7eb;border:3px solid #fff;z-index:1;transition:.4s}
+        .tl-item.done .tl-dot{background:var(--primary);border-color:var(--primary-light)}
+        .tl-item.active .tl-dot{background:var(--primary);animation:pulse 2s infinite;border-color:var(--primary-light)}
+        @keyframes pulse{0%,100%{transform:scale(1);box-shadow:0 0 0 0 rgba(255,215,0,.4)}50%{transform:scale(1.1);box-shadow:0 0 0 8px rgba(255,215,0,0)}}
+        .tl-line{position:absolute;right:-4px;top:24px;bottom:0;width:2px;background:#e5e7eb;transition:.4s}
+        .tl-item.done .tl-line{background:var(--primary)}
+        .tl-item:last-child{padding-bottom:0}
+        .tl-item:last-child .tl-line{display:none}
+        .tl-content h4{font-size:.92rem;font-weight:700;margin-bottom:.15rem;color:var(--dark)}
+        .tl-content p{font-size:.82rem;color:var(--gray);margin:0}
+        .tl-content .tl-time{font-size:.72rem;color:#aaa;margin-top:.2rem;font-weight:500}
 
         /* Driver */
-        .driver-box { background:linear-gradient(135deg,#25D366,#128C7E); border-radius:14px; padding:1.5rem; color:#fff; display:none; margin-bottom:1.5rem; }
-        .driver-box.show { display:block; }
-        .driver-box h4 { font-size:.95rem; font-weight:700; margin-bottom:1rem; display:flex; align-items:center; gap:.5rem; }
-        .driver-row { display:flex; align-items:center; gap:1rem; }
-        .driver-avatar { width:55px; height:55px; background:rgba(255,255,255,.2); border-radius:50%; display:flex; align-items:center; justify-content:center; font-size:1.5rem; flex-shrink:0; }
-        .driver-text h5 { margin:0; font-size:1rem; font-weight:700; }
-        .driver-text p { margin:0; opacity:.9; font-size:.9rem; }
-        .btn-call-driver { background:#fff; color:#25D366; border:none; padding:.5rem 1.5rem; border-radius:50px; font-weight:700; font-family:'Cairo',sans-serif; cursor:pointer; margin-top:1rem; transition:.3s; }
-        .btn-call-driver:hover { transform:scale(1.05); }
+        .driver-box{background:linear-gradient(135deg,var(--wa),#128C7E);border-radius:16px;padding:1.5rem;color:#fff;display:none;margin-bottom:1.5rem;position:relative;overflow:hidden}
+        .driver-box::before{content:'';position:absolute;width:60px;height:60px;background:rgba(255,255,255,.1);border-radius:50%;top:-15px;left:-15px}
+        .driver-box.show{display:block;animation:fadeUp .4s ease}
+        .driver-box h4{font-size:.92rem;font-weight:700;margin-bottom:1rem;display:flex;align-items:center;gap:.5rem;position:relative;z-index:1}
+        .driver-row{display:flex;align-items:center;gap:1rem;position:relative;z-index:1}
+        .driver-avatar{width:55px;height:55px;background:rgba(255,255,255,.2);border-radius:14px;display:flex;align-items:center;justify-content:center;font-size:1.4rem;flex-shrink:0}
+        .driver-text h5{margin:0;font-size:1rem;font-weight:700}
+        .driver-text p{margin:0;opacity:.85;font-size:.88rem}
+        .btn-call-driver{background:#fff;color:var(--wa);border:none;padding:.55rem 1.5rem;border-radius:50px;font-weight:700;font-family:'Cairo',sans-serif;cursor:pointer;margin-top:1rem;transition:.3s;font-size:.88rem;display:inline-flex;align-items:center;gap:.4rem}
+        .btn-call-driver:hover{transform:scale(1.03);box-shadow:0 4px 15px rgba(0,0,0,.15)}
+
+        /* Info */
+        .info-box{background:#fafbfc;border-radius:16px;padding:1.5rem;margin-bottom:1.5rem}
+        .info-box h4{font-size:.92rem;font-weight:800;margin-bottom:1rem;display:flex;align-items:center;gap:.5rem;color:var(--dark)}
+        .info-box h4 i{color:var(--primary-dark);font-size:.85rem}
+        .info-row{display:flex;justify-content:space-between;align-items:center;padding:.55rem 0;border-bottom:1px solid #f0f0f0}
+        .info-row:last-child{border-bottom:none}
+        .info-row .lbl{color:var(--gray);font-size:.88rem}
+        .info-row .val{font-weight:700;font-size:.88rem;text-align:right;max-width:55%}
 
         /* Actions */
-        .actions { display:flex; gap:.8rem; }
-        .actions a { flex:1; padding:.9rem; border-radius:12px; font-weight:600; text-decoration:none; text-align:center; transition:.3s; display:flex; align-items:center; justify-content:center; gap:.5rem; font-size:.9rem; }
-        .actions .wa { background:#25D366; color:#fff; }
-        .actions .call { background:var(--primary); color:var(--dark); }
-        .actions .new-order { background:#f8f9fa; color:var(--dark); }
-        .actions a:hover { transform:translateY(-2px); }
+        .actions{display:flex;gap:.6rem}
+        .actions a{flex:1;padding:.8rem;border-radius:12px;font-weight:700;text-decoration:none;text-align:center;transition:.3s;display:flex;align-items:center;justify-content:center;gap:.5rem;font-size:.88rem}
+        .actions .wa{background:var(--wa);color:#fff}
+        .actions .wa:hover{background:#128C7E;transform:translateY(-2px);color:#fff}
+        .actions .call{background:var(--primary);color:var(--dark)}
+        .actions .call:hover{background:var(--primary-dark);transform:translateY(-2px)}
+        .actions .new-order{background:#fafbfc;color:var(--dark);border:2px solid #eee}
+        .actions .new-order:hover{background:#f0f0f0;transform:translateY(-2px);color:var(--dark)}
 
-        .back { text-align:center; margin-top:1.5rem; }
-        .back a { color:var(--gray); text-decoration:none; font-weight:600; }
-        .back a:hover { color:var(--primary-dark); }
+        .back{text-align:center;margin-top:1.5rem}
+        .back a{color:rgba(255,255,255,.5);text-decoration:none;font-weight:600;font-size:.9rem;transition:.3s}
+        .back a:hover{color:var(--primary)}
 
-        .whatsapp-float { position:fixed; bottom:30px; left:30px; width:60px; height:60px; background:#25D366; color:#fff; border-radius:50%; display:flex; align-items:center; justify-content:center; font-size:2rem; box-shadow:0 4px 20px rgba(0,0,0,.2); z-index:99; transition:.3s; }
-        .whatsapp-float:hover { transform:scale(1.1); }
+        .whatsapp-float{position:fixed;bottom:25px;left:25px;width:55px;height:55px;background:var(--wa);color:#fff;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:1.8rem;box-shadow:0 4px 20px rgba(37,211,102,.4);z-index:99;transition:.3s;text-decoration:none}
+        .whatsapp-float:hover{transform:scale(1.1);color:#fff}
 
-        @media(max-width:575px) {
-            .input-group-custom { flex-direction:column; }
-            .actions { flex-direction:column; }
-            .result-top { flex-direction:column; gap:1rem; text-align:center; }
+        @media(max-width:575px){
+            body{padding:1rem;padding-bottom:5rem}
+            .input-group-custom{flex-direction:column}
+            .actions{flex-direction:column}
+            .result-top{flex-direction:column;gap:.8rem;text-align:center;padding:1.2rem}
+            .search-card{padding:1.5rem}
+            .result{padding:1.5rem}
         }
     </style>
 </head>
 <body>
 
-<div class="container">
+<div class="page-wrapper">
     <div class="header">
-        <div class="logo"><i class="fas fa-motorcycle"></i></div>
+        <div class="logo-wrap"><img src="assets/images/logo.jpg" alt="خليك مكانك"></div>
         <h1>تتبع طلبك</h1>
         <p>ادخل رقم التتبع أو رقم التليفون</p>
     </div>
@@ -143,7 +147,7 @@
         <h2><i class="fas fa-search"></i> بحث</h2>
         <div class="input-group-custom">
             <input type="text" id="searchInput" placeholder="ORD-... أو رقم التليفون">
-            <button onclick="doSearch()"><i class="fas fa-search ms-1"></i> تتبع</button>
+            <button onclick="doSearch()"><i class="fas fa-search"></i> تتبع</button>
         </div>
         <div class="tab-hint">
             <span class="active" onclick="setHint('ord')">رقم الطلب</span>
@@ -152,19 +156,19 @@
     </div>
 
     <!-- Loading -->
-    <div class="loading" id="loading"><div class="spinner"></div><p style="font-weight:600">جاري البحث...</p></div>
+    <div class="loading" id="loading"><div class="spinner"></div><p style="font-weight:700;color:rgba(255,255,255,.8)">جاري البحث...</p></div>
 
     <!-- Not Found -->
     <div class="not-found" id="notFound">
-        <i class="fas fa-search"></i>
+        <div class="nf-icon"><i class="fas fa-search"></i></div>
         <h3>لم نلاقي طلب بالبيانات دي</h3>
-        <p style="color:#aaa;margin-top:.5rem">تأكد من الرقم وحاول تاني</p>
+        <p>تأكد من الرقم وحاول تاني</p>
     </div>
 
     <!-- Result -->
     <div class="result" id="result">
         <div class="result-top">
-            <h3><i class="fas fa-box ms-2"></i> حالة الطلب</h3>
+            <h3><i class="fas fa-box"></i> حالة الطلب</h3>
             <span class="order-badge" id="rOrderId">ORD-XXXX</span>
         </div>
 
@@ -203,12 +207,12 @@
                 <div class="driver-avatar"><i class="fas fa-motorcycle"></i></div>
                 <div class="driver-text"><h5 id="dName">-</h5><p id="dPhone">-</p></div>
             </div>
-            <button class="btn-call-driver" id="dCallBtn"><i class="fas fa-phone-alt ms-2"></i> اتصل بالمندوب</button>
+            <button class="btn-call-driver" id="dCallBtn"><i class="fas fa-phone-alt"></i> اتصل بالمندوب</button>
         </div>
 
         <!-- Info -->
         <div class="info-box">
-            <h4><i class="fas fa-info-circle"></i> تفاصيل</h4>
+            <h4><i class="fas fa-info-circle"></i> تفاصيل الطلب</h4>
             <div class="info-row"><span class="lbl">الاسم</span><span class="val" id="iName">-</span></div>
             <div class="info-row"><span class="lbl">التليفون</span><span class="val" id="iPhone">-</span></div>
             <div class="info-row"><span class="lbl">العنوان</span><span class="val" id="iAddr">-</span></div>
@@ -224,130 +228,67 @@
         </div>
     </div>
 
-    <div class="back"><a href="index.html"><i class="fas fa-arrow-right ms-2"></i> العودة للموقع</a></div>
+    <div class="back"><a href="index.html"><i class="fas fa-arrow-right ms-1"></i> العودة للموقع</a></div>
 </div>
 
 <a href="https://wa.me/201234567890" class="whatsapp-float" target="_blank"><i class="fab fa-whatsapp"></i></a>
 
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 <script type="module">
     import { db, collection, query, where, getDocs } from './js/firebase-config.js';
 
-    const statusMap = {
-        pending:     { text:'معلق — في انتظار التأكيد',         icon:'fa-clock',           cls:'pending' },
-        confirmed:   { text:'مؤكد — جاري التجهيز',              icon:'fa-check',           cls:'confirmed' },
-        picked:      { text:'تم الاستلام — المندوب استلم الطلب', icon:'fa-box-open',        cls:'picked' },
-        delivering:  { text:'في الطريق — المندوب في السكة',     icon:'fa-motorcycle',      cls:'delivering' },
-        completed:   { text:'تم التوصيل — بالهنا والشفا',        icon:'fa-check-circle',    cls:'completed' },
-        cancelled:   { text:'تم الإلغاء',                        icon:'fa-times-circle',    cls:'cancelled' }
-    };
+    const statusMap={pending:{text:'معلق — في انتظار التأكيد',icon:'fa-clock',cls:'pending'},confirmed:{text:'مؤكد — جاري التجهيز',icon:'fa-check',cls:'confirmed'},picked:{text:'تم الاستلام — المندوب استلم الطلب',icon:'fa-box-open',cls:'picked'},delivering:{text:'في الطريق — المندوب في السكة',icon:'fa-motorcycle',cls:'delivering'},completed:{text:'تم التوصيل — بالهنا والشفا',icon:'fa-check-circle',cls:'completed'},cancelled:{text:'تم الإلغاء',icon:'times-circle',cls:'cancelled'}};
+    const svcLabels={food:'توصيل طعام',package:'توصيل طرود',product:'توصيل منتجات'};
+    const allStatuses=['pending','confirmed','picked','delivering','completed'];
 
-    const svcLabels = { food:'توصيل طعام', package:'توصيل طرود', product:'توصيل منتجات' };
-    const allStatuses = ['pending','confirmed','picked','delivering','completed'];
+    function fmtTime(iso){if(!iso)return'';const d=new Date(iso);return d.toLocaleString('ar-EG',{hour:'2-digit',minute:'2-digit',day:'2-digit',month:'2-digit',year:'numeric'})}
 
-    function fmtTime(iso) {
-        if (!iso) return '';
-        const d = new Date(iso);
-        return d.toLocaleString('ar-EG', { hour:'2-digit', minute:'2-digit', day:'2-digit', month:'2-digit', year:'numeric' });
-    }
+    window.setHint=function(type){document.querySelectorAll('.tab-hint span').forEach(s=>s.classList.remove('active'));event.target.classList.add('active');document.getElementById('searchInput').placeholder=type==='ord'?'ORD-...':'01xxxxxxxxx'};
 
-    window.setHint = function(type) {
-        document.querySelectorAll('.tab-hint span').forEach(s => s.classList.remove('active'));
-        event.target.classList.add('active');
-        document.getElementById('searchInput').placeholder = type === 'ord' ? 'ORD-...' : '01xxxxxxxxx';
-    };
-
-    window.doSearch = async function() {
-        const val = document.getElementById('searchInput').value.trim();
-        if (!val) return;
-
+    window.doSearch=async function(){
+        const val=document.getElementById('searchInput').value.trim();
+        if(!val)return;
         document.getElementById('loading').classList.add('show');
         document.getElementById('notFound').classList.remove('show');
         document.getElementById('result').classList.remove('show');
-
-        try {
-            let orders = [];
-
-            // Search by orderId
-            if (val.toUpperCase().startsWith('ORD-')) {
-                const q = query(collection(db, 'orders'), where('orderId', '==', val.toUpperCase()));
-                const snap = await getDocs(q);
-                snap.forEach(d => orders.push({ id: d.id, ...d.data() }));
-            }
-
-            // Search by phone
-            if (orders.length === 0) {
-                const q = query(collection(db, 'orders'), where('customerPhone', '==', val));
-                const snap = await getDocs(q);
-                snap.forEach(d => orders.push({ id: d.id, ...d.data() }));
-            }
-
-            // If multiple, take latest
-            orders.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
-
+        try{
+            let orders=[];
+            if(val.toUpperCase().startsWith('ORD-')){const q=query(collection(db,'orders'),where('orderId','==',val.toUpperCase()));const snap=await getDocs(q);snap.forEach(d=>orders.push({id:d.id,...d.data()}))}
+            if(orders.length===0){const q=query(collection(db,'orders'),where('customerPhone','==',val));const snap=await getDocs(q);snap.forEach(d=>orders.push({id:d.id,...d.data()}))}
+            orders.sort((a,b)=>new Date(b.createdAt)-new Date(a.createdAt));
             document.getElementById('loading').classList.remove('show');
-
-            if (orders.length > 0) {
-                renderOrder(orders[0]);
-            } else {
-                document.getElementById('notFound').classList.add('show');
-            }
-        } catch (err) {
-            document.getElementById('loading').classList.remove('show');
-            document.getElementById('notFound').classList.add('show');
-            console.error(err);
-        }
+            if(orders.length>0)renderOrder(orders[0]);
+            else document.getElementById('notFound').classList.add('show');
+        }catch(err){document.getElementById('loading').classList.remove('show');document.getElementById('notFound').classList.add('show')}
     };
 
-    // Enter key
-    document.getElementById('searchInput').addEventListener('keydown', e => { if (e.key === 'Enter') doSearch(); });
+    document.getElementById('searchInput').addEventListener('keydown',e=>{if(e.key==='Enter')doSearch()});
 
-    function renderOrder(o) {
+    function renderOrder(o){
         document.getElementById('result').classList.add('show');
-
-        document.getElementById('rOrderId').textContent = o.orderId || o.id.slice(-8).toUpperCase();
-
-        const st = statusMap[o.status] || statusMap.pending;
-        const badge = document.getElementById('statusBadge');
-        badge.className = 'status-badge-lg ' + st.cls;
-        badge.innerHTML = `<i class="fas ${st.icon}"></i> <span>${st.text}</span>`;
-
-        const idx = allStatuses.indexOf(o.status);
-        document.querySelectorAll('.tl-item').forEach((item, i) => {
-            item.classList.remove('done', 'active');
-            if (i < idx) item.classList.add('done');
-            if (i === idx) item.classList.add('active');
-        });
-
-        if (o.createdAt) document.getElementById('tPending').textContent = fmtTime(o.createdAt);
-        if (o.confirmedAt) document.getElementById('tConfirmed').textContent = fmtTime(o.confirmedAt);
-        if (o.pickedAt) document.getElementById('tPicked').textContent = fmtTime(o.pickedAt);
-        if (o.deliveringAt) document.getElementById('tDelivering').textContent = fmtTime(o.deliveringAt);
-        if (o.completedAt) document.getElementById('tCompleted').textContent = fmtTime(o.completedAt);
-
-        document.getElementById('iName').textContent = o.customerName || '-';
-        document.getElementById('iPhone').textContent = o.customerPhone || '-';
-        document.getElementById('iAddr').textContent = o.customerAddress || '-';
-        document.getElementById('iSvc').textContent = svcLabels[o.serviceType] || '-';
-        document.getElementById('iFee').textContent = o.deliveryFee ? o.deliveryFee + ' ج.م' : '-';
-
-        if ((o.status === 'delivering' || o.status === 'picked') && o.driverName) {
-            document.getElementById('driverBox').classList.add('show');
-            document.getElementById('dName').textContent = o.driverName;
-            document.getElementById('dPhone').textContent = o.driverPhone || '';
-            document.getElementById('dCallBtn').onclick = () => { window.location.href = 'tel:' + o.driverPhone; };
-        } else {
-            document.getElementById('driverBox').classList.remove('show');
-        }
+        document.getElementById('rOrderId').textContent=o.orderId||o.id.slice(-8).toUpperCase();
+        const st=statusMap[o.status]||statusMap.pending;
+        const badge=document.getElementById('statusBadge');
+        badge.className='status-badge-lg '+st.cls;
+        badge.innerHTML=`<i class="fas ${st.icon}"></i> <span>${st.text}</span>`;
+        const idx=allStatuses.indexOf(o.status);
+        document.querySelectorAll('.tl-item').forEach((item,i)=>{item.classList.remove('done','active');if(i<idx)item.classList.add('done');if(i===idx)item.classList.add('active')});
+        if(o.createdAt)document.getElementById('tPending').textContent=fmtTime(o.createdAt);
+        if(o.confirmedAt)document.getElementById('tConfirmed').textContent=fmtTime(o.confirmedAt);
+        if(o.pickedAt)document.getElementById('tPicked').textContent=fmtTime(o.pickedAt);
+        if(o.deliveringAt)document.getElementById('tDelivering').textContent=fmtTime(o.deliveringAt);
+        if(o.completedAt)document.getElementById('tCompleted').textContent=fmtTime(o.completedAt);
+        document.getElementById('iName').textContent=o.customerName||'-';
+        document.getElementById('iPhone').textContent=o.customerPhone||'-';
+        document.getElementById('iAddr').textContent=o.customerAddress||'-';
+        document.getElementById('iSvc').textContent=svcLabels[o.serviceType]||'-';
+        document.getElementById('iFee').textContent=o.deliveryFee?o.deliveryFee+' ج.م':'-';
+        if((o.status==='delivering'||o.status==='picked')&&o.driverName){document.getElementById('driverBox').classList.add('show');document.getElementById('dName').textContent=o.driverName;document.getElementById('dPhone').textContent=o.driverPhone||'';document.getElementById('dCallBtn').onclick=()=>{window.location.href='tel:'+o.driverPhone}}
+        else document.getElementById('driverBox').classList.remove('show');
     }
 
-    // Auto-search from URL
-    const urlParams = new URLSearchParams(window.location.search);
-    const autoId = urlParams.get('id');
-    if (autoId) {
-        document.getElementById('searchInput').value = autoId;
-        doSearch();
-    }
+    const urlParams=new URLSearchParams(window.location.search);
+    const autoId=urlParams.get('id');
+    if(autoId){document.getElementById('searchInput').value=autoId;doSearch()}
 </script>
 </body>
 </html>

@@ -5,111 +5,127 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>طلب جديد | خليك مكانك</title>
     <link rel="icon" type="image/jpeg" href="assets/images/logo.jpg">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <style>
-        :root {
-            --primary: #FFD700;
-            --primary-dark: #F5C400;
-            --primary-light: #FFF8DC;
-            --dark: #1A1A1A;
-            --gray: #666;
-        }
-        * { margin:0; padding:0; box-sizing:border-box; }
-        body { font-family:'Cairo',sans-serif; background:linear-gradient(135deg,var(--primary-light),#fff); min-height:100vh; }
+        :root{--primary:#FFD700;--primary-dark:#F5C400;--primary-light:#FFF8DC;--dark:#1A1A1A;--dark-2:#2D2D2D;--gray:#666;--green:#28a745;--wa:#25D366}
+        *{margin:0;padding:0;box-sizing:border-box}
+        body{font-family:'Cairo',sans-serif;background:var(--dark-2);min-height:100vh;display:flex;align-items:center;justify-content:center;padding:1.5rem}
 
-        .container { max-width:650px; margin:0 auto; padding:2rem 1rem; }
+        .page-wrapper{width:100%;max-width:580px}
 
-        .header { text-align:center; margin-bottom:2rem; }
-        .logo { width:80px; height:80px; background:linear-gradient(135deg,var(--primary),var(--primary-dark)); border-radius:50%; display:flex; align-items:center; justify-content:center; margin:0 auto 1rem; font-size:2rem; color:var(--dark); }
-        .header h1 { font-size:1.8rem; font-weight:800; color:var(--dark); }
-        .header p { color:var(--gray); }
+        .header{text-align:center;margin-bottom:2rem}
+        .logo-wrap{width:80px;height:80px;border-radius:20px;overflow:hidden;margin:0 auto 1rem;box-shadow:0 8px 30px rgba(255,215,0,.3);border:3px solid rgba(255,215,0,.2)}
+        .logo-wrap img{width:100%;height:100%;object-fit:cover}
+        .header h1{font-size:1.8rem;font-weight:900;color:#fff;margin-bottom:.3rem}
+        .header p{color:rgba(255,255,255,.5);font-size:.95rem}
 
-        .card { background:#fff; border-radius:20px; padding:2rem; box-shadow:0 10px 40px rgba(0,0,0,.1); }
+        .card{background:#fff;border-radius:20px;padding:2rem;box-shadow:0 15px 50px rgba(0,0,0,.3)}
 
         /* Steps */
-        .steps { display:flex; justify-content:center; gap:.5rem; margin-bottom:2rem; }
-        .step-dot { width:36px; height:36px; border-radius:50%; background:#eee; display:flex; align-items:center; justify-content:center; font-weight:700; font-size:.85rem; color:#aaa; transition:.3s; }
-        .step-dot.active { background:var(--primary); color:var(--dark); }
-        .step-dot.done { background:#28a745; color:#fff; }
-        .step-line { width:40px; height:3px; background:#eee; align-self:center; border-radius:2px; }
-        .step-line.done { background:#28a745; }
+        .steps{display:flex;justify-content:center;align-items:center;gap:0;margin-bottom:2rem;padding:0 1rem}
+        .step-dot{width:40px;height:40px;border-radius:50%;background:#f0f0f0;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:.9rem;color:#bbb;transition:.4s;position:relative;z-index:1}
+        .step-dot.active{background:linear-gradient(135deg,var(--primary),var(--primary-dark));color:var(--dark);box-shadow:0 4px 15px rgba(255,215,0,.4);transform:scale(1.1)}
+        .step-dot.done{background:var(--green);color:#fff;transform:scale(1)}
+        .step-line{width:60px;height:3px;background:#eee;border-radius:3px;transition:.4s}
+        .step-line.done{background:var(--green)}
 
-        .step { display:none; }
-        .step.active { display:block; }
-        .step h3 { font-size:1.2rem; font-weight:700; margin-bottom:1.5rem; display:flex; align-items:center; gap:.5rem; }
-        .step h3 i { color:var(--primary-dark); }
+        .step{display:none;animation:fadeUp .4s ease}
+        .step.active{display:block}
+        @keyframes fadeUp{from{opacity:0;transform:translateY(15px)}to{opacity:1;transform:translateY(0)}}
+        .step h3{font-size:1.15rem;font-weight:800;margin-bottom:1.3rem;display:flex;align-items:center;gap:.5rem;color:var(--dark)}
+        .step h3 i{color:var(--primary-dark);font-size:1rem}
 
         /* Service Cards */
-        .services { display:grid; grid-template-columns:repeat(3,1fr); gap:1rem; margin-bottom:1.5rem; }
-        .svc { position:relative; }
-        .svc input { position:absolute; opacity:0; }
-        .svc label { display:flex; flex-direction:column; align-items:center; padding:1.5rem 1rem; background:#f8f9fa; border-radius:14px; border:2px solid transparent; cursor:pointer; transition:.3s; text-align:center; }
-        .svc label i { font-size:1.8rem; color:var(--primary-dark); margin-bottom:.5rem; }
-        .svc label span { font-weight:600; font-size:.9rem; }
-        .svc input:checked + label { background:var(--primary-light); border-color:var(--primary); }
+        .services{display:grid;grid-template-columns:repeat(3,1fr);gap:.8rem;margin-bottom:1.5rem}
+        .svc{position:relative}
+        .svc input{position:absolute;opacity:0}
+        .svc label{display:flex;flex-direction:column;align-items:center;padding:1.3rem .8rem;background:#fafafa;border-radius:14px;border:2px solid transparent;cursor:pointer;transition:.3s;text-align:center}
+        .svc label:hover{background:var(--primary-light);border-color:rgba(255,215,0,.3)}
+        .svc label .svc-icon{width:55px;height:55px;border-radius:14px;display:flex;align-items:center;justify-content:center;font-size:1.5rem;margin-bottom:.6rem;transition:.3s}
+        .svc-food .svc-icon{background:#fff3cd;color:#f59e0b}
+        .svc-package .svc-icon{background:#dbeafe;color:#3b82f6}
+        .svc-product .svc-icon{background:#dcfce7;color:#22c55e}
+        .svc label span{font-weight:700;font-size:.88rem;color:var(--dark)}
+        .svc label small{font-size:.72rem;color:var(--gray);margin-top:.1rem}
+        .svc input:checked+label{background:var(--primary-light);border-color:var(--primary);box-shadow:0 2px 10px rgba(255,215,0,.2)}
+        .svc input:checked+label .svc-icon{transform:scale(1.1)}
 
-        .form-label { font-weight:600; color:var(--dark); margin-bottom:.4rem; }
-        .form-control, .form-select { padding:.9rem 1rem; border-radius:12px; border:2px solid #eee; font-family:'Cairo',sans-serif; transition:.3s; }
-        .form-control:focus, .form-select:focus { border-color:var(--primary); box-shadow:0 0 0 .2rem rgba(255,215,0,.25); }
-        textarea.form-control { resize:none; }
+        /* Form */
+        .form-group{margin-bottom:1.2rem}
+        .form-label{font-weight:700;font-size:.88rem;color:var(--dark);margin-bottom:.4rem;display:block}
+        .form-control{width:100%;padding:.8rem 1rem;border-radius:12px;border:2px solid #eee;font-family:'Cairo',sans-serif;font-size:.95rem;transition:.3s;background:#fafafa}
+        .form-control:focus{border-color:var(--primary);box-shadow:0 0 0 .15rem rgba(255,215,0,.15);outline:none;background:#fff}
+        textarea.form-control{resize:none}
 
-        .btn-primary-custom { width:100%; padding:1rem; background:linear-gradient(135deg,var(--primary),var(--primary-dark)); color:var(--dark); border:none; border-radius:12px; font-weight:700; font-size:1.05rem; font-family:'Cairo',sans-serif; cursor:pointer; transition:.3s; }
-        .btn-primary-custom:hover { transform:translateY(-2px); box-shadow:0 5px 20px rgba(255,215,0,.4); }
-        .btn-outline-custom { width:100%; padding:.8rem; background:#f8f9fa; color:var(--dark); border:none; border-radius:12px; font-weight:600; font-family:'Cairo',sans-serif; cursor:pointer; transition:.3s; }
-        .btn-outline-custom:hover { background:#e9ecef; }
-        .btns-row { display:flex; gap:.8rem; margin-top:1rem; }
+        .btn-primary-custom{width:100%;padding:.9rem;background:linear-gradient(135deg,var(--primary),var(--primary-dark));color:var(--dark);border:none;border-radius:12px;font-weight:800;font-size:1rem;font-family:'Cairo',sans-serif;cursor:pointer;transition:.3s;display:flex;align-items:center;justify-content:center;gap:.5rem}
+        .btn-primary-custom:hover{transform:translateY(-2px);box-shadow:0 6px 25px rgba(255,215,0,.4)}
+        .btn-primary-custom:active{transform:scale(.98)}
+        .btn-outline-custom{flex:1;padding:.8rem;background:#fafafa;color:var(--dark);border:2px solid #eee;border-radius:12px;font-weight:700;font-family:'Cairo',sans-serif;font-size:.9rem;cursor:pointer;transition:.3s;display:flex;align-items:center;justify-content:center;gap:.5rem}
+        .btn-outline-custom:hover{background:#f0f0f0;border-color:#ddd}
+        .btns-row{display:flex;gap:.8rem;margin-top:1.2rem}
 
         /* Summary */
-        .summary-box { background:#f8f9fa; border-radius:14px; padding:1.5rem; }
-        .summary-row { display:flex; justify-content:space-between; padding:.6rem 0; border-bottom:1px solid #eee; }
-        .summary-row:last-child { border-bottom:none; }
-        .summary-row .lbl { color:var(--gray); }
-        .summary-row .val { font-weight:600; }
+        .summary-box{background:#fafafa;border-radius:14px;padding:1.5rem}
+        .summary-row{display:flex;justify-content:space-between;align-items:center;padding:.6rem 0;border-bottom:1px solid #f0f0f0}
+        .summary-row:last-child{border-bottom:none}
+        .summary-row .lbl{color:var(--gray);font-size:.9rem}
+        .summary-row .val{font-weight:700;font-size:.9rem;text-align:right;max-width:55%}
+        .summary-total{border-top:2px solid #e0e0e0;padding-top:.8rem;margin-top:.4rem}
+        .summary-total .lbl{font-weight:800;color:var(--dark);font-size:.95rem}
+        .summary-total .val{color:var(--primary-dark);font-size:1.1rem;font-weight:900}
 
         /* ===== SUCCESS ===== */
-        .success { display:none; text-align:center; }
-        .success.show { display:block; }
+        .success{display:none;text-align:center}
+        .success.show{display:block;animation:fadeUp .5s ease}
+        .success-check{width:100px;height:100px;background:linear-gradient(135deg,#22c55e,#16a34a);border-radius:50%;display:flex;align-items:center;justify-content:center;margin:0 auto 1.5rem;animation:popIn .5s ease;box-shadow:0 8px 30px rgba(34,197,94,.3)}
+        .success-check i{font-size:2.5rem;color:#fff}
+        @keyframes popIn{0%{transform:scale(0)}60%{transform:scale(1.15)}100%{transform:scale(1)}}
+        .success h2{font-size:1.5rem;font-weight:900;color:var(--dark);margin-bottom:.3rem}
+        .success .sub{color:var(--gray);margin-bottom:1.5rem;font-size:.95rem}
 
-        .success-check { width:120px; height:120px; background:linear-gradient(135deg,#28a745,#20c997); border-radius:50%; display:flex; align-items:center; justify-content:center; margin:0 auto 1.5rem; animation:popIn .5s ease; }
-        .success-check i { font-size:3rem; color:#fff; }
-        @keyframes popIn { 0%{transform:scale(0)} 60%{transform:scale(1.2)} 100%{transform:scale(1)} }
+        .tracking-box{background:linear-gradient(135deg,var(--primary),var(--primary-dark));border-radius:16px;padding:2rem;margin-bottom:1.5rem;position:relative;overflow:hidden}
+        .tracking-box::before{content:'';position:absolute;width:100px;height:100px;background:rgba(255,255,255,.15);border-radius:50%;top:-30px;left:-30px}
+        .tracking-box::after{content:'';position:absolute;width:60px;height:60px;background:rgba(255,255,255,.1);border-radius:50%;bottom:-20px;right:20px}
+        .tracking-box .label{font-size:.85rem;color:var(--dark);opacity:.7;margin-bottom:.3rem;position:relative;z-index:1}
+        .tracking-box .number{font-size:1.8rem;font-weight:900;color:var(--dark);letter-spacing:2px;direction:ltr;display:inline-block;position:relative;z-index:1}
+        .copy-btn{background:var(--dark);color:#fff;border:none;padding:.5rem 1.2rem;border-radius:10px;font-family:'Cairo',sans-serif;font-weight:700;font-size:.85rem;cursor:pointer;transition:.3s;margin-top:.8rem;position:relative;z-index:1;display:inline-flex;align-items:center;gap:.4rem}
+        .copy-btn:hover{background:#333;transform:scale(1.03)}
+        .copy-btn.copied{background:var(--green)}
 
-        .success h2 { font-size:1.6rem; font-weight:800; color:var(--dark); margin-bottom:.5rem; }
-        .success .sub { color:var(--gray); margin-bottom:1.5rem; }
+        .success-note{color:var(--gray);font-size:.88rem;margin-bottom:1.5rem;display:flex;align-items:center;justify-content:center;gap:.5rem}
+        .success-note i{color:var(--primary-dark)}
 
-        .tracking-box { background:linear-gradient(135deg,var(--primary),var(--primary-dark)); border-radius:16px; padding:2rem; margin-bottom:1.5rem; }
-        .tracking-box .label { font-size:.9rem; color:var(--dark); opacity:.8; margin-bottom:.3rem; }
-        .tracking-box .number { font-size:2rem; font-weight:900; color:var(--dark); letter-spacing:2px; direction:ltr; display:inline-block; }
-        .copy-btn { background:var(--dark); color:#fff; border:none; padding:.4rem 1rem; border-radius:8px; font-family:'Cairo',sans-serif; font-weight:600; font-size:.85rem; cursor:pointer; transition:.3s; margin-top:.8rem; }
-        .copy-btn:hover { opacity:.85; }
-        .copy-btn.copied { background:#28a745; }
+        .success-btns{display:flex;gap:.8rem}
+        .success-btns a{flex:1;padding:.9rem;border-radius:12px;font-weight:700;text-decoration:none;text-align:center;transition:.3s;display:flex;align-items:center;justify-content:center;gap:.5rem;font-size:.9rem}
+        .success-btns .btn-track{background:var(--dark);color:#fff}
+        .success-btns .btn-track:hover{background:#333;transform:translateY(-2px)}
+        .success-btns .btn-home{background:#fafafa;color:var(--dark);border:2px solid #eee}
+        .success-btns .btn-home:hover{background:#f0f0f0;transform:translateY(-2px)}
 
-        .success-btns { display:flex; gap:1rem; }
-        .success-btns a { flex:1; padding:1rem; border-radius:12px; font-weight:700; text-decoration:none; text-align:center; transition:.3s; display:flex; align-items:center; justify-content:center; gap:.5rem; }
-        .success-btns .btn-track { background:var(--dark); color:#fff; }
-        .success-btns .btn-home { background:#f8f9fa; color:var(--dark); }
-        .success-btns a:hover { transform:translateY(-2px); }
+        .back{text-align:center;margin-top:1.5rem}
+        .back a{color:rgba(255,255,255,.5);text-decoration:none;font-weight:600;font-size:.9rem;transition:.3s}
+        .back a:hover{color:var(--primary)}
 
-        .back { text-align:center; margin-top:1.5rem; }
-        .back a { color:var(--gray); text-decoration:none; font-weight:600; }
-        .back a:hover { color:var(--primary-dark); }
+        /* Loading */
+        .loading{position:fixed;inset:0;background:rgba(0,0,0,.6);backdrop-filter:blur(5px);display:none;align-items:center;justify-content:center;z-index:9999;flex-direction:column}
+        .loading.show{display:flex}
+        .spinner{width:50px;height:50px;border:4px solid rgba(255,255,255,.2);border-top-color:var(--primary);border-radius:50%;animation:spin .8s linear infinite;margin-bottom:1rem}
+        .loading p{color:#fff;font-weight:700;font-size:1rem}
+        @keyframes spin{to{transform:rotate(360deg)}}
 
-        .loading { position:fixed; inset:0; background:rgba(255,255,255,.92); display:none; align-items:center; justify-content:center; z-index:9999; flex-direction:column; }
-        .loading.show { display:flex; }
-        .spinner { width:50px; height:50px; border:4px solid #eee; border-top-color:var(--primary); border-radius:50%; animation:spin 1s linear infinite; margin-bottom:1rem; }
-        @keyframes spin { to{transform:rotate(360deg)} }
+        .whatsapp-float{position:fixed;bottom:25px;left:25px;width:55px;height:55px;background:var(--wa);color:#fff;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:1.8rem;box-shadow:0 4px 20px rgba(37,211,102,.4);z-index:99;transition:.3s;text-decoration:none}
+        .whatsapp-float:hover{transform:scale(1.1);color:#fff}
 
-        .whatsapp-float { position:fixed; bottom:30px; left:30px; width:60px; height:60px; background:#25D366; color:#fff; border-radius:50%; display:flex; align-items:center; justify-content:center; font-size:2rem; box-shadow:0 4px 20px rgba(0,0,0,.2); z-index:99; transition:.3s; }
-        .whatsapp-float:hover { transform:scale(1.1); }
-
-        @media(max-width:575px) {
-            .services { grid-template-columns:1fr; }
-            .success-btns { flex-direction:column; }
-            .tracking-box .number { font-size:1.5rem; }
+        @media(max-width:575px){
+            body{padding:1rem;padding-bottom:5rem}
+            .services{grid-template-columns:1fr;gap:.6rem}
+            .svc label{flex-direction:row;padding:1rem;gap:1rem}
+            .svc label .svc-icon{margin-bottom:0;width:45px;height:45px;font-size:1.2rem;border-radius:10px}
+            .success-btns{flex-direction:column}
+            .tracking-box .number{font-size:1.4rem}
+            .steps{gap:0}
+            .step-line{width:35px}
         }
     </style>
 </head>
@@ -117,18 +133,17 @@
 
 <div class="loading" id="loading">
     <div class="spinner"></div>
-    <p style="font-weight:600">جاري إرسال طلبك...</p>
+    <p>جاري إرسال طلبك...</p>
 </div>
 
-<div class="container">
+<div class="page-wrapper">
     <div class="header">
-        <div class="logo"><i class="fas fa-motorcycle"></i></div>
+        <div class="logo-wrap"><img src="assets/images/logo.jpg" alt="خليك مكانك"></div>
         <h1>اطلب توصيل</h1>
         <p>3 خطوات بسيطة وطلبك عندك</p>
     </div>
 
     <div class="card" id="mainCard">
-        <!-- Steps Indicator -->
         <div class="steps" id="stepsIndicator">
             <div class="step-dot active" data-s="1">1</div>
             <div class="step-line" data-line="1"></div>
@@ -138,52 +153,52 @@
         </div>
 
         <form id="orderForm">
-            <!-- Step 1: Service -->
+            <!-- Step 1 -->
             <div class="step active" data-step="1">
                 <h3><i class="fas fa-list-ul"></i> ايه اللي عايز توصيله؟</h3>
                 <div class="services">
-                    <div class="svc">
+                    <div class="svc svc-food">
                         <input type="radio" name="service" id="svc-food" value="food" required>
-                        <label for="svc-food"><i class="fas fa-utensils"></i><span>طعام</span></label>
+                        <label for="svc-food"><div class="svc-icon"><i class="fas fa-utensils"></i></div><div><span>طعام</span><small>مطاعم وأكل</small></div></label>
                     </div>
-                    <div class="svc">
+                    <div class="svc svc-package">
                         <input type="radio" name="service" id="svc-package" value="package">
-                        <label for="svc-package"><i class="fas fa-box"></i><span>طرود</span></label>
+                        <label for="svc-package"><div class="svc-icon"><i class="fas fa-box"></i></div><div><span>طرود</span><small>توصيل أي حاجة</small></div></label>
                     </div>
-                    <div class="svc">
+                    <div class="svc svc-product">
                         <input type="radio" name="service" id="svc-product" value="product">
-                        <label for="svc-product"><i class="fas fa-shopping-bag"></i><span>منتجات</span></label>
+                        <label for="svc-product"><div class="svc-icon"><i class="fas fa-shopping-bag"></i></div><div><span>منتجات</span><small>منتجات متنوعة</small></div></label>
                     </div>
                 </div>
-                <button type="button" class="btn-primary-custom" onclick="goStep(2)">التالي <i class="fas fa-arrow-left ms-2"></i></button>
+                <button type="button" class="btn-primary-custom" onclick="goStep(2)">التالي <i class="fas fa-arrow-left"></i></button>
             </div>
 
-            <!-- Step 2: Info -->
+            <!-- Step 2 -->
             <div class="step" data-step="2">
                 <h3><i class="fas fa-user"></i> بياناتك</h3>
-                <div class="mb-3">
-                    <label class="form-label">الاسم</label>
-                    <input type="text" class="form-control" id="fName" placeholder="اسمك الكامل" required>
+                <div class="form-group">
+                    <label class="form-label">الاسم الكامل</label>
+                    <input type="text" class="form-control" id="fName" placeholder="اكتب اسمك" required>
                 </div>
-                <div class="mb-3">
+                <div class="form-group">
                     <label class="form-label">رقم التليفون</label>
                     <input type="tel" class="form-control" id="fPhone" placeholder="01xxxxxxxxx" required>
                 </div>
-                <div class="mb-3">
+                <div class="form-group">
                     <label class="form-label">العنوان بالتفصيل</label>
                     <textarea class="form-control" id="fAddress" rows="3" placeholder="الشارع، العماره، الدور، الشقة..." required></textarea>
                 </div>
-                <div class="mb-3">
+                <div class="form-group">
                     <label class="form-label">ملاحظات <span style="color:#aaa;font-weight:400">(اختياري)</span></label>
                     <textarea class="form-control" id="fNotes" rows="2" placeholder="مثلاً: باب المطبخ على اليمين"></textarea>
                 </div>
                 <div class="btns-row">
-                    <button type="button" class="btn-outline-custom" onclick="goStep(1)"><i class="fas fa-arrow-right me-2"></i>السابق</button>
-                    <button type="button" class="btn-primary-custom" onclick="goStep(3)">التأكيد <i class="fas fa-arrow-left ms-2"></i></button>
+                    <button type="button" class="btn-outline-custom" onclick="goStep(1)"><i class="fas fa-arrow-right"></i> السابق</button>
+                    <button type="button" class="btn-primary-custom" onclick="goStep(3)">التأكيد <i class="fas fa-arrow-left"></i></button>
                 </div>
             </div>
 
-            <!-- Step 3: Confirm -->
+            <!-- Step 3 -->
             <div class="step" data-step="3">
                 <h3><i class="fas fa-clipboard-check"></i> تأكيد الطلب</h3>
                 <div class="summary-box">
@@ -192,142 +207,101 @@
                     <div class="summary-row"><span class="lbl">التليفون</span><span class="val" id="sumPhone">-</span></div>
                     <div class="summary-row"><span class="lbl">العنوان</span><span class="val" id="sumAddr">-</span></div>
                     <div class="summary-row"><span class="lbl">ملاحظات</span><span class="val" id="sumNotes">-</span></div>
-                    <div class="summary-row" style="border-top:2px solid #ddd;padding-top:.8rem;margin-top:.4rem">
-                        <span class="lbl" style="font-weight:700;color:var(--dark)">رسوم التوصيل</span>
-                        <span class="val" style="color:var(--primary-dark);font-size:1.1rem">20 ج.م</span>
+                    <div class="summary-row summary-total">
+                        <span class="lbl">رسوم التوصيل</span>
+                        <span class="val">20 ج.م</span>
                     </div>
                 </div>
                 <div class="btns-row">
-                    <button type="button" class="btn-outline-custom" onclick="goStep(2)"><i class="fas fa-arrow-right me-2"></i>تعديل</button>
-                    <button type="submit" class="btn-primary-custom"><i class="fas fa-paper-plane ms-2"></i>تأكيد الطلب</button>
+                    <button type="button" class="btn-outline-custom" onclick="goStep(2)"><i class="fas fa-arrow-right"></i> تعديل</button>
+                    <button type="submit" class="btn-primary-custom"><i class="fas fa-paper-plane"></i> تأكيد الطلب</button>
                 </div>
             </div>
         </form>
 
-        <!-- ===== SUCCESS ===== -->
+        <!-- SUCCESS -->
         <div class="success" id="successPage">
             <div class="success-check"><i class="fas fa-check"></i></div>
             <h2>تم استلام طلبك!</h2>
             <p class="sub">ده رقم التتبع بتاعك - احتفظ بيه</p>
-
             <div class="tracking-box">
                 <div class="label">رقم التتبع</div>
                 <div class="number" id="trackNumber">ORD-XXXX</div>
                 <br>
-                <button class="copy-btn" id="copyBtn" onclick="copyTrack()"><i class="fas fa-copy ms-1"></i>نسخ الرقم</button>
+                <button class="copy-btn" id="copyBtn" onclick="copyTrack()"><i class="fas fa-copy"></i> نسخ الرقم</button>
             </div>
-
-            <p style="color:var(--gray);font-size:.9rem;margin-bottom:1.5rem">
-                <i class="fas fa-info-circle ms-1"></i>
-                هتقدر تتبع طلبك من صفحة التتبع بأي رقم تليفون أو رقم طلب
-            </p>
-
+            <p class="success-note"><i class="fas fa-info-circle"></i> هتقدر تتبع طلبك من صفحة التتبع</p>
             <div class="success-btns">
-                <a href="track.html" class="btn-track"><i class="fas fa-search"></i>تتبع طلبك</a>
-                <a href="index.html" class="btn-home"><i class="fas fa-home"></i>الرئيسية</a>
+                <a href="track.html" class="btn-track"><i class="fas fa-search"></i> تتبع طلبك</a>
+                <a href="index.html" class="btn-home"><i class="fas fa-home"></i> الرئيسية</a>
             </div>
         </div>
     </div>
 
-    <div class="back"><a href="index.html"><i class="fas fa-arrow-right ms-2"></i>العودة للموقع</a></div>
+    <div class="back"><a href="index.html"><i class="fas fa-arrow-right ms-1"></i> العودة للموقع</a></div>
 </div>
 
 <a href="https://wa.me/201234567890" class="whatsapp-float" target="_blank"><i class="fab fa-whatsapp"></i></a>
 
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 <script type="module">
     import { db, collection, addDoc } from './js/firebase-config.js';
 
-    const svcLabels = { food:'توصيل طعام', package:'توصيل طرود', product:'توصيل منتجات' };
-    let step = 1;
-    let data = {};
+    const svcLabels = {food:'توصيل طعام',package:'توصيل طرود',product:'توصيل منتجات'};
+    let step=1, data={};
 
-    window.goStep = function(s) {
-        if (s > step) {
-            if (step === 1) {
-                const checked = document.querySelector('input[name="service"]:checked');
-                if (!checked) return alert('اختار نوع الخدمة الأول');
-                data.service = checked.value;
-            }
-            if (step === 2) {
-                data.name = document.getElementById('fName').value.trim();
-                data.phone = document.getElementById('fPhone').value.trim();
-                data.address = document.getElementById('fAddress').value.trim();
-                data.notes = document.getElementById('fNotes').value.trim();
-                if (!data.name || !data.phone || !data.address) return alert('كمّل البيانات المطلوبة');
-                if (!/^01[0125][0-9]{8}$/.test(data.phone)) return alert('رقم التليفون غير صحيح');
-                document.getElementById('sumSvc').textContent = svcLabels[data.service];
-                document.getElementById('sumName').textContent = data.name;
-                document.getElementById('sumPhone').textContent = data.phone;
-                document.getElementById('sumAddr').textContent = data.address;
-                document.getElementById('sumNotes').textContent = data.notes || '—';
+    window.goStep = function(s){
+        if(s>step){
+            if(step===1){const c=document.querySelector('input[name="service"]:checked');if(!c)return alert('اختار نوع الخدمة الأول');data.service=c.value}
+            if(step===2){
+                data.name=document.getElementById('fName').value.trim();
+                data.phone=document.getElementById('fPhone').value.trim();
+                data.address=document.getElementById('fAddress').value.trim();
+                data.notes=document.getElementById('fNotes').value.trim();
+                if(!data.name||!data.phone||!data.address)return alert('كمّل البيانات المطلوبة');
+                if(!/^01[0125][0-9]{8}$/.test(data.phone))return alert('رقم التليفون غير صحيح');
+                document.getElementById('sumSvc').textContent=svcLabels[data.service];
+                document.getElementById('sumName').textContent=data.name;
+                document.getElementById('sumPhone').textContent=data.phone;
+                document.getElementById('sumAddr').textContent=data.address;
+                document.getElementById('sumNotes').textContent=data.notes||'—';
             }
         }
-
         document.querySelector(`.step[data-step="${step}"]`).classList.remove('active');
         document.querySelector(`.step[data-step="${s}"]`).classList.add('active');
-
-        const prevDot = document.querySelector(`.step-dot[data-s="${step}"]`);
-        const nextDot = document.querySelector(`.step-dot[data-s="${s}"]`);
-        if (s > step) { prevDot.classList.remove('active'); prevDot.classList.add('done'); }
-        else { prevDot.classList.remove('active'); nextDot.classList.remove('done'); }
-        nextDot.classList.add('active');
-
-        if (s > step) {
-            const line = document.querySelector(`.step-line[data-line="${step}"]`);
-            if (line) line.classList.add('done');
-        } else {
-            const line = document.querySelector(`.step-line[data-line="${s}"]`);
-            if (line) line.classList.remove('done');
-        }
-
-        step = s;
+        const pd=document.querySelector(`.step-dot[data-s="${step}"]`);
+        const nd=document.querySelector(`.step-dot[data-s="${s}"]`);
+        if(s>step){pd.classList.remove('active');pd.classList.add('done')}else{pd.classList.remove('active');nd.classList.remove('done')}
+        nd.classList.add('active');
+        if(s>step){const l=document.querySelector(`.step-line[data-line="${step}"]`);if(l)l.classList.add('done')}
+        else{const l=document.querySelector(`.step-line[data-line="${s}"]`);if(l)l.classList.remove('done')}
+        step=s;
     };
 
-    function genOrderId() {
-        const t = Date.now().toString(36).toUpperCase();
-        const r = Math.random().toString(36).substring(2,6).toUpperCase();
-        return `ORD-${t}-${r}`;
-    }
+    function genOrderId(){return `ORD-${Date.now().toString(36).toUpperCase()}-${Math.random().toString(36).substring(2,6).toUpperCase()}`}
 
-    document.getElementById('orderForm').addEventListener('submit', async (e) => {
+    document.getElementById('orderForm').addEventListener('submit',async e=>{
         e.preventDefault();
         document.getElementById('loading').classList.add('show');
-
-        try {
-            const orderId = genOrderId();
-            await addDoc(collection(db, 'orders'), {
-                orderId,
-                customerName: data.name,
-                customerPhone: data.phone,
-                customerAddress: data.address,
-                serviceType: data.service,
-                notes: data.notes,
-                deliveryFee: 20,
-                status: 'pending',
-                createdAt: new Date().toISOString(),
-                updatedAt: new Date().toISOString()
-            });
-
+        try{
+            const orderId=genOrderId();
+            await addDoc(collection(db,'orders'),{orderId,customerName:data.name,customerPhone:data.phone,customerAddress:data.address,serviceType:data.service,notes:data.notes,deliveryFee:20,status:'pending',createdAt:new Date().toISOString(),updatedAt:new Date().toISOString()});
             document.getElementById('loading').classList.remove('show');
-            document.getElementById('orderForm').style.display = 'none';
-            document.getElementById('stepsIndicator').style.display = 'none';
-            document.getElementById('trackNumber').textContent = orderId;
+            document.getElementById('orderForm').style.display='none';
+            document.getElementById('stepsIndicator').style.display='none';
+            document.getElementById('trackNumber').textContent=orderId;
             document.getElementById('successPage').classList.add('show');
-        } catch (err) {
+        }catch(err){
             document.getElementById('loading').classList.remove('show');
             alert('حصل خطأ، جرب تاني');
-            console.error(err);
         }
     });
 
-    window.copyTrack = function() {
-        const num = document.getElementById('trackNumber').textContent;
-        navigator.clipboard.writeText(num).then(() => {
-            const btn = document.getElementById('copyBtn');
-            btn.innerHTML = '<i class="fas fa-check ms-1"></i>تم النسخ!';
-            btn.classList.add('copied');
-            setTimeout(() => { btn.innerHTML = '<i class="fas fa-copy ms-1"></i>نسخ الرقم'; btn.classList.remove('copied'); }, 2000);
+    window.copyTrack=function(){
+        navigator.clipboard.writeText(document.getElementById('trackNumber').textContent).then(()=>{
+            const b=document.getElementById('copyBtn');
+            b.innerHTML='<i class="fas fa-check"></i> تم النسخ!';
+            b.classList.add('copied');
+            setTimeout(()=>{b.innerHTML='<i class="fas fa-copy"></i> نسخ الرقم';b.classList.remove('copied')},2000);
         });
     };
 </script>
