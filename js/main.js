@@ -3,31 +3,56 @@
    ======================================== */
 
 document.addEventListener('DOMContentLoaded', function() {
-    // Navbar scroll effect
+    // Preloader
+    initPreloader();
+    
+    // AOS
+    AOS.init({
+        duration: 800,
+        easing: 'ease-in-out',
+        once: true,
+        offset: 50
+    });
+
+    // Navbar
     initNavbar();
-    
-    // Smooth scroll for anchor links
+
+    // Smooth Scroll
     initSmoothScroll();
-    
-    // Active nav link on scroll
+
+    // Swiper
+    initSwiper();
+
+    // Counter Animation
+    initCounters();
+
+    // Back to Top
+    initBackToTop();
+
+    // Active Nav Link
     initActiveNav();
-    
-    // Animate elements on scroll
-    initScrollAnimation();
 });
 
 /* ========================================
-   Navbar Scroll Effect
+   Preloader
+   ======================================== */
+function initPreloader() {
+    const preloader = document.getElementById('preloader');
+    window.addEventListener('load', () => {
+        setTimeout(() => {
+            preloader.classList.add('loaded');
+            setTimeout(() => preloader.remove(), 500);
+        }, 800);
+    });
+}
+
+/* ========================================
+   Navbar
    ======================================== */
 function initNavbar() {
-    const navbar = document.querySelector('.navbar');
-    
-    window.addEventListener('scroll', function() {
-        if (window.scrollY > 50) {
-            navbar.classList.add('scrolled');
-        } else {
-            navbar.classList.remove('scrolled');
-        }
+    const nav = document.getElementById('mainNav');
+    window.addEventListener('scroll', () => {
+        nav.classList.toggle('scrolled', window.scrollY > 50);
     });
 }
 
@@ -38,204 +63,97 @@ function initSmoothScroll() {
     document.querySelectorAll('a[href^="#"]').forEach(anchor => {
         anchor.addEventListener('click', function(e) {
             e.preventDefault();
-            
-            const targetId = this.getAttribute('href');
-            if (targetId === '#') return;
-            
-            const targetElement = document.querySelector(targetId);
-            if (targetElement) {
-                const navbarHeight = document.querySelector('.navbar').offsetHeight;
-                const targetPosition = targetElement.offsetTop - navbarHeight;
-                
+            const target = document.querySelector(this.getAttribute('href'));
+            if (target) {
+                const navHeight = document.querySelector('#mainNav').offsetHeight;
                 window.scrollTo({
-                    top: targetPosition,
+                    top: target.offsetTop - navHeight,
                     behavior: 'smooth'
                 });
-                
-                // Close mobile menu if open
-                const navbarCollapse = document.querySelector('.navbar-collapse');
-                if (navbarCollapse.classList.contains('show')) {
-                    const bsCollapse = bootstrap.Collapse.getInstance(navbarCollapse);
-                    if (bsCollapse) {
-                        bsCollapse.hide();
-                    }
-                }
+                // Close mobile menu
+                const collapse = document.querySelector('.navbar-collapse.show');
+                if (collapse) bootstrap.Collapse.getInstance(collapse)?.hide();
             }
         });
     });
 }
 
 /* ========================================
-   Active Nav Link on Scroll
+   Swiper Slider
    ======================================== */
-function initActiveNav() {
-    const sections = document.querySelectorAll('section[id]');
-    const navLinks = document.querySelectorAll('.navbar-nav .nav-link');
-    
-    window.addEventListener('scroll', function() {
-        let current = '';
-        
-        sections.forEach(section => {
-            const sectionTop = section.offsetTop;
-            const sectionHeight = section.clientHeight;
-            
-            if (window.scrollY >= sectionTop - 200) {
-                current = section.getAttribute('id');
-            }
-        });
-        
-        navLinks.forEach(link => {
-            link.classList.remove('active');
-            if (link.getAttribute('href') === `#${current}`) {
-                link.classList.add('active');
-            }
-        });
+function initSwiper() {
+    new Swiper('.testimonials-swiper', {
+        slidesPerView: 1,
+        spaceBetween: 20,
+        loop: true,
+        autoplay: { delay: 4000, disableOnInteraction: false },
+        pagination: { el: '.swiper-pagination', clickable: true },
+        breakpoints: {
+            768: { slidesPerView: 2 },
+            1024: { slidesPerView: 3 }
+        }
     });
 }
-
-/* ========================================
-   Scroll Animation
-   ======================================== */
-function initScrollAnimation() {
-    const observerOptions = {
-        root: null,
-        rootMargin: '0px',
-        threshold: 0.1
-    };
-    
-    const observer = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                entry.target.classList.add('animate-in');
-                observer.unobserve(entry.target);
-            }
-        });
-    }, observerOptions);
-    
-    // Observe elements
-    document.querySelectorAll('.service-card, .step-card, .testimonial-card, .contact-card').forEach(el => {
-        el.style.opacity = '0';
-        el.style.transform = 'translateY(30px)';
-        el.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
-        observer.observe(el);
-    });
-}
-
-// Add animate-in class styles
-const style = document.createElement('style');
-style.textContent = `
-    .animate-in {
-        opacity: 1 !important;
-        transform: translateY(0) !important;
-    }
-`;
-document.head.appendChild(style);
 
 /* ========================================
    Counter Animation
    ======================================== */
-function animateCounter(element, target) {
-    let current = 0;
-    const increment = target / 50;
-    const timer = setInterval(() => {
-        current += increment;
-        if (current >= target) {
-            element.textContent = target + '+';
-            clearInterval(timer);
-        } else {
-            element.textContent = Math.floor(current) + '+';
-        }
-    }, 30);
-}
-
-// Observe stat items for counter animation
-const statObserver = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-        if (entry.isIntersecting) {
-            const statItems = entry.target.querySelectorAll('.stat-item h3');
-            statItems.forEach(item => {
-                const target = parseInt(item.textContent);
-                if (!isNaN(target)) {
-                    animateCounter(item, target);
-                }
-            });
-            statObserver.unobserve(entry.target);
-        }
-    });
-}, { threshold: 0.5 });
-
-const heroStats = document.querySelector('.hero-stats');
-if (heroStats) {
-    statObserver.observe(heroStats);
+function initCounters() {
+    const counters = document.querySelectorAll('.counter');
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                const el = entry.target;
+                const target = parseInt(el.getAttribute('data-target'));
+                if (isNaN(target)) return;
+                
+                let current = 0;
+                const increment = target / 60;
+                const timer = setInterval(() => {
+                    current += increment;
+                    if (current >= target) {
+                        el.textContent = target;
+                        clearInterval(timer);
+                    } else {
+                        el.textContent = Math.floor(current);
+                    }
+                }, 30);
+                observer.unobserve(el);
+            }
+        });
+    }, { threshold: 0.5 });
+    
+    counters.forEach(c => observer.observe(c));
 }
 
 /* ========================================
-   Form Validation (if needed)
+   Active Nav
    ======================================== */
-function validatePhone(phone) {
-    const phoneRegex = /^01[0125][0-9]{8}$/;
-    return phoneRegex.test(phone);
-}
-
-/* ========================================
-   Utility Functions
-   ======================================== */
-function formatPhoneNumber(phone) {
-    return phone.replace(/(\d{3})(\d{3})(\d{4})/, '$1-$2-$3');
-}
-
-function scrollToTop() {
-    window.scrollTo({
-        top: 0,
-        behavior: 'smooth'
+function initActiveNav() {
+    const sections = document.querySelectorAll('section[id]');
+    const links = document.querySelectorAll('.navbar-nav .nav-link');
+    
+    window.addEventListener('scroll', () => {
+        let current = '';
+        sections.forEach(s => {
+            if (window.scrollY >= s.offsetTop - 200) current = s.id;
+        });
+        links.forEach(l => {
+            l.classList.remove('active');
+            if (l.getAttribute('href') === '#' + current) l.classList.add('active');
+        });
     });
 }
 
-// Add scroll to top button functionality
-const scrollToTopBtn = document.createElement('button');
-scrollToTopBtn.innerHTML = '<i class="fas fa-arrow-up"></i>';
-scrollToTopBtn.className = 'scroll-to-top';
-scrollToTopBtn.onclick = scrollToTop;
-document.body.appendChild(scrollToTopBtn);
-
-// Add scroll to top button styles
-const scrollToTopStyle = document.createElement('style');
-scrollToTopStyle.textContent = `
-    .scroll-to-top {
-        position: fixed;
-        bottom: 100px;
-        left: 30px;
-        width: 45px;
-        height: 45px;
-        background: var(--primary-color);
-        color: var(--text-dark);
-        border: none;
-        border-radius: 50%;
-        cursor: pointer;
-        opacity: 0;
-        visibility: hidden;
-        transition: all 0.3s ease;
-        z-index: 998;
-        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
-    }
-    
-    .scroll-to-top.visible {
-        opacity: 1;
-        visibility: visible;
-    }
-    
-    .scroll-to-top:hover {
-        background: var(--primary-dark);
-        transform: translateY(-3px);
-    }
-`;
-document.head.appendChild(scrollToTopStyle);
-
-// Show/hide scroll to top button
-window.addEventListener('scroll', function() {
-    if (window.scrollY > 300) {
-        scrollToTopBtn.classList.add('visible');
-    } else {
-        scrollToTopBtn.classList.remove('visible');
-    }
-});
+/* ========================================
+   Back to Top
+   ======================================== */
+function initBackToTop() {
+    const btn = document.getElementById('backToTop');
+    window.addEventListener('scroll', () => {
+        btn.classList.toggle('visible', window.scrollY > 400);
+    });
+    btn.addEventListener('click', () => {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+}

@@ -3,72 +3,124 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>خليك مكانك - توصيل طلبات في الفيوم</title>
-    <meta name="description" content="خليك مكانك - خدمة توصيل سريعة وموثوقة في محافظة الفيوم. توصيل طعام، طرود، ومنتجات">
-    
+
+    <!-- SEO Meta Tags -->
+    <title>خليك مكانك | أسرع خدمة توصيل في الفيوم - توصيل طعام وطرود ومنتجات</title>
+    <meta name="description" content="خليك مكانك - أسرع خدمة توصيل في محافظة الفيوم. توصيل طعام من المطاعم، توصيل طرود، توصيل منتجات. اطلب دلوقتي وتتبع طلبك أونلاين.">
+    <meta name="keywords" content="توصيل, توصيل طعام, توصيل طرود, الفيوم, خدمة توصيل, اطلب أونلاين, تتبع طلب, خليك مكانك, delivery, fayoum">
+    <meta name="author" content="خليك مكانك">
+    <meta name="robots" content="index, follow">
+    <meta name="language" content="ar">
+    <link rel="canonical" href="https://khalikmakana.com/">
+
+    <!-- Open Graph -->
+    <meta property="og:title" content="خليك مكانك | أسرع خدمة توصيل في الفيوم">
+    <meta property="og:description" content="توصيل طعام وطرود ومنتجات في الفيوم. اطلب دلوقتي وتتبع طلبك أونلاين.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://khalikmakana.com/">
+    <meta property="og:image" content="assets/images/logo.svg">
+    <meta property="og:locale" content="ar_EG">
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="خليك مكانك | أسرع خدمة توصيل في الفيوم">
+    <meta name="twitter:description" content="توصيل طعام وطرود ومنتجات في الفيوم.">
+
     <!-- Favicon -->
     <link rel="icon" type="image/svg+xml" href="assets/images/logo.svg">
     <link rel="apple-touch-icon" href="assets/images/logo.svg">
-    
+
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;500;600;700;800;900&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    
-    <!-- Bootstrap 5 -->
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;500;600;700;800;900&family=Tajawal:wght@300;400;500;700;800;900&display=swap" rel="stylesheet">
+
+    <!-- Bootstrap 5.3 -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
-    
-    <!-- Font Awesome -->
+
+    <!-- Font Awesome 6 -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-    
-    <!-- Custom CSS -->
+
+    <!-- AOS - Animate On Scroll -->
+    <link href="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.css" rel="stylesheet">
+
+    <!-- Animate.css -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
+
+    <!-- Swiper Slider -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css">
+
+    <!-- GLightbox -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/glightbox@3.2.0/dist/css/glightbox.min.css">
+
     <link rel="stylesheet" href="css/style.css">
+
+    <!-- Structured Data for SEO -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "LocalBusiness",
+        "name": "خليك مكانك",
+        "description": "أسرع خدمة توصيل في محافظة الفيوم",
+        "url": "https://khalikmakana.com",
+        "telephone": "+201234567890",
+        "address": {
+            "@type": "PostalAddress",
+            "addressLocality": "الفيوم",
+            "addressCountry": "EG"
+        },
+        "priceRange": "$$",
+        "openingHours": "Mo-Su 09:00-23:00",
+        "sameAs": [
+            "https://www.facebook.com/ohmedayman"
+        ]
+    }
+    </script>
 </head>
 <body>
 
-    <!-- Header / Navbar -->
-    <nav class="navbar navbar-expand-lg navbar-light bg-white shadow-sm fixed-top">
+    <!-- Preloader -->
+    <div id="preloader">
+        <div class="loader">
+            <div class="loader-inner">
+                <div class="loader-circle"></div>
+                <div class="loader-circle"></div>
+                <div class="loader-circle"></div>
+                <i class="fas fa-motorcycle loader-icon"></i>
+            </div>
+            <p>خليك مكانك</p>
+        </div>
+    </div>
+
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-light bg-white shadow-sm fixed-top" id="mainNav">
         <div class="container">
             <a class="navbar-brand d-flex align-items-center" href="#">
                 <div class="logo-icon me-2">
-                    <i class="fas fa-motorcycle"></i>
+                    <img src="assets/images/logo.svg" alt="خليك مكانك" width="45" height="45" style="border-radius:12px;">
                 </div>
                 <span class="brand-text fw-bold">خليك مكانك</span>
             </a>
-            
+
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
                 <span class="navbar-toggler-icon"></span>
             </button>
-            
+
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                    <li class="nav-item">
-                        <a class="nav-link active" href="#home">الرئيسية</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#services">خدماتنا</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#how-it-works">ازاي تشتغل</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#about">عن الشركة</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#testimonials">آراء العملاء</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#contact">تواصل معانا</a>
-                    </li>
+                    <li class="nav-item"><a class="nav-link active" href="#home">الرئيسية</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#services">خدماتنا</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#how-it-works">ازاي بيشتغل</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#pricing">التسعيرة</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#testimonials">آراء العملاء</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#contact">تواصل معانا</a></li>
                 </ul>
-                <div class="d-flex align-items-center">
-                    <a href="tel:+201234567890" class="btn btn-call me-2">
-                        <i class="fas fa-phone-alt ms-1"></i>
-                        اتصل بينا
+                <div class="d-flex align-items-center gap-2 flex-wrap">
+                    <a href="track.html" class="btn btn-track-nav">
+                        <i class="fas fa-search ms-1"></i>تتبع
                     </a>
-                    <a href="https://wa.me/201234567890" class="btn btn-whatsapp" target="_blank">
-                        <i class="fab fa-whatsapp ms-1"></i>
-                        واتساب
+                    <a href="order.html" class="btn btn-order-main">
+                        <i class="fas fa-plus ms-1"></i>اطلب دلوقتي
                     </a>
                 </div>
             </div>
@@ -77,48 +129,103 @@
 
     <!-- Hero Section -->
     <section id="home" class="hero-section">
-        <div class="container">
+        <div class="hero-bg-shapes">
+            <div class="shape shape-1"></div>
+            <div class="shape shape-2"></div>
+            <div class="shape shape-3"></div>
+        </div>
+        <div class="container position-relative">
             <div class="row align-items-center min-vh-100">
-                <div class="col-lg-6">
-                    <div class="hero-content">
-                        <h1 class="hero-title">
-                            <span class="highlight">خليك مكانك</span>
-                            <br>واحنا نوصلك
-                        </h1>
-                        <p class="hero-subtitle">
-                            أسرع خدمة توصيل في الفيوم. توصيل طعام، طرود، ومنتجات لحد باب بيتك.
-                        </p>
-                        <div class="hero-buttons">
-                            <a href="tel:+201234567890" class="btn btn-primary-custom btn-lg me-3">
-                                <i class="fas fa-phone-alt ms-2"></i>
-                                اطلب دلوقتي
-                            </a>
-                            <a href="#services" class="btn btn-outline-custom btn-lg">
-                                <i class="fas fa-info-circle ms-2"></i>
-                                اعرف أكتر
-                            </a>
+                <div class="col-lg-6" data-aos="fade-left" data-aos-delay="100">
+                    <div class="hero-badge animate__animated animate__fadeInDown">
+                        <i class="fas fa-bolt ms-1"></i> أسرع توصيل في الفيوم
+                    </div>
+                    <h1 class="hero-title animate__animated animate__fadeInUp">
+                        خليك مكانك
+                        <span class="text-gradient">واحنا نوصلك</span>
+                    </h1>
+                    <p class="hero-subtitle animate__animated animate__fadeInUp animate__delay-1s">
+                        توصيل طعام، طرود، ومنتجات لحد باب بيتك في الفيوم.
+                        <br>سرعة، أمان، وأسعار مناسبة.
+                    </p>
+                    <div class="hero-buttons animate__animated animate__fadeInUp animate__delay-1s">
+                        <a href="order.html" class="btn btn-hero-primary">
+                            <i class="fas fa-shopping-cart ms-2"></i>اطلب دلوقتي
+                        </a>
+                        <a href="track.html" class="btn btn-hero-outline">
+                            <i class="fas fa-search-location ms-2"></i>تتبع طلبك
+                        </a>
+                    </div>
+                    <div class="hero-stats animate__animated animate__fadeInUp animate__delay-1s">
+                        <div class="hero-stat">
+                            <div class="hero-stat-icon"><i class="fas fa-box"></i></div>
+                            <div><h4>10K+</h4><span>طلب تم توصيله</span></div>
                         </div>
-                        <div class="hero-stats mt-5">
-                            <div class="stat-item">
-                                <h3>500+</h3>
-                                <p>عميل سعيد</p>
+                        <div class="hero-stat">
+                            <div class="hero-stat-icon"><i class="fas fa-users"></i></div>
+                            <div><h4>5K+</h4><span>عميل سعيد</span></div>
+                        </div>
+                        <div class="hero-stat">
+                            <div class="hero-stat-icon"><i class="fas fa-clock"></i></div>
+                            <div><h4>30</h4><span>دقيقة متوسط</span></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-6" data-aos="fade-right" data-aos-delay="200">
+                    <div class="hero-visual">
+                        <div class="hero-circle-main">
+                            <div class="hero-circle-inner">
+                                <i class="fas fa-motorcycle"></i>
                             </div>
-                            <div class="stat-item">
-                                <h3>1000+</h3>
-                                <p>طلب تم توصيله</p>
+                            <div class="floating-card fc-1 animate__animated animate__fadeInUp animate__delay-2s">
+                                <i class="fas fa-check-circle"></i>
+                                <span>تم التوصيل!</span>
                             </div>
-                            <div class="stat-item">
-                                <h3>30</h3>
-                                <p>دقيقة متوسط التوصيل</p>
+                            <div class="floating-card fc-2 animate__animated animate__fadeInUp animate__delay-2s">
+                                <i class="fas fa-map-marker-alt"></i>
+                                <span>في الطريق...</span>
+                            </div>
+                            <div class="floating-card fc-3 animate__animated animate__fadeInUp animate__delay-2s">
+                                <i class="fas fa-star"></i>
+                                <span>4.9 تقييم</span>
                             </div>
                         </div>
                     </div>
                 </div>
-                <div class="col-lg-6">
-                    <div class="hero-image text-center">
-                        <div class="hero-shape">
-                            <i class="fas fa-shipping-fast"></i>
-                        </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Stats Banner -->
+    <section class="stats-banner" data-aos="fade-up">
+        <div class="container">
+            <div class="stats-banner-grid">
+                <div class="stat-box">
+                    <div class="stat-icon"><i class="fas fa-motorcycle"></i></div>
+                    <div class="stat-info">
+                        <h3 class="counter" data-target="50">0</h3>
+                        <p>مندوب توصيل</p>
+                    </div>
+                </div>
+                <div class="stat-box">
+                    <div class="stat-icon"><i class="fas fa-store"></i></div>
+                    <div class="stat-info">
+                        <h3 class="counter" data-target="200">0</h3>
+                        <p>محل ومتجر</p>
+                    </div>
+                </div>
+                <div class="stat-box">
+                    <div class="stat-icon"><i class="fas fa-headset"></i></div>
+                    <div class="stat-info">
+                        <h3>24/7</h3>
+                        <p>خدمة عملاء</p>
+                    </div>
+                </div>
+                <div class="stat-box">
+                    <div class="stat-icon"><i class="fas fa-shield-alt"></i></div>
+                    <div class="stat-info">
+                        <h3>100%</h3>
+                        <p>ضمان التوصيل</p>
                     </div>
                 </div>
             </div>
@@ -126,63 +233,69 @@
     </section>
 
     <!-- Services Section -->
-    <section id="services" class="services-section py-5">
+    <section id="services" class="section-padding">
         <div class="container">
-            <div class="section-header text-center mb-5">
-                <span class="section-tag">خدماتنا</span>
-                <h2 class="section-title">بنوصلك اللي محتاجه</h2>
-                <p class="section-desc">نوفرلك خدمات توصيل متعددة تلبي جميع احتياجاتك</p>
+            <div class="section-header text-center" data-aos="fade-up">
+                <span class="section-chip"><i class="fas fa-th-large ms-1"></i> خدماتنا</span>
+                <h2 class="section-title">بنوصلك <span class="text-gradient">اللي محتاجه</span></h2>
+                <p class="section-desc">نوفرلك 3 خدمات توصيل مختلفة تلبي جميع احتياجاتك</p>
             </div>
-            
+
             <div class="row g-4">
-                <!-- Food Delivery -->
-                <div class="col-lg-4 col-md-6">
+                <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="100">
                     <div class="service-card">
-                        <div class="service-icon">
-                            <i class="fas fa-utensils"></i>
+                        <div class="service-card-bg"></div>
+                        <div class="service-icon-wrap">
+                            <div class="service-icon"><i class="fas fa-utensils"></i></div>
                         </div>
-                        <h3 class="service-title">توصيل طعام</h3>
-                        <p class="service-desc">
-                            وصل معاك أكلك من أي مطعم في الفيوم وأنت مرتاح في البيت. توصيل سريع وحار.
-                        </p>
-                        <a href="tel:+201234567890" class="btn btn-service">
-                            <i class="fas fa-arrow-left ms-2"></i>
-                            اطلب توصيل
+                        <h3>توصيل طعام</h3>
+                        <p>وصلك أكلك من أي مطعم في الفيوم وأنت مرتاح في البيت. توصيل سريع وحار لحد عندك.</p>
+                        <ul class="service-features">
+                            <li><i class="fas fa-check"></i> توصيل في 30 دقيقة</li>
+                            <li><i class="fas fa-check"></i> أكلك بيوصل ساخن</li>
+                            <li><i class="fas fa-check"></i> متابعة لحظة بلحظة</li>
+                        </ul>
+                        <a href="order.html" class="btn btn-service-card">
+                            اطلب توصيل <i class="fas fa-arrow-left ms-2"></i>
                         </a>
                     </div>
                 </div>
-                
-                <!-- Package Delivery -->
-                <div class="col-lg-4 col-md-6">
+
+                <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="200">
                     <div class="service-card featured">
-                        <div class="service-badge">الأكثر طلباً</div>
-                        <div class="service-icon">
-                            <i class="fas fa-box"></i>
+                        <div class="featured-badge">الأكثر طلباً</div>
+                        <div class="service-card-bg"></div>
+                        <div class="service-icon-wrap">
+                            <div class="service-icon"><i class="fas fa-box"></i></div>
                         </div>
-                        <h3 class="service-title">توصيل طرود</h3>
-                        <p class="service-desc">
-                            ابعت طرودك لاي مكان في الفيوم بأمان وسرعة. متابعة الطلب لحظة بلحظة.
-                        </p>
-                        <a href="tel:+201234567890" class="btn btn-service">
-                            <i class="fas fa-arrow-left ms-2"></i>
-                            ابعت طرد
+                        <h3>توصيل طرود</h3>
+                        <p>ابعت طرودك لاي مكان في الفيوم بأمان وسرعة. متابعة الطلب وضمان الوصول.</p>
+                        <ul class="service-features">
+                            <li><i class="fas fa-check"></i> ضمان الوصول</li>
+                            <li><i class="fas fa-check"></i> تتبع الطرد</li>
+                            <li><i class="fas fa-check"></i> أسعار مناسبة</li>
+                        </ul>
+                        <a href="order.html" class="btn btn-service-card">
+                            ابعت طرد <i class="fas fa-arrow-left ms-2"></i>
                         </a>
                     </div>
                 </div>
-                
-                <!-- Product Delivery -->
-                <div class="col-lg-4 col-md-6">
+
+                <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="300">
                     <div class="service-card">
-                        <div class="service-icon">
-                            <i class="fas fa-shopping-bag"></i>
+                        <div class="service-card-bg"></div>
+                        <div class="service-icon-wrap">
+                            <div class="service-icon"><i class="fas fa-shopping-bag"></i></div>
                         </div>
-                        <h3 class="service-title">توصيل منتجات</h3>
-                        <p class="service-desc">
-                            وصلك منتجاتك من أي محل أو متجر. مشترياتك توصلك لحد عندك.
-                        </p>
-                        <a href="tel:+201234567890" class="btn btn-service">
-                            <i class="fas fa-arrow-left ms-2"></i>
-                            اطلب توصيل
+                        <h3>توصيل منتجات</h3>
+                        <p>وصلك مشترياتك من أي محل أو متجر. اطلب اللي تحتاجه وهنوصلهولك.</p>
+                        <ul class="service-features">
+                            <li><i class="fas fa-check"></i> من أي محل</li>
+                            <li><i class="fas fa-check"></i> الدفع عند الاستلام</li>
+                            <li><i class="fas fa-check"></i> سرعة التوصيل</li>
+                        </ul>
+                        <a href="order.html" class="btn btn-service-card">
+                            اطلب توصيل <i class="fas fa-arrow-left ms-2"></i>
                         </a>
                     </div>
                 </div>
@@ -190,177 +303,204 @@
         </div>
     </section>
 
-    <!-- How It Works Section -->
-    <section id="how-it-works" class="how-it-works-section py-5">
+    <!-- How It Works -->
+    <section id="how-it-works" class="section-padding bg-light">
         <div class="container">
-            <div class="section-header text-center mb-5">
-                <span class="section-tag">ازاي تشتغل</span>
-                <h2 class="section-title">3 خطوات بسيطة</h2>
+            <div class="section-header text-center" data-aos="fade-up">
+                <span class="section-chip"><i class="fas fa-lightbulb ms-1"></i> ازاي بيشتغل</span>
+                <h2 class="section-title">3 خطوات <span class="text-gradient">بس!</span></h2>
                 <p class="section-desc">من الطلب للتوصيل في أقل من ساعة</p>
             </div>
-            
-            <div class="row g-4">
-                <div class="col-lg-4 col-md-6">
-                    <div class="step-card">
-                        <div class="step-number">1</div>
-                        <div class="step-icon">
-                            <i class="fas fa-phone-alt"></i>
-                        </div>
-                        <h3 class="step-title">اتصل بينا</h3>
-                        <p class="step-desc">كلمنا على الواتساب أو اتصل بينا وقولنا عايز توصيل إيه وفين</p>
+
+            <div class="row g-4 align-items-center">
+                <div class="col-lg-4" data-aos="fade-up" data-aos-delay="100">
+                    <div class="process-card">
+                        <div class="process-number">01</div>
+                        <div class="process-icon"><i class="fas fa-clipboard-list"></i></div>
+                        <h3>اختار واطلب</h3>
+                        <p>اختار نوع الخدمة (طعام، طرود، منتجات) واملأ بياناتك في ثواني</p>
+                        <a href="order.html" class="process-link">ابدأ دلوقتي <i class="fas fa-arrow-left"></i></a>
                     </div>
                 </div>
-                
-                <div class="col-lg-4 col-md-6">
-                    <div class="step-card">
-                        <div class="step-number">2</div>
-                        <div class="step-icon">
+                <div class="col-lg-4" data-aos="fade-up" data-aos-delay="200">
+                    <div class="process-card center-card">
+                        <div class="process-number">02</div>
+                        <div class="process-icon"><i class="fas fa-motorcycle"></i></div>
+                        <h3>بنوصلك</h3>
+                        <p>مندوبنا بييجي يستلم الطلب ويوصلك في أسرع وقت ممكن</p>
+                    </div>
+                </div>
+                <div class="col-lg-4" data-aos="fade-up" data-aos-delay="300">
+                    <div class="process-card">
+                        <div class="process-number">03</div>
+                        <div class="process-icon"><i class="fas fa-search-location"></i></div>
+                        <h3>تتبع وติดตาม</h3>
+                        <p>تتبع طلبك في أي وقت بالرقم بتاعك واعرف وصل فين</p>
+                        <a href="track.html" class="process-link">تتبع دلوقتي <i class="fas fa-arrow-left"></i></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Pricing Section -->
+    <section id="pricing" class="section-padding">
+        <div class="container">
+            <div class="section-header text-center" data-aos="fade-up">
+                <span class="section-chip"><i class="fas fa-tag ms-1"></i> التسعيرة</span>
+                <h2 class="section-title">أسعار <span class="text-gradient">مناسبة للجميع</span></h2>
+                <p class="section-desc">شوف التسعيرة قبل ما تطلب</p>
+            </div>
+
+            <div class="row g-4 justify-content-center">
+                <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="100">
+                    <div class="pricing-card">
+                        <div class="pricing-header">
+                            <i class="fas fa-utensils pricing-icon"></i>
+                            <h3>توصيل طعام</h3>
+                        </div>
+                        <div class="pricing-price">
+                            <span class="price">15</span>
+                            <span class="currency">ج.م</span>
+                        </div>
+                        <ul class="pricing-features">
+                            <li><i class="fas fa-check"></i> توصيل في 30 دقيقة</li>
+                            <li><i class="fas fa-check"></i> تتبع الطلب</li>
+                            <li><i class="fas fa-check"></i> الدفع عند الاستلام</li>
+                            <li><i class="fas fa-check"></i> ضمان الوصول</li>
+                        </ul>
+                        <a href="order.html" class="btn btn-pricing">اطلب دلوقتي</a>
+                    </div>
+                </div>
+
+                <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="200">
+                    <div class="pricing-card popular">
+                        <div class="popular-badge">الأكثر طلباً</div>
+                        <div class="pricing-header">
+                            <i class="fas fa-box pricing-icon"></i>
+                            <h3>توصيل طرود</h3>
+                        </div>
+                        <div class="pricing-price">
+                            <span class="price">20</span>
+                            <span class="currency">ج.م</span>
+                        </div>
+                        <ul class="pricing-features">
+                            <li><i class="fas fa-check"></i> توصيل في 45 دقيقة</li>
+                            <li><i class="fas fa-check"></i> تتبع الطرد</li>
+                            <li><i class="fas fa-check"></i> ضمان الوصول</li>
+                            <li><i class="fas fa-check"></i> إشعار بالوصول</li>
+                        </ul>
+                        <a href="order.html" class="btn btn-pricing">اطلب دلوقتي</a>
+                    </div>
+                </div>
+
+                <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="300">
+                    <div class="pricing-card">
+                        <div class="pricing-header">
+                            <i class="fas fa-shopping-bag pricing-icon"></i>
+                            <h3>توصيل منتجات</h3>
+                        </div>
+                        <div class="pricing-price">
+                            <span class="price">25</span>
+                            <span class="currency">ج.م</span>
+                        </div>
+                        <ul class="pricing-features">
+                            <li><i class="fas fa-check"></i> توصيل في 60 دقيقة</li>
+                            <li><i class="fas fa-check"></i> من أي محل</li>
+                            <li><i class="fas fa-check"></i> الدفع عند الاستلام</li>
+                            <li><i class="fas fa-check"></i> ضمان المنتج</li>
+                        </ul>
+                        <a href="order.html" class="btn btn-pricing">اطلب دلوقتي</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials -->
+    <section id="testimonials" class="section-padding bg-light">
+        <div class="container">
+            <div class="section-header text-center" data-aos="fade-up">
+                <span class="section-chip"><i class="fas fa-star ms-1"></i> آراء العملاء</span>
+                <h2 class="section-title">عملاؤنا <span class="text-gradient">بيقولوا إيه</span></h2>
+            </div>
+
+            <div class="swiper testimonials-swiper" data-aos="fade-up" data-aos-delay="100">
+                <div class="swiper-wrapper">
+                    <div class="swiper-slide">
+                        <div class="testimonial-card">
+                            <div class="testimonial-stars">
+                                <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
+                            </div>
+                            <p>"خدمة ممتازة وسريعة جداً. المندوب كان محترم والأكل وصل حار. أكيد هستخدم الخدمة تاني."</p>
+                            <div class="testimonial-author">
+                                <div class="author-avatar"><i class="fas fa-user"></i></div>
+                                <div><h5>أحمد محمد</h5><span>الفيوم</span></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="swiper-slide">
+                        <div class="testimonial-card">
+                            <div class="testimonial-stars">
+                                <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
+                            </div>
+                            <p>"أفضل خدمة توصيل في الفيوم. بسيطة وسريعة والأسعار معقولة. شكراً خليك مكانك."</p>
+                            <div class="testimonial-author">
+                                <div class="author-avatar"><i class="fas fa-user"></i></div>
+                                <div><h5>سارة علي</h5><span>الفيوم</span></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="swiper-slide">
+                        <div class="testimonial-card">
+                            <div class="testimonial-stars">
+                                <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star-half-alt"></i>
+                            </div>
+                            <p>"بعتت طرد لصاحبي وصله في نفس اليوم. خدمة ممتازة والتتبع شغال حلو."</p>
+                            <div class="testimonial-author">
+                                <div class="author-avatar"><i class="fas fa-user"></i></div>
+                                <div><h5>محمد حسن</h5><span>الفيوم</span></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="swiper-slide">
+                        <div class="testimonial-card">
+                            <div class="testimonial-stars">
+                                <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
+                            </div>
+                            <p>"بطلب كل يوم من الخدمة دي. سريعة وموثوقة والمناديب محترمين جداً."</p>
+                            <div class="testimonial-author">
+                                <div class="author-avatar"><i class="fas fa-user"></i></div>
+                                <div><h5>فاطمة أحمد</h5><span>الفيوم</span></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="swiper-pagination"></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Download App / CTA -->
+    <section class="cta-section section-padding" data-aos="fade-up">
+        <div class="container">
+            <div class="cta-card">
+                <div class="row align-items-center">
+                    <div class="col-lg-7">
+                        <h2>جاهز تطلب؟</h2>
+                        <p>كلمنا على الواتساب أو اطلب أونلاين دلوقتي وهنوصلك في أسرع وقت</p>
+                        <div class="cta-buttons">
+                            <a href="order.html" class="btn btn-cta-primary">
+                                <i class="fas fa-shopping-cart ms-2"></i>اطلب أونلاين
+                            </a>
+                            <a href="https://wa.me/201234567890" target="_blank" class="btn btn-cta-whatsapp">
+                                <i class="fab fa-whatsapp ms-2"></i>واتساب
+                            </a>
+                        </div>
+                    </div>
+                    <div class="col-lg-5 text-center">
+                        <div class="cta-visual">
                             <i class="fas fa-motorcycle"></i>
-                        </div>
-                        <h3 class="step-title">بنجيبلك</h3>
-                        <p class="step-desc">مندوبنا بييجي يستلم الطلب ويوصلك في أسرع وقت ممكن</p>
-                    </div>
-                </div>
-                
-                <div class="col-lg-4 col-md-6">
-                    <div class="step-card">
-                        <div class="step-number">3</div>
-                        <div class="step-icon">
-                            <i class="fas fa-check-circle"></i>
-                        </div>
-                        <h3 class="step-title">استلم طلبك</h3>
-                        <p class="step-desc">طلبك بيوصلك لحد باب بيتك بأمان وبدون أي مشاكل</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- About Section -->
-    <section id="about" class="about-section py-5">
-        <div class="container">
-            <div class="row align-items-center">
-                <div class="col-lg-6">
-                    <div class="about-content">
-                        <span class="section-tag">عن الشركة</span>
-                        <h2 class="section-title">ليه تختار خليك مكانك؟</h2>
-                        <p class="about-text">
-                            إحنا شركة "خليك مكانك" متخصصين في خدمات التوصيل في محافظة الفيوم. بدأنا عشان نوفرلكم خدمة توصيل سريعة وموثوقة بأرخص الأسعار.
-                        </p>
-                        <div class="about-features">
-                            <div class="feature-item">
-                                <i class="fas fa-check-circle"></i>
-                                <span>توصيل سريع في أقل من 30 دقيقة</span>
-                            </div>
-                            <div class="feature-item">
-                                <i class="fas fa-check-circle"></i>
-                                <span>أسعار مناسبة للجميع</span>
-                            </div>
-                            <div class="feature-item">
-                                <i class="fas fa-check-circle"></i>
-                                <span>مناديب محترفين ومؤدبين</span>
-                            </div>
-                            <div class="feature-item">
-                                <i class="fas fa-check-circle"></i>
-                                <span>خدمة عملاء متاحة 24 ساعة</span>
-                            </div>
-                            <div class="feature-item">
-                                <i class="fas fa-check-circle"></i>
-                                <span>تتبع الطلب لحظة بلحظة</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-6">
-                    <div class="about-image text-center">
-                        <div class="about-shape">
-                            <i class="fas fa-map-marker-alt"></i>
-                            <h4>الفيوم</h4>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Testimonials Section -->
-    <section id="testimonials" class="testimonials-section py-5">
-        <div class="container">
-            <div class="section-header text-center mb-5">
-                <span class="section-tag">آراء العملاء</span>
-                <h2 class="section-title">عملاؤنا بيقولوا إيه</h2>
-                <p class="section-desc">شوف تقييمات عملائنا الكرام</p>
-            </div>
-            
-            <div class="row g-4">
-                <div class="col-lg-4 col-md-6">
-                    <div class="testimonial-card">
-                        <div class="testimonial-rating">
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                        </div>
-                        <p class="testimonial-text">
-                            "خدمة ممتازة وسريعة جداً. المندوب كان محترم والأكل وصل حار. أكيد هستخدم الخدمة تاني."
-                        </p>
-                        <div class="testimonial-author">
-                            <div class="author-avatar">
-                                <i class="fas fa-user"></i>
-                            </div>
-                            <div class="author-info">
-                                <h5>أحمد محمد</h5>
-                                <span>عميل من الفيوم</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="col-lg-4 col-md-6">
-                    <div class="testimonial-card">
-                        <div class="testimonial-rating">
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                        </div>
-                        <p class="testimonial-text">
-                            "أفضل خدمة توصيل في الفيوم. بسيطة وسريعة والأسعار معقولة. شكراً خليك مكانك."
-                        </p>
-                        <div class="testimonial-author">
-                            <div class="author-avatar">
-                                <i class="fas fa-user"></i>
-                            </div>
-                            <div class="author-info">
-                                <h5>سارة علي</h5>
-                                <span>عميلة من الفيوم</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="col-lg-4 col-md-6">
-                    <div class="testimonial-card">
-                        <div class="testimonial-rating">
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star-half-alt"></i>
-                        </div>
-                        <p class="testimonial-text">
-                            "بعتت طرد لصاحبي في ناحية تانية من الفيوم ووصله في نفس اليوم. خدمة ممتازة."
-                        </p>
-                        <div class="testimonial-author">
-                            <div class="author-avatar">
-                                <i class="fas fa-user"></i>
-                            </div>
-                            <div class="author-info">
-                                <h5>محمد حسن</h5>
-                                <span>عميل من الفيوم</span>
-                            </div>
                         </div>
                     </div>
                 </div>
@@ -369,42 +509,33 @@
     </section>
 
     <!-- Contact Section -->
-    <section id="contact" class="contact-section py-5">
+    <section id="contact" class="section-padding bg-light">
         <div class="container">
-            <div class="section-header text-center mb-5">
-                <span class="section-tag">تواصل معانا</span>
-                <h2 class="section-title">احنا هنا عشانك</h2>
-                <p class="section-desc">كلمنا في أي وقت وهنرد عليك فوراً</p>
+            <div class="section-header text-center" data-aos="fade-up">
+                <span class="section-chip"><i class="fas fa-envelope ms-1"></i> تواصل معانا</span>
+                <h2 class="section-title">احنا <span class="text-gradient">هنا عشانك</span></h2>
             </div>
-            
+
             <div class="row g-4">
-                <div class="col-lg-4 col-md-6">
+                <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="100">
                     <div class="contact-card">
-                        <div class="contact-icon">
-                            <i class="fas fa-phone-alt"></i>
-                        </div>
+                        <div class="contact-card-icon"><i class="fas fa-phone-alt"></i></div>
                         <h4>اتصل بينا</h4>
                         <p>كلمنا على التليفون</p>
                         <a href="tel:+201234567890">01234567890</a>
                     </div>
                 </div>
-                
-                <div class="col-lg-4 col-md-6">
-                    <div class="contact-card whatsapp-card">
-                        <div class="contact-icon">
-                            <i class="fab fa-whatsapp"></i>
-                        </div>
+                <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="200">
+                    <div class="contact-card wa-card">
+                        <div class="contact-card-icon"><i class="fab fa-whatsapp"></i></div>
                         <h4>واتساب</h4>
-                        <p>ابعتلنا رسالة على الواتساب</p>
+                        <p>ابعتلنا رسالة</p>
                         <a href="https://wa.me/201234567890" target="_blank">ابدأ المحادثة</a>
                     </div>
                 </div>
-                
-                <div class="col-lg-4 col-md-6">
+                <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="300">
                     <div class="contact-card">
-                        <div class="contact-icon">
-                            <i class="fas fa-map-marker-alt"></i>
-                        </div>
+                        <div class="contact-card-icon"><i class="fas fa-map-marker-alt"></i></div>
                         <h4>العنوان</h4>
                         <p>محافظة الفيوم، مصر</p>
                         <a href="https://maps.google.com/?q=Fayoum,Egypt" target="_blank">شوف على الخريطة</a>
@@ -414,98 +545,77 @@
         </div>
     </section>
 
-    <!-- CTA Section -->
-    <section class="cta-section py-5">
-        <div class="container">
-            <div class="cta-content text-center">
-                <h2>جاهز تطلب؟</h2>
-                <p>كلمنا دلوقتي وهنوصلك طلبك في أسرع وقت</p>
-                <div class="cta-buttons">
-                    <a href="tel:+201234567890" class="btn btn-light btn-lg me-3">
-                        <i class="fas fa-phone-alt ms-2"></i>
-                        اتصل بينا
-                    </a>
-                    <a href="https://wa.me/201234567890" class="btn btn-whatsapp btn-lg" target="_blank">
-                        <i class="fab fa-whatsapp ms-2"></i>
-                        واتساب
-                    </a>
-                </div>
-            </div>
-        </div>
-    </section>
-
     <!-- Footer -->
-    <footer class="footer py-4">
+    <footer class="site-footer">
         <div class="container">
-            <div class="row">
-                <div class="col-lg-4 mb-3">
+            <div class="row g-4">
+                <div class="col-lg-4">
                     <div class="footer-brand">
-                        <div class="logo-icon me-2">
-                            <i class="fas fa-motorcycle"></i>
-                        </div>
-                        <span class="brand-text fw-bold">خليك مكانك</span>
+                        <img src="assets/images/logo.svg" alt="خليك مكانك" width="50" height="50" style="border-radius:12px;">
+                        <span>خليك مكانك</span>
                     </div>
-                    <p class="footer-desc mt-3">
-                        أسرع خدمة توصيل في الفيوم. توصيل طعام، طرود، ومنتجات لحد باب بيتك.
-                    </p>
-                    <div class="social-links mt-3">
-                        <a href="#" class="social-link"><i class="fab fa-facebook-f"></i></a>
-                        <a href="#" class="social-link"><i class="fab fa-instagram"></i></a>
-                        <a href="#" class="social-link"><i class="fab fa-twitter"></i></a>
-                        <a href="https://wa.me/201234567890" class="social-link" target="_blank"><i class="fab fa-whatsapp"></i></a>
+                    <p class="footer-about">أسرع خدمة توصيل في الفيوم. توصيل طعام، طرود، ومنتجات لحد باب بيتك.</p>
+                    <div class="footer-social">
+                        <a href="#"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="https://wa.me/201234567890" target="_blank"><i class="fab fa-whatsapp"></i></a>
                     </div>
                 </div>
-                <div class="col-lg-2 col-md-4 mb-3">
-                    <h5 class="footer-title">روابط سريعة</h5>
-                    <ul class="footer-links">
+                <div class="col-lg-2 col-md-4">
+                    <h5>روابط سريعة</h5>
+                    <ul>
                         <li><a href="#home">الرئيسية</a></li>
+                        <li><a href="order.html">اطلب دلوقتي</a></li>
+                        <li><a href="track.html">تتبع طلبك</a></li>
                         <li><a href="#services">خدماتنا</a></li>
-                        <li><a href="#how-it-works">ازاي تشتغل</a></li>
-                        <li><a href="#about">عن الشركة</a></li>
                     </ul>
                 </div>
-                <div class="col-lg-3 col-md-4 mb-3">
-                    <h5 class="footer-title">خدماتنا</h5>
-                    <ul class="footer-links">
-                        <li><a href="#services">توصيل طعام</a></li>
-                        <li><a href="#services">توصيل طرود</a></li>
-                        <li><a href="#services">توصيل منتجات</a></li>
+                <div class="col-lg-2 col-md-4">
+                    <h5>خدماتنا</h5>
+                    <ul>
+                        <li><a href="order.html">توصيل طعام</a></li>
+                        <li><a href="order.html">توصيل طرود</a></li>
+                        <li><a href="order.html">توصيل منتجات</a></li>
                     </ul>
                 </div>
-                <div class="col-lg-3 col-md-4 mb-3">
-                    <h5 class="footer-title">تواصل معانا</h5>
+                <div class="col-lg-4 col-md-4">
+                    <h5>تواصل معانا</h5>
                     <ul class="footer-contact">
-                        <li><i class="fas fa-phone-alt ms-2"></i> 01234567890</li>
+                        <li><i class="fas fa-phone ms-2"></i> 01234567890</li>
                         <li><i class="fab fa-whatsapp ms-2"></i> 01234567890</li>
                         <li><i class="fas fa-map-marker-alt ms-2"></i> الفيوم، مصر</li>
+                        <li><i class="fas fa-clock ms-2"></i> 24 ساعة / 7 أيام</li>
                     </ul>
                 </div>
             </div>
             <hr>
-            <div class="row">
-                <div class="col-md-6 text-center text-md-start">
-                    <p class="copyright mb-0">
-                        © 2026 خليك مكانك. جميع الحقوق محفوظة.
-                    </p>
-                </div>
-                <div class="col-md-6 text-center text-md-end">
-                    <p class="copyright mb-0">
-                        تصميم وتطوير بـ <i class="fas fa-heart text-danger"></i>
-                    </p>
-                </div>
+            <div class="footer-bottom">
+                <p>&copy; 2026 خليك مكانك. جميع الحقوق محفوظة.</p>
             </div>
         </div>
     </footer>
 
-    <!-- Floating WhatsApp Button -->
-    <a href="https://wa.me/201234567890" class="whatsapp-float" target="_blank">
+    <!-- WhatsApp Float -->
+    <a href="https://wa.me/201234567890" class="whatsapp-float" target="_blank" aria-label="تواصل معانا واتساب">
         <i class="fab fa-whatsapp"></i>
+        <span class="whatsapp-tooltip">كلمنا على الواتساب</span>
     </a>
+
+    <!-- Back to Top -->
+    <button class="back-to-top" id="backToTop" aria-label="العودة للأعلى">
+        <i class="fas fa-arrow-up"></i>
+    </button>
 
     <!-- Bootstrap JS -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
-    
-    <!-- Custom JS -->
+
+    <!-- AOS -->
+    <script src="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.js"></script>
+
+    <!-- Swiper -->
+    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+
+    <!-- Main JS -->
     <script src="js/main.js"></script>
 </body>
 </html>
