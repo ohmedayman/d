@@ -3,312 +3,90 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>تسجيل الدخول - لوحة التحكم | خليك مكانك</title>
-    
-    <!-- Favicon -->
+    <title>دخول لوحة التحكم | خليك مكانك</title>
     <link rel="icon" type="image/jpeg" href="../assets/images/logo.jpg">
-    <link rel="apple-touch-icon" href="../assets/images/logo.jpg">
-    
-    <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
-    
-    <!-- Bootstrap 5 -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
-    
-    <!-- Font Awesome -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-    
     <style>
-        :root {
-            --primary-color: #FFD700;
-            --primary-dark: #F5C400;
-            --primary-light: #FFF8DC;
-            --text-dark: #1A1A1A;
-            --text-gray: #666666;
-        }
-        
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-        
-        body {
-            font-family: 'Cairo', sans-serif;
-            background: linear-gradient(135deg, var(--primary-light) 0%, var(--primary-color) 100%);
-            min-height: 100vh;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-        
-        .login-container {
-            width: 100%;
-            max-width: 450px;
-            padding: 1rem;
-        }
-        
-        .login-card {
-            background: white;
-            border-radius: 20px;
-            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
-            overflow: hidden;
-        }
-        
-        .login-header {
-            background: linear-gradient(135deg, var(--primary-color), var(--primary-dark));
-            padding: 2rem;
-            text-align: center;
-        }
-        
-        .login-logo {
-            width: 80px;
-            height: 80px;
-            background: white;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin: 0 auto 1rem;
-            font-size: 2rem;
-            color: var(--primary-dark);
-        }
-        
-        .login-header h1 {
-            font-size: 1.8rem;
-            font-weight: 800;
-            color: var(--text-dark);
-            margin-bottom: 0.5rem;
-        }
-        
-        .login-header p {
-            color: var(--text-gray);
-            margin: 0;
-        }
-        
-        .login-body {
-            padding: 2rem;
-        }
-        
-        .form-label {
-            font-weight: 600;
-            color: var(--text-dark);
-            margin-bottom: 0.5rem;
-        }
-        
-        .form-control {
-            padding: 0.8rem 1rem;
-            border-radius: 10px;
-            border: 2px solid #eee;
-            font-family: 'Cairo', sans-serif;
-            transition: all 0.3s ease;
-        }
-        
-        .form-control:focus {
-            border-color: var(--primary-color);
-            box-shadow: 0 0 0 0.2rem rgba(255, 215, 0, 0.25);
-        }
-        
-        .input-group {
-            position: relative;
-        }
-        
-        .input-group .form-control {
-            padding-left: 3rem;
-        }
-        
-        .input-icon {
-            position: absolute;
-            left: 1rem;
-            top: 50%;
-            transform: translateY(-50%);
-            color: var(--text-gray);
-        }
-        
-        .btn-login {
-            width: 100%;
-            padding: 1rem;
-            background: linear-gradient(135deg, var(--primary-color), var(--primary-dark));
-            color: var(--text-dark);
-            border: none;
-            border-radius: 10px;
-            font-weight: 700;
-            font-size: 1.1rem;
-            font-family: 'Cairo', sans-serif;
-            cursor: pointer;
-            transition: all 0.3s ease;
-        }
-        
-        .btn-login:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 5px 20px rgba(255, 215, 0, 0.4);
-        }
-        
-        .btn-login:disabled {
-            opacity: 0.7;
-            cursor: not-allowed;
-            transform: none;
-        }
-        
-        .error-message {
-            background: #fff5f5;
-            color: #e53e3e;
-            padding: 1rem;
-            border-radius: 10px;
-            margin-bottom: 1rem;
-            display: none;
-            border: 1px solid #fed7d7;
-        }
-        
-        .back-link {
-            text-align: center;
-            margin-top: 1.5rem;
-        }
-        
-        .back-link a {
-            color: var(--text-gray);
-            text-decoration: none;
-            transition: all 0.3s ease;
-        }
-        
-        .back-link a:hover {
-            color: var(--primary-dark);
-        }
-        
-        .loading-spinner {
-            display: none;
-            width: 20px;
-            height: 20px;
-            border: 2px solid transparent;
-            border-top-color: var(--text-dark);
-            border-radius: 50%;
-            animation: spin 1s linear infinite;
-            margin-left: 0.5rem;
-        }
-        
-        @keyframes spin {
-            to { transform: rotate(360deg); }
-        }
+        :root{--primary:#FFD700;--primary-dark:#F5C400;--dark:#1A1A1A;--gray:#666}
+        *{margin:0;padding:0;box-sizing:border-box}
+        body{font-family:'Cairo',sans-serif;background:linear-gradient(135deg,#FFF8DC,#fff,#FFF8DC);min-height:100vh;display:flex;align-items:center;justify-content:center;padding:1rem}
+        .login-card{background:#fff;border-radius:24px;box-shadow:0 20px 60px rgba(0,0,0,.1);width:100%;max-width:420px;overflow:hidden}
+        .login-header{background:linear-gradient(135deg,var(--primary),var(--primary-dark));padding:2.5rem 2rem;text-align:center}
+        .login-logo{width:80px;height:80px;border-radius:50%;margin:0 auto 1rem;border:4px solid rgba(255,255,255,.5);overflow:hidden}
+        .login-logo img{width:100%;height:100%;object-fit:cover}
+        .login-header h1{font-size:1.5rem;font-weight:800;color:var(--dark)}
+        .login-header p{color:var(--dark);opacity:.7;font-size:.9rem}
+        .login-body{padding:2rem}
+        .form-group{margin-bottom:1.2rem}
+        .form-group label{display:block;font-weight:600;font-size:.9rem;margin-bottom:.4rem;color:var(--dark)}
+        .form-input{width:100%;padding:.8rem 1rem;border:2px solid #eee;border-radius:12px;font-family:'Cairo',sans-serif;font-size:1rem;transition:.3s}
+        .form-input:focus{border-color:var(--primary);outline:none;box-shadow:0 0 0 .2rem rgba(255,215,0,.2)}
+        .btn-login{width:100%;padding:.9rem;background:linear-gradient(135deg,var(--primary),var(--primary-dark));color:var(--dark);border:none;border-radius:12px;font-family:'Cairo',sans-serif;font-weight:800;font-size:1.1rem;cursor:pointer;transition:.3s;margin-top:.5rem}
+        .btn-login:hover{transform:translateY(-2px);box-shadow:0 5px 20px rgba(255,215,0,.4)}
+        .btn-login:active{transform:scale(.98)}
+        .error-msg{background:#fee2e2;color:#991b1b;padding:.8rem 1rem;border-radius:10px;font-size:.9rem;display:none;margin-bottom:1rem;text-align:center}
+        .hint{text-align:center;margin-top:1.5rem;padding-top:1.5rem;border-top:1px solid #eee}
+        .hint p{color:var(--gray);font-size:.85rem}
+        .hint strong{color:var(--primary-dark)}
+        .back-link{text-align:center;margin-top:1rem}
+        .back-link a{color:var(--gray);text-decoration:none;font-size:.9rem}
+        .back-link a:hover{color:var(--primary-dark)}
     </style>
 </head>
 <body>
-    <div class="login-container">
-        <div class="login-card">
-            <div class="login-header">
-                <div class="login-logo">
-                    <i class="fas fa-motorcycle"></i>
-                </div>
-                <h1>خليك مكانك</h1>
-                <p>لوحة التحكم</p>
+    <div class="login-card">
+        <div class="login-header">
+            <div class="login-logo">
+                <img src="../assets/images/logo.jpg" alt="خليك مكانك">
             </div>
-            
-            <div class="login-body">
-                <div class="error-message" id="errorMessage">
-                    <i class="fas fa-exclamation-circle ms-2"></i>
-                    <span id="errorText"></span>
+            <h1>لوحة التحكم</h1>
+            <p>خليك مكانك - إدارة الطلبات</p>
+        </div>
+        <div class="login-body">
+            <div class="error-msg" id="errorMsg"></div>
+            <form id="loginForm">
+                <div class="form-group">
+                    <label>البريد الإلكتروني</label>
+                    <input type="text" class="form-input" id="email" placeholder="admin" required>
                 </div>
-                
-                <form id="loginForm">
-                    <div class="mb-3">
-                        <label class="form-label">البريد الإلكتروني</label>
-                        <div class="input-group">
-                            <i class="fas fa-envelope input-icon"></i>
-                            <input type="email" class="form-control" id="email" placeholder="example@email.com" required>
-                        </div>
-                    </div>
-                    
-                    <div class="mb-4">
-                        <label class="form-label">كلمة المرور</label>
-                        <div class="input-group">
-                            <i class="fas fa-lock input-icon"></i>
-                            <input type="password" class="form-control" id="password" placeholder="••••••••" required>
-                        </div>
-                    </div>
-                    
-                    <button type="submit" class="btn-login" id="loginBtn">
-                        <span class="loading-spinner" id="loadingSpinner"></span>
-                        <span id="btnText">تسجيل الدخول</span>
-                    </button>
-                </form>
-                
-                <div class="back-link">
-                    <a href="../index.html">
-                        <i class="fas fa-arrow-right ms-2"></i>
-                        العودة للموقع
-                    </a>
+                <div class="form-group">
+                    <label>كلمة المرور</label>
+                    <input type="password" class="form-input" id="password" placeholder="••••••••" required>
                 </div>
+                <button type="submit" class="btn-login">دخول</button>
+            </form>
+            <div class="hint">
+                <p>بيانات الدخول: <strong>admin</strong> / <strong>123456</strong></p>
+            </div>
+            <div class="back-link">
+                <a href="../index.html">← العودة للموقع</a>
             </div>
         </div>
     </div>
 
-    <!-- Bootstrap JS -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
-    
-    <script type="module">
-        import { auth, signInWithEmailAndPassword, onAuthStateChanged } from '../js/firebase-config.js';
-        
-        // Check if user is already logged in
-        onAuthStateChanged(auth, (user) => {
-            if (user) {
-                window.location.href = 'dashboard.html';
-            }
-        });
-        
-        // Login form submission
-        const loginForm = document.getElementById('loginForm');
-        const emailInput = document.getElementById('email');
-        const passwordInput = document.getElementById('password');
-        const loginBtn = document.getElementById('loginBtn');
-        const loadingSpinner = document.getElementById('loadingSpinner');
-        const btnText = document.getElementById('btnText');
-        const errorMessage = document.getElementById('errorMessage');
-        const errorText = document.getElementById('errorText');
-        
-        loginForm.addEventListener('submit', async (e) => {
+    <script>
+        // Check if already logged in
+        if (localStorage.getItem('admin_logged_in') === 'true') {
+            location.href = 'dashboard.html';
+        }
+
+        document.getElementById('loginForm').addEventListener('submit', function(e) {
             e.preventDefault();
-            
-            const email = emailInput.value.trim();
-            const password = passwordInput.value;
-            
-            // Show loading state
-            loginBtn.disabled = true;
-            loadingSpinner.style.display = 'inline-block';
-            btnText.textContent = 'جاري تسجيل الدخول...';
-            errorMessage.style.display = 'none';
-            
-            try {
-                await signInWithEmailAndPassword(auth, email, password);
-                window.location.href = 'dashboard.html';
-            } catch (error) {
-                console.error('Login error:', error);
-                
-                let errorMsg = 'حدث خطأ أثناء تسجيل الدخول';
-                
-                switch (error.code) {
-                    case 'auth/user-not-found':
-                        errorMsg = 'البريد الإلكتروني غير مسجل';
-                        break;
-                    case 'auth/wrong-password':
-                        errorMsg = 'كلمة المرور غير صحيحة';
-                        break;
-                    case 'auth/invalid-email':
-                        errorMsg = 'البريد الإلكتروني غير صالح';
-                        break;
-                    case 'auth/too-many-requests':
-                        errorMsg = 'تم حظر الحساب مؤقتاً بسبب محاولات كثيرة';
-                        break;
-                    default:
-                        errorMsg = error.message;
-                }
-                
-                errorText.textContent = errorMsg;
-                errorMessage.style.display = 'block';
-            } finally {
-                loginBtn.disabled = false;
-                loadingSpinner.style.display = 'none';
-                btnText.textContent = 'تسجيل الدخول';
+            const email = document.getElementById('email').value.trim();
+            const password = document.getElementById('password').value;
+            const error = document.getElementById('errorMsg');
+
+            // Hardcoded admin credentials
+            if ((email === 'admin' || email === 'admin@khalikmakana.com') && password === '123456') {
+                localStorage.setItem('admin_logged_in', 'true');
+                localStorage.setItem('admin_user', 'Admin');
+                location.href = 'dashboard.html';
+            } else {
+                error.textContent = 'بيانات الدخول غير صحيحة';
+                error.style.display = 'block';
+                setTimeout(() => error.style.display = 'none', 3000);
             }
         });
     </script>
