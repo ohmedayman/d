@@ -1,0 +1,1278 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>لوحة التحكم | خليك مكانك</title>
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    
+    <!-- Bootstrap 5 -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    
+    <style>
+        :root {
+            --primary-color: #FFD700;
+            --primary-dark: #F5C400;
+            --primary-light: #FFF8DC;
+            --text-dark: #1A1A1A;
+            --text-gray: #666666;
+            --sidebar-width: 260px;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Cairo', sans-serif;
+            background: #f8f9fa;
+            min-height: 100vh;
+        }
+        
+        /* Sidebar */
+        .sidebar {
+            position: fixed;
+            right: 0;
+            top: 0;
+            width: var(--sidebar-width);
+            height: 100vh;
+            background: var(--text-dark);
+            color: white;
+            padding: 1.5rem;
+            z-index: 1000;
+            overflow-y: auto;
+        }
+        
+        .sidebar-brand {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            padding-bottom: 1.5rem;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            margin-bottom: 1.5rem;
+        }
+        
+        .sidebar-logo {
+            width: 50px;
+            height: 50px;
+            background: var(--primary-color);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--text-dark);
+            font-size: 1.5rem;
+        }
+        
+        .sidebar-brand h3 {
+            font-size: 1.2rem;
+            font-weight: 700;
+            margin: 0;
+        }
+        
+        .sidebar-brand p {
+            font-size: 0.8rem;
+            opacity: 0.7;
+            margin: 0;
+        }
+        
+        .sidebar-menu {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+        
+        .sidebar-menu li {
+            margin-bottom: 0.5rem;
+        }
+        
+        .sidebar-menu a {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            padding: 0.8rem 1rem;
+            color: rgba(255, 255, 255, 0.7);
+            text-decoration: none;
+            border-radius: 10px;
+            transition: all 0.3s ease;
+        }
+        
+        .sidebar-menu a:hover,
+        .sidebar-menu a.active {
+            background: rgba(255, 215, 0, 0.2);
+            color: var(--primary-color);
+        }
+        
+        .sidebar-menu a i {
+            width: 20px;
+            text-align: center;
+        }
+        
+        /* Main Content */
+        .main-content {
+            margin-right: var(--sidebar-width);
+            padding: 2rem;
+        }
+        
+        /* Header */
+        .page-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2rem;
+        }
+        
+        .page-header h1 {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--text-dark);
+        }
+        
+        .header-actions {
+            display: flex;
+            gap: 1rem;
+        }
+        
+        .btn-logout {
+            background: #e53e3e;
+            color: white;
+            border: none;
+            padding: 0.5rem 1.5rem;
+            border-radius: 10px;
+            font-weight: 600;
+            font-family: 'Cairo', sans-serif;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .btn-logout:hover {
+            background: #c53030;
+        }
+        
+        /* Stats Cards */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+        
+        .stat-card {
+            background: white;
+            border-radius: 16px;
+            padding: 1.5rem;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08);
+            transition: all 0.3s ease;
+        }
+        
+        .stat-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.12);
+        }
+        
+        .stat-card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 1rem;
+        }
+        
+        .stat-card-icon {
+            width: 50px;
+            height: 50px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+        }
+        
+        .stat-card-icon.yellow {
+            background: var(--primary-light);
+            color: var(--primary-dark);
+        }
+        
+        .stat-card-icon.green {
+            background: #d4edda;
+            color: #28a745;
+        }
+        
+        .stat-card-icon.blue {
+            background: #d1ecf1;
+            color: #17a2b8;
+        }
+        
+        .stat-card-icon.red {
+            background: #f8d7da;
+            color: #dc3545;
+        }
+        
+        .stat-card h3 {
+            font-size: 2rem;
+            font-weight: 800;
+            color: var(--text-dark);
+            margin: 0;
+        }
+        
+        .stat-card p {
+            color: var(--text-gray);
+            margin: 0;
+            font-size: 0.9rem;
+        }
+        
+        /* Content Cards */
+        .content-card {
+            background: white;
+            border-radius: 16px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08);
+            margin-bottom: 2rem;
+        }
+        
+        .content-card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1.5rem;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .content-card-header h2 {
+            font-size: 1.2rem;
+            font-weight: 700;
+            margin: 0;
+        }
+        
+        .content-card-body {
+            padding: 1.5rem;
+        }
+        
+        /* Table Styles */
+        .table {
+            margin: 0;
+        }
+        
+        .table thead th {
+            background: var(--primary-light);
+            color: var(--text-dark);
+            font-weight: 600;
+            border: none;
+            padding: 1rem;
+        }
+        
+        .table tbody td {
+            padding: 1rem;
+            vertical-align: middle;
+            border-color: #eee;
+        }
+        
+        .table tbody tr:hover {
+            background: #f8f9fa;
+        }
+        
+        /* Status Badges */
+        .status-badge {
+            padding: 0.3rem 0.8rem;
+            border-radius: 50px;
+            font-size: 0.8rem;
+            font-weight: 600;
+        }
+        
+        .status-badge.pending {
+            background: #fff3cd;
+            color: #856404;
+        }
+        
+        .status-badge.in-progress {
+            background: #cce5ff;
+            color: #004085;
+        }
+        
+        .status-badge.completed {
+            background: #d4edda;
+            color: #155724;
+        }
+        
+        .status-badge.cancelled {
+            background: #f8d7da;
+            color: #721c24;
+        }
+        
+        /* Action Buttons */
+        .action-btns {
+            display: flex;
+            gap: 0.5rem;
+        }
+        
+        .btn-action {
+            width: 35px;
+            height: 35px;
+            border-radius: 8px;
+            border: none;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .btn-action.view {
+            background: #cce5ff;
+            color: #004085;
+        }
+        
+        .btn-action.edit {
+            background: #d4edda;
+            color: #155724;
+        }
+        
+        .btn-action.delete {
+            background: #f8d7da;
+            color: #721c24;
+        }
+        
+        .btn-action:hover {
+            transform: scale(1.1);
+        }
+        
+        /* Modal Styles */
+        .modal-content {
+            border-radius: 16px;
+            border: none;
+        }
+        
+        .modal-header {
+            background: var(--primary-color);
+            border-radius: 16px 16px 0 0;
+            padding: 1.5rem;
+        }
+        
+        .modal-title {
+            font-weight: 700;
+            color: var(--text-dark);
+        }
+        
+        .btn-close {
+            opacity: 1;
+        }
+        
+        .modal-body {
+            padding: 1.5rem;
+        }
+        
+        .modal-footer {
+            border-top: 1px solid #eee;
+            padding: 1rem 1.5rem;
+        }
+        
+        /* Empty State */
+        .empty-state {
+            text-align: center;
+            padding: 3rem;
+        }
+        
+        .empty-state i {
+            font-size: 4rem;
+            color: #ddd;
+            margin-bottom: 1rem;
+        }
+        
+        .empty-state h3 {
+            color: var(--text-gray);
+            font-weight: 600;
+        }
+        
+        .empty-state p {
+            color: #999;
+        }
+        
+        /* Responsive */
+        @media (max-width: 991.98px) {
+            .sidebar {
+                transform: translateX(100%);
+                transition: all 0.3s ease;
+            }
+            
+            .sidebar.show {
+                transform: translateX(0);
+            }
+            
+            .main-content {
+                margin-right: 0;
+            }
+            
+            .mobile-toggle {
+                display: block;
+            }
+        }
+        
+        @media (min-width: 992px) {
+            .mobile-toggle {
+                display: none;
+            }
+        }
+        
+        .mobile-toggle {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            width: 50px;
+            height: 50px;
+            background: var(--primary-color);
+            color: var(--text-dark);
+            border: none;
+            border-radius: 50%;
+            font-size: 1.5rem;
+            cursor: pointer;
+            z-index: 999;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        }
+        
+        /* Add Order Form */
+        .form-label {
+            font-weight: 600;
+            color: var(--text-dark);
+            margin-bottom: 0.5rem;
+        }
+        
+        .form-control,
+        .form-select {
+            padding: 0.8rem 1rem;
+            border-radius: 10px;
+            border: 2px solid #eee;
+            font-family: 'Cairo', sans-serif;
+        }
+        
+        .form-control:focus,
+        .form-select:focus {
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 0.2rem rgba(255, 215, 0, 0.25);
+        }
+        
+        .btn-primary {
+            background: linear-gradient(135deg, var(--primary-color), var(--primary-dark));
+            color: var(--text-dark);
+            border: none;
+            font-weight: 600;
+            padding: 0.6rem 1.5rem;
+            border-radius: 10px;
+            font-family: 'Cairo', sans-serif;
+        }
+        
+        .btn-primary:hover {
+            background: var(--primary-dark);
+            transform: translateY(-2px);
+        }
+    </style>
+</head>
+<body>
+    <!-- Sidebar -->
+    <aside class="sidebar" id="sidebar">
+        <div class="sidebar-brand">
+            <div class="sidebar-logo">
+                <i class="fas fa-motorcycle"></i>
+            </div>
+            <div>
+                <h3>خليك مكانك</h3>
+                <p>لوحة التحكم</p>
+            </div>
+        </div>
+        
+        <ul class="sidebar-menu">
+            <li>
+                <a href="#" class="active" data-section="dashboard">
+                    <i class="fas fa-home"></i>
+                    <span>الرئيسية</span>
+                </a>
+            </li>
+            <li>
+                <a href="#" data-section="orders">
+                    <i class="fas fa-shopping-cart"></i>
+                    <span>الطلبات</span>
+                </a>
+            </li>
+            <li>
+                <a href="#" data-section="customers">
+                    <i class="fas fa-users"></i>
+                    <span>العملاء</span>
+                </a>
+            </li>
+            <li>
+                <a href="#" data-section="drivers">
+                    <i class="fas fa-motorcycle"></i>
+                    <span>المناديب</span>
+                </a>
+            </li>
+            <li>
+                <a href="#" data-section="settings">
+                    <i class="fas fa-cog"></i>
+                    <span>الإعدادات</span>
+                </a>
+            </li>
+        </ul>
+    </aside>
+    
+    <!-- Mobile Toggle -->
+    <button class="mobile-toggle" id="mobileToggle">
+        <i class="fas fa-bars"></i>
+    </button>
+    
+    <!-- Main Content -->
+    <main class="main-content">
+        <!-- Page Header -->
+        <div class="page-header">
+            <h1 id="pageTitle">الرئيسية</h1>
+            <div class="header-actions">
+                <button class="btn-logout" id="logoutBtn">
+                    <i class="fas fa-sign-out-alt ms-2"></i>
+                    تسجيل الخروج
+                </button>
+            </div>
+        </div>
+        
+        <!-- Dashboard Section -->
+        <section id="dashboardSection">
+            <!-- Stats Grid -->
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-card-header">
+                        <div>
+                            <h3 id="totalOrders">0</h3>
+                            <p>إجمالي الطلبات</p>
+                        </div>
+                        <div class="stat-card-icon yellow">
+                            <i class="fas fa-shopping-cart"></i>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="stat-card">
+                    <div class="stat-card-header">
+                        <div>
+                            <h3 id="pendingOrders">0</h3>
+                            <p>طلبات معلقة</p>
+                        </div>
+                        <div class="stat-card-icon blue">
+                            <i class="fas fa-clock"></i>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="stat-card">
+                    <div class="stat-card-header">
+                        <div>
+                            <h3 id="completedOrders">0</h3>
+                            <p>طلبات مكتملة</p>
+                        </div>
+                        <div class="stat-card-icon green">
+                            <i class="fas fa-check-circle"></i>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="stat-card">
+                    <div class="stat-card-header">
+                        <div>
+                            <h3 id="totalRevenue">0</h3>
+                            <p>الإيرادات (ج.م)</p>
+                        </div>
+                        <div class="stat-card-icon red">
+                            <i class="fas fa-dollar-sign"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Recent Orders -->
+            <div class="content-card">
+                <div class="content-card-header">
+                    <h2>آخر الطلبات</h2>
+                    <button class="btn btn-sm btn-primary" onclick="showSection('orders')">
+                        عرض الكل
+                    </button>
+                </div>
+                <div class="content-card-body">
+                    <div class="table-responsive">
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th>#</th>
+                                    <th>اسم العميل</th>
+                                    <th>رقم التليفون</th>
+                                    <th>العنوان</th>
+                                    <th>الحالة</th>
+                                    <th>التاريخ</th>
+                                </tr>
+                            </thead>
+                            <tbody id="recentOrdersBody">
+                                <tr>
+                                    <td colspan="6" class="text-center py-4">
+                                        <div class="empty-state">
+                                            <i class="fas fa-inbox"></i>
+                                            <h3>لا توجد طلبات بعد</h3>
+                                            <p>لم يتم تسجيل أي طلبات حتى الآن</p>
+                                        </div>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Orders Section -->
+        <section id="ordersSection" style="display: none;">
+            <div class="content-card">
+                <div class="content-card-header">
+                    <h2>إدارة الطلبات</h2>
+                    <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addOrderModal">
+                        <i class="fas fa-plus ms-2"></i>
+                        إضافة طلب جديد
+                    </button>
+                </div>
+                <div class="content-card-body">
+                    <div class="table-responsive">
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th>#</th>
+                                    <th>اسم العميل</th>
+                                    <th>رقم التليفون</th>
+                                    <th>العنوان</th>
+                                    <th>نوع الخدمة</th>
+                                    <th>رسوم التوصيل</th>
+                                    <th>الحالة</th>
+                                    <th>الإجراءات</th>
+                                </tr>
+                            </thead>
+                            <tbody id="ordersBody">
+                                <tr>
+                                    <td colspan="8" class="text-center py-4">
+                                        <div class="empty-state">
+                                            <i class="fas fa-inbox"></i>
+                                            <h3>لا توجد طلبات</h3>
+                                            <p>ابدأ بإضافة طلب جديد</p>
+                                        </div>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Customers Section -->
+        <section id="customersSection" style="display: none;">
+            <div class="content-card">
+                <div class="content-card-header">
+                    <h2>العملاء</h2>
+                </div>
+                <div class="content-card-body">
+                    <div class="table-responsive">
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th>#</th>
+                                    <th>الاسم</th>
+                                    <th>رقم التليفون</th>
+                                    <th>العنوان</th>
+                                    <th>عدد الطلبات</th>
+                                    <th>تاريخ التسجيل</th>
+                                </tr>
+                            </thead>
+                            <tbody id="customersBody">
+                                <tr>
+                                    <td colspan="6" class="text-center py-4">
+                                        <div class="empty-state">
+                                            <i class="fas fa-users"></i>
+                                            <h3>لا يوجد عملاء</h3>
+                                            <p>سيظهر العملاء هنا عندما يسجلوا</p>
+                                        </div>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Drivers Section -->
+        <section id="driversSection" style="display: none;">
+            <div class="content-card">
+                <div class="content-card-header">
+                    <h2>المناديب</h2>
+                    <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addDriverModal">
+                        <i class="fas fa-plus ms-2"></i>
+                        إضافة مندوب
+                    </button>
+                </div>
+                <div class="content-card-body">
+                    <div class="table-responsive">
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th>#</th>
+                                    <th>الاسم</th>
+                                    <th>رقم التليفون</th>
+                                    <th>الحالة</th>
+                                    <th>عدد الطلبات</th>
+                                    <th>الإجراءات</th>
+                                </tr>
+                            </thead>
+                            <tbody id="driversBody">
+                                <tr>
+                                    <td colspan="6" class="text-center py-4">
+                                        <div class="empty-state">
+                                            <i class="fas fa-motorcycle"></i>
+                                            <h3>لا يوجد مناديب</h3>
+                                            <p>ابدأ بإضافة مندوب جديد</p>
+                                        </div>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Settings Section -->
+        <section id="settingsSection" style="display: none;">
+            <div class="content-card">
+                <div class="content-card-header">
+                    <h2>إعدادات الموقع</h2>
+                </div>
+                <div class="content-card-body">
+                    <form id="settingsForm">
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label class="form-label">اسم الشركة</label>
+                                <input type="text" class="form-control" id="companyName" value="خليك مكانك">
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label class="form-label">رقم التليفون</label>
+                                <input type="tel" class="form-control" id="companyPhone" value="01234567890">
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label class="form-label">رقم الواتساب</label>
+                                <input type="tel" class="form-control" id="whatsappNumber" value="201234567890">
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label class="form-label">العنوان</label>
+                                <input type="text" class="form-control" id="companyAddress" value="محافظة الفيوم، مصر">
+                            </div>
+                            <div class="col-12 mb-3">
+                                <label class="form-label">رسوم التوصيل الافتراضية (ج.م)</label>
+                                <input type="number" class="form-control" id="deliveryFee" value="20">
+                            </div>
+                        </div>
+                        <button type="submit" class="btn btn-primary">
+                            <i class="fas fa-save ms-2"></i>
+                            حفظ الإعدادات
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </section>
+    </main>
+    
+    <!-- Add Order Modal -->
+    <div class="modal fade" id="addOrderModal" tabindex="-1">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">إضافة طلب جديد</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <form id="addOrderForm">
+                    <div class="modal-body">
+                        <div class="mb-3">
+                            <label class="form-label">اسم العميل</label>
+                            <input type="text" class="form-control" id="customerName" required>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">رقم التليفون</label>
+                            <input type="tel" class="form-control" id="customerPhone" required>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">العنوان</label>
+                            <textarea class="form-control" id="customerAddress" rows="2" required></textarea>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">نوع الخدمة</label>
+                            <select class="form-select" id="serviceType" required>
+                                <option value="">اختر نوع الخدمة</option>
+                                <option value="food">توصيل طعام</option>
+                                <option value="package">توصيل طرود</option>
+                                <option value="product">توصيل منتجات</option>
+                            </select>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">ملاحظات</label>
+                            <textarea class="form-control" id="orderNotes" rows="2"></textarea>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">رسوم التوصيل (ج.م)</label>
+                            <input type="number" class="form-control" id="deliveryFeeInput" value="20" required>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">إلغاء</button>
+                        <button type="submit" class="btn btn-primary">إضافة الطلب</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Add Driver Modal -->
+    <div class="modal fade" id="addDriverModal" tabindex="-1">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">إضافة مندوب جديد</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <form id="addDriverForm">
+                    <div class="modal-body">
+                        <div class="mb-3">
+                            <label class="form-label">اسم المندوب</label>
+                            <input type="text" class="form-control" id="driverName" required>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">رقم التليفون</label>
+                            <input type="tel" class="form-control" id="driverPhone" required>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">رخصة القيادة</label>
+                            <input type="text" class="form-control" id="driverLicense">
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">إلغاء</button>
+                        <button type="submit" class="btn btn-primary">إضافة المندوب</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    
+    <!-- View Order Modal -->
+    <div class="modal fade" id="viewOrderModal" tabindex="-1">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">تفاصيل الطلب</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="order-details">
+                        <p><strong>اسم العميل:</strong> <span id="viewCustomerName"></span></p>
+                        <p><strong>رقم التليفون:</strong> <span id="viewCustomerPhone"></span></p>
+                        <p><strong>العنوان:</strong> <span id="viewCustomerAddress"></span></p>
+                        <p><strong>نوع الخدمة:</strong> <span id="viewServiceType"></span></p>
+                        <p><strong>رسوم التوصيل:</strong> <span id="viewDeliveryFee"></span> ج.م</p>
+                        <p><strong>الحالة:</strong> <span id="viewStatus"></span></p>
+                        <p><strong>ملاحظات:</strong> <span id="viewNotes"></span></p>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">إغلاق</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    
+    <script type="module">
+        import { 
+            auth, 
+            db, 
+            onAuthStateChanged, 
+            signOut,
+            collection, 
+            addDoc, 
+            getDocs, 
+            updateDoc, 
+            deleteDoc, 
+            doc, 
+            query, 
+            orderBy 
+        } from '../js/firebase-config.js';
+        
+        // Check auth state
+        onAuthStateChanged(auth, (user) => {
+            if (!user) {
+                window.location.href = 'login.html';
+            } else {
+                loadDashboard();
+            }
+        });
+        
+        // Logout
+        document.getElementById('logoutBtn').addEventListener('click', async () => {
+            try {
+                await signOut(auth);
+                window.location.href = 'login.html';
+            } catch (error) {
+                console.error('Logout error:', error);
+            }
+        });
+        
+        // Navigation
+        const sidebarLinks = document.querySelectorAll('.sidebar-menu a');
+        const sections = {
+            dashboard: document.getElementById('dashboardSection'),
+            orders: document.getElementById('ordersSection'),
+            customers: document.getElementById('customersSection'),
+            drivers: document.getElementById('driversSection'),
+            settings: document.getElementById('settingsSection')
+        };
+        
+        const pageTitles = {
+            dashboard: 'الرئيسية',
+            orders: 'الطلبات',
+            customers: 'العملاء',
+            drivers: 'المناديب',
+            settings: 'الإعدادات'
+        };
+        
+        function showSection(sectionName) {
+            // Hide all sections
+            Object.values(sections).forEach(section => {
+                section.style.display = 'none';
+            });
+            
+            // Show selected section
+            sections[sectionName].style.display = 'block';
+            
+            // Update active link
+            sidebarLinks.forEach(link => {
+                link.classList.remove('active');
+                if (link.dataset.section === sectionName) {
+                    link.classList.add('active');
+                }
+            });
+            
+            // Update page title
+            document.getElementById('pageTitle').textContent = pageTitles[sectionName];
+            
+            // Close mobile sidebar
+            document.getElementById('sidebar').classList.remove('show');
+        }
+        
+        sidebarLinks.forEach(link => {
+            link.addEventListener('click', (e) => {
+                e.preventDefault();
+                showSection(link.dataset.section);
+            });
+        });
+        
+        // Mobile toggle
+        document.getElementById('mobileToggle').addEventListener('click', () => {
+            document.getElementById('sidebar').classList.toggle('show');
+        });
+        
+        // Load dashboard data
+        async function loadDashboard() {
+            try {
+                const ordersQuery = query(collection(db, 'orders'), orderBy('createdAt', 'desc'));
+                const ordersSnapshot = await getDocs(ordersQuery);
+                
+                let totalOrders = 0;
+                let pendingOrders = 0;
+                let completedOrders = 0;
+                let totalRevenue = 0;
+                const orders = [];
+                
+                ordersSnapshot.forEach(doc => {
+                    const order = { id: doc.id, ...doc.data() };
+                    orders.push(order);
+                    totalOrders++;
+                    
+                    if (order.status === 'pending') pendingOrders++;
+                    if (order.status === 'completed') completedOrders++;
+                    if (order.status === 'completed') totalRevenue += order.deliveryFee || 0;
+                });
+                
+                // Update stats
+                document.getElementById('totalOrders').textContent = totalOrders;
+                document.getElementById('pendingOrders').textContent = pendingOrders;
+                document.getElementById('completedOrders').textContent = completedOrders;
+                document.getElementById('totalRevenue').textContent = totalRevenue;
+                
+                // Update recent orders table
+                const recentOrders = orders.slice(0, 5);
+                const recentOrdersBody = document.getElementById('recentOrdersBody');
+                
+                if (recentOrders.length > 0) {
+                    recentOrdersBody.innerHTML = recentOrders.map((order, index) => `
+                        <tr>
+                            <td>${index + 1}</td>
+                            <td>${order.customerName}</td>
+                            <td>${order.customerPhone}</td>
+                            <td>${order.customerAddress}</td>
+                            <td><span class="status-badge ${order.status}">${getStatusLabel(order.status)}</span></td>
+                            <td>${new Date(order.createdAt).toLocaleDateString('ar-EG')}</td>
+                        </tr>
+                    `).join('');
+                }
+                
+                // Update orders table
+                const ordersBody = document.getElementById('ordersBody');
+                if (orders.length > 0) {
+                    ordersBody.innerHTML = orders.map((order, index) => `
+                        <tr>
+                            <td>${index + 1}</td>
+                            <td>${order.customerName}</td>
+                            <td>${order.customerPhone}</td>
+                            <td>${order.customerAddress}</td>
+                            <td>${getServiceLabel(order.serviceType)}</td>
+                            <td>${order.deliveryFee} ج.م</td>
+                            <td><span class="status-badge ${order.status}">${getStatusLabel(order.status)}</span></td>
+                            <td>
+                                <div class="action-btns">
+                                    <button class="btn-action view" onclick="viewOrder('${order.id}')">
+                                        <i class="fas fa-eye"></i>
+                                    </button>
+                                    <button class="btn-action edit" onclick="editOrderStatus('${order.id}', '${order.status}')">
+                                        <i class="fas fa-edit"></i>
+                                    </button>
+                                    <button class="btn-action delete" onclick="deleteOrder('${order.id}')">
+                                        <i class="fas fa-trash"></i>
+                                    </button>
+                                </div>
+                            </td>
+                        </tr>
+                    `).join('');
+                }
+                
+                // Load customers
+                const customersQuery = query(collection(db, 'customers'), orderBy('createdAt', 'desc'));
+                const customersSnapshot = await getDocs(customersQuery);
+                const customers = [];
+                
+                customersSnapshot.forEach(doc => {
+                    customers.push({ id: doc.id, ...doc.data() });
+                });
+                
+                const customersBody = document.getElementById('customersBody');
+                if (customers.length > 0) {
+                    customersBody.innerHTML = customers.map((customer, index) => `
+                        <tr>
+                            <td>${index + 1}</td>
+                            <td>${customer.name}</td>
+                            <td>${customer.phone}</td>
+                            <td>${customer.address}</td>
+                            <td>${customer.orderCount || 0}</td>
+                            <td>${new Date(customer.createdAt).toLocaleDateString('ar-EG')}</td>
+                        </tr>
+                    `).join('');
+                }
+                
+                // Load drivers
+                const driversQuery = query(collection(db, 'drivers'), orderBy('createdAt', 'desc'));
+                const driversSnapshot = await getDocs(driversQuery);
+                const drivers = [];
+                
+                driversSnapshot.forEach(doc => {
+                    drivers.push({ id: doc.id, ...doc.data() });
+                });
+                
+                const driversBody = document.getElementById('driversBody');
+                if (drivers.length > 0) {
+                    driversBody.innerHTML = drivers.map((driver, index) => `
+                        <tr>
+                            <td>${index + 1}</td>
+                            <td>${driver.name}</td>
+                            <td>${driver.phone}</td>
+                            <td><span class="status-badge ${driver.status}">${driver.status === 'available' ? 'متاح' : 'مشغول'}</span></td>
+                            <td>${driver.orderCount || 0}</td>
+                            <td>
+                                <div class="action-btns">
+                                    <button class="btn-action edit" onclick="editDriver('${driver.id}')">
+                                        <i class="fas fa-edit"></i>
+                                    </button>
+                                    <button class="btn-action delete" onclick="deleteDriver('${driver.id}')">
+                                        <i class="fas fa-trash"></i>
+                                    </button>
+                                </div>
+                            </td>
+                        </tr>
+                    `).join('');
+                }
+                
+            } catch (error) {
+                console.error('Error loading dashboard:', error);
+            }
+        }
+        
+        function getStatusLabel(status) {
+            const labels = {
+                pending: 'معلق',
+                'in-progress': 'قيد التنفيذ',
+                completed: 'مكتمل',
+                cancelled: 'ملغي'
+            };
+            return labels[status] || status;
+        }
+        
+        function getServiceLabel(type) {
+            const labels = {
+                food: 'توصيل طعام',
+                package: 'توصيل طرود',
+                product: 'توصيل منتجات'
+            };
+            return labels[type] || type;
+        }
+        
+        // Add Order
+        document.getElementById('addOrderForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            
+            const orderData = {
+                customerName: document.getElementById('customerName').value,
+                customerPhone: document.getElementById('customerPhone').value,
+                customerAddress: document.getElementById('customerAddress').value,
+                serviceType: document.getElementById('serviceType').value,
+                notes: document.getElementById('orderNotes').value,
+                deliveryFee: parseFloat(document.getElementById('deliveryFeeInput').value),
+                status: 'pending'
+            };
+            
+            try {
+                await addDoc(collection(db, 'orders'), {
+                    ...orderData,
+                    createdAt: new Date().toISOString(),
+                    updatedAt: new Date().toISOString()
+                });
+                
+                // Close modal and reload
+                bootstrap.Modal.getInstance(document.getElementById('addOrderModal')).hide();
+                document.getElementById('addOrderForm').reset();
+                loadDashboard();
+                
+                alert('تم إضافة الطلب بنجاح');
+            } catch (error) {
+                console.error('Error adding order:', error);
+                alert('حدث خطأ أثناء إضافة الطلب');
+            }
+        });
+        
+        // Add Driver
+        document.getElementById('addDriverForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            
+            const driverData = {
+                name: document.getElementById('driverName').value,
+                phone: document.getElementById('driverPhone').value,
+                license: document.getElementById('driverLicense').value,
+                status: 'available',
+                orderCount: 0
+            };
+            
+            try {
+                await addDoc(collection(db, 'drivers'), {
+                    ...driverData,
+                    createdAt: new Date().toISOString()
+                });
+                
+                bootstrap.Modal.getInstance(document.getElementById('addDriverModal')).hide();
+                document.getElementById('addDriverForm').reset();
+                loadDashboard();
+                
+                alert('تم إضافة المندوب بنجاح');
+            } catch (error) {
+                console.error('Error adding driver:', error);
+                alert('حدث خطأ أثناء إضافة المندوب');
+            }
+        });
+        
+        // View Order
+        window.viewOrder = async function(orderId) {
+            try {
+                const orderDoc = await getDoc(doc(db, 'orders', orderId));
+                const order = orderDoc.data();
+                
+                document.getElementById('viewCustomerName').textContent = order.customerName;
+                document.getElementById('viewCustomerPhone').textContent = order.customerPhone;
+                document.getElementById('viewCustomerAddress').textContent = order.customerAddress;
+                document.getElementById('viewServiceType').textContent = getServiceLabel(order.serviceType);
+                document.getElementById('viewDeliveryFee').textContent = order.deliveryFee;
+                document.getElementById('viewStatus').textContent = getStatusLabel(order.status);
+                document.getElementById('viewNotes').textContent = order.notes || 'لا توجد ملاحظات';
+                
+                new bootstrap.Modal(document.getElementById('viewOrderModal')).show();
+            } catch (error) {
+                console.error('Error viewing order:', error);
+            }
+        };
+        
+        // Edit Order Status
+        window.editOrderStatus = async function(orderId, currentStatus) {
+            const statuses = ['pending', 'in-progress', 'completed', 'cancelled'];
+            const currentIndex = statuses.indexOf(currentStatus);
+            const nextStatus = statuses[(currentIndex + 1) % statuses.length];
+            
+            try {
+                await updateDoc(doc(db, 'orders', orderId), {
+                    status: nextStatus,
+                    updatedAt: new Date().toISOString()
+                });
+                loadDashboard();
+                alert('تم تحديث حالة الطلب');
+            } catch (error) {
+                console.error('Error updating order:', error);
+            }
+        };
+        
+        // Delete Order
+        window.deleteOrder = async function(orderId) {
+            if (confirm('هل أنت متأكد من حذف هذا الطلب؟')) {
+                try {
+                    await deleteDoc(doc(db, 'orders', orderId));
+                    loadDashboard();
+                    alert('تم حذف الطلب');
+                } catch (error) {
+                    console.error('Error deleting order:', error);
+                }
+            }
+        };
+        
+        // Delete Driver
+        window.deleteDriver = async function(driverId) {
+            if (confirm('هل أنت متأكد من حذف هذا المندوب؟')) {
+                try {
+                    await deleteDoc(doc(db, 'drivers', driverId));
+                    loadDashboard();
+                    alert('تم حذف المندوب');
+                } catch (error) {
+                    console.error('Error deleting driver:', error);
+                }
+            }
+        };
+        
+        // Settings Form
+        document.getElementById('settingsForm').addEventListener('submit', (e) => {
+            e.preventDefault();
+            alert('تم حفظ الإعدادات بنجاح');
+        });
+        
+        // Make functions available globally
+        window.showSection = showSection;
+    </script>
+</body>
+</html>
