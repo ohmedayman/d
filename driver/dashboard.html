@@ -1,9 +1,9 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ù„ÙˆØ­Ø© Ø§Ù„Ù…Ù†Ø¯ÙˆØ¨ | Ø®Ù„ÙŠÙƒ Ù…ÙƒØ§Ù†Ùƒ</title>
+    <title>لوحة المندوب | خليك مكانك</title>
     <link rel="icon" type="image/jpeg" href="../assets/images/logo.jpg">
     <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
@@ -20,7 +20,7 @@
     <!-- Header -->
     <div class="d-header">
         <div class="d-header-right">
-            <div class="d-avatar" id="driverAvatar">Ù…</div>
+            <div class="d-avatar" id="driverAvatar">م</div>
             <div class="d-header-info">
                 <h3 id="driverNameHeader">-</h3>
                 <span id="driverAreaHeader">-</span>
@@ -28,9 +28,9 @@
         </div>
         <div class="d-header-left">
             <button class="d-status-badge online" id="statusToggle" onclick="toggleOnline()">
-                <i class="ri-checkbox-blank-circle-fill"></i> <span id="statusText">Ù…ØªØ§Ø­</span>
+                <i class="fas fa-circle"></i> <span id="statusText">متاح</span>
             </button>
-            <button class="btn-logout-d" onclick="logout()"><i class="ri-logout-box-r-line"></i></button>
+            <button class="btn-logout-d" onclick="logout()"><i class="fas fa-sign-out-alt"></i></button>
         </div>
     </div>
 
@@ -38,16 +38,16 @@
     <div class="d-page active" id="page-orders">
         <!-- Stats -->
         <div class="d-stats">
-            <div class="d-stat pending"><h3 id="sPending">0</h3><p>Ù…Ø¹Ù„Ù‚Ø©</p></div>
-            <div class="d-stat active"><h3 id="sActive">0</h3><p>Ù†Ø´Ø·Ø©</p></div>
-            <div class="d-stat done"><h3 id="sDone">0</h3><p>Ù…ÙƒØªÙ…Ù„Ø©</p></div>
+            <div class="d-stat pending"><h3 id="sPending">0</h3><p>معلقة</p></div>
+            <div class="d-stat active"><h3 id="sActive">0</h3><p>نشطة</p></div>
+            <div class="d-stat done"><h3 id="sDone">0</h3><p>مكتملة</p></div>
         </div>
 
         <!-- Active Orders -->
         <div class="d-section">
             <div class="d-section-header">
-                <h2><i class="fas fa-fire" style="color:var(--orange)"></i> Ø§Ù„Ø·Ù„Ø¨Ø§Øª Ø§Ù„Ø­Ø§Ù„ÙŠØ©</h2>
-                <span id="activeCount">0 Ø·Ù„Ø¨</span>
+                <h2><i class="fas fa-fire" style="color:var(--orange)"></i> الطلبات الحالية</h2>
+                <span id="activeCount">0 طلب</span>
             </div>
             <div id="activeOrdersList"></div>
         </div>
@@ -55,8 +55,8 @@
         <!-- Pending Orders -->
         <div class="d-section">
             <div class="d-section-header">
-                <h2><i class="ri-time-line" style="color:var(--orange)"></i> Ø·Ù„Ø¨Ø§Øª ØªØ§Ù†ÙŠØ© Ù…ØªØ§Ø­Ø©</h2>
-                <span id="pendingCount">0 Ø·Ù„Ø¨</span>
+                <h2><i class="fas fa-clock" style="color:var(--orange)"></i> طلبات تانية متاحة</h2>
+                <span id="pendingCount">0 طلب</span>
             </div>
             <div id="pendingOrdersList"></div>
         </div>
@@ -66,7 +66,7 @@
     <div class="d-page" id="page-history">
         <div class="d-section">
             <div class="d-section-header">
-                <h2><i class="fas fa-history" style="color:var(--blue)"></i> Ø³Ø¬Ù„ Ø§Ù„ØªÙˆØµÙŠÙ„Ø§Øª</h2>
+                <h2><i class="fas fa-history" style="color:var(--blue)"></i> سجل التوصيلات</h2>
                 <span id="historyCount">0</span>
             </div>
             <div id="historyList"></div>
@@ -77,21 +77,21 @@
     <div class="d-page" id="page-profile">
         <div class="d-section">
             <div class="d-profile-card">
-                <div class="d-profile-avatar" id="profileAvatar">Ù…</div>
+                <div class="d-profile-avatar" id="profileAvatar">م</div>
                 <h2 id="profileName">-</h2>
                 <p id="profilePhone">-</p>
                 <div class="d-profile-stats">
-                    <div class="d-profile-stat"><h3 id="pTotalOrders">0</h3><p>Ø¥Ø¬Ù…Ø§Ù„ÙŠ Ø§Ù„Ø·Ù„Ø¨Ø§Øª</p></div>
-                    <div class="d-profile-stat"><h3 id="pTodayOrders">0</h3><p>Ø·Ù„Ø¨Ø§Øª Ø§Ù„ÙŠÙˆÙ…</p></div>
-                    <div class="d-profile-stat"><h3 id="pTotalRevenue">0</h3><p>Ø¥Ø¬Ù…Ø§Ù„ÙŠ Ø§Ù„Ø£Ø±Ø¨Ø§Ø­</p></div>
+                    <div class="d-profile-stat"><h3 id="pTotalOrders">0</h3><p>إجمالي الطلبات</p></div>
+                    <div class="d-profile-stat"><h3 id="pTodayOrders">0</h3><p>طلبات اليوم</p></div>
+                    <div class="d-profile-stat"><h3 id="pTotalRevenue">0</h3><p>إجمالي الأرباح</p></div>
                 </div>
             </div>
 
             <div style="background:#fff;border-radius:18px;padding:1.2rem;box-shadow:0 2px 12px rgba(0,0,0,.05)">
-                <div class="d-info-row"><span class="lbl"><i class="ri-phone-line"></i> Ø§Ù„ØªÙ„ÙŠÙÙˆÙ†</span><span class="val" id="pPhone">-</span></div>
-                <div class="d-info-row"><span class="lbl"><i class="ri-motorbike-line"></i> Ø§Ù„Ù…ÙˆØªÙˆØ³ÙŠÙƒÙ„</span><span class="val" id="pBike">-</span></div>
-                <div class="d-info-row"><span class="lbl"><i class="ri-map-pin-line"></i> Ø§Ù„Ù…Ù†Ø·Ù‚Ø©</span><span class="val" id="pArea">-</span></div>
-                <div class="d-info-row"><span class="lbl"><i class="ri-checkbox-blank-circle-fill" id="pStatusIcon"></i> Ø§Ù„Ø­Ø§Ù„Ø©</span><span class="val" id="pStatus">-</span></div>
+                <div class="d-info-row"><span class="lbl"><i class="fas fa-phone"></i> التليفون</span><span class="val" id="pPhone">-</span></div>
+                <div class="d-info-row"><span class="lbl"><i class="fas fa-motorcycle"></i> الموتوسيكل</span><span class="val" id="pBike">-</span></div>
+                <div class="d-info-row"><span class="lbl"><i class="fas fa-map-marker-alt"></i> المنطقة</span><span class="val" id="pArea">-</span></div>
+                <div class="d-info-row"><span class="lbl"><i class="fas fa-circle" id="pStatusIcon"></i> الحالة</span><span class="val" id="pStatus">-</span></div>
             </div>
         </div>
     </div>
@@ -103,17 +103,17 @@
     <div class="d-bottom-nav">
         <div class="d-bottom-nav-items">
             <button class="d-bottom-nav-item active" data-page="orders" onclick="switchPage('orders')">
-                <i class="ri-shopping-cart-2-line"></i>
-                <span>Ø§Ù„Ø·Ù„Ø¨Ø§Øª</span>
+                <i class="fas fa-shopping-cart"></i>
+                <span>الطلبات</span>
                 <span class="d-bottom-nav-badge" id="ordersBadge" style="display:none">0</span>
             </button>
             <button class="d-bottom-nav-item" data-page="history" onclick="switchPage('history')">
                 <i class="fas fa-history"></i>
-                <span>Ø§Ù„Ø³Ø¬Ù„</span>
+                <span>السجل</span>
             </button>
             <button class="d-bottom-nav-item" data-page="profile" onclick="switchPage('profile')">
-                <i class="ri-user-line"></i>
-                <span>Ø§Ù„Ø¨Ø±ÙˆÙØ§ÙŠÙ„</span>
+                <i class="fas fa-user"></i>
+                <span>البروفايل</span>
             </button>
         </div>
     </div>
@@ -147,9 +147,9 @@
     };
 
     /* ===== CONSTANTS ===== */
-    const svcL = { food:'Ø·Ø¹Ø§Ù…', package:'Ø·Ø±ÙˆØ¯', product:'Ù…Ù†ØªØ¬Ø§Øª' };
+    const svcL = { food:'طعام', package:'طرود', product:'منتجات' };
     const svcC = { food:'food', package:'package', product:'product' };
-    const stL = { pending:'Ù…Ø¹Ù„Ù‚', confirmed:'Ù…Ø¤ÙƒØ¯', picked:'ØªÙ… Ø§Ù„Ø§Ø³ØªÙ„Ø§Ù…', delivering:'ÙÙŠ Ø§Ù„Ø·Ø±ÙŠÙ‚', completed:'Ù…ÙƒØªÙ…Ù„', cancelled:'Ù…Ù„ØºÙŠ' };
+    const stL = { pending:'معلق', confirmed:'مؤكد', picked:'تم الاستلام', delivering:'في الطريق', completed:'مكتمل', cancelled:'ملغي' };
 
     /* ===== GET DRIVER DATA ===== */
     async function getDriver() {
@@ -164,15 +164,15 @@
         const myOrders = allOrders.filter(o => o.driverPhone === driverPhone || o.driverName === driverName);
 
         // Header
-        document.getElementById('driverAvatar').textContent = (driver.name || driverName || 'Ù…')[0];
+        document.getElementById('driverAvatar').textContent = (driver.name || driverName || 'م')[0];
         document.getElementById('driverNameHeader').textContent = driver.name || driverName;
-        document.getElementById('driverAreaHeader').textContent = driver.area || 'Ø§Ù„ÙÙŠÙˆÙ…';
+        document.getElementById('driverAreaHeader').textContent = driver.area || 'الفيوم';
 
         // Online status
         const isOnline = driver.status !== 'busy';
         const toggle = document.getElementById('statusToggle');
         toggle.className = 'd-status-badge ' + (isOnline ? 'online' : 'offline');
-        document.getElementById('statusText').textContent = isOnline ? 'Ù…ØªØ§Ø­' : 'Ù…Ø´ØºÙˆÙ„';
+        document.getElementById('statusText').textContent = isOnline ? 'متاح' : 'مشغول';
 
         // Stats
         const active = myOrders.filter(o => ['confirmed','picked','delivering'].includes(o.status));
@@ -190,20 +190,20 @@
         // Active Orders
         const al = document.getElementById('activeOrdersList');
         const allActive = [...active, ...pending].filter(o => o.status !== 'completed' && o.status !== 'cancelled');
-        document.getElementById('activeCount').textContent = allActive.length + ' Ø·Ù„Ø¨';
+        document.getElementById('activeCount').textContent = allActive.length + ' طلب';
 
         if (!allActive.length) {
-            al.innerHTML = '<div class="d-empty"><i class="ri-checkbox-circle-line"></i><h3>Ù…ÙÙŠØ´ Ø·Ù„Ø¨Ø§Øª Ø­Ø§Ù„ÙŠØ§Ù‹</h3><p>Ø§Ø³ØªÙ†Ù‰ Ø·Ù„Ø¨ Ø¬Ø¯ÙŠØ¯</p></div>';
+            al.innerHTML = '<div class="d-empty"><i class="fas fa-check-circle"></i><h3>مفيش طلبات حالياً</h3><p>استنى طلب جديد</p></div>';
         } else {
             al.innerHTML = allActive.map(o => renderOrderCard(o)).join('');
         }
 
         // Pending (unassigned)
         const unassigned = allOrders.filter(o => o.status === 'pending' && !o.driverName);
-        document.getElementById('pendingCount').textContent = unassigned.length + ' Ø·Ù„Ø¨';
+        document.getElementById('pendingCount').textContent = unassigned.length + ' طلب';
         const pl = document.getElementById('pendingOrdersList');
         if (!unassigned.length) {
-            pl.innerHTML = '<div class="d-empty"><i class="fas fa-inbox"></i><h3>Ù…ÙÙŠØ´ Ø·Ù„Ø¨Ø§Øª Ù…ØªØ§Ø­Ø©</h3></div>';
+            pl.innerHTML = '<div class="d-empty"><i class="fas fa-inbox"></i><h3>مفيش طلبات متاحة</h3></div>';
         } else {
             pl.innerHTML = unassigned.map(o => renderOrderCard(o, true)).join('');
         }
@@ -212,16 +212,16 @@
         const hl = document.getElementById('historyList');
         document.getElementById('historyCount').textContent = done.length;
         if (!done.length) {
-            hl.innerHTML = '<div class="d-empty"><i class="fas fa-history"></i><h3>Ù…ÙÙŠØ´ ØªÙˆØµÙŠÙ„Ø§Øª Ù„Ø³Ù‡</h3><p>Ø§Ø¨Ø¯Ø£ Ø£ÙˆÙ„ ØªÙˆØµÙŠÙ„</p></div>';
+            hl.innerHTML = '<div class="d-empty"><i class="fas fa-history"></i><h3>مفيش توصيلات لسه</h3><p>ابدأ أول توصيل</p></div>';
         } else {
             hl.innerHTML = done.map(o => `
                 <div class="d-history-card">
                     <div class="d-history-info">
-                        <h4><i class="ri-archive-line" style="color:var(--primary-dark);margin-left:.3rem"></i> ${o.orderId || o.id.toUpperCase()}</h4>
+                        <h4><i class="fas fa-box" style="color:var(--primary-dark);margin-left:.3rem"></i> ${o.orderId || o.id.toUpperCase()}</h4>
                         <p>${o.customerName} - ${svcL[o.serviceType]||o.serviceType}</p>
                     </div>
                     <div class="d-history-right">
-                        <div class="d-history-fee">${o.deliveryFee || 0} Ø¬.Ù…</div>
+                        <div class="d-history-fee">${o.deliveryFee || 0} ج.م</div>
                         <div class="d-history-date">${o.completedAt ? new Date(o.completedAt).toLocaleDateString('ar-EG') : ''}</div>
                     </div>
                 </div>
@@ -229,20 +229,20 @@
         }
 
         // Profile
-        document.getElementById('profileAvatar').textContent = (driver.name || driverName || 'Ù…')[0];
+        document.getElementById('profileAvatar').textContent = (driver.name || driverName || 'م')[0];
         document.getElementById('profileName').textContent = driver.name || driverName;
         document.getElementById('profilePhone').textContent = driverPhone;
         document.getElementById('pPhone').textContent = driverPhone;
-        document.getElementById('pBike').textContent = driver.bike || 'â€”';
-        document.getElementById('pArea').textContent = driver.area || 'Ø§Ù„ÙÙŠÙˆÙ…';
-        document.getElementById('pStatus').textContent = isOnline ? 'Ù…ØªØ§Ø­' : 'Ù…Ø´ØºÙˆÙ„';
+        document.getElementById('pBike').textContent = driver.bike || '—';
+        document.getElementById('pArea').textContent = driver.area || 'الفيوم';
+        document.getElementById('pStatus').textContent = isOnline ? 'متاح' : 'مشغول';
         document.getElementById('pStatusIcon').style.color = isOnline ? 'var(--green)' : 'var(--red)';
 
         // Profile stats
         document.getElementById('pTotalOrders').textContent = done.length;
         const today = new Date().toDateString();
         document.getElementById('pTodayOrders').textContent = done.filter(o => o.completedAt && new Date(o.completedAt).toDateString() === today).length;
-        document.getElementById('pTotalRevenue').textContent = done.reduce((s,o) => s + (o.deliveryFee||0), 0) + ' Ø¬.Ù…';
+        document.getElementById('pTotalRevenue').textContent = done.reduce((s,o) => s + (o.deliveryFee||0), 0) + ' ج.م';
     }
 
     function renderOrderCard(o, canAccept) {
@@ -250,25 +250,25 @@
         let actions = '';
 
         if (canAccept && !isMine) {
-            actions = `<button class="btn-accept" onclick="acceptOrder('${o.id}')"><i class="ri-check-line"></i> Ø£Ù‚Ø¨Ù„ Ø§Ù„Ø·Ù„Ø¨</button>`;
+            actions = `<button class="btn-accept" onclick="acceptOrder('${o.id}')"><i class="fas fa-check"></i> أقبل الطلب</button>`;
         } else if (isMine) {
             switch (o.status) {
                 case 'confirmed':
-                    actions = `<button class="btn-pickup" onclick="updateStatus('${o.id}','picked')"><i class="ri-archive-line-open"></i> Ø§Ø³ØªÙ„Ù…Øª Ø§Ù„Ø·Ù„Ø¨</button>`;
+                    actions = `<button class="btn-pickup" onclick="updateStatus('${o.id}','picked')"><i class="fas fa-box-open"></i> استلمت الطلب</button>`;
                     break;
                 case 'picked':
-                    actions = `<button class="btn-delivering" onclick="updateStatus('${o.id}','delivering')"><i class="ri-motorbike-line"></i> ÙÙŠ Ø§Ù„Ø·Ø±ÙŠÙ‚</button>`;
+                    actions = `<button class="btn-delivering" onclick="updateStatus('${o.id}','delivering')"><i class="fas fa-motorcycle"></i> في الطريق</button>`;
                     break;
                 case 'delivering':
-                    actions = `<button class="btn-complete" onclick="updateStatus('${o.id}','completed')"><i class="ri-check-line-double"></i> ØªÙ… Ø§Ù„ØªÙˆØµÙŠÙ„</button>`;
+                    actions = `<button class="btn-complete" onclick="updateStatus('${o.id}','completed')"><i class="fas fa-check-double"></i> تم التوصيل</button>`;
                     break;
             }
         }
 
         if (isMine && o.status !== 'completed' && o.status !== 'cancelled') {
-            actions += `<a href="tel:${o.customerPhone}" class="btn-call"><i class="ri-phone-line"></i> Ø§ØªØµÙ„</a>`;
+            actions += `<a href="tel:${o.customerPhone}" class="btn-call"><i class="fas fa-phone"></i> اتصل</a>`;
             actions += `<a href="https://wa.me/20${o.customerPhone}" target="_blank" class="btn-wa"><i class="fab fa-whatsapp"></i></a>`;
-            actions += `<a href="https://maps.google.com/?q=${encodeURIComponent(o.customerAddress||'')}" target="_blank" class="btn-nav"><i class="ri-map-pin-line"></i></a>`;
+            actions += `<a href="https://maps.google.com/?q=${encodeURIComponent(o.customerAddress||'')}" target="_blank" class="btn-nav"><i class="fas fa-map-marker-alt"></i></a>`;
         }
 
         return `
@@ -278,14 +278,14 @@
                 <div class="d-order-svc ${svcC[o.serviceType]||''}">${svcL[o.serviceType]||o.serviceType}</div>
             </div>
             <div class="d-order-customer">
-                <h4><i class="ri-user-line" style="color:var(--primary-dark);margin-left:.3rem;font-size:.8rem"></i> ${o.customerName||'-'}</h4>
-                <p><i class="ri-phone-line"></i> ${o.customerPhone||'-'}</p>
-                <p><i class="ri-map-pin-line"></i> ${o.customerAddress||'-'}</p>
+                <h4><i class="fas fa-user" style="color:var(--primary-dark);margin-left:.3rem;font-size:.8rem"></i> ${o.customerName||'-'}</h4>
+                <p><i class="fas fa-phone"></i> ${o.customerPhone||'-'}</p>
+                <p><i class="fas fa-map-marker-alt"></i> ${o.customerAddress||'-'}</p>
                 ${o.notes ? '<p><i class="fas fa-sticky-note"></i> '+o.notes+'</p>' : ''}
             </div>
             <div class="d-order-meta">
-                <div class="d-order-meta-item"><span class="meta-label">Ø§Ù„ØªÙƒÙ„ÙØ©</span><span class="meta-value">${o.deliveryFee||0} Ø¬.Ù…</span></div>
-                <div class="d-order-meta-item"><span class="meta-label">Ø§Ù„ÙˆÙ‚Øª</span><span class="meta-value">${o.createdAt ? new Date(o.createdAt).toLocaleTimeString('ar-EG',{hour:'2-digit',minute:'2-digit'}) : '-'}</span></div>
+                <div class="d-order-meta-item"><span class="meta-label">التكلفة</span><span class="meta-value">${o.deliveryFee||0} ج.م</span></div>
+                <div class="d-order-meta-item"><span class="meta-label">الوقت</span><span class="meta-value">${o.createdAt ? new Date(o.createdAt).toLocaleTimeString('ar-EG',{hour:'2-digit',minute:'2-digit'}) : '-'}</span></div>
             </div>
             <div class="d-order-actions">${actions}</div>
         </div>`;
@@ -294,7 +294,7 @@
     /* ===== ACTIONS ===== */
     window.acceptOrder = async function(id) {
         await DB.update('orders', id, { driverName: driverName, driverPhone: driverPhone, status: 'confirmed', confirmedAt: new Date().toISOString() });
-        toast('ØªÙ… Ù‚Ø¨ÙˆÙ„ Ø§Ù„Ø·Ù„Ø¨', 'success');
+        toast('تم قبول الطلب', 'success');
         await render();
     };
 
@@ -309,7 +309,7 @@
             });
         }
         await DB.update('orders', id, updates);
-        toast('ØªÙ… Ø§Ù„ØªØ­Ø¯ÙŠØ«: ' + stL[status], 'success');
+        toast('تم التحديث: ' + stL[status], 'success');
         await render();
     };
 
@@ -317,7 +317,7 @@
         const driver = await getDriver();
         const newStatus = driver.status === 'available' ? 'busy' : 'available';
         await firebase.firestore().collection('drivers').doc(driverId).update({ status: newStatus });
-        toast(newStatus === 'available' ? 'Ø£Ù†Øª Ù…ØªØ§Ø­ Ø¯Ù„ÙˆÙ‚ØªÙŠ' : 'Ø£Ù†Øª Ù…Ø´ØºÙˆÙ„', 'info');
+        toast(newStatus === 'available' ? 'أنت متاح دلوقتي' : 'أنت مشغول', 'info');
         await render();
     };
 

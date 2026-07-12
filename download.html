@@ -1,15 +1,15 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ØªØ­Ù…ÙŠÙ„ Ø§Ù„ØªØ·Ø¨ÙŠÙ‚ | Ø®Ù„ÙŠÙƒ Ù…ÙƒØ§Ù†Ùƒ</title>
+    <title>تحميل التطبيق | خليك مكانك</title>
     <link rel="icon" type="image/jpeg" href="assets/images/logo.jpg">
     <link rel="manifest" href="manifest.json">
     <meta name="theme-color" content="#FFD700">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-    <meta name="apple-mobile-web-app-title" content="Ø®Ù„ÙŠÙƒ Ù…ÙƒØ§Ù†Ùƒ">
+    <meta name="apple-mobile-web-app-title" content="خليك مكانك">
     <link rel="apple-touch-icon" href="assets/images/logo.jpg">
     <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
@@ -108,63 +108,63 @@
 <div class="page-wrapper">
     <!-- Install Banner -->
     <div class="install-banner" id="installBanner" onclick="installPWA()">
-        <i class="ri-download-line"></i>
+        <i class="fas fa-download"></i>
         <div class="install-banner-text">
-            <h4>Ø«Ø¨Øª Ø§Ù„ØªØ·Ø¨ÙŠÙ‚ Ø¹Ù„Ù‰ Ø¬Ù‡Ø§Ø²Ùƒ!</h4>
-            <p>Ø§Ø¶ØºØ· Ù‡Ù†Ø§ Ù„ØªØ«Ø¨ÙŠØª Ø®Ù„ÙŠÙƒ Ù…ÙƒØ§Ù†Ùƒ</p>
+            <h4>ثبت التطبيق على جهازك!</h4>
+            <p>اضغط هنا لتثبيت خليك مكانك</p>
         </div>
-        <button class="close-btn" onclick="event.stopPropagation();document.getElementById('installBanner').classList.remove('show')"><i class="ri-close-line"></i></button>
+        <button class="close-btn" onclick="event.stopPropagation();document.getElementById('installBanner').classList.remove('show')"><i class="fas fa-times"></i></button>
     </div>
 
     <!-- Hero -->
     <div class="hero">
-        <div class="logo-wrap"><img src="assets/images/logo.jpg" alt="Ø®Ù„ÙŠÙƒ Ù…ÙƒØ§Ù†Ùƒ"></div>
-        <h1>Ø­Ù…Ù‘Ù„ ØªØ·Ø¨ÙŠÙ‚ Ø®Ù„ÙŠÙƒ Ù…ÙƒØ§Ù†Ùƒ</h1>
-        <p>ØªÙˆØµÙŠÙ„ Ø³Ø±ÙŠØ¹ ÙˆØ³Ù‡Ù„ Ù„Ø­Ø¯ Ø¨Ø§Ø¨ Ø¨ÙŠØªÙƒ ÙÙŠ Ø§Ù„ÙÙŠÙˆÙ…</p>
+        <div class="logo-wrap"><img src="assets/images/logo.jpg" alt="خليك مكانك"></div>
+        <h1>حمّل تطبيق خليك مكانك</h1>
+        <p>توصيل سريع وسهل لحد باب بيتك في الفيوم</p>
     </div>
 
     <!-- Customer App -->
     <div class="app-card">
-        <div class="app-icon"><img src="assets/images/logo.jpg" alt="Ø®Ù„ÙŠÙƒ Ù…ÙƒØ§Ù†Ùƒ"></div>
-        <h2>ØªØ·Ø¨ÙŠÙ‚ Ø§Ù„Ø¹Ù…ÙŠÙ„</h2>
-        <div class="app-type">Ù„Ù„Ø·Ù„Ø¨Ø§Øª ÙˆØ§Ù„ØªØªØ¨Ø¹</div>
+        <div class="app-icon"><img src="assets/images/logo.jpg" alt="خليك مكانك"></div>
+        <h2>تطبيق العميل</h2>
+        <div class="app-type">للطلبات والتتبع</div>
         <ul class="app-features">
-            <li><i class="ri-checkbox-circle-line"></i> Ø§Ø·Ù„Ø¨ Ø·Ø¹Ø§Ù… ÙˆØ·Ø±ÙˆØ¯ ÙˆÙ…Ù†ØªØ¬Ø§Øª</li>
-            <li><i class="ri-checkbox-circle-line"></i> ØªØªØ¨Ø¹ Ø·Ù„Ø¨Ùƒ Ù„Ø­Ø¸Ø© Ø¨Ù„Ø­Ø¸Ø©</li>
-            <li><i class="ri-checkbox-circle-line"></i> Ø³Ø¬Ù„ Ø­Ø³Ø§Ø¨Ùƒ ÙˆØ´ÙˆÙ Ø·Ù„Ø¨Ø§ØªÙƒ</li>
-            <li><i class="ri-checkbox-circle-line"></i> Ø¯ÙØ¹ Ø¹Ù†Ø¯ Ø§Ù„Ø§Ø³ØªÙ„Ø§Ù…</li>
+            <li><i class="fas fa-check-circle"></i> اطلب طعام وطرود ومنتجات</li>
+            <li><i class="fas fa-check-circle"></i> تتبع طلبك لحظة بلحظة</li>
+            <li><i class="fas fa-check-circle"></i> سجل حسابك وشوف طلباتك</li>
+            <li><i class="fas fa-check-circle"></i> دفع عند الاستلام</li>
         </ul>
         <div class="download-btns">
             <a href="#" class="dl-btn dl-pwa" id="installCustomerBtn" onclick="installPWA();return false">
-                <i class="ri-smartphone-line"></i>
-                <div class="dl-btn-text">ØªØ«Ø¨ÙŠØª Ø¹Ù„Ù‰ Ø§Ù„Ù‡Ø§ØªÙ<span class="dl-sub">ÙŠØ¹Ù…Ù„ Ø¹Ù„Ù‰ Android Ùˆ iPhone</span></div>
+                <i class="fas fa-mobile-alt"></i>
+                <div class="dl-btn-text">تثبيت على الهاتف<span class="dl-sub">يعمل على Android و iPhone</span></div>
             </a>
             <a href="order.html" class="dl-btn dl-android">
-                <i class="ri-global-line"></i>
-                <div class="dl-btn-text">Ø§ÙØªØ­ Ø§Ù„Ù…ÙˆÙ‚Ø¹<span class="dl-sub">Ø§Ù„Ù†Ø³Ø®Ø© Ø§Ù„Ù…Ø­Ù…ÙˆÙ„Ø©</span></div>
+                <i class="fas fa-globe"></i>
+                <div class="dl-btn-text">افتح الموقع<span class="dl-sub">النسخة المحمولة</span></div>
             </a>
         </div>
     </div>
 
     <!-- Driver App -->
     <div class="app-card">
-        <div class="app-icon"><img src="assets/images/logo.jpg" alt="Ø®Ù„ÙŠÙƒ Ù…ÙƒØ§Ù†Ùƒ"></div>
-        <h2>ØªØ·Ø¨ÙŠÙ‚ Ø§Ù„Ù…Ù†Ø¯ÙˆØ¨</h2>
-        <div class="app-type">Ù„ØªÙˆØµÙŠÙ„ Ø§Ù„Ø·Ù„Ø¨Ø§Øª</div>
+        <div class="app-icon"><img src="assets/images/logo.jpg" alt="خليك مكانك"></div>
+        <h2>تطبيق المندوب</h2>
+        <div class="app-type">لتوصيل الطلبات</div>
         <ul class="app-features">
-            <li><i class="ri-checkbox-circle-line"></i> Ø´ÙˆÙ Ø§Ù„Ø·Ù„Ø¨Ø§Øª Ø§Ù„Ù…ØªØ§Ø­Ø©</li>
-            <li><i class="ri-checkbox-circle-line"></i> Ù‚Ø¨Ù„ Ø£Ùˆ Ø±ÙØ¶ Ø§Ù„Ø·Ù„Ø¨Ø§Øª</li>
-            <li><i class="ri-checkbox-circle-line"></i> Ø­Ø¯Ù‘Ø« Ø­Ø§Ù„Ø© Ø§Ù„Ø·Ù„Ø¨</li>
-            <li><i class="ri-checkbox-circle-line"></i> ØªØ§Ø¨Ø¹ Ø£Ø±Ø¨Ø§Ø­Ùƒ</li>
+            <li><i class="fas fa-check-circle"></i> شوف الطلبات المتاحة</li>
+            <li><i class="fas fa-check-circle"></i> قبل أو رفض الطلبات</li>
+            <li><i class="fas fa-check-circle"></i> حدّث حالة الطلب</li>
+            <li><i class="fas fa-check-circle"></i> تابع أرباحك</li>
         </ul>
         <div class="download-btns">
             <a href="driver/login.html" class="dl-btn dl-pwa">
-                <i class="ri-motorbike-line"></i>
-                <div class="dl-btn-text">Ø§ÙØªØ­ ØªØ·Ø¨ÙŠÙ‚ Ø§Ù„Ù…Ù†Ø¯ÙˆØ¨<span class="dl-sub">Ø³Ø¬Ù„ Ø¯Ø®ÙˆÙ„Ùƒ Ù‡Ù†Ø§</span></div>
+                <i class="fas fa-motorcycle"></i>
+                <div class="dl-btn-text">افتح تطبيق المندوب<span class="dl-sub">سجل دخولك هنا</span></div>
             </a>
             <a href="driver/login.html" class="dl-btn dl-android">
-                <i class="ri-global-line"></i>
-                <div class="dl-btn-text">Ø§Ù„Ù†Ø³Ø®Ø© Ø§Ù„Ù…Ø­Ù…ÙˆÙ„Ø©<span class="dl-sub">ØªØ¹Ù…Ù„ Ø¹Ù„Ù‰ Ø£ÙŠ Ù…ØªØµÙØ­</span></div>
+                <i class="fas fa-globe"></i>
+                <div class="dl-btn-text">النسخة المحمولة<span class="dl-sub">تعمل على أي متصفح</span></div>
             </a>
         </div>
     </div>
@@ -172,54 +172,54 @@
     <!-- Features -->
     <div class="features-grid">
         <div class="feat-item">
-            <i class="ri-flashlight-line"></i>
-            <h4>Ø³Ø±ÙŠØ¹</h4>
-            <p>ØªÙˆØµÙŠÙ„ ÙÙŠ 30 Ø¯Ù‚ÙŠÙ‚Ø©</p>
+            <i class="fas fa-bolt"></i>
+            <h4>سريع</h4>
+            <p>توصيل في 30 دقيقة</p>
         </div>
         <div class="feat-item">
-            <i class="ri-shield-check-line"></i>
-            <h4>Ø¢Ù…Ù†</h4>
-            <p>Ø¶Ù…Ø§Ù† Ø§Ù„ØªÙˆØµÙŠÙ„</p>
+            <i class="fas fa-shield-alt"></i>
+            <h4>آمن</h4>
+            <p>ضمان التوصيل</p>
         </div>
         <div class="feat-item">
-            <i class="ri-map-pin-line"></i>
-            <h4>ØªØªØ¨Ø¹</h4>
-            <p>ØªØ§Ø¨Ø¹ Ø·Ù„Ø¨Ùƒ</p>
+            <i class="fas fa-map-marker-alt"></i>
+            <h4>تتبع</h4>
+            <p>تابع طلبك</p>
         </div>
         <div class="feat-item">
-            <i class="ri-customer-service-line"></i>
-            <h4>Ø¯Ø¹Ù…</h4>
-            <p>24/7 Ø®Ø¯Ù…Ø© Ø¹Ù…Ù„Ø§Ø¡</p>
+            <i class="fas fa-headset"></i>
+            <h4>دعم</h4>
+            <p>24/7 خدمة عملاء</p>
         </div>
     </div>
 
     <!-- How to Install -->
     <div class="install-steps">
-        <h3><i class="ri-information-line"></i> Ø§Ø²Ø§ÙŠ ØªØ«Ø¨Øª Ø§Ù„ØªØ·Ø¨ÙŠÙ‚</h3>
+        <h3><i class="fas fa-info-circle"></i> ازاي تثبت التطبيق</h3>
         <div class="step-item">
             <div class="step-num">1</div>
             <div class="step-text">
-                <h4>Ø§ÙØªØ­ Ø§Ù„Ù…ÙˆÙ‚Ø¹ ÙÙŠ Ø§Ù„Ù…ØªØµÙØ­</h4>
-                <p>Ø§Ø¯Ø®Ù„ Ø¹Ù„Ù‰ Ø§Ù„Ù…ÙˆÙ‚Ø¹ Ù…Ù† Chrome Ø£Ùˆ Safari Ø¹Ù„Ù‰ Ù…ÙˆØ¨Ø§ÙŠÙ„Ùƒ</p>
+                <h4>افتح الموقع في المتصفح</h4>
+                <p>ادخل على الموقع من Chrome أو Safari على موبايلك</p>
             </div>
         </div>
         <div class="step-item">
             <div class="step-num">2</div>
             <div class="step-text">
-                <h4>Ø§Ø¶ØºØ· "Ø¥Ø¶Ø§ÙØ© Ù„Ù„Ø´Ø§Ø´Ø© Ø§Ù„Ø±Ø¦ÙŠØ³ÙŠØ©"</h4>
-                <p>Ù…Ù† Ù‚Ø§Ø¦Ù…Ø© Ø§Ù„Ù…ØªØµÙØ­ (three dots) Ø§Ø®ØªØ§Ø± "Add to Home Screen"</p>
+                <h4>اضغط "إضافة للشاشة الرئيسية"</h4>
+                <p>من قائمة المتصفح (three dots) اختار "Add to Home Screen"</p>
             </div>
         </div>
         <div class="step-item">
             <div class="step-num">3</div>
             <div class="step-text">
-                <h4>Ø§Ø¨Ø¯Ø£ Ø§Ù„Ø§Ø³ØªØ®Ø¯Ø§Ù…!</h4>
-                <p>Ø§Ù„ØªØ·Ø¨ÙŠÙ‚ Ù‡ÙŠÙØªØ­ Ø²ÙŠ Ø£ÙŠ Ø£Ø¨Ù„ÙŠÙƒÙŠØ´Ù† Ø¹Ø§Ø¯ÙŠ Ø¹Ù„Ù‰ Ø§Ù„Ù…ÙˆØ¨Ø§ÙŠÙ„</p>
+                <h4>ابدأ الاستخدام!</h4>
+                <p>التطبيق هيفتح زي أي أبليكيشن عادي على الموبايل</p>
             </div>
         </div>
     </div>
 
-    <div class="back"><a href="index.html"><i class="ri-arrow-right-line"></i> Ø§Ù„Ø¹ÙˆØ¯Ø© Ù„Ù„Ù…ÙˆÙ‚Ø¹</a></div>
+    <div class="back"><a href="index.html"><i class="fas fa-arrow-right"></i> العودة للموقع</a></div>
 </div>
 
 <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app-compat.js"></script>
@@ -243,7 +243,7 @@
 
     function installPWA() {
         if (!deferredPrompt) {
-            alert('Ù…Ù…ÙƒÙ† ØªØ«Ø¨Øª Ø§Ù„ØªØ·Ø¨ÙŠÙ‚ Ù…Ù† Ù‚Ø§Ø¦Ù…Ø© Ø§Ù„Ù…ØªØµÙØ­ (three dots â†’ Add to Home Screen)');
+            alert('ممكن تثبت التطبيق من قائمة المتصفح (three dots → Add to Home Screen)');
             return;
         }
         deferredPrompt.prompt();
@@ -262,4 +262,3 @@
 </script>
 </body>
 </html>
-

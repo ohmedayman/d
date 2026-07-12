@@ -1,9 +1,9 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ø·Ù„Ø¨ Ø¬Ø¯ÙŠØ¯ | Ø®Ù„ÙŠÙƒ Ù…ÙƒØ§Ù†Ùƒ</title>
+    <title>طلب جديد | خليك مكانك</title>
     <link rel="icon" type="image/jpeg" href="assets/images/logo.jpg">
     <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
@@ -142,14 +142,14 @@
 
 <div class="loading" id="loading">
     <div class="spinner"></div>
-    <p>Ø¬Ø§Ø±ÙŠ Ø¥Ø±Ø³Ø§Ù„ Ø·Ù„Ø¨Ùƒ...</p>
+    <p>جاري إرسال طلبك...</p>
 </div>
 
 <div class="page-wrapper">
     <div class="header">
-        <div class="logo-wrap"><img src="assets/images/logo.jpg" alt="Ø®Ù„ÙŠÙƒ Ù…ÙƒØ§Ù†Ùƒ"></div>
-        <h1>Ø§Ø·Ù„Ø¨ ØªÙˆØµÙŠÙ„</h1>
-        <p>3 Ø®Ø·ÙˆØ§Øª Ø¨Ø³ÙŠØ·Ø© ÙˆØ·Ù„Ø¨Ùƒ Ø¹Ù†Ø¯Ùƒ</p>
+        <div class="logo-wrap"><img src="assets/images/logo.jpg" alt="خليك مكانك"></div>
+        <h1>اطلب توصيل</h1>
+        <p>3 خطوات بسيطة وطلبك عندك</p>
     </div>
 
     <div class="card" id="mainCard">
@@ -163,93 +163,93 @@
 
         <form id="orderForm">
             <div class="step active" data-step="1">
-                <h3><i class="ri-list-check-2"></i> Ø§ÙŠÙ‡ Ø§Ù„Ù„ÙŠ Ø¹Ø§ÙŠØ² ØªÙˆØµÙŠÙ„Ù‡ØŸ</h3>
+                <h3><i class="fas fa-list-ul"></i> ايه اللي عايز توصيله؟</h3>
                 <div class="services">
                     <div class="svc svc-food">
                         <input type="radio" name="service" id="svc-food" value="food" required>
-                        <label for="svc-food"><div class="svc-icon"><i class="ri-restaurant-line"></i></div><div><span>Ø·Ø¹Ø§Ù…</span><small>Ù…Ø·Ø§Ø¹Ù… ÙˆØ£ÙƒÙ„</small></div></label>
+                        <label for="svc-food"><div class="svc-icon"><i class="fas fa-utensils"></i></div><div><span>طعام</span><small>مطاعم وأكل</small></div></label>
                     </div>
                     <div class="svc svc-package">
                         <input type="radio" name="service" id="svc-package" value="package">
-                        <label for="svc-package"><div class="svc-icon"><i class="ri-archive-line"></i></div><div><span>Ø·Ø±ÙˆØ¯</span><small>ØªÙˆØµÙŠÙ„ Ø£ÙŠ Ø­Ø§Ø¬Ø©</small></div></label>
+                        <label for="svc-package"><div class="svc-icon"><i class="fas fa-box"></i></div><div><span>طرود</span><small>توصيل أي حاجة</small></div></label>
                     </div>
                     <div class="svc svc-product">
                         <input type="radio" name="service" id="svc-product" value="product">
-                        <label for="svc-product"><div class="svc-icon"><i class="ri-shopping-bag-line"></i></div><div><span>Ù…Ù†ØªØ¬Ø§Øª</span><small>Ù…Ù†ØªØ¬Ø§Øª Ù…ØªÙ†ÙˆØ¹Ø©</small></div></label>
+                        <label for="svc-product"><div class="svc-icon"><i class="fas fa-shopping-bag"></i></div><div><span>منتجات</span><small>منتجات متنوعة</small></div></label>
                     </div>
                 </div>
-                <button type="button" class="btn-primary-custom" onclick="goStep(2)">Ø§Ù„ØªØ§Ù„ÙŠ <i class="ri-arrow-left-line"></i></button>
+                <button type="button" class="btn-primary-custom" onclick="goStep(2)">التالي <i class="fas fa-arrow-left"></i></button>
             </div>
 
             <div class="step" data-step="2">
-                <h3><i class="ri-user-line"></i> Ø¨ÙŠØ§Ù†Ø§ØªÙƒ</h3>
+                <h3><i class="fas fa-user"></i> بياناتك</h3>
                 <div class="form-group">
-                    <label class="form-label"><i class="ri-user-line"></i> Ø§Ù„Ø§Ø³Ù… Ø§Ù„ÙƒØ§Ù…Ù„</label>
-                    <input type="text" class="form-control" id="fName" placeholder="Ø§ÙƒØªØ¨ Ø§Ø³Ù…Ùƒ" required>
+                    <label class="form-label"><i class="fas fa-user"></i> الاسم الكامل</label>
+                    <input type="text" class="form-control" id="fName" placeholder="اكتب اسمك" required>
                 </div>
                 <div class="form-group">
-                    <label class="form-label"><i class="ri-phone-line"></i> Ø±Ù‚Ù… Ø§Ù„ØªÙ„ÙŠÙÙˆÙ†</label>
+                    <label class="form-label"><i class="fas fa-phone"></i> رقم التليفون</label>
                     <input type="tel" class="form-control" id="fPhone" placeholder="01xxxxxxxxx" required>
                 </div>
                 <div class="form-group">
-                    <label class="form-label"><i class="ri-map-pin-line"></i> Ø§Ù„Ø¹Ù†ÙˆØ§Ù† Ø¨Ø§Ù„ØªÙØµÙŠÙ„</label>
-                    <textarea class="form-control" id="fAddress" rows="3" placeholder="Ø§Ù„Ø´Ø§Ø±Ø¹ØŒ Ø§Ù„Ø¹Ù…Ø§Ø±Ù‡ØŒ Ø§Ù„Ø¯ÙˆØ±ØŒ Ø§Ù„Ø´Ù‚Ø©..." required></textarea>
+                    <label class="form-label"><i class="fas fa-map-marker-alt"></i> العنوان بالتفصيل</label>
+                    <textarea class="form-control" id="fAddress" rows="3" placeholder="الشارع، العماره، الدور، الشقة..." required></textarea>
                 </div>
                 <div class="form-group">
-                    <label class="form-label"><i class="ri-sticky-note-line"></i> Ù…Ù„Ø§Ø­Ø¸Ø§Øª <span style="color:#aaa;font-weight:400">(Ø§Ø®ØªÙŠØ§Ø±ÙŠ)</span></label>
-                    <textarea class="form-control" id="fNotes" rows="2" placeholder="Ù…Ø«Ù„Ø§Ù‹: Ø¨Ø§Ø¨ Ø§Ù„Ù…Ø·Ø¨Ø® Ø¹Ù„Ù‰ Ø§Ù„ÙŠÙ…ÙŠÙ†"></textarea>
+                    <label class="form-label"><i class="fas fa-sticky-note"></i> ملاحظات <span style="color:#aaa;font-weight:400">(اختياري)</span></label>
+                    <textarea class="form-control" id="fNotes" rows="2" placeholder="مثلاً: باب المطبخ على اليمين"></textarea>
                 </div>
                 <div class="btns-row">
-                    <button type="button" class="btn-outline-custom" onclick="goStep(1)"><i class="ri-arrow-right-line"></i> Ø§Ù„Ø³Ø§Ø¨Ù‚</button>
-                    <button type="button" class="btn-primary-custom" onclick="goStep(3)">Ø§Ù„ØªØ£ÙƒÙŠØ¯ <i class="ri-arrow-left-line"></i></button>
+                    <button type="button" class="btn-outline-custom" onclick="goStep(1)"><i class="fas fa-arrow-right"></i> السابق</button>
+                    <button type="button" class="btn-primary-custom" onclick="goStep(3)">التأكيد <i class="fas fa-arrow-left"></i></button>
                 </div>
             </div>
 
             <div class="step" data-step="3">
-                <h3><i class="ri-clipboard-check-line"></i> ØªØ£ÙƒÙŠØ¯ Ø§Ù„Ø·Ù„Ø¨</h3>
+                <h3><i class="fas fa-clipboard-check"></i> تأكيد الطلب</h3>
                 <div class="summary-box">
-                    <div class="summary-row"><span class="lbl">Ø§Ù„Ø®Ø¯Ù…Ø©</span><span class="val" id="sumSvc">-</span></div>
-                    <div class="summary-row"><span class="lbl">Ø§Ù„Ø§Ø³Ù…</span><span class="val" id="sumName">-</span></div>
-                    <div class="summary-row"><span class="lbl">Ø§Ù„ØªÙ„ÙŠÙÙˆÙ†</span><span class="val" id="sumPhone">-</span></div>
-                    <div class="summary-row"><span class="lbl">Ø§Ù„Ø¹Ù†ÙˆØ§Ù†</span><span class="val" id="sumAddr">-</span></div>
-                    <div class="summary-row"><span class="lbl">Ù…Ù„Ø§Ø­Ø¸Ø§Øª</span><span class="val" id="sumNotes">-</span></div>
+                    <div class="summary-row"><span class="lbl">الخدمة</span><span class="val" id="sumSvc">-</span></div>
+                    <div class="summary-row"><span class="lbl">الاسم</span><span class="val" id="sumName">-</span></div>
+                    <div class="summary-row"><span class="lbl">التليفون</span><span class="val" id="sumPhone">-</span></div>
+                    <div class="summary-row"><span class="lbl">العنوان</span><span class="val" id="sumAddr">-</span></div>
+                    <div class="summary-row"><span class="lbl">ملاحظات</span><span class="val" id="sumNotes">-</span></div>
                     <div class="summary-row summary-total">
-                        <span class="lbl">Ø±Ø³ÙˆÙ… Ø§Ù„ØªÙˆØµÙŠÙ„</span>
-                        <span class="val">20 Ø¬.Ù…</span>
+                        <span class="lbl">رسوم التوصيل</span>
+                        <span class="val">20 ج.م</span>
                     </div>
                 </div>
                 <div class="btns-row">
-                    <button type="button" class="btn-outline-custom" onclick="goStep(2)"><i class="ri-arrow-right-line"></i> ØªØ¹Ø¯ÙŠÙ„</button>
-                    <button type="submit" class="btn-primary-custom"><i class="ri-send-plane-line"></i> ØªØ£ÙƒÙŠØ¯ Ø§Ù„Ø·Ù„Ø¨</button>
+                    <button type="button" class="btn-outline-custom" onclick="goStep(2)"><i class="fas fa-arrow-right"></i> تعديل</button>
+                    <button type="submit" class="btn-primary-custom"><i class="fas fa-paper-plane"></i> تأكيد الطلب</button>
                 </div>
             </div>
         </form>
 
         <div class="success" id="successPage">
-            <div class="success-check"><i class="ri-check-line"></i></div>
-            <h2>ØªÙ… Ø§Ø³ØªÙ„Ø§Ù… Ø·Ù„Ø¨Ùƒ!</h2>
-            <p class="sub">Ø¯Ù‡ Ø±Ù‚Ù… Ø§Ù„ØªØªØ¨Ø¹ Ø¨ØªØ§Ø¹Ùƒ - Ø§Ø­ØªÙØ¸ Ø¨ÙŠÙ‡</p>
+            <div class="success-check"><i class="fas fa-check"></i></div>
+            <h2>تم استلام طلبك!</h2>
+            <p class="sub">ده رقم التتبع بتاعك - احتفظ بيه</p>
             <div class="tracking-box">
-                <div class="label">Ø±Ù‚Ù… Ø§Ù„ØªØªØ¨Ø¹</div>
+                <div class="label">رقم التتبع</div>
                 <div class="number" id="trackNumber">ORD-XXXX</div>
                 <br>
-                <button class="copy-btn" id="copyBtn" onclick="copyTrack()"><i class="ri-file-copy-line"></i> Ù†Ø³Ø® Ø§Ù„Ø±Ù‚Ù…</button>
+                <button class="copy-btn" id="copyBtn" onclick="copyTrack()"><i class="fas fa-copy"></i> نسخ الرقم</button>
             </div>
-            <p class="success-note"><i class="ri-information-line"></i> Ù‡ØªÙ‚Ø¯Ø± ØªØªØ¨Ø¹ Ø·Ù„Ø¨Ùƒ Ù…Ù† ØµÙØ­Ø© Ø§Ù„ØªØªØ¨Ø¹</p>
+            <p class="success-note"><i class="fas fa-info-circle"></i> هتقدر تتبع طلبك من صفحة التتبع</p>
             <div class="success-btns">
-                <a href="track.html" class="btn-track"><i class="ri-search-line"></i> ØªØªØ¨Ø¹ Ø·Ù„Ø¨Ùƒ</a>
-                <a href="index.html" class="btn-home"><i class="ri-home-line"></i> Ø§Ù„Ø±Ø¦ÙŠØ³ÙŠØ©</a>
+                <a href="track.html" class="btn-track"><i class="fas fa-search"></i> تتبع طلبك</a>
+                <a href="index.html" class="btn-home"><i class="fas fa-home"></i> الرئيسية</a>
             </div>
         </div>
     </div>
 
-    <div class="back"><a href="index.html"><i class="ri-arrow-right-line"></i> Ø§Ù„Ø¹ÙˆØ¯Ø© Ù„Ù„Ù…ÙˆÙ‚Ø¹</a></div>
+    <div class="back"><a href="index.html"><i class="fas fa-arrow-right"></i> العودة للموقع</a></div>
 </div>
 
 <a href="https://wa.me/201234567890" class="whatsapp-float" target="_blank"><i class="fab fa-whatsapp"></i></a>
 
 <script>
-    const svcLabels = {food:'ØªÙˆØµÙŠÙ„ Ø·Ø¹Ø§Ù…',package:'ØªÙˆØµÙŠÙ„ Ø·Ø±ÙˆØ¯',product:'ØªÙˆØµÙŠÙ„ Ù…Ù†ØªØ¬Ø§Øª'};
+    const svcLabels = {food:'توصيل طعام',package:'توصيل طرود',product:'توصيل منتجات'};
     const svcFees = {food:15, package:20, product:25};
     let step=1, data={};
     let isLoggedIn=false, customerProfile=null;
@@ -275,20 +275,20 @@
 
     window.goStep = function(s){
         if(s>step){
-            if(step===1){const c=document.querySelector('input[name="service"]:checked');if(!c)return alert('Ø§Ø®ØªØ§Ø± Ù†ÙˆØ¹ Ø§Ù„Ø®Ø¯Ù…Ø© Ø§Ù„Ø£ÙˆÙ„');data.service=c.value}
+            if(step===1){const c=document.querySelector('input[name="service"]:checked');if(!c)return alert('اختار نوع الخدمة الأول');data.service=c.value}
             if(step===2){
                 data.name=document.getElementById('fName').value.trim();
                 data.phone=document.getElementById('fPhone').value.trim();
                 data.address=document.getElementById('fAddress').value.trim();
                 data.notes=document.getElementById('fNotes').value.trim();
-                if(!data.name||!data.phone||!data.address)return alert('ÙƒÙ…Ù‘Ù„ Ø§Ù„Ø¨ÙŠØ§Ù†Ø§Øª Ø§Ù„Ù…Ø·Ù„ÙˆØ¨Ø©');
-                if(!/^01[0125][0-9]{8}$/.test(data.phone))return alert('Ø±Ù‚Ù… Ø§Ù„ØªÙ„ÙŠÙÙˆÙ† ØºÙŠØ± ØµØ­ÙŠØ­');
+                if(!data.name||!data.phone||!data.address)return alert('كمّل البيانات المطلوبة');
+                if(!/^01[0125][0-9]{8}$/.test(data.phone))return alert('رقم التليفون غير صحيح');
                 document.getElementById('sumSvc').textContent=svcLabels[data.service];
                 document.getElementById('sumName').textContent=data.name;
                 document.getElementById('sumPhone').textContent=data.phone;
                 document.getElementById('sumAddr').textContent=data.address;
-                document.getElementById('sumNotes').textContent=data.notes||'â€”';
-                document.querySelector('.summary-total .val').textContent=svcFees[data.service]+' Ø¬.Ù…';
+                document.getElementById('sumNotes').textContent=data.notes||'—';
+                document.querySelector('.summary-total .val').textContent=svcFees[data.service]+' ج.م';
             }
         }
         document.querySelector(`.step[data-step="${step}"]`).classList.remove('active');
@@ -337,7 +337,7 @@
             document.getElementById('successPage').classList.add('show');
         } catch(err) {
             document.getElementById('loading').classList.remove('show');
-            alert('Ø­ØµÙ„Øª Ù…Ø´ÙƒÙ„Ø©ØŒ Ø¬Ø±Ø¨ ØªØ§Ù†ÙŠ');
+            alert('حصلت مشكلة، جرب تاني');
             console.error(err);
         }
     });
@@ -345,9 +345,9 @@
     window.copyTrack=function(){
         navigator.clipboard.writeText(document.getElementById('trackNumber').textContent).then(()=>{
             const b=document.getElementById('copyBtn');
-            b.innerHTML='<i class="ri-check-line"></i> ØªÙ… Ø§Ù„Ù†Ø³Ø®!';
+            b.innerHTML='<i class="fas fa-check"></i> تم النسخ!';
             b.classList.add('copied');
-            setTimeout(()=>{b.innerHTML='<i class="ri-file-copy-line"></i> Ù†Ø³Ø® Ø§Ù„Ø±Ù‚Ù…';b.classList.remove('copied')},2000);
+            setTimeout(()=>{b.innerHTML='<i class="fas fa-copy"></i> نسخ الرقم';b.classList.remove('copied')},2000);
         });
     };
 </script>

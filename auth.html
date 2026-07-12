@@ -1,9 +1,9 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ØªØ³Ø¬ÙŠÙ„ Ø§Ù„Ø¯Ø®ÙˆÙ„ | Ø®Ù„ÙŠÙƒ Ù…ÙƒØ§Ù†Ùƒ</title>
+    <title>تسجيل الدخول | خليك مكانك</title>
     <link rel="icon" type="image/jpeg" href="assets/images/logo.jpg">
     <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
@@ -95,105 +95,105 @@
 
 <div class="loading" id="loading">
     <div class="spinner"></div>
-    <p id="loadingText">Ø¬Ø§Ø±ÙŠ ØªØ³Ø¬ÙŠÙ„ Ø§Ù„Ø¯Ø®ÙˆÙ„...</p>
+    <p id="loadingText">جاري تسجيل الدخول...</p>
 </div>
 
 <div class="page-wrapper">
     <div class="header">
-        <div class="logo-wrap"><img src="assets/images/logo.jpg" alt="Ø®Ù„ÙŠÙƒ Ù…ÙƒØ§Ù†Ùƒ"></div>
-        <h1>Ù…Ø±Ø­Ø¨Ø§ Ø¨ÙŠÙƒ!</h1>
-        <p>Ø³Ø¬Ù„ Ø¯Ø®ÙˆÙ„Ùƒ Ø¹Ø´Ø§Ù† ØªÙ‚Ø¯Ø± ØªØªØ¨Ø¹ Ø·Ù„Ø¨Ø§ØªÙƒ</p>
+        <div class="logo-wrap"><img src="assets/images/logo.jpg" alt="خليك مكانك"></div>
+        <h1>مرحبا بيك!</h1>
+        <p>سجل دخولك عشان تقدر تتبع طلباتك</p>
     </div>
 
     <div class="card">
         <div class="tabs">
-            <button class="tab active" onclick="switchTab('login')">ØªØ³Ø¬ÙŠÙ„ Ø§Ù„Ø¯Ø®ÙˆÙ„</button>
-            <button class="tab" onclick="switchTab('register')">Ø­Ø³Ø§Ø¨ Ø¬Ø¯ÙŠØ¯</button>
+            <button class="tab active" onclick="switchTab('login')">تسجيل الدخول</button>
+            <button class="tab" onclick="switchTab('register')">حساب جديد</button>
         </div>
 
         <!-- Login -->
         <div class="form-section active" id="loginSection">
-            <div class="error-msg" id="loginError"><i class="ri-error-warning-line"></i><span></span></div>
+            <div class="error-msg" id="loginError"><i class="fas fa-exclamation-circle"></i><span></span></div>
             <div class="form-group">
-                <label class="form-label"><i class="ri-mail-line"></i> Ø§Ù„Ø¨Ø±ÙŠØ¯ Ø§Ù„Ø¥Ù„ÙƒØªØ±ÙˆÙ†ÙŠ</label>
+                <label class="form-label"><i class="fas fa-envelope"></i> البريد الإلكتروني</label>
                 <input type="email" class="form-control" id="loginEmail" placeholder="email@example.com" autocomplete="email">
             </div>
             <div class="form-group">
-                <label class="form-label"><i class="ri-lock-line"></i> ÙƒÙ„Ù…Ø© Ø§Ù„Ù…Ø±ÙˆØ±</label>
-                <input type="password" class="form-control" id="loginPass" placeholder="â€¢â€¢â€¢â€¢â€¢â€¢â€¢â€¢" autocomplete="current-password">
+                <label class="form-label"><i class="fas fa-lock"></i> كلمة المرور</label>
+                <input type="password" class="form-control" id="loginPass" placeholder="••••••••" autocomplete="current-password">
             </div>
             <div class="forgot-link">
-                <a href="#" onclick="showForgot();return false">Ù†Ø³ÙŠØª ÙƒÙ„Ù…Ø© Ø§Ù„Ù…Ø±ÙˆØ±ØŸ</a>
+                <a href="#" onclick="showForgot();return false">نسيت كلمة المرور؟</a>
             </div>
             <button class="btn-primary" id="loginBtn" onclick="doLogin()" style="margin-top:1rem">
-                <i class="ri-login-box-line"></i> ØªØ³Ø¬ÙŠÙ„ Ø§Ù„Ø¯Ø®ÙˆÙ„
+                <i class="fas fa-sign-in-alt"></i> تسجيل الدخول
             </button>
-            <div class="divider"><span>Ø£Ùˆ</span></div>
+            <div class="divider"><span>أو</span></div>
             <button class="btn-google" onclick="doGoogleLogin()">
                 <svg width="20" height="20" viewBox="0 0 24 24"><path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92a5.06 5.06 0 0 1-2.2 3.32v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.1z"/><path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/><path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z"/><path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"/></svg>
-                Ø§Ù„Ø¯Ø®ÙˆÙ„ Ø¨Ø­Ø³Ø§Ø¨ Google
+                الدخول بحساب Google
             </button>
         </div>
 
         <!-- Register -->
         <div class="form-section" id="registerSection">
-            <div class="error-msg" id="regError"><i class="ri-error-warning-line"></i><span></span></div>
-            <div class="success-msg" id="regSuccess"><i class="ri-checkbox-circle-line"></i><span></span></div>
+            <div class="error-msg" id="regError"><i class="fas fa-exclamation-circle"></i><span></span></div>
+            <div class="success-msg" id="regSuccess"><i class="fas fa-check-circle"></i><span></span></div>
             <div class="form-group">
-                <label class="form-label"><i class="ri-user-line"></i> Ø§Ù„Ø§Ø³Ù… Ø§Ù„ÙƒØ§Ù…Ù„</label>
-                <input type="text" class="form-control" id="regName" placeholder="Ø§ÙƒØªØ¨ Ø§Ø³Ù…Ùƒ" autocomplete="name">
+                <label class="form-label"><i class="fas fa-user"></i> الاسم الكامل</label>
+                <input type="text" class="form-control" id="regName" placeholder="اكتب اسمك" autocomplete="name">
             </div>
             <div class="form-group">
-                <label class="form-label"><i class="ri-phone-line"></i> Ø±Ù‚Ù… Ø§Ù„ØªÙ„ÙŠÙÙˆÙ†</label>
+                <label class="form-label"><i class="fas fa-phone"></i> رقم التليفون</label>
                 <input type="tel" class="form-control" id="regPhone" placeholder="01xxxxxxxxx" autocomplete="tel">
             </div>
             <div class="form-group">
-                <label class="form-label"><i class="ri-mail-line"></i> Ø§Ù„Ø¨Ø±ÙŠØ¯ Ø§Ù„Ø¥Ù„ÙƒØªØ±ÙˆÙ†ÙŠ</label>
+                <label class="form-label"><i class="fas fa-envelope"></i> البريد الإلكتروني</label>
                 <input type="email" class="form-control" id="regEmail" placeholder="email@example.com" autocomplete="email">
             </div>
             <div class="form-group">
-                <label class="form-label"><i class="ri-lock-line"></i> ÙƒÙ„Ù…Ø© Ø§Ù„Ù…Ø±ÙˆØ±</label>
-                <input type="password" class="form-control" id="regPass" placeholder="6 Ø£Ø­Ø±Ù Ø¹Ù„Ù‰ Ø§Ù„Ø£Ù‚Ù„" autocomplete="new-password">
+                <label class="form-label"><i class="fas fa-lock"></i> كلمة المرور</label>
+                <input type="password" class="form-control" id="regPass" placeholder="6 أحرف على الأقل" autocomplete="new-password">
             </div>
             <div class="form-group">
-                <label class="form-label"><i class="ri-map-pin-line"></i> Ø§Ù„Ø¹Ù†ÙˆØ§Ù† <span style="color:#aaa;font-weight:400">(Ø§Ø®ØªÙŠØ§Ø±ÙŠ)</span></label>
-                <input type="text" class="form-control" id="regAddress" placeholder="Ø§Ù„Ø´Ø§Ø±Ø¹ØŒ Ø§Ù„Ø¹Ù…Ø§Ø±Ù‡..." autocomplete="street-address">
+                <label class="form-label"><i class="fas fa-map-marker-alt"></i> العنوان <span style="color:#aaa;font-weight:400">(اختياري)</span></label>
+                <input type="text" class="form-control" id="regAddress" placeholder="الشارع، العماره..." autocomplete="street-address">
             </div>
             <button class="btn-primary" id="regBtn" onclick="doRegister()">
-                <i class="ri-user-add-line"></i> Ø¥Ù†Ø´Ø§Ø¡ Ø­Ø³Ø§Ø¨
+                <i class="fas fa-user-plus"></i> إنشاء حساب
             </button>
-            <div class="divider"><span>Ø£Ùˆ</span></div>
+            <div class="divider"><span>أو</span></div>
             <button class="btn-google" onclick="doGoogleLogin()">
                 <svg width="20" height="20" viewBox="0 0 24 24"><path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92a5.06 5.06 0 0 1-2.2 3.32v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.1z"/><path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/><path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z"/><path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"/></svg>
-                Ø§Ù„ØªØ³Ø¬ÙŠÙ„ Ø¨Ø­Ø³Ø§Ø¨ Google
+                التسجيل بحساب Google
             </button>
         </div>
 
         <!-- Forgot Password -->
         <div class="form-section" id="forgotSection">
-            <div class="error-msg" id="forgotError"><i class="ri-error-warning-line"></i><span></span></div>
-            <div class="success-msg" id="forgotSuccess"><i class="ri-checkbox-circle-line"></i><span></span></div>
+            <div class="error-msg" id="forgotError"><i class="fas fa-exclamation-circle"></i><span></span></div>
+            <div class="success-msg" id="forgotSuccess"><i class="fas fa-check-circle"></i><span></span></div>
             <div style="text-align:center;margin-bottom:1.5rem">
                 <div style="width:60px;height:60px;background:var(--primary-light);border-radius:50%;display:flex;align-items:center;justify-content:center;margin:0 auto .8rem">
-                    <i class="ri-key-line" style="font-size:1.3rem;color:var(--primary-dark)"></i>
+                    <i class="fas fa-key" style="font-size:1.3rem;color:var(--primary-dark)"></i>
                 </div>
-                <h3 style="font-size:1rem;font-weight:800;margin-bottom:.3rem">Ù†Ø³ÙŠØª ÙƒÙ„Ù…Ø© Ø§Ù„Ù…Ø±ÙˆØ±ØŸ</h3>
-                <p style="color:var(--gray);font-size:.85rem">Ø§Ø¯Ø®Ù„ Ø¥ÙŠÙ…ÙŠÙ„Ùƒ ÙˆÙ‡Ù†Ø¨Ø¹ØªÙ„Ùƒ Ø±Ø§Ø¨Ø· Ù„Ø¥Ø¹Ø§Ø¯Ø© Ø§Ù„ØªØ¹ÙŠÙŠÙ†</p>
+                <h3 style="font-size:1rem;font-weight:800;margin-bottom:.3rem">نسيت كلمة المرور؟</h3>
+                <p style="color:var(--gray);font-size:.85rem">ادخل إيميلك وهنبعتلك رابط لإعادة التعيين</p>
             </div>
             <div class="form-group">
-                <label class="form-label"><i class="ri-mail-line"></i> Ø§Ù„Ø¨Ø±ÙŠØ¯ Ø§Ù„Ø¥Ù„ÙƒØªØ±ÙˆÙ†ÙŠ</label>
+                <label class="form-label"><i class="fas fa-envelope"></i> البريد الإلكتروني</label>
                 <input type="email" class="form-control" id="forgotEmail" placeholder="email@example.com">
             </div>
             <button class="btn-primary" id="forgotBtn" onclick="doForgot()">
-                <i class="ri-send-plane-line"></i> Ø¥Ø±Ø³Ø§Ù„ Ø±Ø§Ø¨Ø· Ø¥Ø¹Ø§Ø¯Ø© Ø§Ù„ØªØ¹ÙŠÙŠÙ†
+                <i class="fas fa-paper-plane"></i> إرسال رابط إعادة التعيين
             </button>
             <div class="form-footer" style="margin-top:1rem">
-                <a href="#" onclick="switchTab('login');return false"><i class="ri-arrow-right-line"></i> Ø±Ø¬ÙˆØ¹ Ù„ØªØ³Ø¬ÙŠÙ„ Ø§Ù„Ø¯Ø®ÙˆÙ„</a>
+                <a href="#" onclick="switchTab('login');return false"><i class="fas fa-arrow-right"></i> رجوع لتسجيل الدخول</a>
             </div>
         </div>
     </div>
 
-    <div class="back"><a href="index.html"><i class="ri-arrow-right-line"></i> Ø§Ù„Ø¹ÙˆØ¯Ø© Ù„Ù„Ù…ÙˆÙ‚Ø¹</a></div>
+    <div class="back"><a href="index.html"><i class="fas fa-arrow-right"></i> العودة للموقع</a></div>
 </div>
 
 <script>
@@ -235,7 +235,7 @@
     }
 
     function showLoading(text) {
-        document.getElementById('loadingText').textContent = text || 'Ø¬Ø§Ø±ÙŠ...';
+        document.getElementById('loadingText').textContent = text || 'جاري...';
         document.getElementById('loading').classList.add('show');
     }
     function hideLoading() { document.getElementById('loading').classList.remove('show'); }
@@ -245,9 +245,9 @@
         hideMsgs();
         const email = document.getElementById('loginEmail').value.trim();
         const pass = document.getElementById('loginPass').value;
-        if (!email || !pass) return showErr('loginError', 'Ø¯Ø®Ù„ Ø§Ù„Ø¨Ø±ÙŠØ¯ ÙˆÙƒÙ„Ù…Ø© Ø§Ù„Ù…Ø±ÙˆØ±');
+        if (!email || !pass) return showErr('loginError', 'دخل البريد وكلمة المرور');
         document.getElementById('loginBtn').disabled = true;
-        showLoading('Ø¬Ø§Ø±ÙŠ ØªØ³Ø¬ÙŠÙ„ Ø§Ù„Ø¯Ø®ÙˆÙ„...');
+        showLoading('جاري تسجيل الدخول...');
         try {
             const result = await firebase.auth().signInWithEmailAndPassword(email, pass);
             // Save customer data to localStorage
@@ -269,12 +269,12 @@
         } catch (err) {
             hideLoading();
             document.getElementById('loginBtn').disabled = false;
-            let msg = 'Ø­ØµÙ„Øª Ù…Ø´ÙƒÙ„Ø©ØŒ Ø¬Ø±Ø¨ ØªØ§Ù†ÙŠ';
-            if (err.code === 'auth/user-not-found') msg = 'Ù…Ø´ Ù„Ø§Ù‚ÙŠ Ø­Ø³Ø§Ø¨ Ø¨Ø§Ù„Ø¥ÙŠÙ…ÙŠÙ„ Ø¯Ù‡';
-            else if (err.code === 'auth/wrong-password') msg = 'ÙƒÙ„Ù…Ø© Ø§Ù„Ù…Ø±ÙˆØ± ØºÙ„Ø·';
-            else if (err.code === 'auth/invalid-email') msg = 'Ø§Ù„Ø¥ÙŠÙ…ÙŠÙ„ Ù…Ø´ ØµØ­ÙŠØ­';
-            else if (err.code === 'auth/too-many-requests') msg = 'Ø­Ø§ÙˆÙ„ ØªØ§Ù†ÙŠ Ø¨Ø¹Ø¯ Ø´ÙˆÙŠØ©';
-            else if (err.code === 'auth/invalid-credential') msg = 'Ø§Ù„Ø¨ÙŠØ§Ù†Ø§Øª ØºÙ„Ø·ØŒ Ø¬Ø±Ø¨ ØªØ§Ù†ÙŠ';
+            let msg = 'حصلت مشكلة، جرب تاني';
+            if (err.code === 'auth/user-not-found') msg = 'مش لاقي حساب بالإيميل ده';
+            else if (err.code === 'auth/wrong-password') msg = 'كلمة المرور غلط';
+            else if (err.code === 'auth/invalid-email') msg = 'الإيميل مش صحيح';
+            else if (err.code === 'auth/too-many-requests') msg = 'حاول تاني بعد شوية';
+            else if (err.code === 'auth/invalid-credential') msg = 'البيانات غلط، جرب تاني';
             showErr('loginError', msg);
         }
     }
@@ -288,14 +288,14 @@
         const pass = document.getElementById('regPass').value;
         const address = document.getElementById('regAddress').value.trim();
 
-        if (!name) return showErr('regError', 'Ø¯Ø®Ù„ Ø§Ø³Ù…Ùƒ');
-        if (!phone) return showErr('regError', 'Ø¯Ø®Ù„ Ø±Ù‚Ù… Ø§Ù„ØªÙ„ÙŠÙÙˆÙ†');
-        if (!/^01[0125][0-9]{8}$/.test(phone)) return showErr('regError', 'Ø±Ù‚Ù… Ø§Ù„ØªÙ„ÙŠÙÙˆÙ† ØºÙŠØ± ØµØ­ÙŠØ­');
-        if (!email) return showErr('regError', 'Ø¯Ø®Ù„ Ø§Ù„Ø¨Ø±ÙŠØ¯ Ø§Ù„Ø¥Ù„ÙƒØªØ±ÙˆÙ†ÙŠ');
-        if (!pass || pass.length < 6) return showErr('regError', 'ÙƒÙ„Ù…Ø© Ø§Ù„Ù…Ø±ÙˆØ± Ù„Ø§Ø²Ù… 6 Ø£Ø­Ø±Ù Ø¹Ù„Ù‰ Ø§Ù„Ø£Ù‚Ù„');
+        if (!name) return showErr('regError', 'دخل اسمك');
+        if (!phone) return showErr('regError', 'دخل رقم التليفون');
+        if (!/^01[0125][0-9]{8}$/.test(phone)) return showErr('regError', 'رقم التليفون غير صحيح');
+        if (!email) return showErr('regError', 'دخل البريد الإلكتروني');
+        if (!pass || pass.length < 6) return showErr('regError', 'كلمة المرور لازم 6 أحرف على الأقل');
 
         document.getElementById('regBtn').disabled = true;
-        showLoading('Ø¬Ø§Ø±ÙŠ Ø¥Ù†Ø´Ø§Ø¡ Ø§Ù„Ø­Ø³Ø§Ø¨...');
+        showLoading('جاري إنشاء الحساب...');
         try {
             const result = await firebase.auth().createUserWithEmailAndPassword(email, pass);
             await result.user.updateProfile({ displayName: name });
@@ -314,15 +314,15 @@
             localStorage.setItem('km_customer_phone', phone);
 
             hideLoading();
-            showSuc('regSuccess', 'ØªÙ… Ø¥Ù†Ø´Ø§Ø¡ Ø§Ù„Ø­Ø³Ø§Ø¨ Ø¨Ù†Ø¬Ø§Ø­!');
+            showSuc('regSuccess', 'تم إنشاء الحساب بنجاح!');
             setTimeout(() => { window.location.href = 'profile.html'; }, 1200);
         } catch (err) {
             hideLoading();
             document.getElementById('regBtn').disabled = false;
-            let msg = 'Ø­ØµÙ„Øª Ù…Ø´ÙƒÙ„Ø©ØŒ Ø¬Ø±Ø¨ ØªØ§Ù†ÙŠ';
-            if (err.code === 'auth/email-already-in-use') msg = 'ÙÙŠ Ø­Ø³Ø§Ø¨ Ø¨Ø§Ù„Ø¥ÙŠÙ…ÙŠÙ„ Ø¯Ù‡ Ø¨Ø§Ù„ÙØ¹Ù„';
-            else if (err.code === 'auth/invalid-email') msg = 'Ø§Ù„Ø¥ÙŠÙ…ÙŠÙ„ Ù…Ø´ ØµØ­ÙŠØ­';
-            else if (err.code === 'auth/weak-password') msg = 'ÙƒÙ„Ù…Ø© Ø§Ù„Ù…Ø±ÙˆØ± Ø¶Ø¹ÙŠÙØ©ØŒ Ø­Ø· Ø£Ù‚ÙˆÙ‰';
+            let msg = 'حصلت مشكلة، جرب تاني';
+            if (err.code === 'auth/email-already-in-use') msg = 'في حساب بالإيميل ده بالفعل';
+            else if (err.code === 'auth/invalid-email') msg = 'الإيميل مش صحيح';
+            else if (err.code === 'auth/weak-password') msg = 'كلمة المرور ضعيفة، حط أقوى';
             showErr('regError', msg);
         }
     }
@@ -330,7 +330,7 @@
     /* ===== GOOGLE LOGIN ===== */
     async function doGoogleLogin() {
         hideMsgs();
-        showLoading('Ø¬Ø§Ø±ÙŠ Ø§Ù„Ø¯Ø®ÙˆÙ„ Ø¨Ø­Ø³Ø§Ø¨ Google...');
+        showLoading('جاري الدخول بحساب Google...');
         try {
             const provider = new firebase.auth.GoogleAuthProvider();
             const result = await firebase.auth().signInWithPopup(provider);
@@ -359,9 +359,9 @@
             window.location.href = 'profile.html';
         } catch (err) {
             hideLoading();
-            let msg = 'Ø­ØµÙ„Øª Ù…Ø´ÙƒÙ„Ø©ØŒ Ø¬Ø±Ø¨ ØªØ§Ù†ÙŠ';
-            if (err.code === 'auth/popup-closed-by-user') msg = 'Ù„ØºÙŠØª Ø§Ù„Ø¹Ù…Ù„ÙŠØ©';
-            else if (err.code === 'auth/cancelled-popup-request') msg = 'ØªÙ… Ø§Ù„Ø¥Ù„ØºØ§Ø¡';
+            let msg = 'حصلت مشكلة، جرب تاني';
+            if (err.code === 'auth/popup-closed-by-user') msg = 'لغيت العملية';
+            else if (err.code === 'auth/cancelled-popup-request') msg = 'تم الإلغاء';
             showErr('loginError', msg);
         }
     }
@@ -370,19 +370,19 @@
     async function doForgot() {
         hideMsgs();
         const email = document.getElementById('forgotEmail').value.trim();
-        if (!email) return showErr('forgotError', 'Ø¯Ø®Ù„ Ø§Ù„Ø¨Ø±ÙŠØ¯ Ø§Ù„Ø¥Ù„ÙƒØªØ±ÙˆÙ†ÙŠ');
+        if (!email) return showErr('forgotError', 'دخل البريد الإلكتروني');
         document.getElementById('forgotBtn').disabled = true;
-        showLoading('Ø¬Ø§Ø±ÙŠ Ø§Ù„Ø¥Ø±Ø³Ø§Ù„...');
+        showLoading('جاري الإرسال...');
         try {
             await firebase.auth().sendPasswordResetEmail(email);
             hideLoading();
-            showSuc('forgotSuccess', 'ØªÙ… Ø¥Ø±Ø³Ø§Ù„ Ø±Ø§Ø¨Ø· Ø¥Ø¹Ø§Ø¯Ø© Ø§Ù„ØªØ¹ÙŠÙŠÙ† Ø¹Ù„Ù‰ Ø§Ù„Ø¥ÙŠÙ…ÙŠÙ„!');
+            showSuc('forgotSuccess', 'تم إرسال رابط إعادة التعيين على الإيميل!');
             document.getElementById('forgotBtn').disabled = false;
         } catch (err) {
             hideLoading();
             document.getElementById('forgotBtn').disabled = false;
-            let msg = 'Ø­ØµÙ„Øª Ù…Ø´ÙƒÙ„Ø©ØŒ Ø¬Ø±Ø¨ ØªØ§Ù†ÙŠ';
-            if (err.code === 'auth/user-not-found') msg = 'Ù…Ø´ Ù„Ø§Ù‚ÙŠ Ø­Ø³Ø§Ø¨ Ø¨Ø§Ù„Ø¥ÙŠÙ…ÙŠÙ„ Ø¯Ù‡';
+            let msg = 'حصلت مشكلة، جرب تاني';
+            if (err.code === 'auth/user-not-found') msg = 'مش لاقي حساب بالإيميل ده';
             showErr('forgotError', msg);
         }
     }
@@ -405,4 +405,3 @@
 </script>
 </body>
 </html>
-
