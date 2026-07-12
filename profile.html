@@ -2,9 +2,11 @@
 <html lang="ar" dir="rtl">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>حسابي | خليك مكانك</title>
     <link rel="icon" type="image/jpeg" href="assets/images/logo.jpg">
+    <link rel="manifest" href="manifest.json">
+    <meta name="theme-color" content="#0f3460">
     <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/remixicon@4.1.0/fonts/remixicon.css">
@@ -14,208 +16,362 @@
     <script src="js/firebase-config.js"></script>
     <script>firebase.initializeApp(firebaseConfig);</script>
     <style>
-        :root{--primary:#FFD700;--primary-dark:#F5C400;--primary-light:#FFF8DC;--dark:#1A1A1A;--dark-2:#2D2D2D;--dark-3:#3A3A3A;--gray:#888;--gray-light:#aaa;--green:#22c55e;--blue:#3b82f6;--red:#ef4444;--wa:#25D366;--radius:16px;--shadow:0 8px 32px rgba(0,0,0,.25)}
+        :root{--primary:#FFD700;--primary-dark:#F5C400;--primary-light:#FFF8DC;--primary-glow:rgba(255,215,0,.3);--dark:#0f0f23;--dark-2:#16213e;--dark-3:#1a1a3e;--gray:#7a7a9a;--gray-light:#9a9aba;--gray-lighter:#e8e8f0;--green:#00d68f;--green-light:#d1fae5;--blue:#4f8cff;--blue-light:#dbeafe;--red:#ff4757;--red-light:#fee2e2;--purple:#a855f7;--purple-light:#ede9fe;--orange:#ff9f43;--wa:#25D366;--radius:20px;--radius-sm:14px;--radius-lg:28px;--shadow:0 4px 24px rgba(0,0,0,.08);--shadow-md:0 8px 40px rgba(0,0,0,.12);--shadow-lg:0 20px 60px rgba(0,0,0,.15);--shadow-glow:0 8px 40px var(--primary-glow);--transition:all .4s cubic-bezier(.4,0,.2,1)}
         *{margin:0;padding:0;box-sizing:border-box}
-        body{font-family:'Cairo',sans-serif;background:linear-gradient(160deg,#1a1a2e 0%,#16213e 50%,#0f3460 100%);min-height:100vh;padding:1.5rem;position:relative;overflow-x:hidden}
-        body::before{content:'';position:absolute;width:400px;height:400px;background:radial-gradient(circle,rgba(255,215,0,.08),transparent 70%);top:-100px;right:-100px;border-radius:50%}
-        body::after{content:'';position:absolute;width:300px;height:300px;background:radial-gradient(circle,rgba(255,215,0,.05),transparent 70%);bottom:-50px;left:-50px;border-radius:50%}
+        html{scroll-behavior:smooth}
+        body{font-family:'Cairo',sans-serif;background:#f0f2f8;color:var(--dark);min-height:100vh;overflow-x:hidden;-webkit-font-smoothing:antialiased}
 
-        .page-wrapper{width:100%;max-width:560px;margin:0 auto;position:relative;z-index:1}
+        /* ===== PROFILE HERO ===== */
+        .profile-hero{background:linear-gradient(160deg,#0f3460 0%,#1a1a3e 40%,#16213e 100%);padding:0 0 5rem;position:relative;overflow:hidden}
+        .profile-hero::before{content:'';position:absolute;width:600px;height:600px;background:radial-gradient(circle,rgba(255,215,0,.08),transparent 70%);top:-250px;right:-200px;border-radius:50%;pointer-events:none}
+        .profile-hero::after{content:'';position:absolute;width:400px;height:400px;background:radial-gradient(circle,rgba(79,140,255,.06),transparent 70%);bottom:-150px;left:-100px;border-radius:50%;pointer-events:none}
 
-        .header{text-align:center;margin-bottom:1.5rem}
-        .logo-wrap{width:72px;height:72px;border-radius:18px;overflow:hidden;margin:0 auto .8rem;box-shadow:0 8px 30px rgba(255,215,0,.25);border:2px solid rgba(255,215,0,.2)}
-        .logo-wrap img{width:100%;height:100%;object-fit:cover}
-        .header h1{font-size:1.5rem;font-weight:900;color:#fff;margin-bottom:.2rem}
-        .header p{color:rgba(255,255,255,.45);font-size:.85rem}
+        /* Top Bar */
+        .top-bar{display:flex;justify-content:space-between;align-items:center;padding:1rem 1.5rem;position:relative;z-index:2}
+        .top-bar a{color:rgba(255,255,255,.5);font-size:1.3rem;transition:.3s;text-decoration:none}
+        .top-bar a:hover{color:var(--primary)}
+        .top-bar-title{color:#fff;font-weight:800;font-size:1rem}
 
-        .card{background:rgba(255,255,255,.95);backdrop-filter:blur(20px);border-radius:24px;padding:1.5rem;box-shadow:var(--shadow);border:1px solid rgba(255,255,255,.1);margin-bottom:1rem}
+        /* Profile Info */
+        .profile-info-section{padding:1rem 1.5rem 0;position:relative;z-index:2}
+        .profile-avatar-wrap{display:flex;align-items:center;gap:1.2rem;margin-bottom:1.5rem}
+        .profile-avatar{width:76px;height:76px;border-radius:22px;background:linear-gradient(135deg,var(--primary),var(--primary-dark));display:flex;align-items:center;justify-content:center;font-size:2rem;color:var(--dark);font-weight:900;box-shadow:var(--shadow-glow);position:relative;flex-shrink:0}
+        .profile-avatar::after{content:'';position:absolute;inset:-3px;border-radius:25px;border:2px solid rgba(255,215,0,.3);animation:pulse-border 3s ease infinite}
+        @keyframes pulse-border{0%,100%{opacity:.3;transform:scale(1)}50%{opacity:.8;transform:scale(1.02)}}
+        .profile-name{font-size:1.35rem;font-weight:900;color:#fff;margin-bottom:.15rem}
+        .profile-email{color:rgba(255,255,255,.45);font-size:.82rem;display:flex;align-items:center;gap:.4rem}
+        .profile-email i{font-size:.75rem}
+        .member-badge{display:inline-flex;align-items:center;gap:.3rem;background:rgba(255,215,0,.12);color:var(--primary);padding:.3rem .8rem;border-radius:50px;font-size:.7rem;font-weight:700;margin-top:.5rem;border:1px solid rgba(255,215,0,.15)}
+        .member-badge i{font-size:.65rem}
 
-        /* Profile Header */
-        .profile-header{display:flex;align-items:center;gap:1rem;margin-bottom:1.2rem}
-        .avatar{width:60px;height:60px;background:linear-gradient(135deg,var(--primary),var(--primary-dark));border-radius:16px;display:flex;align-items:center;justify-content:center;font-size:1.5rem;color:var(--dark);font-weight:900;flex-shrink:0}
-        .profile-info h2{font-size:1.1rem;font-weight:800;color:var(--dark);margin-bottom:.1rem}
-        .profile-info p{color:var(--gray);font-size:.82rem}
+        /* Stats Cards */
+        .stats-row{display:grid;grid-template-columns:repeat(3,1fr);gap:.7rem;padding:0 1.5rem;margin-top:.5rem}
+        .stat-card{background:rgba(255,255,255,.07);backdrop-filter:blur(10px);border-radius:var(--radius-sm);padding:1rem .8rem;text-align:center;border:1px solid rgba(255,255,255,.06);transition:.3s}
+        .stat-card:hover{background:rgba(255,255,255,.1);transform:translateY(-2px)}
+        .stat-card .stat-num{font-size:1.6rem;font-weight:900;color:#fff;line-height:1}
+        .stat-card .stat-label{font-size:.7rem;color:rgba(255,255,255,.4);font-weight:600;margin-top:.3rem}
 
-        /* Stats */
-        .stats-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:.6rem;margin-bottom:1rem}
-        .stat-item{text-align:center;background:#f8f9fa;border-radius:12px;padding:.8rem .4rem}
-        .stat-item .num{font-size:1.3rem;font-weight:900;color:var(--dark)}
-        .stat-item .lbl{font-size:.72rem;color:var(--gray);font-weight:600}
+        /* ===== CONTENT ===== */
+        .content-area{max-width:560px;margin:-2.5rem auto 0;padding:0 1rem;position:relative;z-index:3}
 
-        /* Tabs */
-        .tabs{display:flex;gap:0;background:#f0f0f0;border-radius:12px;padding:4px;margin-bottom:1.2rem}
-        .tab{flex:1;padding:.6rem;text-align:center;border-radius:10px;font-weight:700;font-size:.82rem;cursor:pointer;transition:.3s;color:var(--gray);font-family:'Cairo',sans-serif;border:none;background:transparent}
-        .tab.active{background:linear-gradient(135deg,var(--primary),var(--primary-dark));color:var(--dark);box-shadow:0 4px 15px rgba(255,215,0,.3)}
+        /* Tab Navigation */
+        .tab-nav{display:flex;background:#fff;border-radius:var(--radius);padding:5px;box-shadow:var(--shadow-md);margin-bottom:1rem;position:relative;overflow:hidden}
+        .tab-nav::before{content:'';position:absolute;width:calc(50% - 5px);height:calc(100% - 10px);background:linear-gradient(135deg,var(--primary),var(--primary-dark));border-radius:12px;top:5px;right:5px;transition:var(--transition);z-index:0}
+        .tab-nav.tab-profile::before{transform:translateX(-100%)}
+        .tab-btn{flex:1;padding:.75rem;text-align:center;border:none;background:transparent;font-weight:700;font-size:.85rem;font-family:'Cairo',sans-serif;cursor:pointer;color:var(--gray);position:relative;z-index:1;transition:.3s;display:flex;align-items:center;justify-content:center;gap:.4rem}
+        .tab-btn.active{color:var(--dark)}
 
-        .tab-section{display:none;animation:fadeUp .4s ease}
-        .tab-section.active{display:block}
-        @keyframes fadeUp{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:translateY(0)}}
+        .tab-content{display:none;animation:slideUp .5s ease}
+        .tab-content.active{display:block}
+        @keyframes slideUp{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
 
-        /* Order List */
-        .order-item{background:#f8f9fa;border-radius:14px;padding:1rem;margin-bottom:.7rem;transition:.3s;cursor:pointer;border:1px solid transparent}
-        .order-item:hover{border-color:rgba(255,215,0,.3);background:#fff}
-        .order-top{display:flex;justify-content:space-between;align-items:center;margin-bottom:.5rem}
-        .order-id{font-weight:800;font-size:.85rem;color:var(--dark);direction:ltr;display:inline-block}
-        .order-svc{font-size:.72rem;color:var(--gray);background:#e9ecef;padding:.2rem .6rem;border-radius:6px;font-weight:600}
-        .order-bottom{display:flex;justify-content:space-between;align-items:center}
-        .order-date{font-size:.75rem;color:var(--gray-light)}
-        .order-fee{font-weight:800;font-size:.85rem;color:var(--primary-dark)}
+        /* ===== ORDERS SECTION ===== */
+        .orders-filter{display:flex;gap:.4rem;margin-bottom:1rem;overflow-x:auto;padding-bottom:.3rem;-webkit-overflow-scrolling:touch}
+        .orders-filter::-webkit-scrollbar{display:none}
+        .filter-btn{padding:.45rem 1rem;border-radius:50px;border:2px solid var(--gray-lighter);background:#fff;font-weight:700;font-size:.75rem;font-family:'Cairo',sans-serif;cursor:pointer;transition:.3s;white-space:nowrap;color:var(--gray)}
+        .filter-btn.active{border-color:var(--primary);background:var(--primary-light);color:var(--primary-dark)}
+        .filter-btn .count{background:var(--gray-lighter);padding:.1rem .4rem;border-radius:20px;font-size:.65rem;margin-right:.2rem}
+        .filter-btn.active .count{background:rgba(255,215,0,.3)}
 
-        .status-dot{width:8px;height:8px;border-radius:50%;display:inline-block;margin-left:.3rem;vertical-align:middle}
-        .st-pending{background:#f59e0b}
-        .st-confirmed{background:#3b82f6}
-        .st-picked{background:#22c55e}
-        .st-delivering{background:#8b5cf6}
-        .st-completed{background:#22c55e}
-        .st-cancelled{background:#ef4444}
+        /* Order Card */
+        .order-card{background:#fff;border-radius:var(--radius);padding:1.2rem;margin-bottom:.7rem;box-shadow:var(--shadow);transition:.3s;cursor:pointer;border:1px solid transparent;position:relative;overflow:hidden}
+        .order-card:hover{border-color:rgba(255,215,0,.2);transform:translateY(-2px);box-shadow:var(--shadow-md)}
+        .order-card:active{transform:scale(.98)}
+        .order-card-header{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:.8rem}
+        .order-id-wrap{display:flex;align-items:center;gap:.5rem}
+        .order-status-dot{width:10px;height:10px;border-radius:50%;flex-shrink:0;position:relative}
+        .order-status-dot::after{content:'';position:absolute;inset:-3px;border-radius:50%;border:2px solid currentColor;opacity:.2}
+        .sd-pending{background:var(--orange);color:var(--orange)}
+        .sd-confirmed{background:var(--blue);color:var(--blue)}
+        .sd-picked{background:var(--purple);color:var(--purple)}
+        .sd-delivering{background:var(--blue);color:var(--blue)}
+        .sd-completed{background:var(--green);color:var(--green)}
+        .sd-cancelled{background:var(--red);color:var(--red)}
+        .order-id-text{font-weight:800;font-size:.88rem;color:var(--dark);direction:ltr;font-family:monospace, 'Cairo'}
+        .order-status-badge{padding:.25rem .7rem;border-radius:50px;font-size:.68rem;font-weight:700;display:inline-flex;align-items:center;gap:.2rem}
+        .sb-pending{background:#fff3e0;color:#e65100}
+        .sb-confirmed{background:#e3f2fd;color:#1565c0}
+        .sb-picked{background:#f3e5f5;color:#7b1fa2}
+        .sb-delivering{background:#e8eaf6;color:#283593}
+        .sb-completed{background:var(--green-light);color:#065f46}
+        .sb-cancelled{background:var(--red-light);color:#991b1b}
 
-        .empty-state{text-align:center;padding:2rem;color:var(--gray)}
-        .empty-state i{font-size:2.5rem;margin-bottom:.8rem;display:block;color:#ddd}
-        .empty-state p{font-size:.9rem;margin-bottom:1rem}
+        .order-card-body{display:flex;justify-content:space-between;align-items:center}
+        .order-details{display:flex;align-items:center;gap:.8rem}
+        .order-svc-icon{width:40px;height:40px;border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:1rem;flex-shrink:0}
+        .si-food{background:#fff3e0;color:#e65100}
+        .si-package{background:#e3f2fd;color:#1565c0}
+        .si-product{background:var(--green-light);color:#065f46}
+        .order-meta{display:flex;flex-direction:column;gap:.1rem}
+        .order-svc-name{font-weight:700;font-size:.85rem;color:var(--dark)}
+        .order-date{font-size:.72rem;color:var(--gray)}
+        .order-amount{text-align:left}
+        .order-fee{font-weight:900;font-size:1rem;color:var(--dark)}
+        .order-fee-label{font-size:.65rem;color:var(--gray)}
 
-        .btn-new{display:inline-flex;align-items:center;gap:.4rem;padding:.6rem 1.2rem;background:linear-gradient(135deg,var(--primary),var(--primary-dark));color:var(--dark);border:none;border-radius:10px;font-weight:700;font-size:.82rem;font-family:'Cairo',sans-serif;cursor:pointer;transition:.3s;text-decoration:none}
-        .btn-new:hover{transform:translateY(-2px);box-shadow:0 4px 15px rgba(255,215,0,.3);color:var(--dark)}
+        .order-card-footer{display:flex;justify-content:space-between;align-items:center;margin-top:.8rem;padding-top:.8rem;border-top:1px solid var(--gray-lighter)}
+        .order-address{font-size:.75rem;color:var(--gray);display:flex;align-items:center;gap:.3rem;flex:1;overflow:hidden}
+        .order-address i{color:var(--primary-dark);flex-shrink:0}
+        .order-arrow{color:var(--gray-light);font-size:1rem;transition:.3s}
+        .order-card:hover .order-arrow{color:var(--primary-dark);transform:translateX(-3px)}
 
-        /* Profile Form */
-        .form-group{margin-bottom:.8rem}
-        .form-label{font-weight:700;font-size:.78rem;color:var(--dark);margin-bottom:.3rem;display:block}
-        .form-label i{color:var(--primary-dark);font-size:.7rem;margin-left:.3rem}
-        .form-control{width:100%;padding:.7rem 1rem;border-radius:10px;border:2px solid #eee;font-family:'Cairo',sans-serif;font-size:.85rem;transition:.3s;background:#f8f9fa;direction:rtl}
-        .form-control:focus{border-color:var(--primary);box-shadow:0 0 0 .2rem rgba(255,215,0,.1);outline:none;background:#fff}
+        .empty-state{text-align:center;padding:3rem 1.5rem}
+        .empty-icon{width:80px;height:80px;background:linear-gradient(135deg,var(--primary-light),#f8f9fa);border-radius:50%;display:flex;align-items:center;justify-content:center;margin:0 auto 1.2rem;font-size:2rem;color:var(--primary-dark)}
+        .empty-state h3{font-size:1.1rem;font-weight:800;margin-bottom:.3rem}
+        .empty-state p{color:var(--gray);font-size:.88rem;margin-bottom:1.5rem}
+        .btn-empty{display:inline-flex;align-items:center;gap:.5rem;padding:.8rem 1.8rem;background:linear-gradient(135deg,var(--primary),var(--primary-dark));color:var(--dark);border:none;border-radius:14px;font-weight:800;font-size:.9rem;font-family:'Cairo',sans-serif;cursor:pointer;transition:.3s;text-decoration:none}
+        .btn-empty:hover{transform:translateY(-3px);box-shadow:var(--shadow-glow)}
 
-        .btn-primary{width:100%;padding:.75rem;background:linear-gradient(135deg,var(--primary),var(--primary-dark));color:var(--dark);border:none;border-radius:12px;font-weight:800;font-size:.9rem;font-family:'Cairo',sans-serif;cursor:pointer;transition:.3s;display:flex;align-items:center;justify-content:center;gap:.5rem}
-        .btn-primary:hover{transform:translateY(-2px);box-shadow:0 6px 25px rgba(255,215,0,.4)}
+        /* ===== PROFILE EDIT SECTION ===== */
+        .edit-card{background:#fff;border-radius:var(--radius);padding:1.5rem;box-shadow:var(--shadow);margin-bottom:1rem}
+        .edit-card-title{font-size:1rem;font-weight:800;margin-bottom:1.2rem;display:flex;align-items:center;gap:.5rem}
+        .edit-card-title i{color:var(--primary-dark);font-size:.9rem}
 
-        .btn-logout{width:100%;padding:.75rem;background:#fee2e2;color:#991b1b;border:2px solid #fecaca;border-radius:12px;font-weight:800;font-size:.9rem;font-family:'Cairo',sans-serif;cursor:pointer;transition:.3s;display:flex;align-items:center;justify-content:center;gap:.5rem;margin-top:.8rem}
-        .btn-logout:hover{background:#fecaca;transform:translateY(-2px)}
+        .input-group{margin-bottom:1rem;position:relative}
+        .input-label{font-weight:700;font-size:.78rem;color:var(--dark);margin-bottom:.4rem;display:flex;align-items:center;gap:.3rem}
+        .input-label i{color:var(--primary-dark);font-size:.72rem}
+        .input-wrap{position:relative}
+        .input-wrap .input-icon{position:absolute;right:1rem;top:50%;transform:translateY(-50%);color:var(--gray-light);font-size:.9rem;pointer-events:none;transition:.3s}
+        .input-wrap input,.input-wrap textarea{width:100%;padding:.8rem 2.8rem .8rem 1rem;border-radius:12px;border:2px solid var(--gray-lighter);font-family:'Cairo',sans-serif;font-size:.88rem;transition:.3s;background:#f8f9fc;direction:rtl;color:var(--dark)}
+        .input-wrap input:focus,.input-wrap textarea:focus{border-color:var(--primary);box-shadow:0 0 0 .25rem rgba(255,215,0,.1);outline:none;background:#fff}
+        .input-wrap input:focus + .input-icon,.input-wrap textarea:focus ~ .input-icon{color:var(--primary-dark)}
+        .input-wrap textarea{resize:none;line-height:1.6}
+        .input-hint{font-size:.7rem;color:var(--gray-light);margin-top:.3rem}
 
-        .msg{padding:.5rem 1rem;border-radius:8px;font-size:.8rem;font-weight:600;display:none;margin-bottom:.8rem}
-        .msg.show{display:block;animation:fadeUp .3s ease}
-        .msg.err{background:#fee2e2;color:#991b1b}
-        .msg.ok{background:#dcfce7;color:#166534}
+        .save-btn{width:100%;padding:.9rem;background:linear-gradient(135deg,var(--primary),var(--primary-dark));color:var(--dark);border:none;border-radius:14px;font-weight:800;font-size:.95rem;font-family:'Cairo',sans-serif;cursor:pointer;transition:.3s;display:flex;align-items:center;justify-content:center;gap:.5rem;position:relative;overflow:hidden}
+        .save-btn::before{content:'';position:absolute;inset:0;background:linear-gradient(135deg,transparent,rgba(255,255,255,.2));opacity:0;transition:.3s}
+        .save-btn:hover::before{opacity:1}
+        .save-btn:hover{transform:translateY(-2px);box-shadow:var(--shadow-glow)}
+        .save-btn:active{transform:scale(.98)}
+        .save-btn:disabled{opacity:.6;cursor:not-allowed;transform:none}
 
-        /* Bottom Nav */
-        .bottom-nav{display:flex;gap:.5rem;margin-top:1.2rem}
-        .bottom-nav a{flex:1;padding:.65rem;border-radius:12px;text-align:center;text-decoration:none;font-weight:700;font-size:.8rem;transition:.3s;display:flex;align-items:center;justify-content:center;gap:.3rem}
-        .bottom-nav .bn-order{background:linear-gradient(135deg,var(--primary),var(--primary-dark));color:var(--dark)}
-        .bottom-nav .bn-track{background:rgba(255,255,255,.15);color:rgba(255,255,255,.7);border:1px solid rgba(255,255,255,.1)}
-        .bottom-nav .bn-home{background:rgba(255,255,255,.15);color:rgba(255,255,255,.7);border:1px solid rgba(255,255,255,.1)}
-        .bottom-nav a:hover{transform:translateY(-2px)}
+        .danger-zone{margin-top:1.5rem;padding-top:1.5rem;border-top:2px dashed var(--gray-lighter)}
+        .danger-title{font-size:.85rem;font-weight:700;color:var(--red);margin-bottom:.8rem;display:flex;align-items:center;gap:.4rem}
+        .logout-btn{width:100%;padding:.8rem;background:transparent;color:var(--red);border:2px solid var(--red);border-radius:14px;font-weight:700;font-size:.88rem;font-family:'Cairo',sans-serif;cursor:pointer;transition:.3s;display:flex;align-items:center;justify-content:center;gap:.5rem}
+        .logout-btn:hover{background:var(--red);color:#fff;transform:translateY(-2px);box-shadow:0 8px 25px rgba(255,71,87,.2)}
 
-        .loading{text-align:center;padding:2rem;display:none}
-        .loading.show{display:block}
-        .spinner{width:35px;height:35px;border:3px solid rgba(255,255,255,.15);border-top-color:var(--primary);border-radius:50%;animation:spin .8s linear infinite;margin:0 auto .8rem}
+        /* Toast */
+        .toast{position:fixed;top:20px;left:50%;transform:translateX(-50%) translateY(-100px);padding:.8rem 1.5rem;border-radius:14px;font-weight:700;font-size:.85rem;z-index:9999;transition:.5s cubic-bezier(.68,-.55,.265,1.55);display:flex;align-items:center;gap:.5rem;box-shadow:var(--shadow-lg);pointer-events:none}
+        .toast.show{transform:translateX(-50%) translateY(0)}
+        .toast-success{background:#fff;color:#065f46;border:2px solid var(--green)}
+        .toast-error{background:#fff;color:#991b1b;border:2px solid var(--red)}
+        .toast-icon{width:28px;height:28px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:.85rem;flex-shrink:0}
+        .toast-success .toast-icon{background:var(--green-light);color:var(--green)}
+        .toast-error .toast-icon{background:var(--red-light);color:var(--red)}
+
+        /* Loading */
+        .page-loader{position:fixed;inset:0;background:rgba(240,242,248,.9);backdrop-filter:blur(10px);display:flex;align-items:center;justify-content:center;z-index:9998;flex-direction:column;gap:1rem}
+        .page-loader.hide{opacity:0;pointer-events:none;transition:.5s}
+        .loader-spinner{width:44px;height:44px;border:4px solid var(--gray-lighter);border-top-color:var(--primary-dark);border-radius:50%;animation:spin .8s linear infinite}
+        .loader-text{font-weight:700;font-size:.9rem;color:var(--gray)}
         @keyframes spin{to{transform:rotate(360deg)}}
 
-        .back{text-align:center;margin-top:1rem}
-        .back a{color:rgba(255,255,255,.4);text-decoration:none;font-weight:600;font-size:.85rem;transition:.3s}
-        .back a:hover{color:var(--primary)}
+        /* Bottom Nav */
+        .bottom-nav{position:fixed;bottom:0;left:0;right:0;background:rgba(255,255,255,.95);backdrop-filter:blur(20px);border-top:1px solid rgba(0,0,0,.05);padding:.6rem 1rem;padding-bottom:calc(.6rem + env(safe-area-inset-bottom));display:flex;justify-content:space-around;z-index:100}
+        .bn-item{display:flex;flex-direction:column;align-items:center;gap:.15rem;text-decoration:none;color:var(--gray);font-size:.65rem;font-weight:600;transition:.3s;padding:.3rem .8rem;border-radius:12px}
+        .bn-item i{font-size:1.2rem;transition:.3s}
+        .bn-item.active{color:var(--primary-dark)}
+        .bn-item.active i{color:var(--primary-dark);transform:scale(1.1)}
+        .bn-item-center{width:52px;height:52px;background:linear-gradient(135deg,var(--primary),var(--primary-dark));border-radius:16px;display:flex;align-items:center;justify-content:center;color:var(--dark);font-size:1.3rem;margin-top:-20px;box-shadow:var(--shadow-glow);transition:.3s}
+        .bn-item-center:hover{transform:translateY(-3px) scale(1.05)}
+
+        .spacer{height:80px}
 
         @media(max-width:575px){
-            body{padding:1rem}
-            .card{padding:1.2rem}
-            .stats-grid{grid-template-columns:repeat(3,1fr)}
+            .stats-row{gap:.5rem;padding:0 1rem}
+            .stat-card{padding:.8rem .5rem}
+            .stat-card .stat-num{font-size:1.3rem}
+            .content-area{padding:0 .8rem}
         }
     </style>
 </head>
 <body>
 
-<div class="page-wrapper">
-    <div class="header">
-        <div class="logo-wrap"><img src="assets/images/logo.jpg" alt="خليك مكانك"></div>
-        <h1>حسابي</h1>
-        <p id="welcomeMsg">مرحبا بيك</p>
-    </div>
-
-    <!-- Profile Card -->
-    <div class="card">
-        <div class="profile-header">
-            <div class="avatar" id="avatarEl">?</div>
-            <div class="profile-info">
-                <h2 id="userName">-</h2>
-                <p id="userEmail">-</p>
-            </div>
-        </div>
-        <div class="stats-grid">
-            <div class="stat-item"><div class="num" id="statOrders">0</div><div class="lbl">طلبات</div></div>
-            <div class="stat-item"><div class="num" id="statSpent">0</div><div class="lbl">ج.م منفق</div></div>
-            <div class="stat-item"><div class="num" id="statActive">0</div><div class="lbl">نشطة</div></div>
-        </div>
-    </div>
-
-    <!-- Tabs -->
-    <div class="card">
-        <div class="tabs">
-            <button class="tab active" onclick="switchTab('orders')">طلباتي</button>
-            <button class="tab" onclick="switchTab('profile')">البيانات</button>
-        </div>
-
-        <!-- Orders -->
-        <div class="tab-section active" id="ordersSection">
-            <div class="loading show" id="ordersLoading"><div class="spinner"></div><p style="color:var(--gray);font-weight:700">جاري تحميل الطلبات...</p></div>
-            <div id="ordersList" style="display:none"></div>
-            <div class="empty-state" id="emptyOrders" style="display:none">
-                <i class="fas fa-box-open"></i>
-                <p>مفيش طلبات لسه!</p>
-                <a href="order.html" class="btn-new"><i class="fas fa-plus"></i> اطلب دلوقتي</a>
-            </div>
-        </div>
-
-        <!-- Profile -->
-        <div class="tab-section" id="profileSection">
-            <div class="msg" id="profileMsg"></div>
-            <div class="form-group">
-                <label class="form-label"><i class="fas fa-user"></i> الاسم</label>
-                <input type="text" class="form-control" id="pName" placeholder="اسمك">
-            </div>
-            <div class="form-group">
-                <label class="form-label"><i class="fas fa-phone"></i> التليفون</label>
-                <input type="tel" class="form-control" id="pPhone" placeholder="01xxxxxxxxx">
-            </div>
-            <div class="form-group">
-                <label class="form-label"><i class="fas fa-map-marker-alt"></i> العنوان</label>
-                <input type="text" class="form-control" id="pAddress" placeholder="العنوان بتاعك">
-            </div>
-            <button class="btn-primary" onclick="saveProfile()"><i class="fas fa-save"></i> حفظ التغييرات</button>
-            <button class="btn-logout" onclick="doLogout()"><i class="fas fa-sign-out-alt"></i> تسجيل الخروج</button>
-        </div>
-    </div>
-
-    <!-- Bottom Nav -->
-    <div class="bottom-nav">
-        <a href="index.html" class="bn-home"><i class="fas fa-home"></i> الرئيسية</a>
-        <a href="order.html" class="bn-order"><i class="fas fa-plus"></i> طلب جديد</a>
-        <a href="track.html" class="bn-track"><i class="fas fa-search"></i> تتبع</a>
-    </div>
-
-    <div class="back"><a href="index.html"><i class="fas fa-arrow-right"></i> العودة للموقع</a></div>
+<!-- Loading -->
+<div class="page-loader" id="pageLoader">
+    <div class="loader-spinner"></div>
+    <div class="loader-text">جاري تحميل حسابك...</div>
 </div>
+
+<!-- Toast -->
+<div class="toast" id="toast"><div class="toast-icon"><i class="ri-check-line"></i></div><span id="toastText"></span></div>
+
+<!-- Profile Hero -->
+<div class="profile-hero">
+    <div class="top-bar">
+        <a href="index.html"><i class="ri-arrow-right-line"></i></a>
+        <span class="top-bar-title">حسابي</span>
+        <a href="order.html"><i class="ri-add-circle-line"></i></a>
+    </div>
+    <div class="profile-info-section">
+        <div class="profile-avatar-wrap">
+            <div class="profile-avatar" id="avatarEl">?</div>
+            <div>
+                <div class="profile-name" id="userName">-</div>
+                <div class="profile-email"><i class="ri-mail-line"></i> <span id="userEmail">-</span></div>
+                <div class="member-badge"><i class="ri-vip-crown-line"></i> عميل مميز</div>
+            </div>
+        </div>
+        <div class="stats-row">
+            <div class="stat-card">
+                <div class="stat-num" id="statOrders">0</div>
+                <div class="stat-label">الطلبات</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-num" id="statSpent">0</div>
+                <div class="stat-label">ج.م منفق</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-num" id="statActive">0</div>
+                <div class="stat-label">نشطة</div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Content -->
+<div class="content-area">
+    <!-- Tabs -->
+    <div class="tab-nav" id="tabNav">
+        <button class="tab-btn active" onclick="switchTab('orders')"><i class="ri-shopping-bag-line"></i> طلباتي</button>
+        <button class="tab-btn" onclick="switchTab('profile')"><i class="ri-user-settings-line"></i> البيانات</button>
+    </div>
+
+    <!-- Orders -->
+    <div class="tab-content active" id="ordersSection">
+        <div class="orders-filter" id="ordersFilter">
+            <button class="filter-btn active" onclick="filterOrders('all',this)">الكل <span class="count" id="fAll">0</span></button>
+            <button class="filter-btn" onclick="filterOrders('pending',this)">معلق <span class="count" id="fPending">0</span></button>
+            <button class="filter-btn" onclick="filterOrders('delivering',this)">في الطريق <span class="count" id="fDelivering">0</span></button>
+            <button class="filter-btn" onclick="filterOrders('completed',this)">مكتمل <span class="count" id="fCompleted">0</span></button>
+            <button class="filter-btn" onclick="filterOrders('cancelled',this)">ملغي <span class="count" id="fCancelled">0</span></button>
+        </div>
+        <div id="ordersList"></div>
+        <div class="empty-state" id="emptyOrders" style="display:none">
+            <div class="empty-icon"><i class="ri-shopping-bag-3-line"></i></div>
+            <h3>مفيش طلبات لسه!</h3>
+            <p>ابدأ أول طلب ليك وهتلاقي كل طلباتك هنا</p>
+            <a href="order.html" class="btn-empty"><i class="ri-add-line"></i> اطلب دلوقتي</a>
+        </div>
+    </div>
+
+    <!-- Profile Edit -->
+    <div class="tab-content" id="profileSection">
+        <div class="edit-card">
+            <div class="edit-card-title"><i class="ri-user-settings-line"></i> المعلومات الشخصية</div>
+            <div class="input-group">
+                <div class="input-label"><i class="ri-user-line"></i> الاسم الكامل</div>
+                <div class="input-wrap">
+                    <input type="text" id="pName" placeholder="اكتب اسمك">
+                    <i class="ri-user-line input-icon"></i>
+                </div>
+            </div>
+            <div class="input-group">
+                <div class="input-label"><i class="ri-phone-line"></i> رقم التليفون</div>
+                <div class="input-wrap">
+                    <input type="tel" id="pPhone" placeholder="01xxxxxxxxx">
+                    <i class="ri-phone-line input-icon"></i>
+                </div>
+                <div class="input-hint">هنستخدم الرقم ده للتواصل معاك</div>
+            </div>
+            <div class="input-group">
+                <div class="input-label"><i class="ri-map-pin-line"></i> العنوان</div>
+                <div class="input-wrap">
+                    <input type="text" id="pAddress" placeholder="الشارع، العماره، الدور...">
+                    <i class="ri-map-pin-line input-icon"></i>
+                </div>
+            </div>
+            <button class="save-btn" id="saveBtn" onclick="saveProfile()">
+                <i class="ri-save-line"></i> حفظ التغييرات
+            </button>
+        </div>
+
+        <div class="edit-card">
+            <div class="edit-card-title"><i class="ri-notification-3-line"></i> التفضيلات</div>
+            <div class="input-group" style="margin-bottom:0">
+                <div style="display:flex;justify-content:space-between;align-items:center">
+                    <div>
+                        <div class="input-label" style="margin-bottom:0"><i class="ri-mail-line"></i> إشعارات البريد</div>
+                        <div class="input-hint" style="margin:0">استلام إشعارات على الإيميل</div>
+                    </div>
+                    <label style="position:relative;display:inline-block;width:48px;height:26px;cursor:pointer">
+                        <input type="checkbox" id="emailNotif" checked style="opacity:0;width:0;height:0">
+                        <span style="position:absolute;inset:0;background:#ddd;border-radius:26px;transition:.3s" id="toggleBg"></span>
+                        <span style="position:absolute;height:20px;width:20px;left:3px;bottom:3px;background:#fff;border-radius:50%;transition:.3s;box-shadow:0 1px 3px rgba(0,0,0,.2)" id="toggleDot"></span>
+                    </label>
+                </div>
+            </div>
+        </div>
+
+        <div class="edit-card danger-zone">
+            <div class="danger-title"><i class="ri-shield-danger-line"></i> منطقة الخطر</div>
+            <button class="logout-btn" onclick="doLogout()">
+                <i class="ri-logout-box-r-line"></i> تسجيل الخروج
+            </button>
+        </div>
+    </div>
+</div>
+
+<div class="spacer"></div>
+
+<!-- Bottom Nav -->
+<nav class="bottom-nav">
+    <a href="index.html" class="bn-item"><i class="ri-home-5-line"></i> الرئيسية</a>
+    <a href="track.html" class="bn-item"><i class="ri-search-eye-line"></i> تتبع</a>
+    <a href="order.html" class="bn-item-center"><i class="ri-add-line"></i></a>
+    <a href="profile.html" class="bn-item active"><i class="ri-user-3-fill"></i> حسابي</a>
+    <a href="download.html" class="bn-item"><i class="ri-download-2-line"></i> التطبيق</a>
+</nav>
 
 <script>
     let customerData = null;
     let allOrders = [];
+    let currentFilter = 'all';
 
+    /* ===== TAB SWITCHING ===== */
     function switchTab(tab) {
-        document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
-        document.querySelectorAll('.tab-section').forEach(s => s.classList.remove('active'));
+        document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+        document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+        const nav = document.getElementById('tabNav');
+
         if (tab === 'orders') {
-            document.querySelectorAll('.tab')[0].classList.add('active');
+            document.querySelectorAll('.tab-btn')[0].classList.add('active');
             document.getElementById('ordersSection').classList.add('active');
+            nav.classList.remove('tab-profile');
         } else {
-            document.querySelectorAll('.tab')[1].classList.add('active');
+            document.querySelectorAll('.tab-btn')[1].classList.add('active');
             document.getElementById('profileSection').classList.add('active');
+            nav.classList.add('tab-profile');
         }
     }
 
+    /* ===== TOGGLE ===== */
+    document.getElementById('emailNotif').addEventListener('change', function() {
+        const bg = document.getElementById('toggleBg');
+        const dot = document.getElementById('toggleDot');
+        if (this.checked) { bg.style.background = 'var(--green)'; dot.style.transform = 'translateX(22px)'; }
+        else { bg.style.background = '#ddd'; dot.style.transform = 'translateX(0)'; }
+    });
+    // Init toggle
+    setTimeout(() => { document.getElementById('emailNotif').dispatchEvent(new Event('change')); }, 100);
+
+    /* ===== TOAST ===== */
+    function showToast(msg, type) {
+        const t = document.getElementById('toast');
+        const icon = t.querySelector('.toast-icon');
+        document.getElementById('toastText').textContent = msg;
+        t.className = 'toast ' + (type || 'success') + ' show';
+        icon.innerHTML = type === 'error' ? '<i class="ri-close-line"></i>' : '<i class="ri-check-line"></i>';
+        setTimeout(() => t.classList.remove('show'), 3000);
+    }
+
+    /* ===== INIT ===== */
     function initPage(user) {
         const name = user.displayName || localStorage.getItem('km_customer_name') || 'عميل';
         const email = user.email || localStorage.getItem('km_customer_email') || '';
         document.getElementById('userName').textContent = name;
         document.getElementById('userEmail').textContent = email;
-        document.getElementById('welcomeMsg').textContent = `مرحبا ${name}`;
         document.getElementById('avatarEl').textContent = name.charAt(0);
-
-        // Fill profile form
         document.getElementById('pName').value = name;
         document.getElementById('pPhone').value = localStorage.getItem('km_customer_phone') || '';
         document.getElementById('pAddress').value = customerData?.address || '';
@@ -223,80 +379,113 @@
         loadOrders(user.email || '', user.uid);
     }
 
+    /* ===== LOAD ORDERS ===== */
     async function loadOrders(email, uid) {
-        document.getElementById('ordersLoading').classList.add('show');
         try {
-            // Get orders by email or phone
             let orders = [];
             if (email) {
                 const snap = await firebase.firestore().collection('orders').where('customerEmail', '==', email).get();
                 orders = snap.docs.map(doc => ({ id: doc.id, ...doc.data() }));
             }
-            // Also check by phone
             const phone = localStorage.getItem('km_customer_phone');
             if (phone) {
                 const snap2 = await firebase.firestore().collection('orders').where('customerPhone', '==', phone).get();
                 const more = snap2.docs.map(doc => ({ id: doc.id, ...doc.data() }));
                 orders = [...orders, ...more];
             }
-            // Deduplicate
             const seen = new Set();
             allOrders = orders.filter(o => { if (seen.has(o.id)) return false; seen.add(o.id); return true; });
             allOrders.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
 
-            document.getElementById('ordersLoading').classList.remove('show');
-            document.getElementById('ordersList').style.display = 'block';
+            updateFilterCounts();
             renderOrders();
         } catch (err) {
-            document.getElementById('ordersLoading').classList.remove('show');
-            document.getElementById('ordersList').style.display = 'block';
-            document.getElementById('emptyOrders').style.display = 'block';
             console.error(err);
+            renderOrders();
         }
     }
 
+    /* ===== FILTER ===== */
+    function filterOrders(filter, btn) {
+        currentFilter = filter;
+        document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+        if (btn) btn.classList.add('active');
+        renderOrders();
+    }
+
+    function updateFilterCounts() {
+        document.getElementById('fAll').textContent = allOrders.length;
+        document.getElementById('fPending').textContent = allOrders.filter(o => ['pending','confirmed','picked'].includes(o.status)).length;
+        document.getElementById('fDelivering').textContent = allOrders.filter(o => o.status === 'delivering').length;
+        document.getElementById('fCompleted').textContent = allOrders.filter(o => o.status === 'completed').length;
+        document.getElementById('fCancelled').textContent = allOrders.filter(o => o.status === 'cancelled').length;
+
+        document.getElementById('statOrders').textContent = allOrders.length;
+        document.getElementById('statSpent').textContent = allOrders.reduce((s, o) => s + (o.deliveryFee || 0), 0);
+        document.getElementById('statActive').textContent = allOrders.filter(o => !['completed', 'cancelled'].includes(o.status)).length;
+    }
+
+    /* ===== RENDER ORDERS ===== */
     function renderOrders() {
         const stL = { pending:'معلق', confirmed:'مؤكد', picked:'تم الاستلام', delivering:'في الطريق', completed:'مكتمل', cancelled:'ملغي' };
-        const svcL = { food:'طعام', package:'طرود', product:'منتجات' };
+        const svcL = { food:'توصيل طعام', package:'توصيل طرود', product:'توصيل منتجات' };
+        const svcI = { food:'ri-restaurant-line', package:'ri-archive-line', product:'ri-shopping-bag-line' };
         const list = document.getElementById('ordersList');
         const empty = document.getElementById('emptyOrders');
 
-        if (!allOrders.length) { list.style.display='none'; empty.style.display='block'; return; }
-        empty.style.display='none';
+        let filtered = allOrders;
+        if (currentFilter === 'pending') filtered = allOrders.filter(o => ['pending','confirmed','picked'].includes(o.status));
+        else if (currentFilter !== 'all') filtered = allOrders.filter(o => o.status === currentFilter);
 
-        // Update stats
-        document.getElementById('statOrders').textContent = allOrders.length;
-        const total = allOrders.reduce((s, o) => s + (o.deliveryFee || 0), 0);
-        document.getElementById('statSpent').textContent = total;
-        const active = allOrders.filter(o => !['completed', 'cancelled'].includes(o.status)).length;
-        document.getElementById('statActive').textContent = active;
+        if (!filtered.length) { list.innerHTML = ''; empty.style.display = 'block'; return; }
+        empty.style.display = 'none';
 
-        list.innerHTML = allOrders.map(o => {
+        list.innerHTML = filtered.map(o => {
             const st = o.status || 'pending';
-            const d = o.createdAt ? new Date(o.createdAt).toLocaleDateString('ar-EG') : '-';
-            return `<div class="order-item" onclick="window.location.href='track.html?id=${o.orderId||o.id}'">
-                <div class="order-top">
-                    <span><span class="status-dot st-${st}"></span> <span class="order-id">${o.orderId || o.id.slice(-8).toUpperCase()}</span></span>
-                    <span class="order-svc">${svcL[o.serviceType] || '-'}</span>
+            const d = o.createdAt ? new Date(o.createdAt).toLocaleDateString('ar-EG', {day:'numeric',month:'short',year:'numeric'}) : '-';
+            const t = o.createdAt ? new Date(o.createdAt).toLocaleTimeString('ar-EG', {hour:'2-digit',minute:'2-digit'}) : '';
+            return `<div class="order-card" onclick="window.location.href='track.html?id=${o.orderId||o.id}'">
+                <div class="order-card-header">
+                    <div class="order-id-wrap">
+                        <div class="order-status-dot sd-${st}"></div>
+                        <span class="order-id-text">${o.orderId || o.id.slice(-8).toUpperCase()}</span>
+                    </div>
+                    <span class="order-status-badge sb-${st}">${stL[st] || st}</span>
                 </div>
-                <div class="order-bottom">
-                    <span class="order-date">${d}</span>
-                    <span class="order-fee">${o.deliveryFee || 0} ج.م — ${stL[st] || st}</span>
+                <div class="order-card-body">
+                    <div class="order-details">
+                        <div class="order-svc-icon si-${o.serviceType||'food'}"><i class="${svcI[o.serviceType]||svcI.food}"></i></div>
+                        <div class="order-meta">
+                            <span class="order-svc-name">${svcL[o.serviceType] || '-'}</span>
+                            <span class="order-date">${d} • ${t}</span>
+                        </div>
+                    </div>
+                    <div class="order-amount">
+                        <div class="order-fee">${o.deliveryFee || 0} ج.م</div>
+                        <div class="order-fee-label">رسوم التوصيل</div>
+                    </div>
+                </div>
+                <div class="order-card-footer">
+                    <div class="order-address"><i class="ri-map-pin-2-fill"></i> ${o.customerAddress || '—'}</div>
+                    <div class="order-arrow"><i class="ri-arrow-left-s-line"></i></div>
                 </div>
             </div>`;
         }).join('');
     }
 
+    /* ===== SAVE PROFILE ===== */
     async function saveProfile() {
-        const msgEl = document.getElementById('profileMsg');
+        const btn = document.getElementById('saveBtn');
         const name = document.getElementById('pName').value.trim();
         const phone = document.getElementById('pPhone').value.trim();
         const address = document.getElementById('pAddress').value.trim();
 
-        if (!name) { msgEl.className='msg err show'; msgEl.textContent='دخل اسمك'; return; }
+        if (!name) { showToast('دخل اسمك', 'error'); return; }
+
+        btn.disabled = true;
+        btn.innerHTML = '<div class="loader-spinner" style="width:20px;height:20px;border-width:2px"></div> جاري الحفظ...';
 
         try {
-            // Update Firestore
             if (customerData && customerData.id) {
                 await firebase.firestore().collection('customers').doc(customerData.id).update({
                     name, phone, address, updatedAt: new Date().toISOString()
@@ -306,16 +495,19 @@
             localStorage.setItem('km_customer_phone', phone);
             document.getElementById('userName').textContent = name;
             document.getElementById('avatarEl').textContent = name.charAt(0);
-            document.getElementById('welcomeMsg').textContent = `مرحبا ${name}`;
-            msgEl.className='msg ok show'; msgEl.textContent='تم الحفظ!';
-            setTimeout(() => msgEl.classList.remove('show'), 2000);
+            showToast('تم حفظ التغييرات بنجاح!', 'success');
         } catch (err) {
-            msgEl.className='msg err show'; msgEl.textContent='حصلت مشكلة، جرب تاني';
+            showToast('حصلت مشكلة، جرب تاني', 'error');
             console.error(err);
         }
+
+        btn.disabled = false;
+        btn.innerHTML = '<i class="ri-save-line"></i> حفظ التغييرات';
     }
 
+    /* ===== LOGOUT ===== */
     async function doLogout() {
+        if (!confirm('متأكد عايز تتسجيل الخروج؟')) return;
         await firebase.auth().signOut();
         localStorage.removeItem('km_customer_uid');
         localStorage.removeItem('km_customer_email');
@@ -328,7 +520,6 @@
     firebase.auth().onAuthStateChanged(async user => {
         if (!user) { window.location.href = 'auth.html'; return; }
 
-        // Try to load customer data from Firestore
         try {
             const snap = await firebase.firestore().collection('customers').where('email', '==', user.email).limit(1).get();
             if (!snap.empty) {
@@ -339,6 +530,7 @@
         } catch(e) { console.log(e); }
 
         initPage(user);
+        document.getElementById('pageLoader').classList.add('hide');
     });
 </script>
 </body>
