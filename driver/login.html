@@ -1,12 +1,13 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>دخول المندوب | خليك مكانك</title>
+    <title>Ø¯Ø®ÙˆÙ„ Ø§Ù„Ù…Ù†Ø¯ÙˆØ¨ | Ø®Ù„ÙŠÙƒ Ù…ÙƒØ§Ù†Ùƒ</title>
     <link rel="icon" type="image/jpeg" href="../assets/images/logo.jpg">
     <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/remixicon@4.1.0/fonts/remixicon.css">
     <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-auth-compat.js"></script>
@@ -63,47 +64,47 @@
     <div class="login-wrapper">
         <div class="login-card">
             <div class="login-header">
-                <div class="logo-wrap"><img src="../assets/images/logo.jpg" alt="خليك مكانك"></div>
-                <h1>دخول المندوب</h1>
-                <p>سجل دخولك عشان تشوف طلباتك</p>
-                <div class="driver-badge"><i class="fas fa-motorcycle"></i> لوحة تحكم المندوب</div>
+                <div class="logo-wrap"><img src="../assets/images/logo.jpg" alt="Ø®Ù„ÙŠÙƒ Ù…ÙƒØ§Ù†Ùƒ"></div>
+                <h1>Ø¯Ø®ÙˆÙ„ Ø§Ù„Ù…Ù†Ø¯ÙˆØ¨</h1>
+                <p>Ø³Ø¬Ù„ Ø¯Ø®ÙˆÙ„Ùƒ Ø¹Ø´Ø§Ù† ØªØ´ÙˆÙ Ø·Ù„Ø¨Ø§ØªÙƒ</p>
+                <div class="driver-badge"><i class="ri-motorbike-line"></i> Ù„ÙˆØ­Ø© ØªØ­ÙƒÙ… Ø§Ù„Ù…Ù†Ø¯ÙˆØ¨</div>
             </div>
 
             <div class="error-box" id="errorMsg"></div>
 
             <form id="loginForm">
                 <div class="form-group">
-                    <label><i class="fas fa-phone"></i> رقم التليفون</label>
+                    <label><i class="ri-phone-line"></i> Ø±Ù‚Ù… Ø§Ù„ØªÙ„ÙŠÙÙˆÙ†</label>
                     <div class="input-wrap">
                         <input type="tel" id="phone" placeholder="01xxxxxxxxx" required autocomplete="tel">
-                        <i class="fas fa-phone"></i>
+                        <i class="ri-phone-line"></i>
                     </div>
                 </div>
                 <div class="form-group">
-                    <label><i class="fas fa-lock"></i> كلمة المرور</label>
+                    <label><i class="ri-lock-line"></i> ÙƒÙ„Ù…Ø© Ø§Ù„Ù…Ø±ÙˆØ±</label>
                     <div class="input-wrap">
-                        <input type="password" id="password" placeholder="••••••••" required>
-                        <i class="fas fa-lock"></i>
+                        <input type="password" id="password" placeholder="â€¢â€¢â€¢â€¢â€¢â€¢â€¢â€¢" required>
+                        <i class="ri-lock-line"></i>
                     </div>
                 </div>
                 <button type="submit" class="btn-login" id="loginBtn">
-                    <i class="fas fa-sign-in-alt"></i> دخول
+                    <i class="ri-login-box-line"></i> Ø¯Ø®ÙˆÙ„
                 </button>
             </form>
 
-            <div class="divider">أو</div>
+            <div class="divider">Ø£Ùˆ</div>
 
             <div class="demo-box">
-                <p>بيانات التجربة</p>
+                <p>Ø¨ÙŠØ§Ù†Ø§Øª Ø§Ù„ØªØ¬Ø±Ø¨Ø©</p>
                 <div class="demo-info">
-                    <i class="fas fa-phone" style="color:var(--primary-dark)"></i> 01123456789<br>
-                    <i class="fas fa-lock" style="color:var(--primary-dark)"></i> 123456
+                    <i class="ri-phone-line" style="color:var(--primary-dark)"></i> 01123456789<br>
+                    <i class="ri-lock-line" style="color:var(--primary-dark)"></i> 123456
                 </div>
             </div>
         </div>
 
         <div class="back-link">
-            <a href="../index.html"><i class="fas fa-arrow-right"></i> العودة للموقع</a>
+            <a href="../index.html"><i class="ri-arrow-right-line"></i> Ø§Ù„Ø¹ÙˆØ¯Ø© Ù„Ù„Ù…ÙˆÙ‚Ø¹</a>
         </div>
     </div>
 
@@ -117,7 +118,7 @@
             const error = document.getElementById('errorMsg');
             const btn = document.getElementById('loginBtn');
 
-            btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> جاري الدخول...';
+            btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Ø¬Ø§Ø±ÙŠ Ø§Ù„Ø¯Ø®ÙˆÙ„...';
             btn.disabled = true;
 
             try {
@@ -149,12 +150,12 @@
                 localStorage.setItem('driver_phone', driverData.phone);
                 location.href = 'dashboard.html';
             } catch (err) {
-                let msg = 'بيانات الدخول غير صحيحة';
-                if (err.message === 'NOT_FOUND') msg = 'رقم التليفون غير مسجل كمندوب';
+                let msg = 'Ø¨ÙŠØ§Ù†Ø§Øª Ø§Ù„Ø¯Ø®ÙˆÙ„ ØºÙŠØ± ØµØ­ÙŠØ­Ø©';
+                if (err.message === 'NOT_FOUND') msg = 'Ø±Ù‚Ù… Ø§Ù„ØªÙ„ÙŠÙÙˆÙ† ØºÙŠØ± Ù…Ø³Ø¬Ù„ ÙƒÙ…Ù†Ø¯ÙˆØ¨';
                 error.textContent = msg;
                 error.style.display = 'block';
                 error.style.animation = 'shake .5s ease';
-                btn.innerHTML = '<i class="fas fa-sign-in-alt"></i> دخول';
+                btn.innerHTML = '<i class="ri-login-box-line"></i> Ø¯Ø®ÙˆÙ„';
                 btn.disabled = false;
                 setTimeout(() => { error.style.display = 'none'; error.style.animation = ''; }, 3000);
             }

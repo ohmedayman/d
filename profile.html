@@ -1,12 +1,13 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>حسابي | خليك مكانك</title>
+    <title>Ø­Ø³Ø§Ø¨ÙŠ | Ø®Ù„ÙŠÙƒ Ù…ÙƒØ§Ù†Ùƒ</title>
     <link rel="icon" type="image/jpeg" href="assets/images/logo.jpg">
     <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/remixicon@4.1.0/fonts/remixicon.css">
     <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-auth-compat.js"></script>
@@ -121,9 +122,9 @@
 
 <div class="page-wrapper">
     <div class="header">
-        <div class="logo-wrap"><img src="assets/images/logo.jpg" alt="خليك مكانك"></div>
-        <h1>حسابي</h1>
-        <p id="welcomeMsg">مرحبا بيك</p>
+        <div class="logo-wrap"><img src="assets/images/logo.jpg" alt="Ø®Ù„ÙŠÙƒ Ù…ÙƒØ§Ù†Ùƒ"></div>
+        <h1>Ø­Ø³Ø§Ø¨ÙŠ</h1>
+        <p id="welcomeMsg">Ù…Ø±Ø­Ø¨Ø§ Ø¨ÙŠÙƒ</p>
     </div>
 
     <!-- Profile Card -->
@@ -136,27 +137,27 @@
             </div>
         </div>
         <div class="stats-grid">
-            <div class="stat-item"><div class="num" id="statOrders">0</div><div class="lbl">طلبات</div></div>
-            <div class="stat-item"><div class="num" id="statSpent">0</div><div class="lbl">ج.م منفق</div></div>
-            <div class="stat-item"><div class="num" id="statActive">0</div><div class="lbl">نشطة</div></div>
+            <div class="stat-item"><div class="num" id="statOrders">0</div><div class="lbl">Ø·Ù„Ø¨Ø§Øª</div></div>
+            <div class="stat-item"><div class="num" id="statSpent">0</div><div class="lbl">Ø¬.Ù… Ù…Ù†ÙÙ‚</div></div>
+            <div class="stat-item"><div class="num" id="statActive">0</div><div class="lbl">Ù†Ø´Ø·Ø©</div></div>
         </div>
     </div>
 
     <!-- Tabs -->
     <div class="card">
         <div class="tabs">
-            <button class="tab active" onclick="switchTab('orders')">طلباتي</button>
-            <button class="tab" onclick="switchTab('profile')">البيانات</button>
+            <button class="tab active" onclick="switchTab('orders')">Ø·Ù„Ø¨Ø§ØªÙŠ</button>
+            <button class="tab" onclick="switchTab('profile')">Ø§Ù„Ø¨ÙŠØ§Ù†Ø§Øª</button>
         </div>
 
         <!-- Orders -->
         <div class="tab-section active" id="ordersSection">
-            <div class="loading show" id="ordersLoading"><div class="spinner"></div><p style="color:var(--gray);font-weight:700">جاري تحميل الطلبات...</p></div>
+            <div class="loading show" id="ordersLoading"><div class="spinner"></div><p style="color:var(--gray);font-weight:700">Ø¬Ø§Ø±ÙŠ ØªØ­Ù…ÙŠÙ„ Ø§Ù„Ø·Ù„Ø¨Ø§Øª...</p></div>
             <div id="ordersList" style="display:none"></div>
             <div class="empty-state" id="emptyOrders" style="display:none">
-                <i class="fas fa-box-open"></i>
-                <p>مفيش طلبات لسه!</p>
-                <a href="order.html" class="btn-new"><i class="fas fa-plus"></i> اطلب دلوقتي</a>
+                <i class="ri-archive-line"></i>
+                <p>Ù…ÙÙŠØ´ Ø·Ù„Ø¨Ø§Øª Ù„Ø³Ù‡!</p>
+                <a href="order.html" class="btn-new"><i class="ri-add-line"></i> Ø§Ø·Ù„Ø¨ Ø¯Ù„ÙˆÙ‚ØªÙŠ</a>
             </div>
         </div>
 
@@ -164,30 +165,30 @@
         <div class="tab-section" id="profileSection">
             <div class="msg" id="profileMsg"></div>
             <div class="form-group">
-                <label class="form-label"><i class="fas fa-user"></i> الاسم</label>
-                <input type="text" class="form-control" id="pName" placeholder="اسمك">
+                <label class="form-label"><i class="ri-user-line"></i> Ø§Ù„Ø§Ø³Ù…</label>
+                <input type="text" class="form-control" id="pName" placeholder="Ø§Ø³Ù…Ùƒ">
             </div>
             <div class="form-group">
-                <label class="form-label"><i class="fas fa-phone"></i> التليفون</label>
+                <label class="form-label"><i class="ri-phone-line"></i> Ø§Ù„ØªÙ„ÙŠÙÙˆÙ†</label>
                 <input type="tel" class="form-control" id="pPhone" placeholder="01xxxxxxxxx">
             </div>
             <div class="form-group">
-                <label class="form-label"><i class="fas fa-map-marker-alt"></i> العنوان</label>
-                <input type="text" class="form-control" id="pAddress" placeholder="العنوان بتاعك">
+                <label class="form-label"><i class="ri-map-pin-line"></i> Ø§Ù„Ø¹Ù†ÙˆØ§Ù†</label>
+                <input type="text" class="form-control" id="pAddress" placeholder="Ø§Ù„Ø¹Ù†ÙˆØ§Ù† Ø¨ØªØ§Ø¹Ùƒ">
             </div>
-            <button class="btn-primary" onclick="saveProfile()"><i class="fas fa-save"></i> حفظ التغييرات</button>
-            <button class="btn-logout" onclick="doLogout()"><i class="fas fa-sign-out-alt"></i> تسجيل الخروج</button>
+            <button class="btn-primary" onclick="saveProfile()"><i class="ri-save-line"></i> Ø­ÙØ¸ Ø§Ù„ØªØºÙŠÙŠØ±Ø§Øª</button>
+            <button class="btn-logout" onclick="doLogout()"><i class="ri-logout-box-r-line"></i> ØªØ³Ø¬ÙŠÙ„ Ø§Ù„Ø®Ø±ÙˆØ¬</button>
         </div>
     </div>
 
     <!-- Bottom Nav -->
     <div class="bottom-nav">
-        <a href="index.html" class="bn-home"><i class="fas fa-home"></i> الرئيسية</a>
-        <a href="order.html" class="bn-order"><i class="fas fa-plus"></i> طلب جديد</a>
-        <a href="track.html" class="bn-track"><i class="fas fa-search"></i> تتبع</a>
+        <a href="index.html" class="bn-home"><i class="ri-home-line"></i> Ø§Ù„Ø±Ø¦ÙŠØ³ÙŠØ©</a>
+        <a href="order.html" class="bn-order"><i class="ri-add-line"></i> Ø·Ù„Ø¨ Ø¬Ø¯ÙŠØ¯</a>
+        <a href="track.html" class="bn-track"><i class="ri-search-line"></i> ØªØªØ¨Ø¹</a>
     </div>
 
-    <div class="back"><a href="index.html"><i class="fas fa-arrow-right"></i> العودة للموقع</a></div>
+    <div class="back"><a href="index.html"><i class="ri-arrow-right-line"></i> Ø§Ù„Ø¹ÙˆØ¯Ø© Ù„Ù„Ù…ÙˆÙ‚Ø¹</a></div>
 </div>
 
 <script>
@@ -207,11 +208,11 @@
     }
 
     function initPage(user) {
-        const name = user.displayName || localStorage.getItem('km_customer_name') || 'عميل';
+        const name = user.displayName || localStorage.getItem('km_customer_name') || 'Ø¹Ù…ÙŠÙ„';
         const email = user.email || localStorage.getItem('km_customer_email') || '';
         document.getElementById('userName').textContent = name;
         document.getElementById('userEmail').textContent = email;
-        document.getElementById('welcomeMsg').textContent = `مرحبا ${name}`;
+        document.getElementById('welcomeMsg').textContent = `Ù…Ø±Ø­Ø¨Ø§ ${name}`;
         document.getElementById('avatarEl').textContent = name.charAt(0);
 
         // Fill profile form
@@ -255,8 +256,8 @@
     }
 
     function renderOrders() {
-        const stL = { pending:'معلق', confirmed:'مؤكد', picked:'تم الاستلام', delivering:'في الطريق', completed:'مكتمل', cancelled:'ملغي' };
-        const svcL = { food:'طعام', package:'طرود', product:'منتجات' };
+        const stL = { pending:'Ù…Ø¹Ù„Ù‚', confirmed:'Ù…Ø¤ÙƒØ¯', picked:'ØªÙ… Ø§Ù„Ø§Ø³ØªÙ„Ø§Ù…', delivering:'ÙÙŠ Ø§Ù„Ø·Ø±ÙŠÙ‚', completed:'Ù…ÙƒØªÙ…Ù„', cancelled:'Ù…Ù„ØºÙŠ' };
+        const svcL = { food:'Ø·Ø¹Ø§Ù…', package:'Ø·Ø±ÙˆØ¯', product:'Ù…Ù†ØªØ¬Ø§Øª' };
         const list = document.getElementById('ordersList');
         const empty = document.getElementById('emptyOrders');
 
@@ -280,7 +281,7 @@
                 </div>
                 <div class="order-bottom">
                     <span class="order-date">${d}</span>
-                    <span class="order-fee">${o.deliveryFee || 0} ج.م — ${stL[st] || st}</span>
+                    <span class="order-fee">${o.deliveryFee || 0} Ø¬.Ù… â€” ${stL[st] || st}</span>
                 </div>
             </div>`;
         }).join('');
@@ -292,7 +293,7 @@
         const phone = document.getElementById('pPhone').value.trim();
         const address = document.getElementById('pAddress').value.trim();
 
-        if (!name) { msgEl.className='msg err show'; msgEl.textContent='دخل اسمك'; return; }
+        if (!name) { msgEl.className='msg err show'; msgEl.textContent='Ø¯Ø®Ù„ Ø§Ø³Ù…Ùƒ'; return; }
 
         try {
             // Update Firestore
@@ -305,11 +306,11 @@
             localStorage.setItem('km_customer_phone', phone);
             document.getElementById('userName').textContent = name;
             document.getElementById('avatarEl').textContent = name.charAt(0);
-            document.getElementById('welcomeMsg').textContent = `مرحبا ${name}`;
-            msgEl.className='msg ok show'; msgEl.textContent='تم الحفظ!';
+            document.getElementById('welcomeMsg').textContent = `Ù…Ø±Ø­Ø¨Ø§ ${name}`;
+            msgEl.className='msg ok show'; msgEl.textContent='ØªÙ… Ø§Ù„Ø­ÙØ¸!';
             setTimeout(() => msgEl.classList.remove('show'), 2000);
         } catch (err) {
-            msgEl.className='msg err show'; msgEl.textContent='حصلت مشكلة، جرب تاني';
+            msgEl.className='msg err show'; msgEl.textContent='Ø­ØµÙ„Øª Ù…Ø´ÙƒÙ„Ø©ØŒ Ø¬Ø±Ø¨ ØªØ§Ù†ÙŠ';
             console.error(err);
         }
     }
@@ -342,3 +343,4 @@
 </script>
 </body>
 </html>
+

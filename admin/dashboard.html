@@ -1,13 +1,14 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>لوحة التحكم | خليك مكانك</title>
+    <title>Ù„ÙˆØ­Ø© Ø§Ù„ØªØ­ÙƒÙ… | Ø®Ù„ÙŠÙƒ Ù…ÙƒØ§Ù†Ùƒ</title>
     <link rel="icon" type="image/jpeg" href="../assets/images/logo.jpg">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/remixicon@4.1.0/fonts/remixicon.css">
     <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
     <link rel="stylesheet" href="admin.css">
 </head>
@@ -16,57 +17,58 @@
     <aside class="sidebar" id="sidebar">
         <div class="sidebar-brand">
             <img src="../assets/images/logo.jpg" alt="Logo" width="42" height="42" style="border-radius:10px;">
-            <div><h3>خليك مكانك</h3><span>لوحة التحكم</span></div>
+            <div><h3>Ø®Ù„ÙŠÙƒ Ù…ÙƒØ§Ù†Ùƒ</h3><span>Ù„ÙˆØ­Ø© Ø§Ù„ØªØ­ÙƒÙ…</span></div>
         </div>
         <nav class="sidebar-nav">
-            <a href="#" class="nav-item active" data-page="dashboard"><i class="fas fa-th-large"></i><span>الرئيسية</span></a>
-            <a href="#" class="nav-item" data-page="orders"><i class="fas fa-shopping-cart"></i><span>الطلبات</span><span class="badge-count" id="orderBadge">0</span></a>
-            <a href="#" class="nav-item" data-page="customers"><i class="fas fa-users"></i><span>العملاء</span></a>
-            <a href="#" class="nav-item" data-page="drivers"><i class="fas fa-motorcycle"></i><span>المناديب</span></a>
-            <a href="#" class="nav-item" data-page="reports"><i class="fas fa-chart-bar"></i><span>التقارير</span></a>
-            <a href="#" class="nav-item" data-page="settings"><i class="fas fa-cog"></i><span>الإعدادات</span></a>
+            <a href="#" class="nav-item active" data-page="dashboard"><i class="ri-dashboard-line"></i><span>Ø§Ù„Ø±Ø¦ÙŠØ³ÙŠØ©</span></a>
+            <a href="#" class="nav-item" data-page="orders"><i class="ri-shopping-cart-2-line"></i><span>Ø§Ù„Ø·Ù„Ø¨Ø§Øª</span><span class="badge-count" id="orderBadge">0</span></a>
+            <a href="#" class="nav-item" data-page="customers"><i class="ri-user-line"></i><span>Ø§Ù„Ø¹Ù…Ù„Ø§Ø¡</span></a>
+            <a href="#" class="nav-item" data-page="drivers"><i class="ri-motorbike-line"></i><span>Ø§Ù„Ù…Ù†Ø§Ø¯ÙŠØ¨</span></a>
+            <a href="reports.html" class="nav-item"><i class="ri-bar-chart-grouped-line"></i><span>Ø§Ù„ØªÙ‚Ø§Ø±ÙŠØ±</span></a>
+            <a href="#" class="nav-item" data-page="settings"><i class="ri-settings-3-line"></i><span>Ø§Ù„Ø¥Ø¹Ø¯Ø§Ø¯Ø§Øª</span></a>
         </nav>
         <div class="sidebar-footer">
-            <a href="../driver/dashboard.html" target="_blank" class="sidebar-link-sm"><i class="fas fa-motorcycle"></i> لوحة المندوب</a>
-            <a href="../index.html" target="_blank" class="sidebar-link-sm"><i class="fas fa-external-link-alt"></i> فتح الموقع</a>
-            <button class="btn-logout" id="logoutBtn"><i class="fas fa-sign-out-alt"></i> خروج</button>
+            <a href="../download.html" target="_blank" class="sidebar-link-sm"><i class="ri-download-2-line"></i> ØªØ­Ù…ÙŠÙ„ Ø§Ù„ØªØ·Ø¨ÙŠÙ‚</a>
+            <a href="../driver/dashboard.html" target="_blank" class="sidebar-link-sm"><i class="ri-motorbike-line"></i> Ù„ÙˆØ­Ø© Ø§Ù„Ù…Ù†Ø¯ÙˆØ¨</a>
+            <a href="../index.html" target="_blank" class="sidebar-link-sm"><i class="ri-external-link-line"></i> ÙØªØ­ Ø§Ù„Ù…ÙˆÙ‚Ø¹</a>
+            <button class="btn-logout" id="logoutBtn"><i class="ri-logout-box-r-line"></i> Ø®Ø±ÙˆØ¬</button>
         </div>
     </aside>
 
-    <button class="mobile-toggle" id="mobileToggle"><i class="fas fa-bars"></i></button>
+    <button class="mobile-toggle" id="mobileToggle"><i class="ri-menu-line"></i></button>
     <div class="sidebar-overlay" id="sidebarOverlay"></div>
 
     <main class="main-content">
         <header class="topbar">
-            <div class="topbar-right"><h1 id="pageTitle">الرئيسية</h1></div>
+            <div class="topbar-right"><h1 id="pageTitle">Ø§Ù„Ø±Ø¦ÙŠØ³ÙŠØ©</h1></div>
             <div class="topbar-left">
-                <div class="notification-bell" id="notifBell"><i class="fas fa-bell"></i><span class="notif-dot" id="notifDot"></span></div>
-                <div class="admin-info"><div class="admin-avatar"><i class="fas fa-user-shield"></i></div><span id="adminName">Admin</span></div>
+                <div class="notification-bell" id="notifBell"><i class="ri-notification-3-line"></i><span class="notif-dot" id="notifDot"></span></div>
+                <div class="admin-info"><div class="admin-avatar"><i class="ri-admin-line"></i></div><span id="adminName">Admin</span></div>
             </div>
         </header>
 
         <div class="notif-panel" id="notifPanel">
-            <div class="notif-header"><h3>الإشعارات</h3><button onclick="clearNotifs()">مسح الكل</button></div>
-            <div class="notif-list" id="notifList"><div class="notif-empty"><i class="fas fa-bell-slash"></i><p>لا توجد إشعارات</p></div></div>
+            <div class="notif-header"><h3>Ø§Ù„Ø¥Ø´Ø¹Ø§Ø±Ø§Øª</h3><button onclick="clearNotifs()">Ù…Ø³Ø­ Ø§Ù„ÙƒÙ„</button></div>
+            <div class="notif-list" id="notifList"><div class="notif-empty"><i class="ri-notification-3-line-slash"></i><p>Ù„Ø§ ØªÙˆØ¬Ø¯ Ø¥Ø´Ø¹Ø§Ø±Ø§Øª</p></div></div>
         </div>
 
         <!-- DASHBOARD -->
         <section class="page-section active" id="sec-dashboard">
             <div class="stats-grid">
-                <div class="stat-card"><div class="stat-card-icon bg-yellow"><i class="fas fa-shopping-cart"></i></div><div class="stat-card-info"><h3 id="sTotalOrders">0</h3><p>إجمالي الطلبات</p></div></div>
-                <div class="stat-card"><div class="stat-card-icon bg-blue"><i class="fas fa-clock"></i></div><div class="stat-card-info"><h3 id="sPending">0</h3><p>معلقة</p></div></div>
-                <div class="stat-card"><div class="stat-card-icon bg-green"><i class="fas fa-check-circle"></i></div><div class="stat-card-info"><h3 id="sCompleted">0</h3><p>مكتملة</p></div></div>
-                <div class="stat-card"><div class="stat-card-icon bg-purple"><i class="fas fa-dollar-sign"></i></div><div class="stat-card-info"><h3 id="sRevenue">0</h3><p>الإيرادات ج.م</p></div></div>
-                <div class="stat-card"><div class="stat-card-icon bg-red"><i class="fas fa-users"></i></div><div class="stat-card-info"><h3 id="sCustomers">0</h3><p>العملاء</p></div></div>
-                <div class="stat-card"><div class="stat-card-icon bg-orange"><i class="fas fa-motorcycle"></i></div><div class="stat-card-info"><h3 id="sDrivers">0</h3><p>المناديب</p></div></div>
+                <div class="stat-card"><div class="stat-card-icon bg-yellow"><i class="ri-shopping-cart-2-line"></i></div><div class="stat-card-info"><h3 id="sTotalOrders">0</h3><p>Ø¥Ø¬Ù…Ø§Ù„ÙŠ Ø§Ù„Ø·Ù„Ø¨Ø§Øª</p></div></div>
+                <div class="stat-card"><div class="stat-card-icon bg-blue"><i class="ri-time-line"></i></div><div class="stat-card-info"><h3 id="sPending">0</h3><p>Ù…Ø¹Ù„Ù‚Ø©</p></div></div>
+                <div class="stat-card"><div class="stat-card-icon bg-green"><i class="ri-checkbox-circle-line"></i></div><div class="stat-card-info"><h3 id="sCompleted">0</h3><p>Ù…ÙƒØªÙ…Ù„Ø©</p></div></div>
+                <div class="stat-card"><div class="stat-card-icon bg-purple"><i class="ri-money-pound-circle-line"></i></div><div class="stat-card-info"><h3 id="sRevenue">0</h3><p>Ø§Ù„Ø¥ÙŠØ±Ø§Ø¯Ø§Øª Ø¬.Ù…</p></div></div>
+                <div class="stat-card"><div class="stat-card-icon bg-red"><i class="ri-user-line"></i></div><div class="stat-card-info"><h3 id="sCustomers">0</h3><p>Ø§Ù„Ø¹Ù…Ù„Ø§Ø¡</p></div></div>
+                <div class="stat-card"><div class="stat-card-icon bg-orange"><i class="ri-motorbike-line"></i></div><div class="stat-card-info"><h3 id="sDrivers">0</h3><p>Ø§Ù„Ù…Ù†Ø§Ø¯ÙŠØ¨</p></div></div>
             </div>
             <div class="row g-4">
-                <div class="col-lg-8"><div class="card-custom"><div class="card-custom-header"><h3><i class="fas fa-chart-line"></i> الطلبات</h3></div><div class="card-custom-body"><canvas id="ordersChart" height="250"></canvas></div></div></div>
-                <div class="col-lg-4"><div class="card-custom"><div class="card-custom-header"><h3><i class="fas fa-chart-pie"></i> الأنواع</h3></div><div class="card-custom-body"><canvas id="typesChart" height="250"></canvas></div></div></div>
+                <div class="col-lg-8"><div class="card-custom"><div class="card-custom-header"><h3><i class="ri-line-chart-line"></i> Ø§Ù„Ø·Ù„Ø¨Ø§Øª</h3></div><div class="card-custom-body"><canvas id="ordersChart" height="250"></canvas></div></div></div>
+                <div class="col-lg-4"><div class="card-custom"><div class="card-custom-header"><h3><i class="ri-pie-chart-line"></i> Ø§Ù„Ø£Ù†ÙˆØ§Ø¹</h3></div><div class="card-custom-body"><canvas id="typesChart" height="250"></canvas></div></div></div>
             </div>
             <div class="row g-4 mt-1">
-                <div class="col-lg-8"><div class="card-custom"><div class="card-custom-header"><h3><i class="fas fa-clock"></i> آخر الطلبات</h3><button class="btn-sm-custom" onclick="switchPage('orders')">عرض الكل</button></div><div class="card-custom-body p-0"><div class="table-responsive"><table class="table-custom"><thead><tr><th>#</th><th>العميل</th><th>الخدمة</th><th>التكلفة</th><th>الحالة</th></tr></thead><tbody id="recentOrdersBody"></tbody></table></div></div></div></div>
-                <div class="col-lg-4"><div class="card-custom"><div class="card-custom-header"><h3><i class="fas fa-motorcycle"></i> المناديب</h3></div><div class="card-custom-body" id="availableDriversBody"><div class="empty-state-sm"><i class="fas fa-motorcycle"></i><p>لا يوجد مناديب</p></div></div></div></div>
+                <div class="col-lg-8"><div class="card-custom"><div class="card-custom-header"><h3><i class="ri-time-line"></i> Ø¢Ø®Ø± Ø§Ù„Ø·Ù„Ø¨Ø§Øª</h3><button class="btn-sm-custom" onclick="switchPage('orders')">Ø¹Ø±Ø¶ Ø§Ù„ÙƒÙ„</button></div><div class="card-custom-body p-0"><div class="table-responsive"><table class="table-custom"><thead><tr><th>#</th><th>Ø§Ù„Ø¹Ù…ÙŠÙ„</th><th>Ø§Ù„Ø®Ø¯Ù…Ø©</th><th>Ø§Ù„ØªÙƒÙ„ÙØ©</th><th>Ø§Ù„Ø­Ø§Ù„Ø©</th></tr></thead><tbody id="recentOrdersBody"></tbody></table></div></div></div></div>
+                <div class="col-lg-4"><div class="card-custom"><div class="card-custom-header"><h3><i class="ri-motorbike-line"></i> Ø§Ù„Ù…Ù†Ø§Ø¯ÙŠØ¨</h3></div><div class="card-custom-body" id="availableDriversBody"><div class="empty-state-sm"><i class="ri-motorbike-line"></i><p>Ù„Ø§ ÙŠÙˆØ¬Ø¯ Ù…Ù†Ø§Ø¯ÙŠØ¨</p></div></div></div></div>
             </div>
         </section>
 
@@ -74,25 +76,25 @@
         <section class="page-section" id="sec-orders">
             <div class="page-actions">
                 <div class="filter-group">
-                    <select class="filter-select" id="orderFilter" onchange="renderOrders()"><option value="all">الكل</option><option value="pending">معلق</option><option value="confirmed">مؤكد</option><option value="picked">تم الاستلام</option><option value="delivering">في الطريق</option><option value="completed">مكتمل</option><option value="cancelled">ملغي</option></select>
-                    <input type="text" class="filter-input" id="orderSearch" placeholder="بحث..." oninput="renderOrders()">
+                    <select class="filter-select" id="orderFilter" onchange="renderOrders()"><option value="all">Ø§Ù„ÙƒÙ„</option><option value="pending">Ù…Ø¹Ù„Ù‚</option><option value="confirmed">Ù…Ø¤ÙƒØ¯</option><option value="picked">ØªÙ… Ø§Ù„Ø§Ø³ØªÙ„Ø§Ù…</option><option value="delivering">ÙÙŠ Ø§Ù„Ø·Ø±ÙŠÙ‚</option><option value="completed">Ù…ÙƒØªÙ…Ù„</option><option value="cancelled">Ù…Ù„ØºÙŠ</option></select>
+                    <input type="text" class="filter-input" id="orderSearch" placeholder="Ø¨Ø­Ø«..." oninput="renderOrders()">
                 </div>
-                <button class="btn-add" data-bs-toggle="modal" data-bs-target="#addOrderModal"><i class="fas fa-plus"></i> طلب جديد</button>
+                <button class="btn-add" data-bs-toggle="modal" data-bs-target="#addOrderModal"><i class="ri-add-line"></i> Ø·Ù„Ø¨ Ø¬Ø¯ÙŠØ¯</button>
             </div>
-            <div class="card-custom"><div class="card-custom-body p-0"><div class="table-responsive"><table class="table-custom"><thead><tr><th>رقم</th><th>العميل</th><th>التليفون</th><th>الخدمة</th><th>التكلفة</th><th>المندوب</th><th>الحالة</th><th>الإجراءات</th></tr></thead><tbody id="ordersTableBody"></tbody></table></div></div></div>
+            <div class="card-custom"><div class="card-custom-body p-0"><div class="table-responsive"><table class="table-custom"><thead><tr><th>Ø±Ù‚Ù…</th><th>Ø§Ù„Ø¹Ù…ÙŠÙ„</th><th>Ø§Ù„ØªÙ„ÙŠÙÙˆÙ†</th><th>Ø§Ù„Ø®Ø¯Ù…Ø©</th><th>Ø§Ù„ØªÙƒÙ„ÙØ©</th><th>Ø§Ù„Ù…Ù†Ø¯ÙˆØ¨</th><th>Ø§Ù„Ø­Ø§Ù„Ø©</th><th>Ø§Ù„Ø¥Ø¬Ø±Ø§Ø¡Ø§Øª</th></tr></thead><tbody id="ordersTableBody"></tbody></table></div></div></div>
         </section>
 
         <!-- CUSTOMERS -->
         <section class="page-section" id="sec-customers">
-            <div class="page-actions"><input type="text" class="filter-input" placeholder="بحث..." oninput="renderCustomers(this.value)"></div>
-            <div class="card-custom"><div class="card-custom-body p-0"><div class="table-responsive"><table class="table-custom"><thead><tr><th>#</th><th>الاسم</th><th>التليفون</th><th>العنوان</th><th>الطلبات</th><th>المبلغ</th></tr></thead><tbody id="customersTableBody"></tbody></table></div></div></div>
+            <div class="page-actions"><input type="text" class="filter-input" placeholder="Ø¨Ø­Ø«..." oninput="renderCustomers(this.value)"></div>
+            <div class="card-custom"><div class="card-custom-body p-0"><div class="table-responsive"><table class="table-custom"><thead><tr><th>#</th><th>Ø§Ù„Ø§Ø³Ù…</th><th>Ø§Ù„ØªÙ„ÙŠÙÙˆÙ†</th><th>Ø§Ù„Ø¹Ù†ÙˆØ§Ù†</th><th>Ø§Ù„Ø·Ù„Ø¨Ø§Øª</th><th>Ø§Ù„Ù…Ø¨Ù„Øº</th></tr></thead><tbody id="customersTableBody"></tbody></table></div></div></div>
         </section>
 
         <!-- DRIVERS -->
         <section class="page-section" id="sec-drivers">
             <div class="page-actions">
-                <select class="filter-select" id="driverFilter" onchange="renderDrivers()"><option value="all">الكل</option><option value="available">متاح</option><option value="busy">مشغول</option></select>
-                <button class="btn-add" data-bs-toggle="modal" data-bs-target="#addDriverModal"><i class="fas fa-plus"></i> مندوب جديد</button>
+                <select class="filter-select" id="driverFilter" onchange="renderDrivers()"><option value="all">Ø§Ù„ÙƒÙ„</option><option value="available">Ù…ØªØ§Ø­</option><option value="busy">Ù…Ø´ØºÙˆÙ„</option></select>
+                <button class="btn-add" data-bs-toggle="modal" data-bs-target="#addDriverModal"><i class="ri-add-line"></i> Ù…Ù†Ø¯ÙˆØ¨ Ø¬Ø¯ÙŠØ¯</button>
             </div>
             <div class="row g-4" id="driversGrid"></div>
         </section>
@@ -100,55 +102,55 @@
         <!-- REPORTS -->
         <section class="page-section" id="sec-reports">
             <div class="row g-4">
-                <div class="col-lg-6"><div class="card-custom"><div class="card-custom-header"><h3><i class="fas fa-chart-area"></i> الإيرادات</h3></div><div class="card-custom-body"><canvas id="revenueChart" height="280"></canvas></div></div></div>
-                <div class="col-lg-6"><div class="card-custom"><div class="card-custom-header"><h3><i class="fas fa-chart-bar"></i> المقارنة</h3></div><div class="card-custom-body"><canvas id="compareChart" height="280"></canvas></div></div></div>
-                <div class="col-12"><div class="card-custom"><div class="card-custom-header"><h3><i class="fas fa-file-invoice-dollar"></i> ملخص</h3></div><div class="card-custom-body"><div class="summary-grid"><div class="summary-box"><h4 id="rTodayOrders">0</h4><p>طلبات اليوم</p></div><div class="summary-box"><h4 id="rTodayRevenue">0 ج.م</h4><p>إيرادات اليوم</p></div><div class="summary-box"><h4 id="rWeekOrders">0</h4><p>طلبات الأسبوع</p></div><div class="summary-box"><h4 id="rWeekRevenue">0 ج.م</h4><p>إيرادات الأسبوع</p></div><div class="summary-box"><h4 id="rAvgOrder">0 ج.م</h4><p>متوسط الطلب</p></div><div class="summary-box"><h4 id="rCancelRate">0%</h4><p>نسبة الإلغاء</p></div></div></div></div></div>
+                <div class="col-lg-6"><div class="card-custom"><div class="card-custom-header"><h3><i class="fas fa-chart-area"></i> Ø§Ù„Ø¥ÙŠØ±Ø§Ø¯Ø§Øª</h3></div><div class="card-custom-body"><canvas id="revenueChart" height="280"></canvas></div></div></div>
+                <div class="col-lg-6"><div class="card-custom"><div class="card-custom-header"><h3><i class="ri-bar-chart-grouped-line"></i> Ø§Ù„Ù…Ù‚Ø§Ø±Ù†Ø©</h3></div><div class="card-custom-body"><canvas id="compareChart" height="280"></canvas></div></div></div>
+                <div class="col-12"><div class="card-custom"><div class="card-custom-header"><h3><i class="fas fa-file-invoice-dollar"></i> Ù…Ù„Ø®Øµ</h3></div><div class="card-custom-body"><div class="summary-grid"><div class="summary-box"><h4 id="rTodayOrders">0</h4><p>Ø·Ù„Ø¨Ø§Øª Ø§Ù„ÙŠÙˆÙ…</p></div><div class="summary-box"><h4 id="rTodayRevenue">0 Ø¬.Ù…</h4><p>Ø¥ÙŠØ±Ø§Ø¯Ø§Øª Ø§Ù„ÙŠÙˆÙ…</p></div><div class="summary-box"><h4 id="rWeekOrders">0</h4><p>Ø·Ù„Ø¨Ø§Øª Ø§Ù„Ø£Ø³Ø¨ÙˆØ¹</p></div><div class="summary-box"><h4 id="rWeekRevenue">0 Ø¬.Ù…</h4><p>Ø¥ÙŠØ±Ø§Ø¯Ø§Øª Ø§Ù„Ø£Ø³Ø¨ÙˆØ¹</p></div><div class="summary-box"><h4 id="rAvgOrder">0 Ø¬.Ù…</h4><p>Ù…ØªÙˆØ³Ø· Ø§Ù„Ø·Ù„Ø¨</p></div><div class="summary-box"><h4 id="rCancelRate">0%</h4><p>Ù†Ø³Ø¨Ø© Ø§Ù„Ø¥Ù„ØºØ§Ø¡</p></div></div></div></div></div>
             </div>
         </section>
 
         <!-- SETTINGS -->
         <section class="page-section" id="sec-settings">
             <div class="row g-4">
-                <div class="col-lg-6"><div class="card-custom"><div class="card-custom-header"><h3><i class="fas fa-store"></i> الشركة</h3></div><div class="card-custom-body"><form id="settingsForm"><div class="mb-3"><label class="form-label-custom">الاسم</label><input type="text" class="form-input-custom" id="setCompanyName" value="خليك مكانك"></div><div class="mb-3"><label class="form-label-custom">التليفون</label><input type="tel" class="form-input-custom" id="setPhone" value="01234567890"></div><div class="mb-3"><label class="form-label-custom">الواتساب</label><input type="tel" class="form-input-custom" id="setWhatsapp" value="201234567890"></div><div class="mb-3"><label class="form-label-custom">العنوان</label><input type="text" class="form-input-custom" id="setAddress" value="الفيوم، مصر"></div><button type="submit" class="btn-add"><i class="fas fa-save"></i> حفظ</button></form></div></div></div>
-                <div class="col-lg-6"><div class="card-custom"><div class="card-custom-header"><h3><i class="fas fa-truck"></i> التسعيرة</h3></div><div class="card-custom-body"><form id="pricingForm"><div class="mb-3"><label class="form-label-custom">طعام (ج.م)</label><input type="number" class="form-input-custom" id="setFeeFood" value="15"></div><div class="mb-3"><label class="form-label-custom">طرود (ج.م)</label><input type="number" class="form-input-custom" id="setFeePackage" value="20"></div><div class="mb-3"><label class="form-label-custom">منتجات (ج.م)</label><input type="number" class="form-input-custom" id="setFeeProduct" value="25"></div><button type="submit" class="btn-add"><i class="fas fa-save"></i> حفظ</button></form></div></div></div>
+                <div class="col-lg-6"><div class="card-custom"><div class="card-custom-header"><h3><i class="fas fa-store"></i> Ø§Ù„Ø´Ø±ÙƒØ©</h3></div><div class="card-custom-body"><form id="settingsForm"><div class="mb-3"><label class="form-label-custom">Ø§Ù„Ø§Ø³Ù…</label><input type="text" class="form-input-custom" id="setCompanyName" value="Ø®Ù„ÙŠÙƒ Ù…ÙƒØ§Ù†Ùƒ"></div><div class="mb-3"><label class="form-label-custom">Ø§Ù„ØªÙ„ÙŠÙÙˆÙ†</label><input type="tel" class="form-input-custom" id="setPhone" value="01234567890"></div><div class="mb-3"><label class="form-label-custom">Ø§Ù„ÙˆØ§ØªØ³Ø§Ø¨</label><input type="tel" class="form-input-custom" id="setWhatsapp" value="201234567890"></div><div class="mb-3"><label class="form-label-custom">Ø§Ù„Ø¹Ù†ÙˆØ§Ù†</label><input type="text" class="form-input-custom" id="setAddress" value="Ø§Ù„ÙÙŠÙˆÙ…ØŒ Ù…ØµØ±"></div><button type="submit" class="btn-add"><i class="fas fa-save"></i> Ø­ÙØ¸</button></form></div></div></div>
+                <div class="col-lg-6"><div class="card-custom"><div class="card-custom-header"><h3><i class="fas fa-truck"></i> Ø§Ù„ØªØ³Ø¹ÙŠØ±Ø©</h3></div><div class="card-custom-body"><form id="pricingForm"><div class="mb-3"><label class="form-label-custom">Ø·Ø¹Ø§Ù… (Ø¬.Ù…)</label><input type="number" class="form-input-custom" id="setFeeFood" value="15"></div><div class="mb-3"><label class="form-label-custom">Ø·Ø±ÙˆØ¯ (Ø¬.Ù…)</label><input type="number" class="form-input-custom" id="setFeePackage" value="20"></div><div class="mb-3"><label class="form-label-custom">Ù…Ù†ØªØ¬Ø§Øª (Ø¬.Ù…)</label><input type="number" class="form-input-custom" id="setFeeProduct" value="25"></div><button type="submit" class="btn-add"><i class="fas fa-save"></i> Ø­ÙØ¸</button></form></div></div></div>
             </div>
         </section>
     </main>
 
     <!-- Add Order Modal -->
     <div class="modal fade" id="addOrderModal" tabindex="-1"><div class="modal-dialog"><div class="modal-content-custom">
-        <div class="modal-header-custom"><h3>طلب جديد</h3><button class="modal-close" data-bs-dismiss="modal">&times;</button></div>
+        <div class="modal-header-custom"><h3>Ø·Ù„Ø¨ Ø¬Ø¯ÙŠØ¯</h3><button class="modal-close" data-bs-dismiss="modal">&times;</button></div>
         <form id="addOrderForm"><div class="modal-body-custom"><div class="row g-3">
-            <div class="col-md-6"><label class="form-label-custom">الاسم</label><input type="text" class="form-input-custom" id="aoName" required></div>
-            <div class="col-md-6"><label class="form-label-custom">التليفون</label><input type="tel" class="form-input-custom" id="aoPhone" required></div>
-            <div class="col-12"><label class="form-label-custom">العنوان</label><textarea class="form-input-custom" id="aoAddress" rows="2" required></textarea></div>
-            <div class="col-md-6"><label class="form-label-custom">الخدمة</label><select class="form-input-custom" id="aoService" required><option value="">اختر...</option><option value="food">طعام</option><option value="package">طرود</option><option value="product">منتجات</option></select></div>
-            <div class="col-md-6"><label class="form-label-custom">التكلفة (ج.م)</label><input type="number" class="form-input-custom" id="aoFee" value="20" required></div>
-            <div class="col-12"><label class="form-label-custom">المندوب</label><select class="form-input-custom" id="aoDriver"><option value="">بدون</option></select></div>
-            <div class="col-12"><label class="form-label-custom">ملاحظات</label><textarea class="form-input-custom" id="aoNotes" rows="2"></textarea></div>
+            <div class="col-md-6"><label class="form-label-custom">Ø§Ù„Ø§Ø³Ù…</label><input type="text" class="form-input-custom" id="aoName" required></div>
+            <div class="col-md-6"><label class="form-label-custom">Ø§Ù„ØªÙ„ÙŠÙÙˆÙ†</label><input type="tel" class="form-input-custom" id="aoPhone" required></div>
+            <div class="col-12"><label class="form-label-custom">Ø§Ù„Ø¹Ù†ÙˆØ§Ù†</label><textarea class="form-input-custom" id="aoAddress" rows="2" required></textarea></div>
+            <div class="col-md-6"><label class="form-label-custom">Ø§Ù„Ø®Ø¯Ù…Ø©</label><select class="form-input-custom" id="aoService" required><option value="">Ø§Ø®ØªØ±...</option><option value="food">Ø·Ø¹Ø§Ù…</option><option value="package">Ø·Ø±ÙˆØ¯</option><option value="product">Ù…Ù†ØªØ¬Ø§Øª</option></select></div>
+            <div class="col-md-6"><label class="form-label-custom">Ø§Ù„ØªÙƒÙ„ÙØ© (Ø¬.Ù…)</label><input type="number" class="form-input-custom" id="aoFee" value="20" required></div>
+            <div class="col-12"><label class="form-label-custom">Ø§Ù„Ù…Ù†Ø¯ÙˆØ¨</label><select class="form-input-custom" id="aoDriver"><option value="">Ø¨Ø¯ÙˆÙ†</option></select></div>
+            <div class="col-12"><label class="form-label-custom">Ù…Ù„Ø§Ø­Ø¸Ø§Øª</label><textarea class="form-input-custom" id="aoNotes" rows="2"></textarea></div>
         </div></div>
-        <div class="modal-footer-custom"><button type="button" class="btn-cancel" data-bs-dismiss="modal">إلغاء</button><button type="submit" class="btn-add">إضافة</button></div>
+        <div class="modal-footer-custom"><button type="button" class="btn-cancel" data-bs-dismiss="modal">Ø¥Ù„ØºØ§Ø¡</button><button type="submit" class="btn-add">Ø¥Ø¶Ø§ÙØ©</button></div>
         </form>
     </div></div></div>
 
     <!-- Add Driver Modal -->
     <div class="modal fade" id="addDriverModal" tabindex="-1"><div class="modal-dialog"><div class="modal-content-custom">
-        <div class="modal-header-custom"><h3>مندوب جديد</h3><button class="modal-close" data-bs-dismiss="modal">&times;</button></div>
+        <div class="modal-header-custom"><h3>Ù…Ù†Ø¯ÙˆØ¨ Ø¬Ø¯ÙŠØ¯</h3><button class="modal-close" data-bs-dismiss="modal">&times;</button></div>
         <form id="addDriverForm"><div class="modal-body-custom"><div class="row g-3">
-            <div class="col-md-6"><label class="form-label-custom">الاسم</label><input type="text" class="form-input-custom" id="adName" required></div>
-            <div class="col-md-6"><label class="form-label-custom">التليفون</label><input type="tel" class="form-input-custom" id="adPhone" required></div>
-            <div class="col-md-6"><label class="form-label-custom">الموتوسيكل</label><input type="text" class="form-input-custom" id="adBike"></div>
-            <div class="col-md-6"><label class="form-label-custom">المنطقة</label><input type="text" class="form-input-custom" id="adArea"></div>
+            <div class="col-md-6"><label class="form-label-custom">Ø§Ù„Ø§Ø³Ù…</label><input type="text" class="form-input-custom" id="adName" required></div>
+            <div class="col-md-6"><label class="form-label-custom">Ø§Ù„ØªÙ„ÙŠÙÙˆÙ†</label><input type="tel" class="form-input-custom" id="adPhone" required></div>
+            <div class="col-md-6"><label class="form-label-custom">Ø§Ù„Ù…ÙˆØªÙˆØ³ÙŠÙƒÙ„</label><input type="text" class="form-input-custom" id="adBike"></div>
+            <div class="col-md-6"><label class="form-label-custom">Ø§Ù„Ù…Ù†Ø·Ù‚Ø©</label><input type="text" class="form-input-custom" id="adArea"></div>
         </div></div>
-        <div class="modal-footer-custom"><button type="button" class="btn-cancel" data-bs-dismiss="modal">إلغاء</button><button type="submit" class="btn-add">إضافة</button></div>
+        <div class="modal-footer-custom"><button type="button" class="btn-cancel" data-bs-dismiss="modal">Ø¥Ù„ØºØ§Ø¡</button><button type="submit" class="btn-add">Ø¥Ø¶Ø§ÙØ©</button></div>
         </form>
     </div></div></div>
 
     <!-- View Modal -->
     <div class="modal fade" id="viewModal" tabindex="-1"><div class="modal-dialog"><div class="modal-content-custom">
-        <div class="modal-header-custom"><h3>تفاصيل</h3><button class="modal-close" data-bs-dismiss="modal">&times;</button></div>
+        <div class="modal-header-custom"><h3>ØªÙØ§ØµÙŠÙ„</h3><button class="modal-close" data-bs-dismiss="modal">&times;</button></div>
         <div class="modal-body-custom"><div class="detail-grid" id="viewDetails"></div></div>
-        <div class="modal-footer-custom"><button class="btn-cancel" data-bs-dismiss="modal">إغلاق</button></div>
+        <div class="modal-footer-custom"><button class="btn-cancel" data-bs-dismiss="modal">Ø¥ØºÙ„Ø§Ù‚</button></div>
     </div></div></div>
 
     <div class="toast-container" id="toastContainer"></div>
@@ -207,8 +209,8 @@
     }
 
     /* ===== CONSTANTS ===== */
-    const svcL = { food:'توصيل طعام', package:'توصيل طرود', product:'توصيل منتجات' };
-    const stL = { pending:'معلق', confirmed:'مؤكد', picked:'تم الاستلام', delivering:'في الطريق', completed:'مكتمل', cancelled:'ملغي' };
+    const svcL = { food:'ØªÙˆØµÙŠÙ„ Ø·Ø¹Ø§Ù…', package:'ØªÙˆØµÙŠÙ„ Ø·Ø±ÙˆØ¯', product:'ØªÙˆØµÙŠÙ„ Ù…Ù†ØªØ¬Ø§Øª' };
+    const stL = { pending:'Ù…Ø¹Ù„Ù‚', confirmed:'Ù…Ø¤ÙƒØ¯', picked:'ØªÙ… Ø§Ù„Ø§Ø³ØªÙ„Ø§Ù…', delivering:'ÙÙŠ Ø§Ù„Ø·Ø±ÙŠÙ‚', completed:'Ù…ÙƒØªÙ…Ù„', cancelled:'Ù…Ù„ØºÙŠ' };
     const stC = { pending:'st-yellow', confirmed:'st-blue', picked:'st-green', delivering:'st-purple', completed:'st-green', cancelled:'st-red' };
 
     /* ===== NAVIGATION ===== */
@@ -217,7 +219,7 @@
         document.querySelectorAll('.nav-item').forEach(n => n.classList.toggle('active', n.dataset.page === pg));
         document.querySelectorAll('.bottom-nav-item').forEach(n => n.classList.toggle('active', n.dataset.page === pg));
         document.querySelectorAll('.page-section').forEach(s => s.classList.toggle('active', s.id === 'sec-' + pg));
-        const t = { dashboard:'الرئيسية', orders:'الطلبات', customers:'العملاء', drivers:'المناديب', reports:'التقارير', settings:'الإعدادات' };
+        const t = { dashboard:'Ø§Ù„Ø±Ø¦ÙŠØ³ÙŠØ©', orders:'Ø§Ù„Ø·Ù„Ø¨Ø§Øª', customers:'Ø§Ù„Ø¹Ù…Ù„Ø§Ø¡', drivers:'Ø§Ù„Ù…Ù†Ø§Ø¯ÙŠØ¨', reports:'Ø§Ù„ØªÙ‚Ø§Ø±ÙŠØ±', settings:'Ø§Ù„Ø¥Ø¹Ø¯Ø§Ø¯Ø§Øª' };
         document.getElementById('pageTitle').textContent = t[pg] || pg;
         document.getElementById('sidebar').classList.remove('show');
         document.getElementById('sidebarOverlay').classList.remove('show');
@@ -235,21 +237,21 @@
         if (filter !== 'all') list = list.filter(o => o.status === filter);
         if (search) list = list.filter(o => (o.customerName||'').toLowerCase().includes(search) || (o.customerPhone||'').includes(search) || (o.orderId||'').toLowerCase().includes(search));
         const tb = document.getElementById('ordersTableBody');
-        if (!list.length) { tb.innerHTML = '<tr><td colspan="8" class="text-center py-4 text-muted">لا توجد طلبات</td></tr>'; return; }
+        if (!list.length) { tb.innerHTML = '<tr><td colspan="8" class="text-center py-4 text-muted">Ù„Ø§ ØªÙˆØ¬Ø¯ Ø·Ù„Ø¨Ø§Øª</td></tr>'; return; }
         tb.innerHTML = list.map(o => `<tr>
             <td><code>${o.orderId||o.id.toUpperCase()}</code></td>
             <td><strong>${o.customerName||'-'}</strong></td>
             <td>${o.customerPhone||'-'}</td>
             <td>${svcL[o.serviceType]||'-'}</td>
-            <td>${o.deliveryFee||0} ج.م</td>
-            <td>${o.driverName||'<span class="text-muted">—</span>'}</td>
+            <td>${o.deliveryFee||0} Ø¬.Ù…</td>
+            <td>${o.driverName||'<span class="text-muted">â€”</span>'}</td>
             <td><span class="status-chip ${stC[o.status]||''}">${stL[o.status]||o.status}</span></td>
             <td><div class="action-btns">
-                <button class="act-btn view" onclick="viewOrder('${o.id}')"><i class="fas fa-eye"></i></button>
-                <button class="act-btn next" onclick="nextStatus('${o.id}')"><i class="fas fa-arrow-right"></i></button>
-                <button class="act-btn assign" onclick="assignDriver('${o.id}')"><i class="fas fa-user-plus"></i></button>
-                <button class="act-btn cancel" onclick="cancelOrder('${o.id}')" title="إلغاء"><i class="fas fa-times"></i></button>
-                <button class="act-btn del" onclick="delOrder('${o.id}')"><i class="fas fa-trash"></i></button>
+                <button class="act-btn view" onclick="viewOrder('${o.id}')"><i class="ri-eye-line"></i></button>
+                <button class="act-btn next" onclick="nextStatus('${o.id}')"><i class="ri-arrow-right-line"></i></button>
+                <button class="act-btn assign" onclick="assignDriver('${o.id}')"><i class="ri-user-line-plus"></i></button>
+                <button class="act-btn cancel" onclick="cancelOrder('${o.id}')" title="Ø¥Ù„ØºØ§Ø¡"><i class="ri-close-line"></i></button>
+                <button class="act-btn del" onclick="delOrder('${o.id}')"><i class="ri-delete-bin-line"></i></button>
             </div></td>
         </tr>`).join('');
     }
@@ -257,23 +259,23 @@
     function renderRecent() {
         const list = allOrders.slice(0, 5);
         const tb = document.getElementById('recentOrdersBody');
-        if (!list.length) { tb.innerHTML = '<tr><td colspan="5" class="text-center py-4 text-muted">لا توجد طلبات</td></tr>'; return; }
-        tb.innerHTML = list.map((o,i) => `<tr><td>${i+1}</td><td><strong>${o.customerName||'-'}</strong></td><td>${svcL[o.serviceType]||'-'}</td><td>${o.deliveryFee||0} ج.م</td><td><span class="status-chip ${stC[o.status]||''}">${stL[o.status]||o.status}</span></td></tr>`).join('');
+        if (!list.length) { tb.innerHTML = '<tr><td colspan="5" class="text-center py-4 text-muted">Ù„Ø§ ØªÙˆØ¬Ø¯ Ø·Ù„Ø¨Ø§Øª</td></tr>'; return; }
+        tb.innerHTML = list.map((o,i) => `<tr><td>${i+1}</td><td><strong>${o.customerName||'-'}</strong></td><td>${svcL[o.serviceType]||'-'}</td><td>${o.deliveryFee||0} Ø¬.Ù…</td><td><span class="status-chip ${stC[o.status]||''}">${stL[o.status]||o.status}</span></td></tr>`).join('');
     }
 
     window.viewOrder = function(id) {
         const o = allOrders.find(x => x.id === id); if (!o) return;
         document.getElementById('viewDetails').innerHTML = `
-            <div class="detail-row"><span>رقم الطلب</span><strong>${o.orderId||o.id.toUpperCase()}</strong></div>
-            <div class="detail-row"><span>العميل</span><strong>${o.customerName||'-'}</strong></div>
-            <div class="detail-row"><span>التليفون</span><strong>${o.customerPhone||'-'}</strong></div>
-            <div class="detail-row"><span>العنوان</span><strong>${o.customerAddress||'-'}</strong></div>
-            <div class="detail-row"><span>الخدمة</span><strong>${svcL[o.serviceType]||'-'}</strong></div>
-            <div class="detail-row"><span>التكلفة</span><strong>${o.deliveryFee||0} ج.م</strong></div>
-            <div class="detail-row"><span>الحالة</span><span class="status-chip ${stC[o.status]}">${stL[o.status]}</span></div>
-            <div class="detail-row"><span>المندوب</span><strong>${o.driverName||'لم يُعيَّن'}</strong></div>
-            <div class="detail-row"><span>ملاحظات</span><strong>${o.notes||'—'}</strong></div>
-            <div class="detail-row"><span>التاريخ</span><strong>${o.createdAt?new Date(o.createdAt).toLocaleString('ar-EG'):'-'}</strong></div>`;
+            <div class="detail-row"><span>Ø±Ù‚Ù… Ø§Ù„Ø·Ù„Ø¨</span><strong>${o.orderId||o.id.toUpperCase()}</strong></div>
+            <div class="detail-row"><span>Ø§Ù„Ø¹Ù…ÙŠÙ„</span><strong>${o.customerName||'-'}</strong></div>
+            <div class="detail-row"><span>Ø§Ù„ØªÙ„ÙŠÙÙˆÙ†</span><strong>${o.customerPhone||'-'}</strong></div>
+            <div class="detail-row"><span>Ø§Ù„Ø¹Ù†ÙˆØ§Ù†</span><strong>${o.customerAddress||'-'}</strong></div>
+            <div class="detail-row"><span>Ø§Ù„Ø®Ø¯Ù…Ø©</span><strong>${svcL[o.serviceType]||'-'}</strong></div>
+            <div class="detail-row"><span>Ø§Ù„ØªÙƒÙ„ÙØ©</span><strong>${o.deliveryFee||0} Ø¬.Ù…</strong></div>
+            <div class="detail-row"><span>Ø§Ù„Ø­Ø§Ù„Ø©</span><span class="status-chip ${stC[o.status]}">${stL[o.status]}</span></div>
+            <div class="detail-row"><span>Ø§Ù„Ù…Ù†Ø¯ÙˆØ¨</span><strong>${o.driverName||'Ù„Ù… ÙŠÙØ¹ÙŠÙŽÙ‘Ù†'}</strong></div>
+            <div class="detail-row"><span>Ù…Ù„Ø§Ø­Ø¸Ø§Øª</span><strong>${o.notes||'â€”'}</strong></div>
+            <div class="detail-row"><span>Ø§Ù„ØªØ§Ø±ÙŠØ®</span><strong>${o.createdAt?new Date(o.createdAt).toLocaleString('ar-EG'):'-'}</strong></div>`;
         new bootstrap.Modal(document.getElementById('viewModal')).show();
     };
 
@@ -286,32 +288,32 @@
         const update = { status: next };
         if (next === 'completed') update.completedAt = new Date().toISOString();
         await DB.update('orders', id, update);
-        toast('تم التحويل: ' + stL[next], 'success');
+        toast('ØªÙ… Ø§Ù„ØªØ­ÙˆÙŠÙ„: ' + stL[next], 'success');
         await refresh();
     };
 
     window.delOrder = async function(id) {
-        if (!confirm('حذف الطلب؟')) return;
+        if (!confirm('Ø­Ø°Ù Ø§Ù„Ø·Ù„Ø¨ØŸ')) return;
         await DB.remove('orders', id);
-        toast('تم الحذف', 'danger');
+        toast('ØªÙ… Ø§Ù„Ø­Ø°Ù', 'danger');
         await refresh();
     };
 
     window.cancelOrder = async function(id) {
-        if (!confirm('إلغاء الطلب؟')) return;
+        if (!confirm('Ø¥Ù„ØºØ§Ø¡ Ø§Ù„Ø·Ù„Ø¨ØŸ')) return;
         await DB.update('orders', id, { status: 'cancelled', cancelledAt: new Date().toISOString() });
-        toast('تم إلغاء الطلب', 'danger');
+        toast('ØªÙ… Ø¥Ù„ØºØ§Ø¡ Ø§Ù„Ø·Ù„Ø¨', 'danger');
         await refresh();
     };
 
     window.assignDriver = async function(orderId) {
         const avail = allDrivers.filter(d => d.status === 'available');
-        if (!avail.length) { alert('لا يوجد مناديب متاحين'); return; }
-        const name = prompt('اختر مندوب:\n' + avail.map((d,i) => `${i+1}. ${d.name} - ${d.phone}`).join('\n') + '\n\nاكتب الرقم:');
+        if (!avail.length) { alert('Ù„Ø§ ÙŠÙˆØ¬Ø¯ Ù…Ù†Ø§Ø¯ÙŠØ¨ Ù…ØªØ§Ø­ÙŠÙ†'); return; }
+        const name = prompt('Ø§Ø®ØªØ± Ù…Ù†Ø¯ÙˆØ¨:\n' + avail.map((d,i) => `${i+1}. ${d.name} - ${d.phone}`).join('\n') + '\n\nØ§ÙƒØªØ¨ Ø§Ù„Ø±Ù‚Ù…:');
         const idx = parseInt(name) - 1;
         if (idx >= 0 && idx < avail.length) {
             await DB.update('orders', orderId, { driverName: avail[idx].name, driverPhone: avail[idx].phone, status: 'confirmed' });
-            toast('تم تعيين ' + avail[idx].name, 'success');
+            toast('ØªÙ… ØªØ¹ÙŠÙŠÙ† ' + avail[idx].name, 'success');
             await refresh();
         }
     };
@@ -321,8 +323,8 @@
         let list = allCustomers;
         if (search) list = list.filter(c => (c.name||'').toLowerCase().includes(search.toLowerCase()) || (c.phone||'').includes(search));
         const tb = document.getElementById('customersTableBody');
-        if (!list.length) { tb.innerHTML = '<tr><td colspan="6" class="text-center py-4 text-muted">لا يوجد عملاء</td></tr>'; return; }
-        tb.innerHTML = list.map((c,i) => `<tr><td>${i+1}</td><td><strong>${c.name||'-'}</strong></td><td>${c.phone||'-'}</td><td>${c.address||'-'}</td><td>${c.orderCount||0}</td><td>${c.totalSpent||0} ج.م</td></tr>`).join('');
+        if (!list.length) { tb.innerHTML = '<tr><td colspan="6" class="text-center py-4 text-muted">Ù„Ø§ ÙŠÙˆØ¬Ø¯ Ø¹Ù…Ù„Ø§Ø¡</td></tr>'; return; }
+        tb.innerHTML = list.map((c,i) => `<tr><td>${i+1}</td><td><strong>${c.name||'-'}</strong></td><td>${c.phone||'-'}</td><td>${c.address||'-'}</td><td>${c.orderCount||0}</td><td>${c.totalSpent||0} Ø¬.Ù…</td></tr>`).join('');
     }
     window.renderCustomers = renderCustomers;
 
@@ -331,14 +333,14 @@
         const filter = document.getElementById('driverFilter').value;
         let list = allDrivers;
         if (filter !== 'all') list = list.filter(d => d.status === filter);
-        const stMap = { available:'متاح', busy:'مشغول' };
+        const stMap = { available:'Ù…ØªØ§Ø­', busy:'Ù…Ø´ØºÙˆÙ„' };
         const stCls = { available:'st-green', busy:'st-yellow' };
         const g = document.getElementById('driversGrid');
-        if (!list.length) { g.innerHTML = '<div class="col-12"><div class="empty-state"><i class="fas fa-motorcycle"></i><h3>لا يوجد مناديب</h3></div></div>'; return; }
+        if (!list.length) { g.innerHTML = '<div class="col-12"><div class="empty-state"><i class="ri-motorbike-line"></i><h3>Ù„Ø§ ÙŠÙˆØ¬Ø¯ Ù…Ù†Ø§Ø¯ÙŠØ¨</h3></div></div>'; return; }
         g.innerHTML = list.map(d => `<div class="col-lg-4 col-md-6"><div class="driver-card">
-            <div class="driver-card-header"><div class="driver-avatar"><i class="fas fa-motorcycle"></i></div><div><h4>${d.name}</h4><span class="status-chip ${stCls[d.status]||''}">${stMap[d.status]||d.status}</span></div></div>
-            <div class="driver-card-body"><p><i class="fas fa-phone"></i> ${d.phone}</p><p><i class="fas fa-motorcycle"></i> ${d.bike||'—'}</p><p><i class="fas fa-map-marker-alt"></i> ${d.area||'—'}</p><p><i class="fas fa-shopping-cart"></i> ${d.orderCount||0} طلب</p></div>
-            <div class="driver-card-footer"><button class="btn-sm-custom" onclick="toggleDriver('${d.id}')">تغيير الحالة</button><button class="btn-sm-custom danger" onclick="delDriver('${d.id}')"><i class="fas fa-trash"></i></button></div>
+            <div class="driver-card-header"><div class="driver-avatar"><i class="ri-motorbike-line"></i></div><div><h4>${d.name}</h4><span class="status-chip ${stCls[d.status]||''}">${stMap[d.status]||d.status}</span></div></div>
+            <div class="driver-card-body"><p><i class="ri-phone-line"></i> ${d.phone}</p><p><i class="ri-motorbike-line"></i> ${d.bike||'â€”'}</p><p><i class="ri-map-pin-line"></i> ${d.area||'â€”'}</p><p><i class="ri-shopping-cart-2-line"></i> ${d.orderCount||0} Ø·Ù„Ø¨</p></div>
+            <div class="driver-card-footer"><button class="btn-sm-custom" onclick="toggleDriver('${d.id}')">ØªØºÙŠÙŠØ± Ø§Ù„Ø­Ø§Ù„Ø©</button><button class="btn-sm-custom danger" onclick="delDriver('${d.id}')"><i class="ri-delete-bin-line"></i></button></div>
         </div></div>`).join('');
     }
     window.renderDrivers = renderDrivers;
@@ -346,20 +348,20 @@
     window.toggleDriver = async function(id) {
         const d = allDrivers.find(x => x.id === id); if (!d) return;
         await DB.update('drivers', id, { status: d.status === 'available' ? 'busy' : 'available' });
-        toast('تم التحديث', 'success');
+        toast('ØªÙ… Ø§Ù„ØªØ­Ø¯ÙŠØ«', 'success');
         await refresh();
     };
 
     window.delDriver = async function(id) {
-        if (!confirm('حذف المندوب؟')) return;
+        if (!confirm('Ø­Ø°Ù Ø§Ù„Ù…Ù†Ø¯ÙˆØ¨ØŸ')) return;
         await DB.remove('drivers', id);
-        toast('تم الحذف', 'danger');
+        toast('ØªÙ… Ø§Ù„Ø­Ø°Ù', 'danger');
         await refresh();
     };
 
     function populateDriverSelect() {
         const sel = document.getElementById('aoDriver');
-        sel.innerHTML = '<option value="">بدون مندوب</option>' + allDrivers.filter(d=>d.status==='available').map(d=>`<option value="${d.id}">${d.name} - ${d.phone}</option>`).join('');
+        sel.innerHTML = '<option value="">Ø¨Ø¯ÙˆÙ† Ù…Ù†Ø¯ÙˆØ¨</option>' + allDrivers.filter(d=>d.status==='available').map(d=>`<option value="${d.id}">${d.name} - ${d.phone}</option>`).join('');
     }
 
     /* ===== DASHBOARD ===== */
@@ -377,23 +379,23 @@
 
         const avail = allDrivers.filter(d=>d.status==='available');
         const ad = document.getElementById('availableDriversBody');
-        if (!avail.length) { ad.innerHTML='<div class="empty-state-sm"><i class="fas fa-motorcycle"></i><p>لا يوجد متاحين</p></div>'; return; }
-        ad.innerHTML = avail.map(d=>`<div class="driver-mini"><div class="driver-avatar-sm"><i class="fas fa-motorcycle"></i></div><div><strong>${d.name}</strong><br><small>${d.phone}</small></div></div>`).join('');
+        if (!avail.length) { ad.innerHTML='<div class="empty-state-sm"><i class="ri-motorbike-line"></i><p>Ù„Ø§ ÙŠÙˆØ¬Ø¯ Ù…ØªØ§Ø­ÙŠÙ†</p></div>'; return; }
+        ad.innerHTML = avail.map(d=>`<div class="driver-mini"><div class="driver-avatar-sm"><i class="ri-motorbike-line"></i></div><div><strong>${d.name}</strong><br><small>${d.phone}</small></div></div>`).join('');
     }
 
     /* ===== CHARTS ===== */
     function renderCharts() {
-        const days = ['الأحد','الاثنين','الثلاثاء','الأربعاء','الخميس','الجمعة','السبت'];
+        const days = ['Ø§Ù„Ø£Ø­Ø¯','Ø§Ù„Ø§Ø«Ù†ÙŠÙ†','Ø§Ù„Ø«Ù„Ø§Ø«Ø§Ø¡','Ø§Ù„Ø£Ø±Ø¨Ø¹Ø§Ø¡','Ø§Ù„Ø®Ù…ÙŠØ³','Ø§Ù„Ø¬Ù…Ø¹Ø©','Ø§Ù„Ø³Ø¨Øª'];
         const now = new Date();
         const weekData = new Array(7).fill(0);
         allOrders.forEach(o => { if(!o.createdAt) return; const d=new Date(o.createdAt); if((now-d)/(864e5)<=7) weekData[d.getDay()]++; });
         if (window._c1) window._c1.destroy();
-        window._c1 = new Chart(document.getElementById('ordersChart'),{type:'line',data:{labels:days,datasets:[{label:'الطلبات',data:weekData,borderColor:'#FFD700',backgroundColor:'rgba(255,215,0,.1)',fill:true,tension:.4,pointBackgroundColor:'#FFD700',pointRadius:5}]},options:{responsive:true,plugins:{legend:{display:false}},scales:{y:{beginAtZero:true,ticks:{stepSize:1}}}}});
+        window._c1 = new Chart(document.getElementById('ordersChart'),{type:'line',data:{labels:days,datasets:[{label:'Ø§Ù„Ø·Ù„Ø¨Ø§Øª',data:weekData,borderColor:'#FFD700',backgroundColor:'rgba(255,215,0,.1)',fill:true,tension:.4,pointBackgroundColor:'#FFD700',pointRadius:5}]},options:{responsive:true,plugins:{legend:{display:false}},scales:{y:{beginAtZero:true,ticks:{stepSize:1}}}}});
 
         const types = {food:0,package:0,product:0};
         allOrders.forEach(o => { if(types[o.serviceType]!==undefined) types[o.serviceType]++; });
         if (window._c2) window._c2.destroy();
-        window._c2 = new Chart(document.getElementById('typesChart'),{type:'doughnut',data:{labels:['طعام','طرود','منتجات'],datasets:[{data:[types.food,types.package,types.product],backgroundColor:['#FFD700','#3b82f6','#22c55e']}]},options:{responsive:true,plugins:{legend:{position:'bottom'}}}});
+        window._c2 = new Chart(document.getElementById('typesChart'),{type:'doughnut',data:{labels:['Ø·Ø¹Ø§Ù…','Ø·Ø±ÙˆØ¯','Ù…Ù†ØªØ¬Ø§Øª'],datasets:[{data:[types.food,types.package,types.product],backgroundColor:['#FFD700','#3b82f6','#22c55e']}]},options:{responsive:true,plugins:{legend:{position:'bottom'}}}});
     }
 
     function renderReportStats() {
@@ -402,19 +404,19 @@
         const weekStart = new Date(); weekStart.setDate(weekStart.getDate()-7);
         const weekOrders = allOrders.filter(o=>o.createdAt&&new Date(o.createdAt)>=weekStart);
         document.getElementById('rTodayOrders').textContent = todayOrders.length;
-        document.getElementById('rTodayRevenue').textContent = todayOrders.reduce((s,o)=>s+(o.deliveryFee||0),0) + ' ج.م';
+        document.getElementById('rTodayRevenue').textContent = todayOrders.reduce((s,o)=>s+(o.deliveryFee||0),0) + ' Ø¬.Ù…';
         document.getElementById('rWeekOrders').textContent = weekOrders.length;
-        document.getElementById('rWeekRevenue').textContent = weekOrders.reduce((s,o)=>s+(o.deliveryFee||0),0) + ' ج.م';
-        document.getElementById('rAvgOrder').textContent = allOrders.length ? Math.round(allOrders.reduce((s,o)=>s+(o.deliveryFee||0),0)/allOrders.length) + ' ج.م' : '0 ج.م';
+        document.getElementById('rWeekRevenue').textContent = weekOrders.reduce((s,o)=>s+(o.deliveryFee||0),0) + ' Ø¬.Ù…';
+        document.getElementById('rAvgOrder').textContent = allOrders.length ? Math.round(allOrders.reduce((s,o)=>s+(o.deliveryFee||0),0)/allOrders.length) + ' Ø¬.Ù…' : '0 Ø¬.Ù…';
         document.getElementById('rCancelRate').textContent = allOrders.length ? Math.round(allOrders.filter(o=>o.status==='cancelled').length/allOrders.length*100) + '%' : '0%';
 
         const revData = new Array(7).fill(0);
         weekOrders.forEach(o=>{if(!o.createdAt)return;revData[new Date(o.createdAt).getDay()]+=(o.deliveryFee||0);});
         if(window._c3)window._c3.destroy();
-        window._c3=new Chart(document.getElementById('revenueChart'),{type:'bar',data:{labels:days,datasets:[{label:'الإيرادات',data:revData,backgroundColor:'rgba(255,215,0,.7)',borderColor:'#FFD700',borderWidth:1}]},options:{responsive:true,plugins:{legend:{display:false}},scales:{y:{beginAtZero:true}}}});
+        window._c3=new Chart(document.getElementById('revenueChart'),{type:'bar',data:{labels:days,datasets:[{label:'Ø§Ù„Ø¥ÙŠØ±Ø§Ø¯Ø§Øª',data:revData,backgroundColor:'rgba(255,215,0,.7)',borderColor:'#FFD700',borderWidth:1}]},options:{responsive:true,plugins:{legend:{display:false}},scales:{y:{beginAtZero:true}}}});
 
         if(window._c4)window._c4.destroy();
-        window._c4=new Chart(document.getElementById('compareChart'),{type:'bar',data:{labels:['اليوم','أسبوع','الكل'],datasets:[{label:'الطلبات',data:[todayOrders.length,weekOrders.length,allOrders.length],backgroundColor:['#FFD700','#3b82f6','#22c55e']}]},options:{responsive:true,indexAxis:'y',plugins:{legend:{display:false}}}});
+        window._c4=new Chart(document.getElementById('compareChart'),{type:'bar',data:{labels:['Ø§Ù„ÙŠÙˆÙ…','Ø£Ø³Ø¨ÙˆØ¹','Ø§Ù„ÙƒÙ„'],datasets:[{label:'Ø§Ù„Ø·Ù„Ø¨Ø§Øª',data:[todayOrders.length,weekOrders.length,allOrders.length],backgroundColor:['#FFD700','#3b82f6','#22c55e']}]},options:{responsive:true,indexAxis:'y',plugins:{legend:{display:false}}}});
     }
 
     /* ===== FORMS ===== */
@@ -445,7 +447,7 @@
 
         bootstrap.Modal.getInstance(document.getElementById('addOrderModal')).hide();
         this.reset();
-        toast('تم إضافة الطلب ' + order.orderId, 'success');
+        toast('ØªÙ… Ø¥Ø¶Ø§ÙØ© Ø§Ù„Ø·Ù„Ø¨ ' + order.orderId, 'success');
         await refresh();
     });
 
@@ -454,7 +456,7 @@
         await DB.add('drivers', { name:document.getElementById('adName').value, phone:document.getElementById('adPhone').value, bike:document.getElementById('adBike').value, area:document.getElementById('adArea').value, status:'available', orderCount:0 });
         bootstrap.Modal.getInstance(document.getElementById('addDriverModal')).hide();
         this.reset();
-        toast('تم إضافة المندوب', 'success');
+        toast('ØªÙ… Ø¥Ø¶Ø§ÙØ© Ø§Ù„Ù…Ù†Ø¯ÙˆØ¨', 'success');
         await refresh();
     });
 
@@ -488,7 +490,7 @@
             address: document.getElementById('setAddress').value,
             updatedAt: new Date().toISOString()
         });
-        toast('تم حفظ إعدادات الشركة', 'success');
+        toast('ØªÙ… Ø­ÙØ¸ Ø¥Ø¹Ø¯Ø§Ø¯Ø§Øª Ø§Ù„Ø´Ø±ÙƒØ©', 'success');
     });
     document.getElementById('pricingForm').addEventListener('submit', async e => {
         e.preventDefault();
@@ -498,12 +500,12 @@
             product: parseFloat(document.getElementById('setFeeProduct').value),
             updatedAt: new Date().toISOString()
         });
-        toast('تم حفظ التسعيرة', 'success');
+        toast('ØªÙ… Ø­ÙØ¸ Ø§Ù„ØªØ³Ø¹ÙŠØ±Ø©', 'success');
     });
 
     /* ===== NOTIFICATIONS ===== */
     document.getElementById('notifBell').onclick = () => { document.getElementById('notifPanel').classList.toggle('show'); document.getElementById('notifDot').style.display='none'; };
-    window.clearNotifs = function() { document.getElementById('notifList').innerHTML='<div class="notif-empty"><i class="fas fa-bell-slash"></i><p>لا توجد إشعارات</p></div>'; };
+    window.clearNotifs = function() { document.getElementById('notifList').innerHTML='<div class="notif-empty"><i class="ri-notification-3-line-slash"></i><p>Ù„Ø§ ØªÙˆØ¬Ø¯ Ø¥Ø´Ø¹Ø§Ø±Ø§Øª</p></div>'; };
 
     /* ===== TOAST ===== */
     function toast(msg, type='success') {
@@ -536,26 +538,27 @@
         <div class="bottom-nav-items">
             <a href="#" class="bottom-nav-item active" data-page="dashboard" onclick="switchPage('dashboard')">
                 <i class="fas fa-home"></i>
-                <span>الرئيسية</span>
+                <span>Ø§Ù„Ø±Ø¦ÙŠØ³ÙŠØ©</span>
             </a>
             <a href="#" class="bottom-nav-item" data-page="orders" onclick="switchPage('orders')">
-                <i class="fas fa-shopping-cart"></i>
-                <span>الطلبات</span>
+                <i class="ri-shopping-cart-2-line"></i>
+                <span>Ø§Ù„Ø·Ù„Ø¨Ø§Øª</span>
                 <span class="bottom-nav-badge" id="bottomOrderBadge" style="display:none">0</span>
             </a>
             <a href="#" class="bottom-nav-item" data-page="drivers" onclick="switchPage('drivers')">
-                <i class="fas fa-motorcycle"></i>
-                <span>المناديب</span>
+                <i class="ri-motorbike-line"></i>
+                <span>Ø§Ù„Ù…Ù†Ø§Ø¯ÙŠØ¨</span>
             </a>
             <a href="#" class="bottom-nav-item" data-page="reports" onclick="switchPage('reports')">
-                <i class="fas fa-chart-bar"></i>
-                <span>التقارير</span>
+                <i class="ri-bar-chart-grouped-line"></i>
+                <span>Ø§Ù„ØªÙ‚Ø§Ø±ÙŠØ±</span>
             </a>
             <a href="#" class="bottom-nav-item" data-page="settings" onclick="switchPage('settings')">
-                <i class="fas fa-cog"></i>
-                <span>الإعدادات</span>
+                <i class="ri-settings-3-line"></i>
+                <span>Ø§Ù„Ø¥Ø¹Ø¯Ø§Ø¯Ø§Øª</span>
             </a>
         </div>
     </nav>
 </body>
 </html>
+

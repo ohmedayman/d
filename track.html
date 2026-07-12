@@ -1,12 +1,13 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>تتبع طلبك | خليك مكانك</title>
+    <title>ØªØªØ¨Ø¹ Ø·Ù„Ø¨Ùƒ | Ø®Ù„ÙŠÙƒ Ù…ÙƒØ§Ù†Ùƒ</title>
     <link rel="icon" type="image/jpeg" href="assets/images/logo.jpg">
     <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/remixicon@4.1.0/fonts/remixicon.css">
     <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore-compat.js"></script>
     <script src="js/firebase-config.js"></script>
@@ -142,97 +143,97 @@
 
 <div class="page-wrapper">
     <div class="header">
-        <div class="logo-wrap"><img src="assets/images/logo.jpg" alt="خليك مكانك"></div>
-        <h1>تتبع طلبك</h1>
-        <p>ادخل رقم التتبع أو رقم التليفون</p>
+        <div class="logo-wrap"><img src="assets/images/logo.jpg" alt="Ø®Ù„ÙŠÙƒ Ù…ÙƒØ§Ù†Ùƒ"></div>
+        <h1>ØªØªØ¨Ø¹ Ø·Ù„Ø¨Ùƒ</h1>
+        <p>Ø§Ø¯Ø®Ù„ Ø±Ù‚Ù… Ø§Ù„ØªØªØ¨Ø¹ Ø£Ùˆ Ø±Ù‚Ù… Ø§Ù„ØªÙ„ÙŠÙÙˆÙ†</p>
     </div>
 
     <div class="search-card" id="searchCard">
-        <h2><i class="fas fa-search"></i> بحث</h2>
+        <h2><i class="ri-search-line"></i> Ø¨Ø­Ø«</h2>
         <div class="input-group-custom">
-            <input type="text" id="searchInput" placeholder="ORD-... أو رقم التليفون">
-            <button onclick="doSearch()"><i class="fas fa-search"></i> تتبع</button>
+            <input type="text" id="searchInput" placeholder="ORD-... Ø£Ùˆ Ø±Ù‚Ù… Ø§Ù„ØªÙ„ÙŠÙÙˆÙ†">
+            <button onclick="doSearch()"><i class="ri-search-line"></i> ØªØªØ¨Ø¹</button>
         </div>
         <div class="tab-hint">
-            <span class="active" onclick="setHint('ord')">رقم الطلب</span>
-            <span onclick="setHint('phone')">رقم التليفون</span>
+            <span class="active" onclick="setHint('ord')">Ø±Ù‚Ù… Ø§Ù„Ø·Ù„Ø¨</span>
+            <span onclick="setHint('phone')">Ø±Ù‚Ù… Ø§Ù„ØªÙ„ÙŠÙÙˆÙ†</span>
         </div>
     </div>
 
-    <div class="loading" id="loading"><div class="spinner"></div><p style="font-weight:700;color:var(--gray)">جاري البحث...</p></div>
+    <div class="loading" id="loading"><div class="spinner"></div><p style="font-weight:700;color:var(--gray)">Ø¬Ø§Ø±ÙŠ Ø§Ù„Ø¨Ø­Ø«...</p></div>
 
     <div class="not-found" id="notFound">
-        <div class="nf-icon"><i class="fas fa-search"></i></div>
-        <h3>لم نلاقي طلب بالبيانات دي</h3>
-        <p>تأكد من الرقم وحاول تاني</p>
+        <div class="nf-icon"><i class="ri-search-line"></i></div>
+        <h3>Ù„Ù… Ù†Ù„Ø§Ù‚ÙŠ Ø·Ù„Ø¨ Ø¨Ø§Ù„Ø¨ÙŠØ§Ù†Ø§Øª Ø¯ÙŠ</h3>
+        <p>ØªØ£ÙƒØ¯ Ù…Ù† Ø§Ù„Ø±Ù‚Ù… ÙˆØ­Ø§ÙˆÙ„ ØªØ§Ù†ÙŠ</p>
     </div>
 
     <div class="result" id="result">
         <div class="result-top">
-            <h3><i class="fas fa-box"></i> حالة الطلب</h3>
+            <h3><i class="ri-archive-line"></i> Ø­Ø§Ù„Ø© Ø§Ù„Ø·Ù„Ø¨</h3>
             <span class="order-badge" id="rOrderId">ORD-XXXX</span>
         </div>
 
         <div class="status-badge-lg" id="statusBadge">
-            <i class="fas fa-clock"></i> <span id="statusText">معلق</span>
+            <i class="ri-time-line"></i> <span id="statusText">Ù…Ø¹Ù„Ù‚</span>
         </div>
 
         <div class="timeline" id="timeline">
             <div class="tl-item" data-st="pending">
                 <div class="tl-dot"></div><div class="tl-line"></div>
-                <div class="tl-content"><h4>تم الاستلام</h4><p>طلبك وصلنا ومستنين نأكيده</p><div class="tl-time" id="tPending"></div></div>
+                <div class="tl-content"><h4>ØªÙ… Ø§Ù„Ø§Ø³ØªÙ„Ø§Ù…</h4><p>Ø·Ù„Ø¨Ùƒ ÙˆØµÙ„Ù†Ø§ ÙˆÙ…Ø³ØªÙ†ÙŠÙ† Ù†Ø£ÙƒÙŠØ¯Ù‡</p><div class="tl-time" id="tPending"></div></div>
             </div>
             <div class="tl-item" data-st="confirmed">
                 <div class="tl-dot"></div><div class="tl-line"></div>
-                <div class="tl-content"><h4>تم التأكيد</h4><p>تم تأكيد طلبك وجاري التجهيز</p><div class="tl-time" id="tConfirmed"></div></div>
+                <div class="tl-content"><h4>ØªÙ… Ø§Ù„ØªØ£ÙƒÙŠØ¯</h4><p>ØªÙ… ØªØ£ÙƒÙŠØ¯ Ø·Ù„Ø¨Ùƒ ÙˆØ¬Ø§Ø±ÙŠ Ø§Ù„ØªØ¬Ù‡ÙŠØ²</p><div class="tl-time" id="tConfirmed"></div></div>
             </div>
             <div class="tl-item" data-st="picked">
                 <div class="tl-dot"></div><div class="tl-line"></div>
-                <div class="tl-content"><h4>تم الاستلام بالمندوب</h4><p>المندوب استلم طلبك</p><div class="tl-time" id="tPicked"></div></div>
+                <div class="tl-content"><h4>ØªÙ… Ø§Ù„Ø§Ø³ØªÙ„Ø§Ù… Ø¨Ø§Ù„Ù…Ù†Ø¯ÙˆØ¨</h4><p>Ø§Ù„Ù…Ù†Ø¯ÙˆØ¨ Ø§Ø³ØªÙ„Ù… Ø·Ù„Ø¨Ùƒ</p><div class="tl-time" id="tPicked"></div></div>
             </div>
             <div class="tl-item" data-st="delivering">
                 <div class="tl-dot"></div><div class="tl-line"></div>
-                <div class="tl-content"><h4>في الطريق ليك</h4><p>المندوب في السكة، قرب يوصلك</p><div class="tl-time" id="tDelivering"></div></div>
+                <div class="tl-content"><h4>ÙÙŠ Ø§Ù„Ø·Ø±ÙŠÙ‚ Ù„ÙŠÙƒ</h4><p>Ø§Ù„Ù…Ù†Ø¯ÙˆØ¨ ÙÙŠ Ø§Ù„Ø³ÙƒØ©ØŒ Ù‚Ø±Ø¨ ÙŠÙˆØµÙ„Ùƒ</p><div class="tl-time" id="tDelivering"></div></div>
             </div>
             <div class="tl-item" data-st="completed">
                 <div class="tl-dot"></div>
-                <div class="tl-content"><h4>تم التوصيل</h4><p>طلبك وصلك! بالهنا والشفا</p><div class="tl-time" id="tCompleted"></div></div>
+                <div class="tl-content"><h4>ØªÙ… Ø§Ù„ØªÙˆØµÙŠÙ„</h4><p>Ø·Ù„Ø¨Ùƒ ÙˆØµÙ„Ùƒ! Ø¨Ø§Ù„Ù‡Ù†Ø§ ÙˆØ§Ù„Ø´ÙØ§</p><div class="tl-time" id="tCompleted"></div></div>
             </div>
         </div>
 
         <div class="driver-box" id="driverBox">
-            <h4><i class="fas fa-user"></i> المندوب بتاعك</h4>
+            <h4><i class="ri-user-line"></i> Ø§Ù„Ù…Ù†Ø¯ÙˆØ¨ Ø¨ØªØ§Ø¹Ùƒ</h4>
             <div class="driver-row">
-                <div class="driver-avatar"><i class="fas fa-motorcycle"></i></div>
+                <div class="driver-avatar"><i class="ri-motorbike-line"></i></div>
                 <div class="driver-text"><h5 id="dName">-</h5><p id="dPhone">-</p></div>
             </div>
-            <button class="btn-call-driver" id="dCallBtn"><i class="fas fa-phone-alt"></i> اتصل بالمندوب</button>
+            <button class="btn-call-driver" id="dCallBtn"><i class="ri-phone-line"></i> Ø§ØªØµÙ„ Ø¨Ø§Ù„Ù…Ù†Ø¯ÙˆØ¨</button>
         </div>
 
         <div class="info-box">
-            <h4><i class="fas fa-info-circle"></i> تفاصيل الطلب</h4>
-            <div class="info-row"><span class="lbl">الاسم</span><span class="val" id="iName">-</span></div>
-            <div class="info-row"><span class="lbl">التليفون</span><span class="val" id="iPhone">-</span></div>
-            <div class="info-row"><span class="lbl">العنوان</span><span class="val" id="iAddr">-</span></div>
-            <div class="info-row"><span class="lbl">الخدمة</span><span class="val" id="iSvc">-</span></div>
-            <div class="info-row"><span class="lbl">رسوم التوصيل</span><span class="val" id="iFee">-</span></div>
+            <h4><i class="ri-information-line"></i> ØªÙØ§ØµÙŠÙ„ Ø§Ù„Ø·Ù„Ø¨</h4>
+            <div class="info-row"><span class="lbl">Ø§Ù„Ø§Ø³Ù…</span><span class="val" id="iName">-</span></div>
+            <div class="info-row"><span class="lbl">Ø§Ù„ØªÙ„ÙŠÙÙˆÙ†</span><span class="val" id="iPhone">-</span></div>
+            <div class="info-row"><span class="lbl">Ø§Ù„Ø¹Ù†ÙˆØ§Ù†</span><span class="val" id="iAddr">-</span></div>
+            <div class="info-row"><span class="lbl">Ø§Ù„Ø®Ø¯Ù…Ø©</span><span class="val" id="iSvc">-</span></div>
+            <div class="info-row"><span class="lbl">Ø±Ø³ÙˆÙ… Ø§Ù„ØªÙˆØµÙŠÙ„</span><span class="val" id="iFee">-</span></div>
         </div>
 
         <div class="actions">
-            <a href="https://wa.me/201234567890" target="_blank" class="wa"><i class="fab fa-whatsapp"></i> واتساب</a>
-            <a href="tel:+201234567890" class="call"><i class="fas fa-phone-alt"></i> اتصل</a>
-            <a href="order.html" class="new-order"><i class="fas fa-plus"></i> طلب جديد</a>
+            <a href="https://wa.me/201234567890" target="_blank" class="wa"><i class="fab fa-whatsapp"></i> ÙˆØ§ØªØ³Ø§Ø¨</a>
+            <a href="tel:+201234567890" class="call"><i class="ri-phone-line"></i> Ø§ØªØµÙ„</a>
+            <a href="order.html" class="new-order"><i class="ri-add-line"></i> Ø·Ù„Ø¨ Ø¬Ø¯ÙŠØ¯</a>
         </div>
     </div>
 
-    <div class="back"><a href="index.html"><i class="fas fa-arrow-right"></i> العودة للموقع</a></div>
+    <div class="back"><a href="index.html"><i class="ri-arrow-right-line"></i> Ø§Ù„Ø¹ÙˆØ¯Ø© Ù„Ù„Ù…ÙˆÙ‚Ø¹</a></div>
 </div>
 
 <a href="https://wa.me/201234567890" class="whatsapp-float" target="_blank"><i class="fab fa-whatsapp"></i></a>
 
 <script>
-    const statusMap={pending:{text:'معلق — في انتظار التأكيد',icon:'fa-clock',cls:'pending'},confirmed:{text:'مؤكد — جاري التجهيز',icon:'fa-check',cls:'confirmed'},picked:{text:'تم الاستلام — المندوب استلم الطلب',icon:'fa-box-open',cls:'picked'},delivering:{text:'في الطريق — المندوب في السكة',icon:'fa-motorcycle',cls:'delivering'},completed:{text:'تم التوصيل — بالهنا والشفا',icon:'fa-check-circle',cls:'completed'},cancelled:{text:'تم الإلغاء',icon:'times-circle',cls:'cancelled'}};
-    const svcLabels={food:'توصيل طعام',package:'توصيل طرود',product:'توصيل منتجات'};
+    const statusMap={pending:{text:'Ù…Ø¹Ù„Ù‚ â€” ÙÙŠ Ø§Ù†ØªØ¸Ø§Ø± Ø§Ù„ØªØ£ÙƒÙŠØ¯',icon:'fa-clock',cls:'pending'},confirmed:{text:'Ù…Ø¤ÙƒØ¯ â€” Ø¬Ø§Ø±ÙŠ Ø§Ù„ØªØ¬Ù‡ÙŠØ²',icon:'fa-check',cls:'confirmed'},picked:{text:'ØªÙ… Ø§Ù„Ø§Ø³ØªÙ„Ø§Ù… â€” Ø§Ù„Ù…Ù†Ø¯ÙˆØ¨ Ø§Ø³ØªÙ„Ù… Ø§Ù„Ø·Ù„Ø¨',icon:'fa-box-open',cls:'picked'},delivering:{text:'ÙÙŠ Ø§Ù„Ø·Ø±ÙŠÙ‚ â€” Ø§Ù„Ù…Ù†Ø¯ÙˆØ¨ ÙÙŠ Ø§Ù„Ø³ÙƒØ©',icon:'fa-motorcycle',cls:'delivering'},completed:{text:'ØªÙ… Ø§Ù„ØªÙˆØµÙŠÙ„ â€” Ø¨Ø§Ù„Ù‡Ù†Ø§ ÙˆØ§Ù„Ø´ÙØ§',icon:'fa-check-circle',cls:'completed'},cancelled:{text:'ØªÙ… Ø§Ù„Ø¥Ù„ØºØ§Ø¡',icon:'times-circle',cls:'cancelled'}};
+    const svcLabels={food:'ØªÙˆØµÙŠÙ„ Ø·Ø¹Ø§Ù…',package:'ØªÙˆØµÙŠÙ„ Ø·Ø±ÙˆØ¯',product:'ØªÙˆØµÙŠÙ„ Ù…Ù†ØªØ¬Ø§Øª'};
     const allStatuses=['pending','confirmed','picked','delivering','completed'];
 
     function fmtTime(iso){if(!iso)return'';const d=new Date(iso);return d.toLocaleString('ar-EG',{hour:'2-digit',minute:'2-digit',day:'2-digit',month:'2-digit',year:'numeric'})}
@@ -284,7 +285,7 @@
         document.getElementById('iPhone').textContent=o.customerPhone||'-';
         document.getElementById('iAddr').textContent=o.customerAddress||'-';
         document.getElementById('iSvc').textContent=svcLabels[o.serviceType]||'-';
-        document.getElementById('iFee').textContent=o.deliveryFee?o.deliveryFee+' ج.م':'-';
+        document.getElementById('iFee').textContent=o.deliveryFee?o.deliveryFee+' Ø¬.Ù…':'-';
         if((o.status==='delivering'||o.status==='picked')&&o.driverName){document.getElementById('driverBox').classList.add('show');document.getElementById('dName').textContent=o.driverName;document.getElementById('dPhone').textContent=o.driverPhone||'';document.getElementById('dCallBtn').onclick=()=>{window.location.href='tel:'+o.driverPhone}}
         else document.getElementById('driverBox').classList.remove('show');
     }
