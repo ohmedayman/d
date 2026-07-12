@@ -168,25 +168,36 @@
         find(k, id) { return this.get(k).find(x => x.id === id); }
     };
 
-    /* ===== INIT DEMO DATA ===== */
+    /* ===== INIT DEMO DATA (only if empty) ===== */
     if (!localStorage.getItem('km_initialized')) {
-        DB.set('orders', [
+        const demoOrders = [
             { id:'o1', orderId:'ORD-001', customerName:'أحمد محمد', customerPhone:'01012345678', customerAddress:'الفيوم - شارع الجمهورية', serviceType:'food', deliveryFee:15, status:'completed', driverName:'محمد علي', driverPhone:'01123456789', notes:'توصيل سريع', createdAt:new Date(Date.now()-86400000*2).toISOString(), completedAt:new Date(Date.now()-86400000*2+3600000).toISOString() },
             { id:'o2', orderId:'ORD-002', customerName:'سارة أحمد', customerPhone:'01234567890', customerAddress:'الفيوم - شارع الحرية', serviceType:'package', deliveryFee:20, status:'delivering', driverName:'حسن محمود', driverPhone:'01098765432', notes:'', createdAt:new Date(Date.now()-3600000*5).toISOString() },
             { id:'o3', orderId:'ORD-003', customerName:'محمد حسن', customerPhone:'01155566677', customerAddress:'الفيوم -شارع المدارس', serviceType:'product', deliveryFee:25, status:'pending', driverName:'', driverPhone:'', notes:'هدايا عيد ميلاد', createdAt:new Date(Date.now()-3600000*2).toISOString() },
             { id:'o4', orderId:'ORD-004', customerName:'فاطمة علي', customerPhone:'01088899900', customerAddress:'الفيوم - حي الغردقة', serviceType:'food', deliveryFee:15, status:'confirmed', driverName:'', driverPhone:'', notes:'', createdAt:new Date(Date.now()-3600000).toISOString() },
             { id:'o5', orderId:'ORD-005', customerName:'عمر سعيد', customerPhone:'01512345678', customerAddress:'الفيوم -شارع بنك مصر', serviceType:'food', deliveryFee:15, status:'picked', driverName:'محمد علي', driverPhone:'01123456789', notes:'', createdAt:new Date(Date.now()-3600000*8).toISOString() },
-        ]);
-        DB.set('drivers', [
-            { id:'d1', name:'محمد علي', phone:'01123456789', bike:'موتوسيكل 123', area:'وسط الفيوم', status:'available', orderCount:15, createdAt:new Date(Date.now()-86400000*30).toISOString() },
-            { id:'d2', name:'حسن محمود', phone:'01098765432', bike:'موتوسيكل 456', area:'شارع الجمهورية', status:'busy', orderCount:22, createdAt:new Date(Date.now()-86400000*20).toISOString() },
-            { id:'d3', name:'يوسف إبراهيم', phone:'01555555555', bike:'موتوسيكل 789', area:'الغردقة', status:'available', orderCount:8, createdAt:new Date(Date.now()-86400000*10).toISOString() },
-        ]);
-        DB.set('customers', [
-            { id:'c1', name:'أحمد محمد', phone:'01012345678', address:'الفيوم - شارع الجمهورية', orderCount:5, totalSpent:75, lastOrder:new Date(Date.now()-86400000*2).toISOString(), createdAt:new Date(Date.now()-86400000*60).toISOString() },
-            { id:'c2', name:'سارة أحمد', phone:'01234567890', address:'الفيوم - شارع الحرية', orderCount:3, totalSpent:60, lastOrder:new Date(Date.now()-3600000*5).toISOString(), createdAt:new Date(Date.now()-86400000*40).toISOString() },
-            { id:'c3', name:'محمد حسن', phone:'01155566677', address:'الفيوم - شارع المدارس', orderCount:8, totalSpent:200, lastOrder:new Date(Date.now()-3600000*2).toISOString(), createdAt:new Date(Date.now()-86400000*90).toISOString() },
-        ]);
+        ];
+        const existingOrders = DB.get('orders');
+        const mergedOrders = [...demoOrders, ...existingOrders];
+        DB.set('orders', mergedOrders);
+
+        const existingDrivers = DB.get('drivers');
+        if (!existingDrivers.length) {
+            DB.set('drivers', [
+                { id:'d1', name:'محمد علي', phone:'01123456789', bike:'موتوسيكل 123', area:'وسط الفيوم', status:'available', orderCount:15, createdAt:new Date(Date.now()-86400000*30).toISOString() },
+                { id:'d2', name:'حسن محمود', phone:'01098765432', bike:'موتوسيكل 456', area:'شارع الجمهورية', status:'busy', orderCount:22, createdAt:new Date(Date.now()-86400000*20).toISOString() },
+                { id:'d3', name:'يوسف إبراهيم', phone:'01555555555', bike:'موتوسيكل 789', area:'الغردقة', status:'available', orderCount:8, createdAt:new Date(Date.now()-86400000*10).toISOString() },
+            ]);
+        }
+
+        const existingCustomers = DB.get('customers');
+        if (!existingCustomers.length) {
+            DB.set('customers', [
+                { id:'c1', name:'أحمد محمد', phone:'01012345678', address:'الفيوم - شارع الجمهورية', orderCount:5, totalSpent:75, lastOrder:new Date(Date.now()-86400000*2).toISOString(), createdAt:new Date(Date.now()-86400000*60).toISOString() },
+                { id:'c2', name:'سارة أحمد', phone:'01234567890', address:'الفيوم - شارع الحرية', orderCount:3, totalSpent:60, lastOrder:new Date(Date.now()-3600000*5).toISOString(), createdAt:new Date(Date.now()-86400000*40).toISOString() },
+                { id:'c3', name:'محمد حسن', phone:'01155566677', address:'الفيوم - شارع المدارس', orderCount:8, totalSpent:200, lastOrder:new Date(Date.now()-3600000*2).toISOString(), createdAt:new Date(Date.now()-86400000*90).toISOString() },
+            ]);
+        }
         localStorage.setItem('km_initialized', 'true');
     }
 
@@ -498,6 +509,7 @@
 
     /* ===== INIT ===== */
     refresh();
+    setInterval(refresh, 10000);
     </script>
 
     <!-- Bottom Navigation for Mobile -->
