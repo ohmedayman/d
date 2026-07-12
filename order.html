@@ -251,6 +251,26 @@
     const svcLabels = {food:'توصيل طعام',package:'توصيل طرود',product:'توصيل منتجات'};
     const svcFees = {food:15, package:20, product:25};
     let step=1, data={};
+    let isLoggedIn=false, customerProfile=null;
+
+    /* Auto-fill if logged in */
+    firebase.auth().onAuthStateChanged(async user => {
+        if (user) {
+            isLoggedIn=true;
+            document.getElementById('fName').value = user.displayName || localStorage.getItem('km_customer_name') || '';
+            document.getElementById('fPhone').value = localStorage.getItem('km_customer_phone') || '';
+            // Try to load address from Firestore
+            try {
+                const snap = await firebase.firestore().collection('customers').where('email','==',user.email).limit(1).get();
+                if (!snap.empty) {
+                    customerProfile = snap.docs[0].data();
+                    document.getElementById('fAddress').value = customerProfile.address || '';
+                    if (!document.getElementById('fName').value) document.getElementById('fName').value = customerProfile.name || '';
+                    if (!document.getElementById('fPhone').value) document.getElementById('fPhone').value = customerProfile.phone || '';
+                }
+            } catch(e) {}
+        }
+    });
 
     window.goStep = function(s){
         if(s>step){
@@ -290,12 +310,15 @@
             const orderId = genOrderId();
             const now = new Date().toISOString();
             const fee = svcFees[data.service] || 20;
+            const user = firebase.auth().currentUser;
+            const custEmail = user ? user.email : '';
 
             await firebase.firestore().collection('orders').add({
                 orderId, customerName: data.name, customerPhone: data.phone,
                 customerAddress: data.address, serviceType: data.service,
                 notes: data.notes, deliveryFee: fee, status: 'pending',
-                driverName: '', driverPhone: '', createdAt: now, updatedAt: now
+                driverName: '', driverPhone: '', customerEmail: custEmail,
+                createdAt: now, updatedAt: now
             });
 
             const customersSnap = await firebase.firestore().collection('customers').where('phone','==',data.phone).get();

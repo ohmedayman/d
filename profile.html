@@ -1,0 +1,344 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>حسابي | خليك مكانك</title>
+    <link rel="icon" type="image/jpeg" href="assets/images/logo.jpg">
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-auth-compat.js"></script>
+    <script src="js/firebase-config.js"></script>
+    <script>firebase.initializeApp(firebaseConfig);</script>
+    <style>
+        :root{--primary:#FFD700;--primary-dark:#F5C400;--primary-light:#FFF8DC;--dark:#1A1A1A;--dark-2:#2D2D2D;--dark-3:#3A3A3A;--gray:#888;--gray-light:#aaa;--green:#22c55e;--blue:#3b82f6;--red:#ef4444;--wa:#25D366;--radius:16px;--shadow:0 8px 32px rgba(0,0,0,.25)}
+        *{margin:0;padding:0;box-sizing:border-box}
+        body{font-family:'Cairo',sans-serif;background:linear-gradient(160deg,#1a1a2e 0%,#16213e 50%,#0f3460 100%);min-height:100vh;padding:1.5rem;position:relative;overflow-x:hidden}
+        body::before{content:'';position:absolute;width:400px;height:400px;background:radial-gradient(circle,rgba(255,215,0,.08),transparent 70%);top:-100px;right:-100px;border-radius:50%}
+        body::after{content:'';position:absolute;width:300px;height:300px;background:radial-gradient(circle,rgba(255,215,0,.05),transparent 70%);bottom:-50px;left:-50px;border-radius:50%}
+
+        .page-wrapper{width:100%;max-width:560px;margin:0 auto;position:relative;z-index:1}
+
+        .header{text-align:center;margin-bottom:1.5rem}
+        .logo-wrap{width:72px;height:72px;border-radius:18px;overflow:hidden;margin:0 auto .8rem;box-shadow:0 8px 30px rgba(255,215,0,.25);border:2px solid rgba(255,215,0,.2)}
+        .logo-wrap img{width:100%;height:100%;object-fit:cover}
+        .header h1{font-size:1.5rem;font-weight:900;color:#fff;margin-bottom:.2rem}
+        .header p{color:rgba(255,255,255,.45);font-size:.85rem}
+
+        .card{background:rgba(255,255,255,.95);backdrop-filter:blur(20px);border-radius:24px;padding:1.5rem;box-shadow:var(--shadow);border:1px solid rgba(255,255,255,.1);margin-bottom:1rem}
+
+        /* Profile Header */
+        .profile-header{display:flex;align-items:center;gap:1rem;margin-bottom:1.2rem}
+        .avatar{width:60px;height:60px;background:linear-gradient(135deg,var(--primary),var(--primary-dark));border-radius:16px;display:flex;align-items:center;justify-content:center;font-size:1.5rem;color:var(--dark);font-weight:900;flex-shrink:0}
+        .profile-info h2{font-size:1.1rem;font-weight:800;color:var(--dark);margin-bottom:.1rem}
+        .profile-info p{color:var(--gray);font-size:.82rem}
+
+        /* Stats */
+        .stats-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:.6rem;margin-bottom:1rem}
+        .stat-item{text-align:center;background:#f8f9fa;border-radius:12px;padding:.8rem .4rem}
+        .stat-item .num{font-size:1.3rem;font-weight:900;color:var(--dark)}
+        .stat-item .lbl{font-size:.72rem;color:var(--gray);font-weight:600}
+
+        /* Tabs */
+        .tabs{display:flex;gap:0;background:#f0f0f0;border-radius:12px;padding:4px;margin-bottom:1.2rem}
+        .tab{flex:1;padding:.6rem;text-align:center;border-radius:10px;font-weight:700;font-size:.82rem;cursor:pointer;transition:.3s;color:var(--gray);font-family:'Cairo',sans-serif;border:none;background:transparent}
+        .tab.active{background:linear-gradient(135deg,var(--primary),var(--primary-dark));color:var(--dark);box-shadow:0 4px 15px rgba(255,215,0,.3)}
+
+        .tab-section{display:none;animation:fadeUp .4s ease}
+        .tab-section.active{display:block}
+        @keyframes fadeUp{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:translateY(0)}}
+
+        /* Order List */
+        .order-item{background:#f8f9fa;border-radius:14px;padding:1rem;margin-bottom:.7rem;transition:.3s;cursor:pointer;border:1px solid transparent}
+        .order-item:hover{border-color:rgba(255,215,0,.3);background:#fff}
+        .order-top{display:flex;justify-content:space-between;align-items:center;margin-bottom:.5rem}
+        .order-id{font-weight:800;font-size:.85rem;color:var(--dark);direction:ltr;display:inline-block}
+        .order-svc{font-size:.72rem;color:var(--gray);background:#e9ecef;padding:.2rem .6rem;border-radius:6px;font-weight:600}
+        .order-bottom{display:flex;justify-content:space-between;align-items:center}
+        .order-date{font-size:.75rem;color:var(--gray-light)}
+        .order-fee{font-weight:800;font-size:.85rem;color:var(--primary-dark)}
+
+        .status-dot{width:8px;height:8px;border-radius:50%;display:inline-block;margin-left:.3rem;vertical-align:middle}
+        .st-pending{background:#f59e0b}
+        .st-confirmed{background:#3b82f6}
+        .st-picked{background:#22c55e}
+        .st-delivering{background:#8b5cf6}
+        .st-completed{background:#22c55e}
+        .st-cancelled{background:#ef4444}
+
+        .empty-state{text-align:center;padding:2rem;color:var(--gray)}
+        .empty-state i{font-size:2.5rem;margin-bottom:.8rem;display:block;color:#ddd}
+        .empty-state p{font-size:.9rem;margin-bottom:1rem}
+
+        .btn-new{display:inline-flex;align-items:center;gap:.4rem;padding:.6rem 1.2rem;background:linear-gradient(135deg,var(--primary),var(--primary-dark));color:var(--dark);border:none;border-radius:10px;font-weight:700;font-size:.82rem;font-family:'Cairo',sans-serif;cursor:pointer;transition:.3s;text-decoration:none}
+        .btn-new:hover{transform:translateY(-2px);box-shadow:0 4px 15px rgba(255,215,0,.3);color:var(--dark)}
+
+        /* Profile Form */
+        .form-group{margin-bottom:.8rem}
+        .form-label{font-weight:700;font-size:.78rem;color:var(--dark);margin-bottom:.3rem;display:block}
+        .form-label i{color:var(--primary-dark);font-size:.7rem;margin-left:.3rem}
+        .form-control{width:100%;padding:.7rem 1rem;border-radius:10px;border:2px solid #eee;font-family:'Cairo',sans-serif;font-size:.85rem;transition:.3s;background:#f8f9fa;direction:rtl}
+        .form-control:focus{border-color:var(--primary);box-shadow:0 0 0 .2rem rgba(255,215,0,.1);outline:none;background:#fff}
+
+        .btn-primary{width:100%;padding:.75rem;background:linear-gradient(135deg,var(--primary),var(--primary-dark));color:var(--dark);border:none;border-radius:12px;font-weight:800;font-size:.9rem;font-family:'Cairo',sans-serif;cursor:pointer;transition:.3s;display:flex;align-items:center;justify-content:center;gap:.5rem}
+        .btn-primary:hover{transform:translateY(-2px);box-shadow:0 6px 25px rgba(255,215,0,.4)}
+
+        .btn-logout{width:100%;padding:.75rem;background:#fee2e2;color:#991b1b;border:2px solid #fecaca;border-radius:12px;font-weight:800;font-size:.9rem;font-family:'Cairo',sans-serif;cursor:pointer;transition:.3s;display:flex;align-items:center;justify-content:center;gap:.5rem;margin-top:.8rem}
+        .btn-logout:hover{background:#fecaca;transform:translateY(-2px)}
+
+        .msg{padding:.5rem 1rem;border-radius:8px;font-size:.8rem;font-weight:600;display:none;margin-bottom:.8rem}
+        .msg.show{display:block;animation:fadeUp .3s ease}
+        .msg.err{background:#fee2e2;color:#991b1b}
+        .msg.ok{background:#dcfce7;color:#166534}
+
+        /* Bottom Nav */
+        .bottom-nav{display:flex;gap:.5rem;margin-top:1.2rem}
+        .bottom-nav a{flex:1;padding:.65rem;border-radius:12px;text-align:center;text-decoration:none;font-weight:700;font-size:.8rem;transition:.3s;display:flex;align-items:center;justify-content:center;gap:.3rem}
+        .bottom-nav .bn-order{background:linear-gradient(135deg,var(--primary),var(--primary-dark));color:var(--dark)}
+        .bottom-nav .bn-track{background:rgba(255,255,255,.15);color:rgba(255,255,255,.7);border:1px solid rgba(255,255,255,.1)}
+        .bottom-nav .bn-home{background:rgba(255,255,255,.15);color:rgba(255,255,255,.7);border:1px solid rgba(255,255,255,.1)}
+        .bottom-nav a:hover{transform:translateY(-2px)}
+
+        .loading{text-align:center;padding:2rem;display:none}
+        .loading.show{display:block}
+        .spinner{width:35px;height:35px;border:3px solid rgba(255,255,255,.15);border-top-color:var(--primary);border-radius:50%;animation:spin .8s linear infinite;margin:0 auto .8rem}
+        @keyframes spin{to{transform:rotate(360deg)}}
+
+        .back{text-align:center;margin-top:1rem}
+        .back a{color:rgba(255,255,255,.4);text-decoration:none;font-weight:600;font-size:.85rem;transition:.3s}
+        .back a:hover{color:var(--primary)}
+
+        @media(max-width:575px){
+            body{padding:1rem}
+            .card{padding:1.2rem}
+            .stats-grid{grid-template-columns:repeat(3,1fr)}
+        }
+    </style>
+</head>
+<body>
+
+<div class="page-wrapper">
+    <div class="header">
+        <div class="logo-wrap"><img src="assets/images/logo.jpg" alt="خليك مكانك"></div>
+        <h1>حسابي</h1>
+        <p id="welcomeMsg">مرحبا بيك</p>
+    </div>
+
+    <!-- Profile Card -->
+    <div class="card">
+        <div class="profile-header">
+            <div class="avatar" id="avatarEl">?</div>
+            <div class="profile-info">
+                <h2 id="userName">-</h2>
+                <p id="userEmail">-</p>
+            </div>
+        </div>
+        <div class="stats-grid">
+            <div class="stat-item"><div class="num" id="statOrders">0</div><div class="lbl">طلبات</div></div>
+            <div class="stat-item"><div class="num" id="statSpent">0</div><div class="lbl">ج.م منفق</div></div>
+            <div class="stat-item"><div class="num" id="statActive">0</div><div class="lbl">نشطة</div></div>
+        </div>
+    </div>
+
+    <!-- Tabs -->
+    <div class="card">
+        <div class="tabs">
+            <button class="tab active" onclick="switchTab('orders')">طلباتي</button>
+            <button class="tab" onclick="switchTab('profile')">البيانات</button>
+        </div>
+
+        <!-- Orders -->
+        <div class="tab-section active" id="ordersSection">
+            <div class="loading show" id="ordersLoading"><div class="spinner"></div><p style="color:var(--gray);font-weight:700">جاري تحميل الطلبات...</p></div>
+            <div id="ordersList" style="display:none"></div>
+            <div class="empty-state" id="emptyOrders" style="display:none">
+                <i class="fas fa-box-open"></i>
+                <p>مفيش طلبات لسه!</p>
+                <a href="order.html" class="btn-new"><i class="fas fa-plus"></i> اطلب دلوقتي</a>
+            </div>
+        </div>
+
+        <!-- Profile -->
+        <div class="tab-section" id="profileSection">
+            <div class="msg" id="profileMsg"></div>
+            <div class="form-group">
+                <label class="form-label"><i class="fas fa-user"></i> الاسم</label>
+                <input type="text" class="form-control" id="pName" placeholder="اسمك">
+            </div>
+            <div class="form-group">
+                <label class="form-label"><i class="fas fa-phone"></i> التليفون</label>
+                <input type="tel" class="form-control" id="pPhone" placeholder="01xxxxxxxxx">
+            </div>
+            <div class="form-group">
+                <label class="form-label"><i class="fas fa-map-marker-alt"></i> العنوان</label>
+                <input type="text" class="form-control" id="pAddress" placeholder="العنوان بتاعك">
+            </div>
+            <button class="btn-primary" onclick="saveProfile()"><i class="fas fa-save"></i> حفظ التغييرات</button>
+            <button class="btn-logout" onclick="doLogout()"><i class="fas fa-sign-out-alt"></i> تسجيل الخروج</button>
+        </div>
+    </div>
+
+    <!-- Bottom Nav -->
+    <div class="bottom-nav">
+        <a href="index.html" class="bn-home"><i class="fas fa-home"></i> الرئيسية</a>
+        <a href="order.html" class="bn-order"><i class="fas fa-plus"></i> طلب جديد</a>
+        <a href="track.html" class="bn-track"><i class="fas fa-search"></i> تتبع</a>
+    </div>
+
+    <div class="back"><a href="index.html"><i class="fas fa-arrow-right"></i> العودة للموقع</a></div>
+</div>
+
+<script>
+    let customerData = null;
+    let allOrders = [];
+
+    function switchTab(tab) {
+        document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+        document.querySelectorAll('.tab-section').forEach(s => s.classList.remove('active'));
+        if (tab === 'orders') {
+            document.querySelectorAll('.tab')[0].classList.add('active');
+            document.getElementById('ordersSection').classList.add('active');
+        } else {
+            document.querySelectorAll('.tab')[1].classList.add('active');
+            document.getElementById('profileSection').classList.add('active');
+        }
+    }
+
+    function initPage(user) {
+        const name = user.displayName || localStorage.getItem('km_customer_name') || 'عميل';
+        const email = user.email || localStorage.getItem('km_customer_email') || '';
+        document.getElementById('userName').textContent = name;
+        document.getElementById('userEmail').textContent = email;
+        document.getElementById('welcomeMsg').textContent = `مرحبا ${name}`;
+        document.getElementById('avatarEl').textContent = name.charAt(0);
+
+        // Fill profile form
+        document.getElementById('pName').value = name;
+        document.getElementById('pPhone').value = localStorage.getItem('km_customer_phone') || '';
+        document.getElementById('pAddress').value = customerData?.address || '';
+
+        loadOrders(user.email || '', user.uid);
+    }
+
+    async function loadOrders(email, uid) {
+        document.getElementById('ordersLoading').classList.add('show');
+        try {
+            // Get orders by email or phone
+            let orders = [];
+            if (email) {
+                const snap = await firebase.firestore().collection('orders').where('customerEmail', '==', email).get();
+                orders = snap.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+            }
+            // Also check by phone
+            const phone = localStorage.getItem('km_customer_phone');
+            if (phone) {
+                const snap2 = await firebase.firestore().collection('orders').where('customerPhone', '==', phone).get();
+                const more = snap2.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+                orders = [...orders, ...more];
+            }
+            // Deduplicate
+            const seen = new Set();
+            allOrders = orders.filter(o => { if (seen.has(o.id)) return false; seen.add(o.id); return true; });
+            allOrders.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
+
+            document.getElementById('ordersLoading').classList.remove('show');
+            document.getElementById('ordersList').style.display = 'block';
+            renderOrders();
+        } catch (err) {
+            document.getElementById('ordersLoading').classList.remove('show');
+            document.getElementById('ordersList').style.display = 'block';
+            document.getElementById('emptyOrders').style.display = 'block';
+            console.error(err);
+        }
+    }
+
+    function renderOrders() {
+        const stL = { pending:'معلق', confirmed:'مؤكد', picked:'تم الاستلام', delivering:'في الطريق', completed:'مكتمل', cancelled:'ملغي' };
+        const svcL = { food:'طعام', package:'طرود', product:'منتجات' };
+        const list = document.getElementById('ordersList');
+        const empty = document.getElementById('emptyOrders');
+
+        if (!allOrders.length) { list.style.display='none'; empty.style.display='block'; return; }
+        empty.style.display='none';
+
+        // Update stats
+        document.getElementById('statOrders').textContent = allOrders.length;
+        const total = allOrders.reduce((s, o) => s + (o.deliveryFee || 0), 0);
+        document.getElementById('statSpent').textContent = total;
+        const active = allOrders.filter(o => !['completed', 'cancelled'].includes(o.status)).length;
+        document.getElementById('statActive').textContent = active;
+
+        list.innerHTML = allOrders.map(o => {
+            const st = o.status || 'pending';
+            const d = o.createdAt ? new Date(o.createdAt).toLocaleDateString('ar-EG') : '-';
+            return `<div class="order-item" onclick="window.location.href='track.html?id=${o.orderId||o.id}'">
+                <div class="order-top">
+                    <span><span class="status-dot st-${st}"></span> <span class="order-id">${o.orderId || o.id.slice(-8).toUpperCase()}</span></span>
+                    <span class="order-svc">${svcL[o.serviceType] || '-'}</span>
+                </div>
+                <div class="order-bottom">
+                    <span class="order-date">${d}</span>
+                    <span class="order-fee">${o.deliveryFee || 0} ج.م — ${stL[st] || st}</span>
+                </div>
+            </div>`;
+        }).join('');
+    }
+
+    async function saveProfile() {
+        const msgEl = document.getElementById('profileMsg');
+        const name = document.getElementById('pName').value.trim();
+        const phone = document.getElementById('pPhone').value.trim();
+        const address = document.getElementById('pAddress').value.trim();
+
+        if (!name) { msgEl.className='msg err show'; msgEl.textContent='دخل اسمك'; return; }
+
+        try {
+            // Update Firestore
+            if (customerData && customerData.id) {
+                await firebase.firestore().collection('customers').doc(customerData.id).update({
+                    name, phone, address, updatedAt: new Date().toISOString()
+                });
+            }
+            localStorage.setItem('km_customer_name', name);
+            localStorage.setItem('km_customer_phone', phone);
+            document.getElementById('userName').textContent = name;
+            document.getElementById('avatarEl').textContent = name.charAt(0);
+            document.getElementById('welcomeMsg').textContent = `مرحبا ${name}`;
+            msgEl.className='msg ok show'; msgEl.textContent='تم الحفظ!';
+            setTimeout(() => msgEl.classList.remove('show'), 2000);
+        } catch (err) {
+            msgEl.className='msg err show'; msgEl.textContent='حصلت مشكلة، جرب تاني';
+            console.error(err);
+        }
+    }
+
+    async function doLogout() {
+        await firebase.auth().signOut();
+        localStorage.removeItem('km_customer_uid');
+        localStorage.removeItem('km_customer_email');
+        localStorage.removeItem('km_customer_name');
+        localStorage.removeItem('km_customer_phone');
+        window.location.href = 'auth.html';
+    }
+
+    /* ===== AUTH CHECK ===== */
+    firebase.auth().onAuthStateChanged(async user => {
+        if (!user) { window.location.href = 'auth.html'; return; }
+
+        // Try to load customer data from Firestore
+        try {
+            const snap = await firebase.firestore().collection('customers').where('email', '==', user.email).limit(1).get();
+            if (!snap.empty) {
+                customerData = { id: snap.docs[0].id, ...snap.docs[0].data() };
+                localStorage.setItem('km_customer_name', customerData.name || '');
+                localStorage.setItem('km_customer_phone', customerData.phone || '');
+            }
+        } catch(e) { console.log(e); }
+
+        initPage(user);
+    });
+</script>
+</body>
+</html>

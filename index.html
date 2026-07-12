@@ -111,6 +111,9 @@
                     <li class="nav-item"><a class="nav-link" href="#contact">تواصل معانا</a></li>
                 </ul>
                 <div class="d-flex align-items-center gap-2 flex-wrap">
+                    <a href="auth.html" class="btn btn-track-nav" id="navLoginBtn">
+                        <i class="fas fa-user ms-1"></i><span id="navLoginText">دخول</span>
+                    </a>
                     <a href="track.html" class="btn btn-track-nav">
                         <i class="fas fa-search ms-1"></i>تتبع
                     </a>
@@ -612,5 +615,29 @@
 
     <!-- Main JS -->
     <script src="js/main.js"></script>
+
+    <!-- Customer Auth Check -->
+    <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-auth-compat.js"></script>
+    <script src="js/firebase-config.js"></script>
+    <script>
+        try {
+            if (!firebase.apps.length) firebase.initializeApp(firebaseConfig);
+            firebase.auth().onAuthStateChanged(user => {
+                const btn = document.getElementById('navLoginBtn');
+                const txt = document.getElementById('navLoginText');
+                if (user) {
+                    const name = user.displayName || localStorage.getItem('km_customer_name') || 'حسابي';
+                    btn.href = 'profile.html';
+                    txt.textContent = name.length > 12 ? name.substring(0,12)+'...' : name;
+                    btn.querySelector('i').className = 'fas fa-user-check ms-1';
+                } else {
+                    btn.href = 'auth.html';
+                    txt.textContent = 'دخول';
+                    btn.querySelector('i').className = 'fas fa-user ms-1';
+                }
+            });
+        } catch(e) { console.log(e); }
+    </script>
 </body>
 </html>
