@@ -7,6 +7,11 @@
     <link rel="icon" type="image/jpeg" href="../assets/images/logo.jpg">
     <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-auth-compat.js"></script>
+    <script src="../js/firebase-config.js"></script>
+    <script>firebase.initializeApp(firebaseConfig);</script>
     <style>
         :root{--primary:#FFD700;--primary-dark:#F5C400;--primary-light:#FFF8DC;--dark:#1A1A1A;--gray:#666;--white:#fff}
         *{margin:0;padding:0;box-sizing:border-box}
@@ -148,20 +153,41 @@
 
     <script>
         if (localStorage.getItem('admin_logged_in') === 'true') location.href = 'dashboard.html';
-        document.getElementById('loginForm').addEventListener('submit', function(e) {
+        document.getElementById('loginForm').addEventListener('submit', async function(e) {
             e.preventDefault();
-            const email = document.getElementById('email').value.trim();
+            const phone = document.getElementById('email').value.trim();
             const password = document.getElementById('password').value;
             const error = document.getElementById('errorMsg');
-            if ((email === 'admin' || email === 'admin@khalikmakana.com') && password === '123456') {
+            const btn = document.getElementById('loginBtn');
+
+            btn.innerHTML = '<i class="fas fa-spinner fa-spin ms-2"></i> جاري الدخول...';
+            btn.disabled = true;
+
+            const email = phone + '@khalikmakana.admin';
+            try {
+                try {
+                    await firebase.auth().signInWithEmailAndPassword(email, password);
+                } catch (err) {
+                    if (err.code === 'auth/user-not-found' || err.code === 'auth/invalid-credential') {
+                        const result = await firebase.auth().createUserWithEmailAndPassword(email, password);
+                        await firebase.firestore().collection('admins').doc(result.user.uid).set({
+                            phone: phone,
+                            role: 'admin',
+                            createdAt: new Date().toISOString()
+                        });
+                    } else {
+                        throw err;
+                    }
+                }
                 localStorage.setItem('admin_logged_in', 'true');
-                localStorage.setItem('admin_user', 'Admin');
-                document.getElementById('loginBtn').innerHTML = '<i class="fas fa-spinner fa-spin ms-2"></i> جاري الدخول...';
-                setTimeout(() => location.href = 'dashboard.html', 500);
-            } else {
+                localStorage.setItem('admin_phone', phone);
+                location.href = 'dashboard.html';
+            } catch (err) {
                 error.textContent = 'بيانات الدخول غير صحيحة - جرب تاني';
                 error.style.display = 'block';
                 error.style.animation = 'shake .5s ease';
+                btn.innerHTML = '<i class="fas fa-sign-in-alt ms-2"></i> دخول';
+                btn.disabled = false;
                 setTimeout(() => { error.style.display = 'none'; error.style.animation = ''; }, 3000);
             }
         });

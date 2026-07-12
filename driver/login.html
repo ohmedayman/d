@@ -7,6 +7,11 @@
     <link rel="icon" type="image/jpeg" href="../assets/images/logo.jpg">
     <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-auth-compat.js"></script>
+    <script src="../js/firebase-config.js"></script>
+    <script>firebase.initializeApp(firebaseConfig);</script>
     <style>
         :root{--primary:#FFD700;--primary-dark:#F5C400;--primary-light:#FFF8DC;--dark:#1A1A1A;--gray:#666;--white:#fff;--green:#22c55e;--blue:#3b82f6;--red:#ef4444}
         *{margin:0;padding:0;box-sizing:border-box}
@@ -104,31 +109,52 @@
     <script>
         if (localStorage.getItem('driver_logged_in') === 'true') location.href = 'dashboard.html';
 
-        document.getElementById('loginForm').addEventListener('submit', function(e) {
+        document.getElementById('loginForm').addEventListener('submit', async function(e) {
             e.preventDefault();
             const phone = document.getElementById('phone').value.trim();
             const password = document.getElementById('password').value;
             const error = document.getElementById('errorMsg');
+            const btn = document.getElementById('loginBtn');
 
-            const drivers = JSON.parse(localStorage.getItem('km_drivers') || '[]');
-            const driver = drivers.find(d => d.phone === phone);
+            btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> جاري الدخول...';
+            btn.disabled = true;
 
-            if (driver && password === '123456') {
+            try {
+                const driversSnap = await firebase.firestore().collection('drivers')
+                    .where('phone', '==', phone).get();
+
+                if (driversSnap.empty) {
+                    throw new Error('NOT_FOUND');
+                }
+
+                const driverDoc = driversSnap.docs[0];
+                const driverData = driverDoc.data();
+                const email = phone + '@khalikmakana.driver';
+
+                try {
+                    await firebase.auth().signInWithEmailAndPassword(email, password);
+                } catch (err) {
+                    if (err.code === 'auth/user-not-found' || err.code === 'auth/invalid-credential') {
+                        const result = await firebase.auth().createUserWithEmailAndPassword(email, password);
+                        await driverDoc.ref.update({ uid: result.user.uid });
+                    } else {
+                        throw err;
+                    }
+                }
+
                 localStorage.setItem('driver_logged_in', 'true');
-                localStorage.setItem('driver_id', driver.id);
-                localStorage.setItem('driver_name', driver.name);
-                localStorage.setItem('driver_phone', driver.phone);
-                document.getElementById('loginBtn').innerHTML = '<i class="fas fa-spinner fa-spin"></i> جاري الدخول...';
-                setTimeout(() => location.href = 'dashboard.html', 500);
-            } else if (!driver) {
-                error.textContent = 'رقم التليفون غير مسجل كمندوب';
+                localStorage.setItem('driver_id', driverDoc.id);
+                localStorage.setItem('driver_name', driverData.name);
+                localStorage.setItem('driver_phone', driverData.phone);
+                location.href = 'dashboard.html';
+            } catch (err) {
+                let msg = 'بيانات الدخول غير صحيحة';
+                if (err.message === 'NOT_FOUND') msg = 'رقم التليفون غير مسجل كمندوب';
+                error.textContent = msg;
                 error.style.display = 'block';
                 error.style.animation = 'shake .5s ease';
-                setTimeout(() => { error.style.display = 'none'; error.style.animation = ''; }, 3000);
-            } else {
-                error.textContent = 'كلمة المرور غير صحيحة';
-                error.style.display = 'block';
-                error.style.animation = 'shake .5s ease';
+                btn.innerHTML = '<i class="fas fa-sign-in-alt"></i> دخول';
+                btn.disabled = false;
                 setTimeout(() => { error.style.display = 'none'; error.style.animation = ''; }, 3000);
             }
         });

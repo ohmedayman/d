@@ -7,6 +7,11 @@
     <link rel="icon" type="image/jpeg" href="assets/images/logo.jpg">
     <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-auth-compat.js"></script>
+    <script src="js/firebase-config.js"></script>
+    <script>firebase.initializeApp(firebaseConfig);</script>
     <style>
         :root{--primary:#FFD700;--primary-dark:#F5C400;--primary-light:#FFF8DC;--dark:#1A1A1A;--dark-2:#2D2D2D;--gray:#666;--green:#28a745;--wa:#25D366}
         *{margin:0;padding:0;box-sizing:border-box}
@@ -244,12 +249,6 @@
 <a href="https://wa.me/201234567890" class="whatsapp-float" target="_blank"><i class="fab fa-whatsapp"></i></a>
 
 <script>
-    const DB = {
-        get(k) { try { return JSON.parse(localStorage.getItem('km_'+k)) || []; } catch { return []; } },
-        set(k, v) { localStorage.setItem('km_'+k, JSON.stringify(v)); },
-        add(k, item) { const list = this.get(k); list.unshift(item); this.set(k, list); return item; }
-    };
-
     const svcLabels = {food:'توصيل طعام',package:'توصيل طرود',product:'توصيل منتجات'};
     const svcFees = {food:15, package:20, product:25};
     let step=1, data={};
@@ -285,15 +284,15 @@
 
     function genOrderId(){return `ORD-${Date.now().toString(36).toUpperCase()}-${Math.random().toString(36).substring(2,6).toUpperCase()}`}
 
-    document.getElementById('orderForm').addEventListener('submit', e => {
+    document.getElementById('orderForm').addEventListener('submit', async e => {
         e.preventDefault();
         document.getElementById('loading').classList.add('show');
-        setTimeout(() => {
+        try {
             const orderId = genOrderId();
             const now = new Date().toISOString();
             const fee = svcFees[data.service] || 20;
-            DB.add('orders', {
-                id: 'loc_' + Date.now(),
+
+            await firebase.firestore().collection('orders').add({
                 orderId,
                 customerName: data.name,
                 customerPhone: data.phone,
@@ -302,32 +301,44 @@
                 notes: data.notes,
                 deliveryFee: fee,
                 status: 'pending',
+                driverName: '',
+                driverPhone: '',
                 createdAt: now,
                 updatedAt: now
             });
-            const customers = DB.get('customers');
-            const existing = customers.find(c => c.phone === data.phone);
-            if (existing) {
-                existing.orderCount = (existing.orderCount||0)+1;
-                existing.totalSpent = (existing.totalSpent||0)+fee;
-                DB.set('customers', customers);
+
+            const customersSnap = await firebase.firestore().collection('customers')
+                .where('phone', '==', data.phone).get();
+            if (!customersSnap.empty) {
+                const doc = customersSnap.docs[0];
+                await doc.ref.update({
+                    orderCount: (doc.data().orderCount || 0) + 1,
+                    totalSpent: (doc.data().totalSpent || 0) + fee,
+                    lastOrder: now,
+                    updatedAt: now
+                });
             } else {
-                DB.add('customers', {
-                    id: 'cust_' + Date.now(),
+                await firebase.firestore().collection('customers').add({
                     name: data.name,
                     phone: data.phone,
                     address: data.address,
                     orderCount: 1,
                     totalSpent: fee,
+                    lastOrder: now,
                     createdAt: now
                 });
             }
+
             document.getElementById('loading').classList.remove('show');
             document.getElementById('orderForm').style.display='none';
             document.getElementById('stepsIndicator').style.display='none';
             document.getElementById('trackNumber').textContent=orderId;
             document.getElementById('successPage').classList.add('show');
-        }, 800);
+        } catch(err) {
+            document.getElementById('loading').classList.remove('show');
+            alert('حصلت مشكلة، جرب تاني');
+            console.error(err);
+        }
     });
 
     window.copyTrack=function(){

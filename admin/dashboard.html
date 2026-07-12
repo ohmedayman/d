@@ -153,53 +153,98 @@
 
     <div class="toast-container" id="toastContainer"></div>
 
+    <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-auth-compat.js"></script>
+    <script src="../js/firebase-config.js"></script>
+    <script>firebase.initializeApp(firebaseConfig);</script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
     <script>
     /* ===== AUTH ===== */
     if (localStorage.getItem('admin_logged_in') !== 'true') location.href = 'login.html';
-    document.getElementById('logoutBtn').onclick = () => { localStorage.removeItem('admin_logged_in'); location.href = 'login.html'; };
-
-    /* ===== DB (localStorage) ===== */
-    const DB = {
-        get(k) { return JSON.parse(localStorage.getItem('km_' + k) || '[]'); },
-        set(k, v) { localStorage.setItem('km_' + k, JSON.stringify(v)); },
-        add(k, item) { const d = this.get(k); item.id = Date.now().toString(36) + Math.random().toString(36).substr(2,4); item.createdAt = new Date().toISOString(); d.unshift(item); this.set(k, d); return item; },
-        update(k, id, data) { const d = this.get(k); const i = d.findIndex(x => x.id === id); if (i >= 0) { d[i] = { ...d[i], ...data, updatedAt: new Date().toISOString() }; this.set(k, d); } },
-        remove(k, id) { this.set(k, this.get(k).filter(x => x.id !== id)); },
-        find(k, id) { return this.get(k).find(x => x.id === id); }
+    document.getElementById('logoutBtn').onclick = async () => {
+        localStorage.removeItem('admin_logged_in');
+        localStorage.removeItem('admin_phone');
+        await firebase.auth().signOut();
+        location.href = 'login.html';
     };
 
-    /* ===== INIT DEMO DATA (only if empty) ===== */
-    if (!localStorage.getItem('km_initialized')) {
+    /* ===== DB (Firebase Firestore) ===== */
+    const DB = {
+        async add(collection, item) {
+            item.createdAt = item.createdAt || new Date().toISOString();
+            const ref = await firebase.firestore().collection(collection).add(item);
+            await ref.update({ id: ref.id });
+            return { ...item, id: ref.id };
+        },
+        async update(collection, id, data) {
+            data.updatedAt = new Date().toISOString();
+            await firebase.firestore().collection(collection).doc(id).update(data);
+        },
+        async remove(collection, id) {
+            await firebase.firestore().collection(collection).doc(id).delete();
+        },
+        async getAll(collection) {
+            const snap = await firebase.firestore().collection(collection).orderBy('createdAt','desc').get();
+            return snap.docs.map(d => ({ id: d.id, ...d.data() }));
+        },
+        async getOne(collection, id) {
+            const doc = await firebase.firestore().collection(collection).doc(id).get();
+            return doc.exists ? { id: doc.id, ...doc.data() } : null;
+        }
+    };
+
+    /* ===== DATA CACHE ===== */
+    let allOrders = [], allDrivers = [], allCustomers = [];
+
+    async function fetchData() {
+        [allOrders, allDrivers, allCustomers] = await Promise.all([
+            DB.getAll('orders'),
+            DB.getAll('drivers'),
+            DB.getAll('customers')
+        ]);
+    }
+
+    /* ===== SEED DEMO DATA (only if Firestore empty) ===== */
+    async function seedDemoData() {
+        const ordersSnap = await firebase.firestore().collection('orders').limit(1).get();
+        if (!ordersSnap.empty) return;
+
+        const batch = firebase.firestore().batch();
+        const now = Date.now();
         const demoOrders = [
-            { id:'o1', orderId:'ORD-001', customerName:'أحمد محمد', customerPhone:'01012345678', customerAddress:'الفيوم - شارع الجمهورية', serviceType:'food', deliveryFee:15, status:'completed', driverName:'محمد علي', driverPhone:'01123456789', notes:'توصيل سريع', createdAt:new Date(Date.now()-86400000*2).toISOString(), completedAt:new Date(Date.now()-86400000*2+3600000).toISOString() },
-            { id:'o2', orderId:'ORD-002', customerName:'سارة أحمد', customerPhone:'01234567890', customerAddress:'الفيوم - شارع الحرية', serviceType:'package', deliveryFee:20, status:'delivering', driverName:'حسن محمود', driverPhone:'01098765432', notes:'', createdAt:new Date(Date.now()-3600000*5).toISOString() },
-            { id:'o3', orderId:'ORD-003', customerName:'محمد حسن', customerPhone:'01155566677', customerAddress:'الفيوم -شارع المدارس', serviceType:'product', deliveryFee:25, status:'pending', driverName:'', driverPhone:'', notes:'هدايا عيد ميلاد', createdAt:new Date(Date.now()-3600000*2).toISOString() },
-            { id:'o4', orderId:'ORD-004', customerName:'فاطمة علي', customerPhone:'01088899900', customerAddress:'الفيوم - حي الغردقة', serviceType:'food', deliveryFee:15, status:'confirmed', driverName:'', driverPhone:'', notes:'', createdAt:new Date(Date.now()-3600000).toISOString() },
-            { id:'o5', orderId:'ORD-005', customerName:'عمر سعيد', customerPhone:'01512345678', customerAddress:'الفيوم -شارع بنك مصر', serviceType:'food', deliveryFee:15, status:'picked', driverName:'محمد علي', driverPhone:'01123456789', notes:'', createdAt:new Date(Date.now()-3600000*8).toISOString() },
+            { orderId:'ORD-001', customerName:'أحمد محمد', customerPhone:'01012345678', customerAddress:'الفيوم - شارع الجمهورية', serviceType:'food', deliveryFee:15, status:'completed', driverName:'محمد علي', driverPhone:'01123456789', notes:'توصيل سريع', createdAt:new Date(now-86400000*2).toISOString(), completedAt:new Date(now-86400000*2+3600000).toISOString() },
+            { orderId:'ORD-002', customerName:'سارة أحمد', customerPhone:'01234567890', customerAddress:'الفيوم - شارع الحرية', serviceType:'package', deliveryFee:20, status:'delivering', driverName:'حسن محمود', driverPhone:'01098765432', notes:'', createdAt:new Date(now-3600000*5).toISOString() },
+            { orderId:'ORD-003', customerName:'محمد حسن', customerPhone:'01155566677', customerAddress:'الفيوم -شارع المدارس', serviceType:'product', deliveryFee:25, status:'pending', driverName:'', driverPhone:'', notes:'هدايا عيد ميلاد', createdAt:new Date(now-3600000*2).toISOString() },
+            { orderId:'ORD-004', customerName:'فاطمة علي', customerPhone:'01088899900', customerAddress:'الفيوم - حي الغردقة', serviceType:'food', deliveryFee:15, status:'confirmed', driverName:'', driverPhone:'', notes:'', createdAt:new Date(now-3600000).toISOString() },
+            { orderId:'ORD-005', customerName:'عمر سعيد', customerPhone:'01512345678', customerAddress:'الفيوم -شارع بنك مصر', serviceType:'food', deliveryFee:15, status:'picked', driverName:'محمد علي', driverPhone:'01123456789', notes:'', createdAt:new Date(now-3600000*8).toISOString() },
         ];
-        const existingOrders = DB.get('orders');
-        const mergedOrders = [...demoOrders, ...existingOrders];
-        DB.set('orders', mergedOrders);
+        demoOrders.forEach(o => {
+            const ref = firebase.firestore().collection('orders').doc();
+            batch.set(ref, o);
+        });
 
-        const existingDrivers = DB.get('drivers');
-        if (!existingDrivers.length) {
-            DB.set('drivers', [
-                { id:'d1', name:'محمد علي', phone:'01123456789', bike:'موتوسيكل 123', area:'وسط الفيوم', status:'available', orderCount:15, createdAt:new Date(Date.now()-86400000*30).toISOString() },
-                { id:'d2', name:'حسن محمود', phone:'01098765432', bike:'موتوسيكل 456', area:'شارع الجمهورية', status:'busy', orderCount:22, createdAt:new Date(Date.now()-86400000*20).toISOString() },
-                { id:'d3', name:'يوسف إبراهيم', phone:'01555555555', bike:'موتوسيكل 789', area:'الغردقة', status:'available', orderCount:8, createdAt:new Date(Date.now()-86400000*10).toISOString() },
-            ]);
-        }
+        const demoDrivers = [
+            { name:'محمد علي', phone:'01123456789', bike:'موتوسيكل 123', area:'وسط الفيوم', status:'available', orderCount:15, createdAt:new Date(now-86400000*30).toISOString() },
+            { name:'حسن محمود', phone:'01098765432', bike:'موتوسيكل 456', area:'شارع الجمهورية', status:'busy', orderCount:22, createdAt:new Date(now-86400000*20).toISOString() },
+            { name:'يوسف إبراهيم', phone:'01555555555', bike:'موتوسيكل 789', area:'الغردقة', status:'available', orderCount:8, createdAt:new Date(now-86400000*10).toISOString() },
+        ];
+        demoDrivers.forEach(d => {
+            const ref = firebase.firestore().collection('drivers').doc();
+            batch.set(ref, d);
+        });
 
-        const existingCustomers = DB.get('customers');
-        if (!existingCustomers.length) {
-            DB.set('customers', [
-                { id:'c1', name:'أحمد محمد', phone:'01012345678', address:'الفيوم - شارع الجمهورية', orderCount:5, totalSpent:75, lastOrder:new Date(Date.now()-86400000*2).toISOString(), createdAt:new Date(Date.now()-86400000*60).toISOString() },
-                { id:'c2', name:'سارة أحمد', phone:'01234567890', address:'الفيوم - شارع الحرية', orderCount:3, totalSpent:60, lastOrder:new Date(Date.now()-3600000*5).toISOString(), createdAt:new Date(Date.now()-86400000*40).toISOString() },
-                { id:'c3', name:'محمد حسن', phone:'01155566677', address:'الفيوم - شارع المدارس', orderCount:8, totalSpent:200, lastOrder:new Date(Date.now()-3600000*2).toISOString(), createdAt:new Date(Date.now()-86400000*90).toISOString() },
-            ]);
-        }
-        localStorage.setItem('km_initialized', 'true');
+        const demoCustomers = [
+            { name:'أحمد محمد', phone:'01012345678', address:'الفيوم - شارع الجمهورية', orderCount:5, totalSpent:75, lastOrder:new Date(now-86400000*2).toISOString(), createdAt:new Date(now-86400000*60).toISOString() },
+            { name:'سارة أحمد', phone:'01234567890', address:'الفيوم - شارع الحرية', orderCount:3, totalSpent:60, lastOrder:new Date(now-3600000*5).toISOString(), createdAt:new Date(now-86400000*40).toISOString() },
+            { name:'محمد حسن', phone:'01155566677', address:'الفيوم - شارع المدارس', orderCount:8, totalSpent:200, lastOrder:new Date(now-3600000*2).toISOString(), createdAt:new Date(now-86400000*90).toISOString() },
+        ];
+        demoCustomers.forEach(c => {
+            const ref = firebase.firestore().collection('customers').doc();
+            batch.set(ref, c);
+        });
+
+        await batch.commit();
     }
 
     /* ===== CONSTANTS ===== */
@@ -227,7 +272,7 @@
     function renderOrders() {
         const filter = document.getElementById('orderFilter').value;
         const search = document.getElementById('orderSearch').value.toLowerCase();
-        let list = DB.get('orders');
+        let list = allOrders;
         if (filter !== 'all') list = list.filter(o => o.status === filter);
         if (search) list = list.filter(o => (o.customerName||'').toLowerCase().includes(search) || (o.customerPhone||'').includes(search) || (o.orderId||'').toLowerCase().includes(search));
         const tb = document.getElementById('ordersTableBody');
@@ -251,14 +296,14 @@
     }
 
     function renderRecent() {
-        const list = DB.get('orders').slice(0, 5);
+        const list = allOrders.slice(0, 5);
         const tb = document.getElementById('recentOrdersBody');
         if (!list.length) { tb.innerHTML = '<tr><td colspan="5" class="text-center py-4 text-muted">لا توجد طلبات</td></tr>'; return; }
         tb.innerHTML = list.map((o,i) => `<tr><td>${i+1}</td><td><strong>${o.customerName||'-'}</strong></td><td>${svcL[o.serviceType]||'-'}</td><td>${o.deliveryFee||0} ج.م</td><td><span class="status-chip ${stC[o.status]||''}">${stL[o.status]||o.status}</span></td></tr>`).join('');
     }
 
     window.viewOrder = function(id) {
-        const o = DB.find('orders', id); if (!o) return;
+        const o = allOrders.find(x => x.id === id); if (!o) return;
         document.getElementById('viewDetails').innerHTML = `
             <div class="detail-row"><span>رقم الطلب</span><strong>${o.orderId||o.id.toUpperCase()}</strong></div>
             <div class="detail-row"><span>العميل</span><strong>${o.customerName||'-'}</strong></div>
@@ -273,48 +318,48 @@
         new bootstrap.Modal(document.getElementById('viewModal')).show();
     };
 
-    window.nextStatus = function(id) {
-        const o = DB.find('orders', id); if (!o) return;
+    window.nextStatus = async function(id) {
+        const o = allOrders.find(x => x.id === id); if (!o) return;
         const flow = ['pending','confirmed','picked','delivering','completed'];
         const idx = flow.indexOf(o.status);
         if (idx < 0 || idx >= flow.length-1) return;
         const next = flow[idx+1];
         const update = { status: next };
         if (next === 'completed') update.completedAt = new Date().toISOString();
-        DB.update('orders', id, update);
+        await DB.update('orders', id, update);
         toast('تم التحويل: ' + stL[next], 'success');
-        refresh();
+        await refresh();
     };
 
-    window.delOrder = function(id) {
+    window.delOrder = async function(id) {
         if (!confirm('حذف الطلب؟')) return;
-        DB.remove('orders', id);
+        await DB.remove('orders', id);
         toast('تم الحذف', 'danger');
-        refresh();
+        await refresh();
     };
 
-    window.cancelOrder = function(id) {
+    window.cancelOrder = async function(id) {
         if (!confirm('إلغاء الطلب؟')) return;
-        DB.update('orders', id, { status: 'cancelled', cancelledAt: new Date().toISOString() });
+        await DB.update('orders', id, { status: 'cancelled', cancelledAt: new Date().toISOString() });
         toast('تم إلغاء الطلب', 'danger');
-        refresh();
+        await refresh();
     };
 
-    window.assignDriver = function(orderId) {
-        const avail = DB.get('drivers').filter(d => d.status === 'available');
+    window.assignDriver = async function(orderId) {
+        const avail = allDrivers.filter(d => d.status === 'available');
         if (!avail.length) { alert('لا يوجد مناديب متاحين'); return; }
         const name = prompt('اختر مندوب:\n' + avail.map((d,i) => `${i+1}. ${d.name} - ${d.phone}`).join('\n') + '\n\nاكتب الرقم:');
         const idx = parseInt(name) - 1;
         if (idx >= 0 && idx < avail.length) {
-            DB.update('orders', orderId, { driverName: avail[idx].name, driverPhone: avail[idx].phone, status: 'confirmed' });
+            await DB.update('orders', orderId, { driverName: avail[idx].name, driverPhone: avail[idx].phone, status: 'confirmed' });
             toast('تم تعيين ' + avail[idx].name, 'success');
-            refresh();
+            await refresh();
         }
     };
 
     /* ===== CUSTOMERS ===== */
     function renderCustomers(search = '') {
-        let list = DB.get('customers');
+        let list = allCustomers;
         if (search) list = list.filter(c => (c.name||'').toLowerCase().includes(search.toLowerCase()) || (c.phone||'').includes(search));
         const tb = document.getElementById('customersTableBody');
         if (!list.length) { tb.innerHTML = '<tr><td colspan="6" class="text-center py-4 text-muted">لا يوجد عملاء</td></tr>'; return; }
@@ -325,7 +370,7 @@
     /* ===== DRIVERS ===== */
     function renderDrivers() {
         const filter = document.getElementById('driverFilter').value;
-        let list = DB.get('drivers');
+        let list = allDrivers;
         if (filter !== 'all') list = list.filter(d => d.status === filter);
         const stMap = { available:'متاح', busy:'مشغول' };
         const stCls = { available:'st-green', busy:'st-yellow' };
@@ -339,42 +384,39 @@
     }
     window.renderDrivers = renderDrivers;
 
-    window.toggleDriver = function(id) {
-        const d = DB.find('drivers', id); if (!d) return;
-        DB.update('drivers', id, { status: d.status === 'available' ? 'busy' : 'available' });
+    window.toggleDriver = async function(id) {
+        const d = allDrivers.find(x => x.id === id); if (!d) return;
+        await DB.update('drivers', id, { status: d.status === 'available' ? 'busy' : 'available' });
         toast('تم التحديث', 'success');
-        refresh();
+        await refresh();
     };
 
-    window.delDriver = function(id) {
+    window.delDriver = async function(id) {
         if (!confirm('حذف المندوب؟')) return;
-        DB.remove('drivers', id);
+        await DB.remove('drivers', id);
         toast('تم الحذف', 'danger');
-        refresh();
+        await refresh();
     };
 
     function populateDriverSelect() {
         const sel = document.getElementById('aoDriver');
-        sel.innerHTML = '<option value="">بدون مندوب</option>' + DB.get('drivers').filter(d=>d.status==='available').map(d=>`<option value="${d.id}">${d.name} - ${d.phone}</option>`).join('');
+        sel.innerHTML = '<option value="">بدون مندوب</option>' + allDrivers.filter(d=>d.status==='available').map(d=>`<option value="${d.id}">${d.name} - ${d.phone}</option>`).join('');
     }
 
     /* ===== DASHBOARD ===== */
     function updateDashboard() {
-        const orders = DB.get('orders');
-        const customers = DB.get('customers');
-        const drivers = DB.get('drivers');
-        document.getElementById('sTotalOrders').textContent = orders.length;
-        document.getElementById('sPending').textContent = orders.filter(o=>o.status==='pending').length;
-        document.getElementById('sCompleted').textContent = orders.filter(o=>o.status==='completed').length;
-        document.getElementById('sRevenue').textContent = orders.filter(o=>o.status==='completed').reduce((s,o)=>s+(o.deliveryFee||0),0);
-        document.getElementById('sCustomers').textContent = customers.length;
-        document.getElementById('sDrivers').textContent = drivers.length;
-        const pendingCount = orders.filter(o=>o.status==='pending').length;
+        document.getElementById('sTotalOrders').textContent = allOrders.length;
+        document.getElementById('sPending').textContent = allOrders.filter(o=>o.status==='pending').length;
+        document.getElementById('sCompleted').textContent = allOrders.filter(o=>o.status==='completed').length;
+        document.getElementById('sRevenue').textContent = allOrders.filter(o=>o.status==='completed').reduce((s,o)=>s+(o.deliveryFee||0),0);
+        document.getElementById('sCustomers').textContent = allCustomers.length;
+        document.getElementById('sDrivers').textContent = allDrivers.length;
+        const pendingCount = allOrders.filter(o=>o.status==='pending').length;
         document.getElementById('orderBadge').textContent = pendingCount;
         const bottomBadge = document.getElementById('bottomOrderBadge');
         if(pendingCount > 0){bottomBadge.textContent = pendingCount; bottomBadge.style.display='flex';}else{bottomBadge.style.display='none';}
 
-        const avail = drivers.filter(d=>d.status==='available');
+        const avail = allDrivers.filter(d=>d.status==='available');
         const ad = document.getElementById('availableDriversBody');
         if (!avail.length) { ad.innerHTML='<div class="empty-state-sm"><i class="fas fa-motorcycle"></i><p>لا يوجد متاحين</p></div>'; return; }
         ad.innerHTML = avail.map(d=>`<div class="driver-mini"><div class="driver-avatar-sm"><i class="fas fa-motorcycle"></i></div><div><strong>${d.name}</strong><br><small>${d.phone}</small></div></div>`).join('');
@@ -382,32 +424,30 @@
 
     /* ===== CHARTS ===== */
     function renderCharts() {
-        const orders = DB.get('orders');
         const days = ['الأحد','الاثنين','الثلاثاء','الأربعاء','الخميس','الجمعة','السبت'];
         const now = new Date();
         const weekData = new Array(7).fill(0);
-        orders.forEach(o => { if(!o.createdAt) return; const d=new Date(o.createdAt); if((now-d)/(864e5)<=7) weekData[d.getDay()]++; });
+        allOrders.forEach(o => { if(!o.createdAt) return; const d=new Date(o.createdAt); if((now-d)/(864e5)<=7) weekData[d.getDay()]++; });
         if (window._c1) window._c1.destroy();
         window._c1 = new Chart(document.getElementById('ordersChart'),{type:'line',data:{labels:days,datasets:[{label:'الطلبات',data:weekData,borderColor:'#FFD700',backgroundColor:'rgba(255,215,0,.1)',fill:true,tension:.4,pointBackgroundColor:'#FFD700',pointRadius:5}]},options:{responsive:true,plugins:{legend:{display:false}},scales:{y:{beginAtZero:true,ticks:{stepSize:1}}}}});
 
         const types = {food:0,package:0,product:0};
-        orders.forEach(o => { if(types[o.serviceType]!==undefined) types[o.serviceType]++; });
+        allOrders.forEach(o => { if(types[o.serviceType]!==undefined) types[o.serviceType]++; });
         if (window._c2) window._c2.destroy();
         window._c2 = new Chart(document.getElementById('typesChart'),{type:'doughnut',data:{labels:['طعام','طرود','منتجات'],datasets:[{data:[types.food,types.package,types.product],backgroundColor:['#FFD700','#3b82f6','#22c55e']}]},options:{responsive:true,plugins:{legend:{position:'bottom'}}}});
     }
 
     function renderReportStats() {
-        const orders = DB.get('orders');
         const today = new Date().toDateString();
-        const todayOrders = orders.filter(o=>o.createdAt&&new Date(o.createdAt).toDateString()===today);
+        const todayOrders = allOrders.filter(o=>o.createdAt&&new Date(o.createdAt).toDateString()===today);
         const weekStart = new Date(); weekStart.setDate(weekStart.getDate()-7);
-        const weekOrders = orders.filter(o=>o.createdAt&&new Date(o.createdAt)>=weekStart);
+        const weekOrders = allOrders.filter(o=>o.createdAt&&new Date(o.createdAt)>=weekStart);
         document.getElementById('rTodayOrders').textContent = todayOrders.length;
         document.getElementById('rTodayRevenue').textContent = todayOrders.reduce((s,o)=>s+(o.deliveryFee||0),0) + ' ج.م';
         document.getElementById('rWeekOrders').textContent = weekOrders.length;
         document.getElementById('rWeekRevenue').textContent = weekOrders.reduce((s,o)=>s+(o.deliveryFee||0),0) + ' ج.م';
-        document.getElementById('rAvgOrder').textContent = orders.length ? Math.round(orders.reduce((s,o)=>s+(o.deliveryFee||0),0)/orders.length) + ' ج.م' : '0 ج.م';
-        document.getElementById('rCancelRate').textContent = orders.length ? Math.round(orders.filter(o=>o.status==='cancelled').length/orders.length*100) + '%' : '0%';
+        document.getElementById('rAvgOrder').textContent = allOrders.length ? Math.round(allOrders.reduce((s,o)=>s+(o.deliveryFee||0),0)/allOrders.length) + ' ج.م' : '0 ج.م';
+        document.getElementById('rCancelRate').textContent = allOrders.length ? Math.round(allOrders.filter(o=>o.status==='cancelled').length/allOrders.length*100) + '%' : '0%';
 
         const revData = new Array(7).fill(0);
         weekOrders.forEach(o=>{if(!o.createdAt)return;revData[new Date(o.createdAt).getDay()]+=(o.deliveryFee||0);});
@@ -415,11 +455,11 @@
         window._c3=new Chart(document.getElementById('revenueChart'),{type:'bar',data:{labels:days,datasets:[{label:'الإيرادات',data:revData,backgroundColor:'rgba(255,215,0,.7)',borderColor:'#FFD700',borderWidth:1}]},options:{responsive:true,plugins:{legend:{display:false}},scales:{y:{beginAtZero:true}}}});
 
         if(window._c4)window._c4.destroy();
-        window._c4=new Chart(document.getElementById('compareChart'),{type:'bar',data:{labels:['اليوم','أسبوع','الكل'],datasets:[{label:'الطلبات',data:[todayOrders.length,weekOrders.length,orders.length],backgroundColor:['#FFD700','#3b82f6','#22c55e']}]},options:{responsive:true,indexAxis:'y',plugins:{legend:{display:false}}}});
+        window._c4=new Chart(document.getElementById('compareChart'),{type:'bar',data:{labels:['اليوم','أسبوع','الكل'],datasets:[{label:'الطلبات',data:[todayOrders.length,weekOrders.length,allOrders.length],backgroundColor:['#FFD700','#3b82f6','#22c55e']}]},options:{responsive:true,indexAxis:'y',plugins:{legend:{display:false}}}});
     }
 
     /* ===== FORMS ===== */
-    document.getElementById('addOrderForm').addEventListener('submit', function(e) {
+    document.getElementById('addOrderForm').addEventListener('submit', async function(e) {
         e.preventDefault();
         const driverSel = document.getElementById('aoDriver');
         const order = {
@@ -434,59 +474,71 @@
             driverPhone: driverSel.value ? driverSel.selectedOptions[0].text.split(' - ')[1] : '',
             status: driverSel.value ? 'confirmed' : 'pending'
         };
-        DB.add('orders', order);
+        await DB.add('orders', order);
 
-        // Auto-add customer
-        const customers = DB.get('customers');
-        const existing = customers.find(c => c.phone === order.customerPhone);
-        if (existing) { existing.orderCount = (existing.orderCount||0)+1; existing.totalSpent = (existing.totalSpent||0)+order.deliveryFee; existing.lastOrder = new Date().toISOString(); DB.set('customers', customers); }
-        else { DB.add('customers', { name:order.customerName, phone:order.customerPhone, address:order.customerAddress, orderCount:1, totalSpent:order.deliveryFee, lastOrder:new Date().toISOString() }); }
+        const custSnap = await firebase.firestore().collection('customers').where('phone','==',order.customerPhone).get();
+        if (!custSnap.empty) {
+            const doc = custSnap.docs[0];
+            await doc.ref.update({ orderCount: (doc.data().orderCount||0)+1, totalSpent: (doc.data().totalSpent||0)+order.deliveryFee, lastOrder: new Date().toISOString() });
+        } else {
+            await DB.add('customers', { name:order.customerName, phone:order.customerPhone, address:order.customerAddress, orderCount:1, totalSpent:order.deliveryFee, lastOrder:new Date().toISOString() });
+        }
 
         bootstrap.Modal.getInstance(document.getElementById('addOrderModal')).hide();
         this.reset();
         toast('تم إضافة الطلب ' + order.orderId, 'success');
-        refresh();
+        await refresh();
     });
 
-    document.getElementById('addDriverForm').addEventListener('submit', function(e) {
+    document.getElementById('addDriverForm').addEventListener('submit', async function(e) {
         e.preventDefault();
-        DB.add('drivers', { name:document.getElementById('adName').value, phone:document.getElementById('adPhone').value, bike:document.getElementById('adBike').value, area:document.getElementById('adArea').value, status:'available', orderCount:0 });
+        await DB.add('drivers', { name:document.getElementById('adName').value, phone:document.getElementById('adPhone').value, bike:document.getElementById('adBike').value, area:document.getElementById('adArea').value, status:'available', orderCount:0 });
         bootstrap.Modal.getInstance(document.getElementById('addDriverModal')).hide();
         this.reset();
         toast('تم إضافة المندوب', 'success');
-        refresh();
+        await refresh();
     });
 
-    /* ===== INIT SETTINGS ===== */
-    (function loadSettings(){
-        const s = JSON.parse(localStorage.getItem('km_settings') || '{}');
-        if(s.companyName) document.getElementById('setCompanyName').value = s.companyName;
-        if(s.phone) document.getElementById('setPhone').value = s.phone;
-        if(s.whatsapp) document.getElementById('setWhatsapp').value = s.whatsapp;
-        if(s.address) document.getElementById('setAddress').value = s.address;
-        const p = JSON.parse(localStorage.getItem('km_pricing') || '{}');
-        if(p.food) document.getElementById('setFeeFood').value = p.food;
-        if(p.package) document.getElementById('setFeePackage').value = p.package;
-        if(p.product) document.getElementById('setFeeProduct').value = p.product;
-    })();
+    /* ===== SETTINGS (Firebase) ===== */
+    async function loadSettings() {
+        try {
+            const snap = await firebase.firestore().collection('settings').doc('company').get();
+            if (snap.exists) {
+                const s = snap.data();
+                if(s.companyName) document.getElementById('setCompanyName').value = s.companyName;
+                if(s.phone) document.getElementById('setPhone').value = s.phone;
+                if(s.whatsapp) document.getElementById('setWhatsapp').value = s.whatsapp;
+                if(s.address) document.getElementById('setAddress').value = s.address;
+            }
+            const psnap = await firebase.firestore().collection('settings').doc('pricing').get();
+            if (psnap.exists) {
+                const p = psnap.data();
+                if(p.food) document.getElementById('setFeeFood').value = p.food;
+                if(p.package) document.getElementById('setFeePackage').value = p.package;
+                if(p.product) document.getElementById('setFeeProduct').value = p.product;
+            }
+        } catch(e) { console.log('Settings load error', e); }
+    }
 
-    document.getElementById('settingsForm').addEventListener('submit', e => {
+    document.getElementById('settingsForm').addEventListener('submit', async e => {
         e.preventDefault();
-        localStorage.setItem('km_settings', JSON.stringify({
+        await firebase.firestore().collection('settings').doc('company').set({
             companyName: document.getElementById('setCompanyName').value,
             phone: document.getElementById('setPhone').value,
             whatsapp: document.getElementById('setWhatsapp').value,
-            address: document.getElementById('setAddress').value
-        }));
+            address: document.getElementById('setAddress').value,
+            updatedAt: new Date().toISOString()
+        });
         toast('تم حفظ إعدادات الشركة', 'success');
     });
-    document.getElementById('pricingForm').addEventListener('submit', e => {
+    document.getElementById('pricingForm').addEventListener('submit', async e => {
         e.preventDefault();
-        localStorage.setItem('km_pricing', JSON.stringify({
+        await firebase.firestore().collection('settings').doc('pricing').set({
             food: parseFloat(document.getElementById('setFeeFood').value),
             package: parseFloat(document.getElementById('setFeePackage').value),
-            product: parseFloat(document.getElementById('setFeeProduct').value)
-        }));
+            product: parseFloat(document.getElementById('setFeeProduct').value),
+            updatedAt: new Date().toISOString()
+        });
         toast('تم حفظ التسعيرة', 'success');
     });
 
@@ -506,11 +558,18 @@
     }
 
     /* ===== REFRESH ===== */
-    function refresh() { renderOrders(); renderRecent(); renderDrivers(); updateDashboard(); renderCharts(); renderReportStats(); renderCustomers(); populateDriverSelect(); }
+    async function refresh() {
+        await fetchData();
+        renderOrders(); renderRecent(); renderDrivers(); updateDashboard(); renderCharts(); renderReportStats(); renderCustomers(); populateDriverSelect();
+    }
 
     /* ===== INIT ===== */
-    refresh();
-    setInterval(refresh, 10000);
+    (async function init() {
+        await seedDemoData();
+        await refresh();
+        await loadSettings();
+        setInterval(async () => await refresh(), 10000);
+    })();
     </script>
 
     <!-- Bottom Navigation for Mobile -->

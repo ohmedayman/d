@@ -7,6 +7,11 @@
     <link rel="icon" type="image/jpeg" href="../assets/images/logo.jpg">
     <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-auth-compat.js"></script>
+    <script src="../js/firebase-config.js"></script>
+    <script>firebase.initializeApp(firebaseConfig);</script>
     <link rel="stylesheet" href="driver.css">
 </head>
 <body>
@@ -119,18 +124,25 @@
     const driverName = localStorage.getItem('driver_name');
     const driverPhone = localStorage.getItem('driver_phone');
 
-    function logout() {
+    async function logout() {
         localStorage.removeItem('driver_logged_in');
         localStorage.removeItem('driver_id');
         localStorage.removeItem('driver_name');
         localStorage.removeItem('driver_phone');
+        await firebase.auth().signOut();
         location.href = 'login.html';
     }
 
     /* ===== DB ===== */
     const DB = {
-        get(k) { try { return JSON.parse(localStorage.getItem('km_'+k)) || []; } catch { return []; } },
-        set(k, v) { localStorage.setItem('km_'+k, JSON.stringify(v)); }
+        async getAll(col) {
+            const snap = await firebase.firestore().collection(col).orderBy('createdAt','desc').get();
+            return snap.docs.map(d => ({ id: d.id, ...d.data() }));
+        },
+        async update(col, id, data) {
+            data.updatedAt = new Date().toISOString();
+            await firebase.firestore().collection(col).doc(id).update(data);
+        }
     };
 
     /* ===== CONSTANTS ===== */
@@ -139,21 +151,16 @@
     const stL = { pending:'معلق', confirmed:'مؤكد', picked:'تم الاستلام', delivering:'في الطريق', completed:'مكتمل', cancelled:'ملغي' };
 
     /* ===== GET DRIVER DATA ===== */
-    function getDriver() {
-        const drivers = DB.get('drivers');
-        return drivers.find(d => d.id === driverId) || {};
-    }
-
-    /* ===== GET MY ORDERS ===== */
-    function getMyOrders() {
-        return DB.get('orders').filter(o => o.driverPhone === driverPhone || o.driverName === driverName);
+    async function getDriver() {
+        const snap = await firebase.firestore().collection('drivers').doc(driverId).get();
+        return snap.exists ? { id: snap.id, ...snap.data() } : {};
     }
 
     /* ===== RENDER ===== */
-    function render() {
-        const driver = getDriver();
-        const orders = DB.get('orders');
-        const myOrders = orders.filter(o => o.driverPhone === driverPhone || o.driverName === driverName);
+    async function render() {
+        const driver = await getDriver();
+        const allOrders = await DB.getAll('orders');
+        const myOrders = allOrders.filter(o => o.driverPhone === driverPhone || o.driverName === driverName);
 
         // Header
         document.getElementById('driverAvatar').textContent = (driver.name || driverName || 'م')[0];
@@ -191,7 +198,7 @@
         }
 
         // Pending (unassigned)
-        const unassigned = orders.filter(o => o.status === 'pending' && !o.driverName);
+        const unassigned = allOrders.filter(o => o.status === 'pending' && !o.driverName);
         document.getElementById('pendingCount').textContent = unassigned.length + ' طلب';
         const pl = document.getElementById('pendingOrdersList');
         if (!unassigned.length) {
@@ -284,50 +291,33 @@
     }
 
     /* ===== ACTIONS ===== */
-    window.acceptOrder = function(id) {
-        DB.set('orders', DB.get('orders').map(o => {
-            if (o.id === id) return { ...o, driverName: driverName, driverPhone: driverPhone, status: 'confirmed', confirmedAt: new Date().toISOString() };
-            return o;
-        }));
+    window.acceptOrder = async function(id) {
+        await DB.update('orders', id, { driverName: driverName, driverPhone: driverPhone, status: 'confirmed', confirmedAt: new Date().toISOString() });
         toast('تم قبول الطلب', 'success');
-        render();
+        await render();
     };
 
-    window.updateStatus = function(id, status) {
+    window.updateStatus = async function(id, status) {
         const updates = { status };
         if (status === 'picked') updates.pickedAt = new Date().toISOString();
         if (status === 'delivering') updates.deliveringAt = new Date().toISOString();
-        if (status === 'completed') updates.completedAt = new Date().toISOString();
-
-        DB.set('orders', DB.get('orders').map(o => {
-            if (o.id === id) return { ...o, ...updates };
-            return o;
-        }));
-
-        // Update driver order count
         if (status === 'completed') {
-            const drivers = DB.get('drivers');
-            const di = drivers.findIndex(d => d.id === driverId);
-            if (di >= 0) {
-                drivers[di].orderCount = (drivers[di].orderCount || 0) + 1;
-                DB.set('drivers', drivers);
-            }
+            updates.completedAt = new Date().toISOString();
+            await firebase.firestore().collection('drivers').doc(driverId).update({
+                orderCount: firebase.firestore.FieldValue.increment(1)
+            });
         }
-
+        await DB.update('orders', id, updates);
         toast('تم التحديث: ' + stL[status], 'success');
-        render();
+        await render();
     };
 
-    window.toggleOnline = function() {
-        const drivers = DB.get('drivers');
-        const di = drivers.findIndex(d => d.id === driverId);
-        if (di >= 0) {
-            const newStatus = drivers[di].status === 'available' ? 'busy' : 'available';
-            drivers[di].status = newStatus;
-            DB.set('drivers', drivers);
-            toast(newStatus === 'available' ? 'أنت متاح دلوقتي' : 'أنت مشغول', 'info');
-            render();
-        }
+    window.toggleOnline = async function() {
+        const driver = await getDriver();
+        const newStatus = driver.status === 'available' ? 'busy' : 'available';
+        await firebase.firestore().collection('drivers').doc(driverId).update({ status: newStatus });
+        toast(newStatus === 'available' ? 'أنت متاح دلوقتي' : 'أنت مشغول', 'info');
+        await render();
     };
 
     /* ===== NAVIGATION ===== */

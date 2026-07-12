@@ -7,6 +7,10 @@
     <link rel="icon" type="image/jpeg" href="assets/images/logo.jpg">
     <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore-compat.js"></script>
+    <script src="js/firebase-config.js"></script>
+    <script>firebase.initializeApp(firebaseConfig);</script>
     <style>
         :root{--primary:#FFD700;--primary-dark:#F5C400;--primary-light:#FFF8DC;--dark:#1A1A1A;--dark-2:#2D2D2D;--gray:#666;--green:#22c55e;--blue:#3b82f6;--wa:#25D366}
         *{margin:0;padding:0;box-sizing:border-box}
@@ -234,10 +238,6 @@
 <a href="https://wa.me/201234567890" class="whatsapp-float" target="_blank"><i class="fab fa-whatsapp"></i></a>
 
 <script>
-    const DB = {
-        get(k) { try { return JSON.parse(localStorage.getItem('km_'+k)) || []; } catch { return []; } }
-    };
-
     const statusMap={pending:{text:'معلق — في انتظار التأكيد',icon:'fa-clock',cls:'pending'},confirmed:{text:'مؤكد — جاري التجهيز',icon:'fa-check',cls:'confirmed'},picked:{text:'تم الاستلام — المندوب استلم الطلب',icon:'fa-box-open',cls:'picked'},delivering:{text:'في الطريق — المندوب في السكة',icon:'fa-motorcycle',cls:'delivering'},completed:{text:'تم التوصيل — بالهنا والشفا',icon:'fa-check-circle',cls:'completed'},cancelled:{text:'تم الإلغاء',icon:'times-circle',cls:'cancelled'}};
     const svcLabels={food:'توصيل طعام',package:'توصيل طرود',product:'توصيل منتجات'};
     const allStatuses=['pending','confirmed','picked','delivering','completed'];
@@ -246,22 +246,29 @@
 
     window.setHint=function(type){document.querySelectorAll('.tab-hint span').forEach(s=>s.classList.remove('active'));event.target.classList.add('active');document.getElementById('searchInput').placeholder=type==='ord'?'ORD-...':'01xxxxxxxxx'};
 
-    window.doSearch=function(){
+    window.doSearch=async function(){
         const val=document.getElementById('searchInput').value.trim();
         if(!val)return;
         document.getElementById('loading').classList.add('show');
         document.getElementById('notFound').classList.remove('show');
         document.getElementById('result').classList.remove('show');
-        setTimeout(()=>{
-            const orders=DB.get('orders');
+        try {
             let found=[];
-            if(val.toUpperCase().startsWith('ORD-')){found=orders.filter(o=>(o.orderId||'').toUpperCase()===val.toUpperCase())}
+            const snap = await firebase.firestore().collection('orders').get();
+            const orders = snap.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+            if(val.toUpperCase().startsWith('ORD-')){
+                found=orders.filter(o=>(o.orderId||'').toUpperCase()===val.toUpperCase());
+            }
             if(found.length===0){found=orders.filter(o=>(o.customerPhone||'')===val)}
             found.sort((a,b)=>new Date(b.createdAt)-new Date(a.createdAt));
             document.getElementById('loading').classList.remove('show');
             if(found.length>0)renderOrder(found[0]);
             else document.getElementById('notFound').classList.add('show');
-        },500);
+        } catch(err) {
+            document.getElementById('loading').classList.remove('show');
+            document.getElementById('notFound').classList.add('show');
+            console.error(err);
+        }
     };
 
     document.getElementById('searchInput').addEventListener('keydown',e=>{if(e.key==='Enter')doSearch()});
