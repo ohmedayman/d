@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html amp lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,minimum-scale=1,initial-scale=1">
+    <title>طلب جديد | خليك مكانك</title>
+    <link rel="canonical" href="https://ohmedayman.github.io/d/order.html">
+    <meta name="description" content="اطلب توصيل في الفيوم - طعام، طرود، منتجات">
+    <link rel="icon" type="image/jpeg" href="../assets/images/logo.jpg">
+    <script async src="https://cdn.ampproject.org/v0.js"></script>
+    <script async custom-element="amp-form" src="https://cdn.ampproject.org/v0/amp-form-0.1.js"></script>
+    <script async custom-element="amp-selector" src="https://cdn.ampproject.org/v0/amp-selector-0.1.js"></script>
+    <style amp-boilerplate>body{-webkit-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-moz-animation:-amp-start 8s steps(1,end) 0s 1 normal both;animation:-amp-start 8s steps(1,end) 0s 1 normal both}@-webkit-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-moz-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-webkit-keyframes -amp-end{from{visibility:visible}to{visibility:hidden}}@-moz-keyframes -amp-end{from{visibility:visible}to{visibility:hidden}}@keyframes -amp-end{from{visibility:visible}to{visibility:hidden}}</style>
+    <noscript><style amp-boilerplate>body{-webkit-animation:none;-moz-animation:none;animation:none}</style></noscript>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+    <style>
+        :root{--primary:#FFD700;--primary-dark:#F5C400;--primary-light:#FFF8DC;--dark:#1A1A1A;--gray:#888;--white:#fff;--green:#22c55e;--radius:16px;--shadow:0 4px 20px rgba(0,0,0,.1)}
+        *{margin:0;padding:0;box-sizing:border-box}
+        body{font-family:'Cairo',sans-serif;color:var(--dark);background:#f8f9fa;direction:rtl;line-height:1.7;min-height:100vh}
+        a{text-decoration:none;color:inherit}
+
+        .page{max-width:520px;margin:0 auto;padding:1.5rem 1rem}
+        .header{text-align:center;margin-bottom:1.5rem}
+        .logo-wrap{width:65px;height:65px;border-radius:16px;overflow:hidden;margin:0 auto .8rem;box-shadow:0 6px 20px rgba(255,215,0,.2);border:2px solid rgba(255,215,0,.15)}
+        .logo-wrap img{width:100%;height:100%;object-fit:cover}
+        .header h1{font-size:1.4rem;font-weight:900;margin-bottom:.2rem}
+        .header p{color:var(--gray);font-size:.85rem}
+
+        .card{background:var(--white);border-radius:20px;padding:1.5rem;box-shadow:var(--shadow);margin-bottom:1rem}
+
+        /* Steps */
+        .steps{display:flex;justify-content:center;align-items:center;gap:0;margin-bottom:1.5rem}
+        .step-dot{width:35px;height:35px;border-radius:50%;background:#f0f0f0;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:.8rem;color:#bbb;transition:.3s}
+        .step-dot.active{background:linear-gradient(135deg,var(--primary),var(--primary-dark));color:var(--dark);box-shadow:0 4px 12px rgba(255,215,0,.3)}
+        .step-dot.done{background:var(--green);color:#fff}
+        .step-line{width:40px;height:3px;background:#eee;border-radius:3px}
+        .step-line.done{background:var(--green)}
+
+        /* Services */
+        .services{display:grid;grid-template-columns:repeat(3,1fr);gap:.6rem;margin-bottom:1.2rem}
+        .svc-item{text-align:center;padding:1rem .5rem;background:#f8f9fa;border-radius:14px;border:2px solid transparent;cursor:pointer;transition:.3s}
+        .svc-item[selected]{border-color:var(--primary);background:var(--primary-light);box-shadow:0 4px 12px rgba(255,215,0,.2)}
+        .svc-item i{font-size:1.5rem;color:var(--primary-dark);margin-bottom:.4rem;display:block}
+        .svc-item span{font-weight:700;font-size:.82rem;display:block}
+        .svc-item small{font-size:.7rem;color:var(--gray)}
+
+        /* Form */
+        .form-group{margin-bottom:.8rem}
+        .form-label{font-weight:700;font-size:.8rem;margin-bottom:.3rem;display:block}
+        .form-label i{color:var(--primary-dark);font-size:.7rem;margin-left:.3rem}
+        .form-input{width:100%;padding:.7rem 1rem;border-radius:10px;border:2px solid #eee;font-family:'Cairo',sans-serif;font-size:.88rem;transition:.3s;background:#f8f9fa;direction:rtl}
+        .form-input:focus{border-color:var(--primary);outline:none;background:#fff}
+        textarea.form-input{resize:none;line-height:1.5}
+
+        .btn{width:100%;padding:.8rem;border:none;border-radius:12px;font-weight:800;font-size:.9rem;font-family:'Cairo',sans-serif;cursor:pointer;transition:.3s;display:flex;align-items:center;justify-content:center;gap:.5rem}
+        .btn-primary{background:linear-gradient(135deg,var(--primary),var(--primary-dark));color:var(--dark)}
+        .btn-primary:hover{box-shadow:0 6px 20px rgba(255,215,0,.3)}
+        .btn-outline{background:#f8f9fa;color:var(--dark);border:2px solid #eee;margin-top:.5rem}
+        .btns-row{display:flex;gap:.5rem;margin-top:.8rem}
+        .btns-row .btn{flex:1}
+
+        .back{text-align:center;margin-top:1.2rem}
+        .back a{color:var(--gray);font-weight:600;font-size:.85rem}
+
+        @media(max-width:575px){
+            .services{grid-template-columns:1fr}
+            .svc-item{flex-direction:row;display:flex;align-items:center;gap:.8rem;padding:.8rem;text-align:right}
+            .svc-item i{margin-bottom:0}
+        }
+    </style>
+</head>
+<body>
+
+<div class="page">
+    <div class="header">
+        <div class="logo-wrap"><img src="../assets/images/logo.jpg" alt="خليك مكانك"></div>
+        <h1>اطلب توصيل</h1>
+        <p>3 خطوات بسيطة وطلبك عندك</p>
+    </div>
+
+    <div class="card">
+        <div class="steps">
+            <div class="step-dot active">1</div>
+            <div class="step-line"></div>
+            <div class="step-dot">2</div>
+            <div class="step-line"></div>
+            <div class="step-dot">3</div>
+        </div>
+
+        <!-- Step 1: Service -->
+        <div id="step1">
+            <h3 style="font-size:1rem;font-weight:800;margin-bottom:1rem"><i class="fas fa-list-ul" style="color:var(--primary-dark)"></i> ايه اللي عايز توصيله؟</h3>
+            <amp-selector name="service" id="serviceSelector" on="change:AMP.setState({service: event.value, step: 2})">
+                <div class="services">
+                    <div class="svc-item" option="food" selected>
+                        <i class="fas fa-utensils"></i>
+                        <span>طعام</span>
+                        <small>15 ج.م</small>
+                    </div>
+                    <div class="svc-item" option="package">
+                        <i class="fas fa-box"></i>
+                        <span>طرود</span>
+                        <small>20 ج.م</small>
+                    </div>
+                    <div class="svc-item" option="product">
+                        <i class="fas fa-shopping-bag"></i>
+                        <span>منتجات</span>
+                        <small>25 ج.م</small>
+                    </div>
+                </div>
+            </amp-selector>
+        </div>
+
+        <!-- Step 2: Info (simplified for AMP) -->
+        <div id="step2" hidden>
+            <h3 style="font-size:1rem;font-weight:800;margin-bottom:1rem"><i class="fas fa-user" style="color:var(--primary-dark)"></i> بياناتك</h3>
+            <div class="form-group">
+                <label class="form-label"><i class="fas fa-user"></i> الاسم</label>
+                <input type="text" class="form-input" name="customerName" placeholder="اكتب اسمك" required>
+            </div>
+            <div class="form-group">
+                <label class="form-label"><i class="fas fa-phone"></i> التليفون</label>
+                <input type="tel" class="form-input" name="customerPhone" placeholder="01xxxxxxxxx" required pattern="01[0125][0-9]{8}">
+            </div>
+            <div class="form-group">
+                <label class="form-label"><i class="fas fa-map-marker-alt"></i> العنوان</label>
+                <textarea class="form-input" name="customerAddress" rows="2" placeholder="الشارع، العماره..." required></textarea>
+            </div>
+            <div class="btns-row">
+                <button class="btn btn-outline" on="tap:step1.show,step2.hide"><i class="fas fa-arrow-right"></i> السابق</button>
+                <button class="btn btn-primary" on="tap:step2.hide,step3.show"><i class="fas fa-check"></i> التالي</button>
+            </div>
+        </div>
+
+        <!-- Step 3: Confirm -->
+        <div id="step3" hidden>
+            <h3 style="font-size:1rem;font-weight:800;margin-bottom:1rem"><i class="fas fa-clipboard-check" style="color:var(--primary-dark)"></i> تأكيد</h3>
+            <p style="color:var(--gray);font-size:.88rem;margin-bottom:1rem;text-align:center">للاستكمال، افتح الموقع الرئيسي</p>
+            <a href="../order.html" class="btn btn-primary"><i class="fas fa-external-link-alt"></i> اكمل الطلب من الموقع</a>
+            <button class="btn btn-outline" style="margin-top:.5rem" on="tap:step2.show,step3.hide"><i class="fas fa-arrow-right"></i> رجوع</button>
+        </div>
+    </div>
+
+    <div class="back"><a href="../index.html"><i class="fas fa-arrow-right"></i> العودة للموقع</a></div>
+</div>
+
+</body>
+</html>

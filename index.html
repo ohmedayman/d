@@ -30,6 +30,15 @@
     <link rel="icon" type="image/jpeg" href="assets/images/logo.jpg">
     <link rel="apple-touch-icon" href="assets/images/logo.jpg">
 
+    <!-- PWA -->
+    <link rel="manifest" href="manifest.json">
+    <meta name="theme-color" content="#FFD700">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="خليك مكانك">
+    <meta name="mobile-web-app-capable" content="yes">
+    <link rel="amphtml" href="https://ohmedayman.github.io/d/amp/index.html">
+
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -116,6 +125,9 @@
                     </a>
                     <a href="track.html" class="btn btn-track-nav">
                         <i class="fas fa-search ms-1"></i>تتبع
+                    </a>
+                    <a href="download.html" class="btn btn-track-nav">
+                        <i class="fas fa-download ms-1"></i>تحميل التطبيق
                     </a>
                     <a href="order.html" class="btn btn-order-main">
                         <i class="fas fa-plus ms-1"></i>اطلب دلوقتي
@@ -638,6 +650,18 @@
                 }
             });
         } catch(e) { console.log(e); }
+
+        /* PWA Service Worker */
+        if ('serviceWorker' in navigator) {
+            navigator.serviceWorker.register('sw.js').catch(e => console.log(e));
+        }
+
+        /* PWA Install Prompt */
+        let deferredPrompt;
+        window.addEventListener('beforeinstallprompt', e => {
+            e.preventDefault();
+            deferredPrompt = e;
+        });
     </script>
 </body>
 </html>

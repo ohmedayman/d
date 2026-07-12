@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html amp lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,minimum-scale=1,initial-scale=1">
+    <title>خليك مكانك | أسرع خدمة توصيل في الفيوم</title>
+    <link rel="canonical" href="https://ohmedayman.github.io/d/">
+    <meta name="description" content="خليك مكانك - أسرع خدمة توصيل في محافظة الفيوم. توصيل طعام وطرود ومنتجات.">
+    <link rel="icon" type="image/jpeg" href="assets/images/logo.jpg">
+    <script async src="https://cdn.ampproject.org/v0.js"></script>
+    <script async custom-element="amp-analytics" src="https://cdn.ampproject.org/v0/amp-analytics-0.1.js"></script>
+    <style amp-boilerplate>body{-webkit-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-moz-animation:-amp-start 8s steps(1,end) 0s 1 normal both;animation:-amp-start 8s steps(1,end) 0s 1 normal both}@-webkit-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-moz-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-webkit-keyframes -amp-end{from{visibility:visible}to{visibility:hidden}}@-moz-keyframes -amp-end{from{visibility:visible}to{visibility:hidden}}@keyframes -amp-end{from{visibility:visible}to{visibility:hidden}}</style>
+    <noscript><style amp-boilerplate>body{-webkit-animation:none;-moz-animation:none;animation:none}</style></noscript>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+    <style>
+        :root{--primary:#FFD700;--primary-dark:#F5C400;--primary-light:#FFF8DC;--dark:#1A1A1A;--gray:#666;--white:#fff;--green:#22c55e;--wa:#25D366;--shadow:0 4px 20px rgba(0,0,0,.1)}
+        *{margin:0;padding:0;box-sizing:border-box}
+        body{font-family:'Cairo',sans-serif;color:var(--dark);background:var(--white);direction:rtl;line-height:1.7}
+        a{text-decoration:none;color:inherit}
+        .container{max-width:1200px;margin:0 auto;padding:0 1rem}
+
+        /* Navbar */
+        .nav{background:var(--white);padding:.8rem 0;box-shadow:0 2px 10px rgba(0,0,0,.06);position:sticky;top:0;z-index:100}
+        .nav .container{display:flex;align-items:center;justify-content:space-between}
+        .nav-brand{display:flex;align-items:center;gap:.5rem;font-weight:800;font-size:1.2rem}
+        .nav-brand img{width:40px;height:40px;border-radius:10px}
+        .nav-links{display:flex;gap:.5rem}
+        .nav-links a{padding:.5rem 1rem;border-radius:10px;font-weight:700;font-size:.85rem;transition:.3s}
+        .nav-cta{background:var(--primary);color:var(--dark)}
+
+        /* Hero */
+        .hero{background:linear-gradient(135deg,var(--primary-light),var(--white));padding:3rem 0;text-align:center}
+        .hero h1{font-size:2.2rem;font-weight:900;margin-bottom:.5rem}
+        .hero h1 span{color:var(--primary-dark)}
+        .hero p{color:var(--gray);font-size:1rem;margin-bottom:1.5rem;max-width:500px;margin-left:auto;margin-right:auto}
+        .hero-btns{display:flex;gap:.8rem;justify-content:center;flex-wrap:wrap}
+        .btn{padding:.8rem 1.5rem;border-radius:12px;font-weight:700;font-size:.9rem;display:inline-flex;align-items:center;gap:.4rem}
+        .btn-primary{background:linear-gradient(135deg,var(--primary),var(--primary-dark));color:var(--dark)}
+        .btn-outline{background:var(--white);color:var(--dark);border:2px solid var(--dark)}
+
+        /* Services */
+        .services{padding:3rem 0;text-align:center}
+        .section-title{font-size:1.8rem;font-weight:900;margin-bottom:.5rem}
+        .section-title span{color:var(--primary-dark)}
+        .section-desc{color:var(--gray);margin-bottom:2rem}
+        .svc-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1rem}
+        .svc-card{background:var(--white);border-radius:16px;padding:1.5rem;text-align:center;border:1px solid #eee;transition:.3s}
+        .svc-card:hover{transform:translateY(-5px);box-shadow:var(--shadow)}
+        .svc-icon{width:60px;height:60px;background:var(--primary-light);border-radius:50%;display:flex;align-items:center;justify-content:center;margin:0 auto .8rem;font-size:1.5rem;color:var(--primary-dark)}
+        .svc-card h3{font-size:1.1rem;margin-bottom:.4rem}
+        .svc-card p{color:var(--gray);font-size:.85rem}
+
+        /* Pricing */
+        .pricing{padding:3rem 0;background:#f8f9fa;text-align:center}
+        .price-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1rem}
+        .price-card{background:var(--white);border-radius:16px;padding:1.5rem;border:2px solid #eee}
+        .price-card.popular{border-color:var(--primary)}
+        .price-icon{font-size:2rem;color:var(--primary-dark);margin-bottom:.5rem}
+        .price-card h3{font-size:1.1rem;margin-bottom:.5rem}
+        .price-amount{font-size:2.5rem;font-weight:900;color:var(--dark)}
+        .price-currency{font-size:1rem;color:var(--gray)}
+        .price-card ul{list-style:none;margin:1rem 0;text-align:right}
+        .price-card li{padding:.3rem 0;font-size:.85rem;color:var(--gray)}
+        .price-card li::before{content:'✓';color:var(--green);margin-left:.3rem}
+        .price-btn{display:block;background:var(--primary);color:var(--dark);padding:.7rem;border-radius:10px;font-weight:700;text-align:center}
+
+        /* CTA */
+        .cta{padding:3rem 0;text-align:center}
+        .cta-box{background:linear-gradient(135deg,var(--primary),var(--primary-dark));border-radius:20px;padding:2.5rem;color:var(--dark)}
+        .cta-box h2{font-size:1.6rem;font-weight:900;margin-bottom:.5rem}
+        .cta-box p{margin-bottom:1.5rem;opacity:.8}
+        .cta-btns{display:flex;gap:.8rem;justify-content:center;flex-wrap:wrap}
+        .btn-dark{background:var(--dark);color:var(--white)}
+        .btn-wa{background:var(--wa);color:var(--white)}
+
+        /* Footer */
+        .footer{background:var(--dark);color:var(--white);padding:2rem 0;text-align:center}
+        .footer p{color:rgba(255,255,255,.5);font-size:.85rem}
+
+        @media(max-width:768px){
+            .svc-grid,.price-grid{grid-template-columns:1fr}
+            .hero h1{font-size:1.6rem}
+            .nav-links{display:none}
+        }
+    </style>
+</head>
+<body>
+
+<!-- Navbar -->
+<nav class="nav">
+    <div class="container">
+        <a href="index.html" class="nav-brand">
+            <img src="assets/images/logo.jpg" alt="خليك مكانك">
+            خليك مكانك
+        </a>
+        <div class="nav-links">
+            <a href="track.html">تتبع</a>
+            <a href="order.html" class="nav-cta">اطلب دلوقتي</a>
+        </div>
+    </div>
+</nav>
+
+<!-- Hero -->
+<section class="hero">
+    <div class="container">
+        <h1>خليك مكانك <span>واحنا نوصلك</span></h1>
+        <p>توصيل طعام، طرود، ومنتجات لحد باب بيتك في الفيوم. سرعة وأمان وأسعار مناسبة.</p>
+        <div class="hero-btns">
+            <a href="order.html" class="btn btn-primary"><i class="fas fa-shopping-cart"></i> اطلب دلوقتي</a>
+            <a href="track.html" class="btn btn-outline"><i class="fas fa-search"></i> تتبع طلبك</a>
+        </div>
+    </div>
+</section>
+
+<!-- Services -->
+<section class="services">
+    <div class="container">
+        <h2 class="section-title">بنوصلك <span>اللي محتاجه</span></h2>
+        <p class="section-desc">3 خدمات توصيل مختلفة تلبي جميع احتياجاتك</p>
+        <div class="svc-grid">
+            <div class="svc-card">
+                <div class="svc-icon"><i class="fas fa-utensils"></i></div>
+                <h3>توصيل طعام</h3>
+                <p>وصلك أكلك من أي مطعم في الفيوم</p>
+            </div>
+            <div class="svc-card">
+                <div class="svc-icon"><i class="fas fa-box"></i></div>
+                <h3>توصيل طرود</h3>
+                <p>ابعت طرودك بأمان وسرعة</p>
+            </div>
+            <div class="svc-card">
+                <div class="svc-icon"><i class="fas fa-shopping-bag"></i></div>
+                <h3>توصيل منتجات</h3>
+                <p>وصلك مشترياتك من أي محل</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Pricing -->
+<section class="pricing">
+    <div class="container">
+        <h2 class="section-title">أسعار <span>مناسبة للجميع</span></h2>
+        <p class="section-desc">شوف التسعيرة قبل ما تطلب</p>
+        <div class="price-grid">
+            <div class="price-card">
+                <div class="price-icon"><i class="fas fa-utensils"></i></div>
+                <h3>توصيل طعام</h3>
+                <div class="price-amount">15 <span class="price-currency">ج.م</span></div>
+                <ul>
+                    <li>توصيل في 30 دقيقة</li>
+                    <li>تتبع الطلب</li>
+                    <li>الدفع عند الاستلام</li>
+                </ul>
+                <a href="order.html" class="price-btn">اطلب دلوقتي</a>
+            </div>
+            <div class="price-card popular">
+                <div class="price-icon"><i class="fas fa-box"></i></div>
+                <h3>توصيل طرود</h3>
+                <div class="price-amount">20 <span class="price-currency">ج.م</span></div>
+                <ul>
+                    <li>توصيل في 45 دقيقة</li>
+                    <li>تتبع الطرد</li>
+                    <li>ضمان الوصول</li>
+                </ul>
+                <a href="order.html" class="price-btn">اطلب دلوقتي</a>
+            </div>
+            <div class="price-card">
+                <div class="price-icon"><i class="fas fa-shopping-bag"></i></div>
+                <h3>توصيل منتجات</h3>
+                <div class="price-amount">25 <span class="price-currency">ج.م</span></div>
+                <ul>
+                    <li>توصيل في 60 دقيقة</li>
+                    <li>من أي محل</li>
+                    <li>ضمان المنتج</li>
+                </ul>
+                <a href="order.html" class="price-btn">اطلب دلوقتي</a>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- CTA -->
+<section class="cta">
+    <div class="container">
+        <div class="cta-box">
+            <h2>جاهز تطلب؟</h2>
+            <p>كلمنا على الواتساب أو اطلب أونلاين دلوقتي</p>
+            <div class="cta-btns">
+                <a href="order.html" class="btn btn-dark"><i class="fas fa-shopping-cart"></i> اطلب أونلاين</a>
+                <a href="https://wa.me/201234567890" class="btn btn-wa"><i class="fab fa-whatsapp"></i> واتساب</a>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Footer -->
+<footer class="footer">
+    <div class="container">
+        <p>&copy; 2026 خليك مكانك. جميع الحقوق محفوظة.</p>
+    </div>
+</footer>
+
+</body>
+</html>

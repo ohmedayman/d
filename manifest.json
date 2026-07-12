@@ -1,0 +1,38 @@
+{
+  "name": "خليك مكانك - خدمة توصيل في الفيوم",
+  "short_name": "خليك مكانك",
+  "description": "أسرع خدمة توصيل في الفيوم - توصيل طعام وطرود ومنتجات",
+  "start_url": "/d/",
+  "display": "standalone",
+  "background_color": "#1a1a2e",
+  "theme_color": "#FFD700",
+  "orientation": "portrait",
+  "lang": "ar",
+  "dir": "rtl",
+  "scope": "/d/",
+  "categories": ["shopping", "business"],
+  "icons": [
+    {
+      "src": "assets/images/logo.jpg",
+      "sizes": "192x192",
+      "type": "image/jpeg",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "assets/images/logo.jpg",
+      "sizes": "512x512",
+      "type": "image/jpeg",
+      "purpose": "any maskable"
+    }
+  ],
+  "screenshots": [
+    {
+      "src": "assets/images/logo.jpg",
+      "sizes": "512x512",
+      "type": "image/jpeg",
+      "form_factor": "narrow",
+      "label": "خليك مكانك"
+    }
+  ],
+  "prefer_related_applications": false
+}

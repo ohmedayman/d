@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>تحميل التطبيق | خليك مكانك</title>
+    <link rel="icon" type="image/jpeg" href="assets/images/logo.jpg">
+    <link rel="manifest" href="manifest.json">
+    <meta name="theme-color" content="#FFD700">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="خليك مكانك">
+    <link rel="apple-touch-icon" href="assets/images/logo.jpg">
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <style>
+        :root{--primary:#FFD700;--primary-dark:#F5C400;--primary-light:#FFF8DC;--dark:#1A1A1A;--dark-2:#2D2D2D;--dark-3:#3A3A3A;--gray:#888;--green:#22c55e;--blue:#3b82f6;--wa:#25D366;--radius:16px;--shadow:0 8px 32px rgba(0,0,0,.25)}
+        *{margin:0;padding:0;box-sizing:border-box}
+        body{font-family:'Cairo',sans-serif;background:linear-gradient(160deg,#1a1a2e 0%,#16213e 50%,#0f3460 100%);min-height:100vh;position:relative;overflow-x:hidden;color:#fff}
+        body::before{content:'';position:absolute;width:400px;height:400px;background:radial-gradient(circle,rgba(255,215,0,.08),transparent 70%);top:-100px;right:-100px;border-radius:50%}
+        body::after{content:'';position:absolute;width:300px;height:300px;background:radial-gradient(circle,rgba(255,215,0,.05),transparent 70%);bottom:-50px;left:-50px;border-radius:50%}
+
+        .page-wrapper{width:100%;max-width:520px;margin:0 auto;padding:2rem 1.5rem;position:relative;z-index:1}
+
+        /* Hero */
+        .hero{text-align:center;margin-bottom:2.5rem}
+        .logo-wrap{width:100px;height:100px;border-radius:24px;overflow:hidden;margin:0 auto 1.2rem;box-shadow:0 12px 40px rgba(255,215,0,.3);border:3px solid rgba(255,215,0,.2);animation:float 3s ease-in-out infinite}
+        .logo-wrap img{width:100%;height:100%;object-fit:cover}
+        @keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-10px)}}
+        .hero h1{font-size:2rem;font-weight:900;margin-bottom:.4rem;background:linear-gradient(135deg,var(--primary),#fff);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+        .hero p{color:rgba(255,255,255,.5);font-size:.95rem;line-height:1.6}
+
+        /* App Card */
+        .app-card{background:rgba(255,255,255,.08);backdrop-filter:blur(20px);border-radius:24px;padding:1.8rem;margin-bottom:1.2rem;border:1px solid rgba(255,255,255,.1);transition:.3s}
+        .app-card:hover{transform:translateY(-5px);border-color:rgba(255,215,0,.3);box-shadow:0 12px 40px rgba(255,215,0,.15)}
+
+        .app-icon{width:70px;height:70px;border-radius:18px;overflow:hidden;margin-bottom:1rem;border:2px solid rgba(255,215,0,.2)}
+        .app-icon img{width:100%;height:100%;object-fit:cover}
+        .app-card h2{font-size:1.2rem;font-weight:800;margin-bottom:.3rem;color:#fff}
+        .app-card .app-type{font-size:.8rem;color:rgba(255,255,255,.4);margin-bottom:1rem;font-weight:600}
+
+        .app-features{list-style:none;margin:0 0 1.2rem}
+        .app-features li{padding:.4rem 0;font-size:.85rem;color:rgba(255,255,255,.7);display:flex;align-items:center;gap:.5rem}
+        .app-features li i{color:var(--primary);font-size:.75rem;width:18px;text-align:center}
+
+        .download-btns{display:flex;gap:.7rem;flex-direction:column}
+        .dl-btn{display:flex;align-items:center;gap:.8rem;padding:.85rem 1.2rem;border-radius:14px;text-decoration:none;font-weight:700;transition:.3s;border:2px solid transparent}
+        .dl-btn:hover{transform:translateY(-2px)}
+        .dl-btn i{font-size:1.5rem}
+
+        .dl-pwa{background:linear-gradient(135deg,var(--primary),var(--primary-dark));color:var(--dark)}
+        .dl-pwa:hover{box-shadow:0 8px 25px rgba(255,215,0,.3);color:var(--dark)}
+        .dl-pwa i{color:var(--dark)}
+
+        .dl-android{background:rgba(255,255,255,.1);color:#fff;border-color:rgba(255,255,255,.15)}
+        .dl-android:hover{background:rgba(255,255,255,.15);color:#fff}
+        .dl-android i{color:#3ddc84}
+
+        .dl-ios{background:rgba(255,255,255,.1);color:#fff;border-color:rgba(255,255,255,.15)}
+        .dl-ios:hover{background:rgba(255,255,255,.15);color:#fff}
+        .dl-ios i{color:#fff}
+
+        .dl-btn-text .dl-sub{font-size:.7rem;color:rgba(0,0,0,.5);font-weight:500;display:block;margin-top:.1rem}
+        .dl-android .dl-sub,.dl-ios .dl-sub{color:rgba(255,255,255,.5)}
+
+        /* Features Grid */
+        .features-grid{display:grid;grid-template-columns:1fr 1fr;gap:.8rem;margin-top:2rem;margin-bottom:2rem}
+        .feat-item{background:rgba(255,255,255,.06);border-radius:16px;padding:1.2rem;text-align:center;border:1px solid rgba(255,255,255,.06)}
+        .feat-item i{font-size:1.8rem;color:var(--primary);margin-bottom:.6rem;display:block}
+        .feat-item h4{font-size:.85rem;font-weight:700;margin-bottom:.2rem}
+        .feat-item p{font-size:.72rem;color:rgba(255,255,255,.45)}
+
+        /* How to Install */
+        .install-steps{background:rgba(255,255,255,.06);border-radius:20px;padding:1.5rem;margin-top:2rem;border:1px solid rgba(255,255,255,.06)}
+        .install-steps h3{font-size:1rem;font-weight:800;margin-bottom:1rem;text-align:center;color:var(--primary)}
+        .step-item{display:flex;align-items:flex-start;gap:.8rem;margin-bottom:1rem}
+        .step-num{width:32px;height:32px;background:linear-gradient(135deg,var(--primary),var(--primary-dark));border-radius:10px;display:flex;align-items:center;justify-content:center;font-weight:900;font-size:.85rem;color:var(--dark);flex-shrink:0}
+        .step-text h4{font-size:.88rem;font-weight:700;margin-bottom:.15rem}
+        .step-text p{font-size:.78rem;color:rgba(255,255,255,.5);line-height:1.5}
+
+        /* Back */
+        .back{text-align:center;margin-top:2rem}
+        .back a{color:rgba(255,255,255,.4);text-decoration:none;font-weight:600;font-size:.85rem;transition:.3s}
+        .back a:hover{color:var(--primary)}
+
+        /* Install Banner (shows when PWA installable) */
+        .install-banner{display:none;background:linear-gradient(135deg,var(--primary),var(--primary-dark));border-radius:16px;padding:1rem 1.2rem;margin-bottom:1.5rem;align-items:center;gap:.8rem;cursor:pointer;transition:.3s}
+        .install-banner.show{display:flex;animation:fadeUp .5s ease}
+        .install-banner:hover{transform:translateY(-2px);box-shadow:0 8px 25px rgba(255,215,0,.3)}
+        .install-banner i{font-size:1.5rem;color:var(--dark)}
+        .install-banner-text h4{font-size:.9rem;font-weight:800;color:var(--dark)}
+        .install-banner-text p{font-size:.75rem;color:var(--dark);opacity:.7}
+        .install-banner .close-btn{margin-right:auto;background:none;border:none;font-size:1rem;color:var(--dark);opacity:.5;cursor:pointer}
+
+        @keyframes fadeUp{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:translateY(0)}}
+
+        @media(max-width:575px){
+            .page-wrapper{padding:1.5rem 1rem}
+            .hero h1{font-size:1.6rem}
+            .features-grid{grid-template-columns:1fr 1fr;gap:.6rem}
+            .app-card{padding:1.3rem}
+        }
+    </style>
+</head>
+<body>
+
+<div class="page-wrapper">
+    <!-- Install Banner -->
+    <div class="install-banner" id="installBanner" onclick="installPWA()">
+        <i class="fas fa-download"></i>
+        <div class="install-banner-text">
+            <h4>ثبت التطبيق على جهازك!</h4>
+            <p>اضغط هنا لتثبيت خليك مكانك</p>
+        </div>
+        <button class="close-btn" onclick="event.stopPropagation();document.getElementById('installBanner').classList.remove('show')"><i class="fas fa-times"></i></button>
+    </div>
+
+    <!-- Hero -->
+    <div class="hero">
+        <div class="logo-wrap"><img src="assets/images/logo.jpg" alt="خليك مكانك"></div>
+        <h1>حمّل تطبيق خليك مكانك</h1>
+        <p>توصيل سريع وسهل لحد باب بيتك في الفيوم</p>
+    </div>
+
+    <!-- Customer App -->
+    <div class="app-card">
+        <div class="app-icon"><img src="assets/images/logo.jpg" alt="خليك مكانك"></div>
+        <h2>تطبيق العميل</h2>
+        <div class="app-type">للطلبات والتتبع</div>
+        <ul class="app-features">
+            <li><i class="fas fa-check-circle"></i> اطلب طعام وطرود ومنتجات</li>
+            <li><i class="fas fa-check-circle"></i> تتبع طلبك لحظة بلحظة</li>
+            <li><i class="fas fa-check-circle"></i> سجل حسابك وشوف طلباتك</li>
+            <li><i class="fas fa-check-circle"></i> دفع عند الاستلام</li>
+        </ul>
+        <div class="download-btns">
+            <a href="#" class="dl-btn dl-pwa" id="installCustomerBtn" onclick="installPWA();return false">
+                <i class="fas fa-mobile-alt"></i>
+                <div class="dl-btn-text">تثبيت على الهاتف<span class="dl-sub">يعمل على Android و iPhone</span></div>
+            </a>
+            <a href="order.html" class="dl-btn dl-android">
+                <i class="fas fa-globe"></i>
+                <div class="dl-btn-text">افتح الموقع<span class="dl-sub">النسخة المحمولة</span></div>
+            </a>
+        </div>
+    </div>
+
+    <!-- Driver App -->
+    <div class="app-card">
+        <div class="app-icon"><img src="assets/images/logo.jpg" alt="خليك مكانك"></div>
+        <h2>تطبيق المندوب</h2>
+        <div class="app-type">لتوصيل الطلبات</div>
+        <ul class="app-features">
+            <li><i class="fas fa-check-circle"></i> شوف الطلبات المتاحة</li>
+            <li><i class="fas fa-check-circle"></i> قبل أو رفض الطلبات</li>
+            <li><i class="fas fa-check-circle"></i> حدّث حالة الطلب</li>
+            <li><i class="fas fa-check-circle"></i> تابع أرباحك</li>
+        </ul>
+        <div class="download-btns">
+            <a href="driver/login.html" class="dl-btn dl-pwa">
+                <i class="fas fa-motorcycle"></i>
+                <div class="dl-btn-text">افتح تطبيق المندوب<span class="dl-sub">سجل دخولك هنا</span></div>
+            </a>
+            <a href="driver/login.html" class="dl-btn dl-android">
+                <i class="fas fa-globe"></i>
+                <div class="dl-btn-text">النسخة المحمولة<span class="dl-sub">تعمل على أي متصفح</span></div>
+            </a>
+        </div>
+    </div>
+
+    <!-- Features -->
+    <div class="features-grid">
+        <div class="feat-item">
+            <i class="fas fa-bolt"></i>
+            <h4>سريع</h4>
+            <p>توصيل في 30 دقيقة</p>
+        </div>
+        <div class="feat-item">
+            <i class="fas fa-shield-alt"></i>
+            <h4>آمن</h4>
+            <p>ضمان التوصيل</p>
+        </div>
+        <div class="feat-item">
+            <i class="fas fa-map-marker-alt"></i>
+            <h4>تتبع</h4>
+            <p>تابع طلبك</p>
+        </div>
+        <div class="feat-item">
+            <i class="fas fa-headset"></i>
+            <h4>دعم</h4>
+            <p>24/7 خدمة عملاء</p>
+        </div>
+    </div>
+
+    <!-- How to Install -->
+    <div class="install-steps">
+        <h3><i class="fas fa-info-circle"></i> ازاي تثبت التطبيق</h3>
+        <div class="step-item">
+            <div class="step-num">1</div>
+            <div class="step-text">
+                <h4>افتح الموقع في المتصفح</h4>
+                <p>ادخل على الموقع من Chrome أو Safari على موبايلك</p>
+            </div>
+        </div>
+        <div class="step-item">
+            <div class="step-num">2</div>
+            <div class="step-text">
+                <h4>اضغط "إضافة للشاشة الرئيسية"</h4>
+                <p>من قائمة المتصفح (three dots) اختار "Add to Home Screen"</p>
+            </div>
+        </div>
+        <div class="step-item">
+            <div class="step-num">3</div>
+            <div class="step-text">
+                <h4>ابدأ الاستخدام!</h4>
+                <p>التطبيق هيفتح زي أي أبليكيشن عادي على الموبايل</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="back"><a href="index.html"><i class="fas fa-arrow-right"></i> العودة للموقع</a></div>
+</div>
+
+<script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-auth-compat.js"></script>
+<script src="js/firebase-config.js"></script>
+<script>
+    /* Register Service Worker */
+    if ('serviceWorker' in navigator) {
+        navigator.serviceWorker.register('sw.js')
+            .then(reg => console.log('SW registered'))
+            .catch(err => console.log('SW error', err));
+    }
+
+    /* PWA Install Prompt */
+    let deferredPrompt;
+    window.addEventListener('beforeinstallprompt', e => {
+        e.preventDefault();
+        deferredPrompt = e;
+        document.getElementById('installBanner').classList.add('show');
+    });
+
+    function installPWA() {
+        if (!deferredPrompt) {
+            alert('ممكن تثبت التطبيق من قائمة المتصفح (three dots → Add to Home Screen)');
+            return;
+        }
+        deferredPrompt.prompt();
+        deferredPrompt.userChoice.then(choice => {
+            if (choice.outcome === 'accepted') {
+                document.getElementById('installBanner').classList.remove('show');
+            }
+            deferredPrompt = null;
+        });
+    }
+
+    window.addEventListener('appinstalled', () => {
+        document.getElementById('installBanner').classList.remove('show');
+        deferredPrompt = null;
+    });
+</script>
+</body>
+</html>
