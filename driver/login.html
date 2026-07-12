@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>دخول المندوب | خليك مكانك</title>
+    <link rel="icon" type="image/jpeg" href="../assets/images/logo.jpg">
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <style>
+        :root{--primary:#FFD700;--primary-dark:#F5C400;--primary-light:#FFF8DC;--dark:#1A1A1A;--gray:#666;--white:#fff;--green:#22c55e;--blue:#3b82f6;--red:#ef4444}
+        *{margin:0;padding:0;box-sizing:border-box}
+        body{font-family:'Cairo',sans-serif;background:var(--dark);min-height:100vh;display:flex;align-items:center;justify-content:center;padding:1.5rem}
+
+        .login-wrapper{width:100%;max-width:420px}
+
+        .login-card{background:#fff;border-radius:24px;padding:2.5rem 2rem;box-shadow:0 20px 60px rgba(0,0,0,.3)}
+
+        .login-header{text-align:center;margin-bottom:2rem}
+        .logo-wrap{width:80px;height:80px;border-radius:20px;overflow:hidden;margin:0 auto 1.2rem;box-shadow:0 8px 30px rgba(255,215,0,.3);border:3px solid rgba(255,215,0,.2)}
+        .logo-wrap img{width:100%;height:100%;object-fit:cover}
+        .login-header h1{font-size:1.6rem;font-weight:900;color:var(--dark);margin-bottom:.2rem}
+        .login-header p{color:var(--gray);font-size:.9rem}
+        .driver-badge{display:inline-flex;align-items:center;gap:.4rem;background:linear-gradient(135deg,var(--blue),#2563eb);color:#fff;padding:.4rem 1rem;border-radius:50px;font-size:.78rem;font-weight:700;margin-top:.8rem}
+        .driver-badge i{font-size:.7rem}
+
+        .error-box{background:#fee2e2;color:#991b1b;padding:.8rem 1rem;border-radius:12px;font-size:.88rem;display:none;margin-bottom:1rem;text-align:center;border:1px solid #fecaca}
+
+        .form-group{margin-bottom:1.3rem}
+        .form-group label{display:block;font-weight:700;font-size:.88rem;color:var(--dark);margin-bottom:.5rem}
+        .form-group label i{color:var(--primary-dark);margin-left:.4rem;font-size:.8rem}
+        .input-wrap{position:relative}
+        .input-wrap i{position:absolute;right:1rem;top:50%;transform:translateY(-50%);color:#ccc;font-size:.9rem;transition:.3s}
+        .input-wrap input{width:100%;padding:1rem 2.8rem 1rem 1rem;border:2px solid #eee;border-radius:14px;font-family:'Cairo',sans-serif;font-size:1rem;transition:.3s;background:#fafafa}
+        .input-wrap input:focus{border-color:var(--primary);box-shadow:0 0 0 .2rem rgba(255,215,0,.12);outline:none;background:#fff}
+        .input-wrap input:focus~i{color:var(--primary-dark)}
+
+        .btn-login{width:100%;padding:1rem;background:linear-gradient(135deg,var(--primary),var(--primary-dark));color:var(--dark);border:none;border-radius:14px;font-family:'Cairo',sans-serif;font-weight:800;font-size:1.05rem;cursor:pointer;transition:.3s;display:flex;align-items:center;justify-content:center;gap:.5rem}
+        .btn-login:hover{transform:translateY(-2px);box-shadow:0 8px 30px rgba(255,215,0,.4)}
+        .btn-login:active{transform:scale(.98)}
+
+        .divider{display:flex;align-items:center;gap:1rem;margin:1.5rem 0;color:#ccc;font-size:.85rem}
+        .divider::before,.divider::after{content:'';flex:1;height:1px;background:#eee}
+
+        .demo-box{background:var(--primary-light);border:1px solid rgba(255,215,0,.3);border-radius:14px;padding:1rem;text-align:center}
+        .demo-box p{font-size:.82rem;color:var(--gray);margin-bottom:.5rem}
+        .demo-info{font-size:.82rem;color:var(--dark);font-weight:600;line-height:1.8}
+
+        .back-link{text-align:center;margin-top:1.5rem}
+        .back-link a{color:rgba(255,255,255,.5);text-decoration:none;font-size:.88rem;font-weight:600;transition:.3s}
+        .back-link a:hover{color:var(--primary)}
+
+        @keyframes shake{0%,100%{transform:translateX(0)}20%,60%{transform:translateX(-5px)}40%,80%{transform:translateX(5px)}}
+    </style>
+</head>
+<body>
+    <div class="login-wrapper">
+        <div class="login-card">
+            <div class="login-header">
+                <div class="logo-wrap"><img src="../assets/images/logo.jpg" alt="خليك مكانك"></div>
+                <h1>دخول المندوب</h1>
+                <p>سجل دخولك عشان تشوف طلباتك</p>
+                <div class="driver-badge"><i class="fas fa-motorcycle"></i> لوحة تحكم المندوب</div>
+            </div>
+
+            <div class="error-box" id="errorMsg"></div>
+
+            <form id="loginForm">
+                <div class="form-group">
+                    <label><i class="fas fa-phone"></i> رقم التليفون</label>
+                    <div class="input-wrap">
+                        <input type="tel" id="phone" placeholder="01xxxxxxxxx" required autocomplete="tel">
+                        <i class="fas fa-phone"></i>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label><i class="fas fa-lock"></i> كلمة المرور</label>
+                    <div class="input-wrap">
+                        <input type="password" id="password" placeholder="••••••••" required>
+                        <i class="fas fa-lock"></i>
+                    </div>
+                </div>
+                <button type="submit" class="btn-login" id="loginBtn">
+                    <i class="fas fa-sign-in-alt"></i> دخول
+                </button>
+            </form>
+
+            <div class="divider">أو</div>
+
+            <div class="demo-box">
+                <p>بيانات التجربة</p>
+                <div class="demo-info">
+                    <i class="fas fa-phone" style="color:var(--primary-dark)"></i> 01123456789<br>
+                    <i class="fas fa-lock" style="color:var(--primary-dark)"></i> 123456
+                </div>
+            </div>
+        </div>
+
+        <div class="back-link">
+            <a href="../index.html"><i class="fas fa-arrow-right"></i> العودة للموقع</a>
+        </div>
+    </div>
+
+    <script>
+        if (localStorage.getItem('driver_logged_in') === 'true') location.href = 'dashboard.html';
+
+        document.getElementById('loginForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const phone = document.getElementById('phone').value.trim();
+            const password = document.getElementById('password').value;
+            const error = document.getElementById('errorMsg');
+
+            const drivers = JSON.parse(localStorage.getItem('km_drivers') || '[]');
+            const driver = drivers.find(d => d.phone === phone);
+
+            if (driver && password === '123456') {
+                localStorage.setItem('driver_logged_in', 'true');
+                localStorage.setItem('driver_id', driver.id);
+                localStorage.setItem('driver_name', driver.name);
+                localStorage.setItem('driver_phone', driver.phone);
+                document.getElementById('loginBtn').innerHTML = '<i class="fas fa-spinner fa-spin"></i> جاري الدخول...';
+                setTimeout(() => location.href = 'dashboard.html', 500);
+            } else if (!driver) {
+                error.textContent = 'رقم التليفون غير مسجل كمندوب';
+                error.style.display = 'block';
+                error.style.animation = 'shake .5s ease';
+                setTimeout(() => { error.style.display = 'none'; error.style.animation = ''; }, 3000);
+            } else {
+                error.textContent = 'كلمة المرور غير صحيحة';
+                error.style.display = 'block';
+                error.style.animation = 'shake .5s ease';
+                setTimeout(() => { error.style.display = 'none'; error.style.animation = ''; }, 3000);
+            }
+        });
+    </script>
+</body>
+</html>
