@@ -232,6 +232,7 @@
                 <button class="act-btn view" onclick="viewOrder('${o.id}')"><i class="fas fa-eye"></i></button>
                 <button class="act-btn next" onclick="nextStatus('${o.id}')"><i class="fas fa-arrow-right"></i></button>
                 <button class="act-btn assign" onclick="assignDriver('${o.id}')"><i class="fas fa-user-plus"></i></button>
+                <button class="act-btn cancel" onclick="cancelOrder('${o.id}')" title="إلغاء"><i class="fas fa-times"></i></button>
                 <button class="act-btn del" onclick="delOrder('${o.id}')"><i class="fas fa-trash"></i></button>
             </div></td>
         </tr>`).join('');
@@ -277,6 +278,13 @@
         if (!confirm('حذف الطلب؟')) return;
         DB.remove('orders', id);
         toast('تم الحذف', 'danger');
+        refresh();
+    };
+
+    window.cancelOrder = function(id) {
+        if (!confirm('إلغاء الطلب؟')) return;
+        DB.update('orders', id, { status: 'cancelled', cancelledAt: new Date().toISOString() });
+        toast('تم إلغاء الطلب', 'danger');
         refresh();
     };
 
@@ -437,8 +445,38 @@
         refresh();
     });
 
-    document.getElementById('settingsForm').addEventListener('submit', e => { e.preventDefault(); toast('تم الحفظ', 'success'); });
-    document.getElementById('pricingForm').addEventListener('submit', e => { e.preventDefault(); toast('تم الحفظ', 'success'); });
+    /* ===== INIT SETTINGS ===== */
+    (function loadSettings(){
+        const s = JSON.parse(localStorage.getItem('km_settings') || '{}');
+        if(s.companyName) document.getElementById('setCompanyName').value = s.companyName;
+        if(s.phone) document.getElementById('setPhone').value = s.phone;
+        if(s.whatsapp) document.getElementById('setWhatsapp').value = s.whatsapp;
+        if(s.address) document.getElementById('setAddress').value = s.address;
+        const p = JSON.parse(localStorage.getItem('km_pricing') || '{}');
+        if(p.food) document.getElementById('setFeeFood').value = p.food;
+        if(p.package) document.getElementById('setFeePackage').value = p.package;
+        if(p.product) document.getElementById('setFeeProduct').value = p.product;
+    })();
+
+    document.getElementById('settingsForm').addEventListener('submit', e => {
+        e.preventDefault();
+        localStorage.setItem('km_settings', JSON.stringify({
+            companyName: document.getElementById('setCompanyName').value,
+            phone: document.getElementById('setPhone').value,
+            whatsapp: document.getElementById('setWhatsapp').value,
+            address: document.getElementById('setAddress').value
+        }));
+        toast('تم حفظ إعدادات الشركة', 'success');
+    });
+    document.getElementById('pricingForm').addEventListener('submit', e => {
+        e.preventDefault();
+        localStorage.setItem('km_pricing', JSON.stringify({
+            food: parseFloat(document.getElementById('setFeeFood').value),
+            package: parseFloat(document.getElementById('setFeePackage').value),
+            product: parseFloat(document.getElementById('setFeeProduct').value)
+        }));
+        toast('تم حفظ التسعيرة', 'success');
+    });
 
     /* ===== NOTIFICATIONS ===== */
     document.getElementById('notifBell').onclick = () => { document.getElementById('notifPanel').classList.toggle('show'); document.getElementById('notifDot').style.display='none'; };

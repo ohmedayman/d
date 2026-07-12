@@ -251,6 +251,7 @@
     };
 
     const svcLabels = {food:'توصيل طعام',package:'توصيل طرود',product:'توصيل منتجات'};
+    const svcFees = {food:15, package:20, product:25};
     let step=1, data={};
 
     window.goStep = function(s){
@@ -268,6 +269,7 @@
                 document.getElementById('sumPhone').textContent=data.phone;
                 document.getElementById('sumAddr').textContent=data.address;
                 document.getElementById('sumNotes').textContent=data.notes||'—';
+                document.querySelector('.summary-total .val').textContent=svcFees[data.service]+' ج.م';
             }
         }
         document.querySelector(`.step[data-step="${step}"]`).classList.remove('active');
@@ -289,6 +291,7 @@
         setTimeout(() => {
             const orderId = genOrderId();
             const now = new Date().toISOString();
+            const fee = svcFees[data.service] || 20;
             DB.add('orders', {
                 id: 'loc_' + Date.now(),
                 orderId,
@@ -297,20 +300,28 @@
                 customerAddress: data.address,
                 serviceType: data.service,
                 notes: data.notes,
-                deliveryFee: 20,
+                deliveryFee: fee,
                 status: 'pending',
                 createdAt: now,
                 updatedAt: now
             });
-            DB.add('customers', {
-                id: 'cust_' + Date.now(),
-                name: data.name,
-                phone: data.phone,
-                address: data.address,
-                orderCount: 1,
-                totalSpent: 20,
-                createdAt: now
-            });
+            const customers = DB.get('customers');
+            const existing = customers.find(c => c.phone === data.phone);
+            if (existing) {
+                existing.orderCount = (existing.orderCount||0)+1;
+                existing.totalSpent = (existing.totalSpent||0)+fee;
+                DB.set('customers', customers);
+            } else {
+                DB.add('customers', {
+                    id: 'cust_' + Date.now(),
+                    name: data.name,
+                    phone: data.phone,
+                    address: data.address,
+                    orderCount: 1,
+                    totalSpent: fee,
+                    createdAt: now
+                });
+            }
             document.getElementById('loading').classList.remove('show');
             document.getElementById('orderForm').style.display='none';
             document.getElementById('stepsIndicator').style.display='none';

@@ -235,7 +235,7 @@
 
 <script>
     const DB = {
-        get(k) { try { return JSON.parse(localStorage.getItem('khalik_'+k)) || []; } catch { return []; } }
+        get(k) { try { return JSON.parse(localStorage.getItem('km_'+k)) || []; } catch { return []; } }
     };
 
     const statusMap={pending:{text:'معلق — في انتظار التأكيد',icon:'fa-clock',cls:'pending'},confirmed:{text:'مؤكد — جاري التجهيز',icon:'fa-check',cls:'confirmed'},picked:{text:'تم الاستلام — المندوب استلم الطلب',icon:'fa-box-open',cls:'picked'},delivering:{text:'في الطريق — المندوب في السكة',icon:'fa-motorcycle',cls:'delivering'},completed:{text:'تم التوصيل — بالهنا والشفا',icon:'fa-check-circle',cls:'completed'},cancelled:{text:'تم الإلغاء',icon:'times-circle',cls:'cancelled'}};
