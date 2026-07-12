@@ -243,8 +243,12 @@
 
 <a href="https://wa.me/201234567890" class="whatsapp-float" target="_blank"><i class="fab fa-whatsapp"></i></a>
 
-<script type="module">
-    import { db, collection, addDoc } from './js/firebase-config.js';
+<script>
+    const DB = {
+        get(k) { try { return JSON.parse(localStorage.getItem('km_'+k)) || []; } catch { return []; } },
+        set(k, v) { localStorage.setItem('km_'+k, JSON.stringify(v)); },
+        add(k, item) { const list = this.get(k); list.unshift(item); this.set(k, list); return item; }
+    };
 
     const svcLabels = {food:'توصيل طعام',package:'توصيل طرود',product:'توصيل منتجات'};
     let step=1, data={};
@@ -279,21 +283,40 @@
 
     function genOrderId(){return `ORD-${Date.now().toString(36).toUpperCase()}-${Math.random().toString(36).substring(2,6).toUpperCase()}`}
 
-    document.getElementById('orderForm').addEventListener('submit',async e=>{
+    document.getElementById('orderForm').addEventListener('submit', e => {
         e.preventDefault();
         document.getElementById('loading').classList.add('show');
-        try{
-            const orderId=genOrderId();
-            await addDoc(collection(db,'orders'),{orderId,customerName:data.name,customerPhone:data.phone,customerAddress:data.address,serviceType:data.service,notes:data.notes,deliveryFee:20,status:'pending',createdAt:new Date().toISOString(),updatedAt:new Date().toISOString()});
+        setTimeout(() => {
+            const orderId = genOrderId();
+            const now = new Date().toISOString();
+            DB.add('orders', {
+                id: 'loc_' + Date.now(),
+                orderId,
+                customerName: data.name,
+                customerPhone: data.phone,
+                customerAddress: data.address,
+                serviceType: data.service,
+                notes: data.notes,
+                deliveryFee: 20,
+                status: 'pending',
+                createdAt: now,
+                updatedAt: now
+            });
+            DB.add('customers', {
+                id: 'cust_' + Date.now(),
+                name: data.name,
+                phone: data.phone,
+                address: data.address,
+                orderCount: 1,
+                totalSpent: 20,
+                createdAt: now
+            });
             document.getElementById('loading').classList.remove('show');
             document.getElementById('orderForm').style.display='none';
             document.getElementById('stepsIndicator').style.display='none';
             document.getElementById('trackNumber').textContent=orderId;
             document.getElementById('successPage').classList.add('show');
-        }catch(err){
-            document.getElementById('loading').classList.remove('show');
-            alert('حصل خطأ، جرب تاني');
-        }
+        }, 800);
     });
 
     window.copyTrack=function(){

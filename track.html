@@ -233,8 +233,10 @@
 
 <a href="https://wa.me/201234567890" class="whatsapp-float" target="_blank"><i class="fab fa-whatsapp"></i></a>
 
-<script type="module">
-    import { db, collection, query, where, getDocs } from './js/firebase-config.js';
+<script>
+    const DB = {
+        get(k) { try { return JSON.parse(localStorage.getItem('khalik_'+k)) || []; } catch { return []; } }
+    };
 
     const statusMap={pending:{text:'معلق — في انتظار التأكيد',icon:'fa-clock',cls:'pending'},confirmed:{text:'مؤكد — جاري التجهيز',icon:'fa-check',cls:'confirmed'},picked:{text:'تم الاستلام — المندوب استلم الطلب',icon:'fa-box-open',cls:'picked'},delivering:{text:'في الطريق — المندوب في السكة',icon:'fa-motorcycle',cls:'delivering'},completed:{text:'تم التوصيل — بالهنا والشفا',icon:'fa-check-circle',cls:'completed'},cancelled:{text:'تم الإلغاء',icon:'times-circle',cls:'cancelled'}};
     const svcLabels={food:'توصيل طعام',package:'توصيل طرود',product:'توصيل منتجات'};
@@ -244,21 +246,22 @@
 
     window.setHint=function(type){document.querySelectorAll('.tab-hint span').forEach(s=>s.classList.remove('active'));event.target.classList.add('active');document.getElementById('searchInput').placeholder=type==='ord'?'ORD-...':'01xxxxxxxxx'};
 
-    window.doSearch=async function(){
+    window.doSearch=function(){
         const val=document.getElementById('searchInput').value.trim();
         if(!val)return;
         document.getElementById('loading').classList.add('show');
         document.getElementById('notFound').classList.remove('show');
         document.getElementById('result').classList.remove('show');
-        try{
-            let orders=[];
-            if(val.toUpperCase().startsWith('ORD-')){const q=query(collection(db,'orders'),where('orderId','==',val.toUpperCase()));const snap=await getDocs(q);snap.forEach(d=>orders.push({id:d.id,...d.data()}))}
-            if(orders.length===0){const q=query(collection(db,'orders'),where('customerPhone','==',val));const snap=await getDocs(q);snap.forEach(d=>orders.push({id:d.id,...d.data()}))}
-            orders.sort((a,b)=>new Date(b.createdAt)-new Date(a.createdAt));
+        setTimeout(()=>{
+            const orders=DB.get('orders');
+            let found=[];
+            if(val.toUpperCase().startsWith('ORD-')){found=orders.filter(o=>(o.orderId||'').toUpperCase()===val.toUpperCase())}
+            if(found.length===0){found=orders.filter(o=>(o.customerPhone||'')===val)}
+            found.sort((a,b)=>new Date(b.createdAt)-new Date(a.createdAt));
             document.getElementById('loading').classList.remove('show');
-            if(orders.length>0)renderOrder(orders[0]);
+            if(found.length>0)renderOrder(found[0]);
             else document.getElementById('notFound').classList.add('show');
-        }catch(err){document.getElementById('loading').classList.remove('show');document.getElementById('notFound').classList.add('show')}
+        },500);
     };
 
     document.getElementById('searchInput').addEventListener('keydown',e=>{if(e.key==='Enter')doSearch()});
