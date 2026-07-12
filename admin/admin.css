@@ -225,6 +225,16 @@ body{font-family:'Cairo',sans-serif;background:#f5f6fa;color:var(--dark);overflo
 .mobile-toggle:hover{transform:scale(1.05)}
 .sidebar-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.5);backdrop-filter:blur(3px);z-index:1000}
 
+/* Bottom Navigation for Mobile */
+.bottom-nav{display:none;position:fixed;bottom:0;left:0;right:0;background:#fff;border-top:1px solid rgba(0,0,0,.06);padding:.4rem 0;padding-bottom:calc(.4rem + env(safe-area-inset-bottom));z-index:1001;box-shadow:0 -2px 20px rgba(0,0,0,.08)}
+.bottom-nav-items{display:flex;justify-content:space-around;align-items:center}
+.bottom-nav-item{display:flex;flex-direction:column;align-items:center;gap:2px;padding:.4rem .6rem;border-radius:10px;cursor:pointer;transition:var(--transition);text-decoration:none;color:var(--gray);min-width:55px;position:relative}
+.bottom-nav-item:hover,.bottom-nav-item.active{color:var(--primary-dark)}
+.bottom-nav-item.active{background:var(--primary-light)}
+.bottom-nav-item i{font-size:1.1rem}
+.bottom-nav-item span{font-size:.65rem;font-weight:600;white-space:nowrap}
+.bottom-nav-badge{position:absolute;top:2px;right:8px;width:16px;height:16px;background:var(--red);color:#fff;font-size:.55rem;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:700}
+
 /* Responsive */
 @media(max-width:991px){
     .sidebar{transform:translateX(100%);box-shadow:-5px 0 30px rgba(0,0,0,.2)}
@@ -234,14 +244,66 @@ body{font-family:'Cairo',sans-serif;background:#f5f6fa;color:var(--dark);overflo
     .sidebar-overlay.show{display:block}
     .stats-grid{grid-template-columns:repeat(2,1fr)}
     .topbar{padding:.8rem 1rem}
+    .bottom-nav{display:block}
+    .main-content{padding-bottom:70px}
 }
 @media(max-width:575px){
-    .page-section{padding:1rem}
-    .topbar h1{font-size:1.1rem}
-    .stats-grid{grid-template-columns:1fr}
+    .page-section{padding:1rem .8rem}
+    .topbar{padding:.6rem .8rem;flex-wrap:wrap;gap:.5rem}
+    .topbar h1{font-size:1rem}
+    .topbar-left{gap:.6rem}
+    .stats-grid{grid-template-columns:1fr 1fr;gap:.6rem}
+    .stat-card{padding:1rem;gap:.7rem}
+    .stat-card-icon{width:42px;height:42px;border-radius:10px;font-size:1.1rem}
+    .stat-card-info h3{font-size:1.3rem}
+    .stat-card-info p{font-size:.72rem}
     .page-actions{flex-direction:column;align-items:stretch}
-    .filter-input{min-width:100%}
+    .filter-input{min-width:100%;width:100%}
     .filter-group{width:100%}
-    .summary-grid{grid-template-columns:repeat(2,1fr)}
+    .filter-group .filter-select{flex:1}
+    .summary-grid{grid-template-columns:repeat(2,1fr);gap:.6rem}
+    .summary-box{padding:1rem}
+    .summary-box h4{font-size:1.3rem}
     .admin-name,.admin-role{display:none}
+    
+    /* Table responsive */
+    .card-custom-body{padding:.8rem;overflow-x:auto;-webkit-overflow-scrolling:touch}
+    .table-custom{min-width:600px}
+    .table-custom thead th{padding:.6rem .8rem;font-size:.7rem}
+    .table-custom tbody td{padding:.6rem .8rem;font-size:.82rem}
+    
+    /* Modal responsive */
+    .modal-content-custom{margin:.5rem;border-radius:14px}
+    .modal-header-custom{padding:1rem}
+    .modal-body-custom{padding:1rem}
+    .modal-footer-custom{padding:.8rem 1rem;flex-direction:column}
+    .modal-footer-custom .btn{width:100%}
+    
+    /* Notification panel responsive */
+    .notif-panel{left:10px;right:10px;width:auto}
+    
+    /* Driver cards responsive */
+    .driver-card{padding:1rem}
+    .driver-avatar{width:42px;height:42px}
+    
+    /* Form inputs responsive */
+    .form-input-custom{padding:.6rem .8rem;font-size:.88rem}
+    .form-label-custom{font-size:.82rem}
+    
+    /* Toast responsive */
+    .toast-container{left:10px;right:10px}
+    .toast-item{width:100%}
+    
+    /* Page sections mobile */
+    .page-section{padding-bottom:1.5rem}
+}
+
+/* Extra small screens */
+@media(max-width:374px){
+    .stats-grid{grid-template-columns:1fr}
+    .stat-card{padding:.8rem}
+    .summary-grid{grid-template-columns:1fr}
+    .bottom-nav-item{min-width:48px;padding:.3rem .4rem}
+    .bottom-nav-item i{font-size:1rem}
+    .bottom-nav-item span{font-size:.6rem}
 }
