@@ -1,0 +1,552 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ملخص المشروع | خليك مكانك</title>
+    <link rel="icon" type="image/jpeg" href="assets/images/logo.jpg">
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/remixicon@4.1.0/fonts/remixicon.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+    <style>
+        :root{--primary:#FFD700;--primary-dark:#F5C400;--primary-light:#FFF8DC;--dark:#0f0f23;--dark-2:#16213e;--dark-3:#1a1a3e;--gray:#7a7a9a;--gray-light:#9a9aba;--gray-lighter:#e8e8f0;--green:#00d68f;--green-light:#d1fae5;--blue:#4f8cff;--blue-light:#dbeafe;--red:#ff4757;--red-light:#fee2e2;--purple:#a855f7;--purple-light:#ede9fe;--orange:#ff9f43;--wa:#25D366;--radius:20px;--radius-sm:14px;--shadow:0 4px 24px rgba(0,0,0,.08);--shadow-md:0 8px 40px rgba(0,0,0,.12)}
+        *{margin:0;padding:0;box-sizing:border-box}
+        body{font-family:'Cairo',sans-serif;background:#f0f2f8;color:var(--dark);min-height:100vh;-webkit-font-smoothing:antialiased}
+
+        .hero{background:linear-gradient(160deg,#0f3460 0%,#1a1a3e 40%,#16213e 100%);padding:3rem 1.5rem 5rem;text-align:center;position:relative;overflow:hidden}
+        .hero::before{content:'';position:absolute;width:600px;height:600px;background:radial-gradient(circle,rgba(255,215,0,.08),transparent 70%);top:-250px;right:-200px;border-radius:50%}
+        .hero::after{content:'';position:absolute;width:400px;height:400px;background:radial-gradient(circle,rgba(79,140,255,.06),transparent 70%);bottom:-150px;left:-100px;border-radius:50%}
+        .hero-content{position:relative;z-index:2;max-width:700px;margin:0 auto}
+        .hero-logo{width:90px;height:90px;border-radius:24px;overflow:hidden;margin:0 auto 1.5rem;box-shadow:0 12px 40px rgba(255,215,0,.3);border:3px solid rgba(255,215,0,.2)}
+        .hero-logo img{width:100%;height:100%;object-fit:cover}
+        .hero h1{font-size:2.2rem;font-weight:900;color:#fff;margin-bottom:.5rem}
+        .hero h1 span{color:var(--primary)}
+        .hero p{color:rgba(255,255,255,.5);font-size:1rem;max-width:500px;margin:0 auto 1.5rem}
+        .hero-badges{display:flex;gap:.5rem;justify-content:center;flex-wrap:wrap}
+        .badge{padding:.4rem 1rem;border-radius:50px;font-size:.75rem;font-weight:700;display:inline-flex;align-items:center;gap:.3rem}
+        .badge-gold{background:rgba(255,215,0,.15);color:var(--primary);border:1px solid rgba(255,215,0,.2)}
+        .badge-green{background:rgba(0,214,143,.1);color:var(--green);border:1px solid rgba(0,214,143,.2)}
+        .badge-blue{background:rgba(79,140,255,.1);color:var(--blue);border:1px solid rgba(79,140,255,.2)}
+
+        .container{max-width:1100px;margin:0 auto;padding:0 1rem}
+        .content{margin-top:-3rem;position:relative;z-index:3}
+
+        .section{margin-bottom:1.5rem}
+        .section-header{display:flex;align-items:center;gap:.6rem;margin-bottom:1rem}
+        .section-icon{width:36px;height:36px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:1rem;flex-shrink:0}
+        .si-gold{background:var(--primary-light);color:var(--primary-dark)}
+        .si-blue{background:var(--blue-light);color:var(--blue)}
+        .si-green{background:var(--green-light);color:var(--green)}
+        .si-purple{background:var(--purple-light);color:var(--purple)}
+        .si-red{background:var(--red-light);color:var(--red)}
+        .si-orange{background:#fff3e0;color:var(--orange)}
+        .section-title{font-size:1.1rem;font-weight:800}
+
+        /* Stats */
+        .stats-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:.8rem;margin-bottom:1.5rem}
+        .stat-card{background:#fff;border-radius:var(--radius);padding:1.2rem;text-align:center;box-shadow:var(--shadow);transition:.3s;border:1px solid transparent}
+        .stat-card:hover{transform:translateY(-3px);border-color:rgba(255,215,0,.2)}
+        .stat-card .stat-icon{width:48px;height:48px;border-radius:14px;display:flex;align-items:center;justify-content:center;margin:0 auto .6rem;font-size:1.2rem}
+        .stat-card .stat-num{font-size:1.8rem;font-weight:900;line-height:1}
+        .stat-card .stat-label{font-size:.75rem;color:var(--gray);font-weight:600;margin-top:.2rem}
+
+        /* Cards Grid */
+        .cards-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:.8rem}
+        .feature-card{background:#fff;border-radius:var(--radius);padding:1.3rem;box-shadow:var(--shadow);transition:.3s;border:1px solid transparent;cursor:default}
+        .feature-card:hover{transform:translateY(-3px);border-color:rgba(255,215,0,.15)}
+        .feature-card-header{display:flex;align-items:center;gap:.8rem;margin-bottom:.8rem}
+        .feature-icon{width:44px;height:44px;border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:1.1rem;flex-shrink:0}
+        .feature-card h3{font-size:.95rem;font-weight:800;margin-bottom:.15rem}
+        .feature-card .f-desc{font-size:.78rem;color:var(--gray);line-height:1.5}
+        .feature-tags{display:flex;gap:.3rem;flex-wrap:wrap;margin-top:.6rem}
+        .f-tag{padding:.2rem .5rem;border-radius:6px;font-size:.65rem;font-weight:700;background:var(--gray-lighter);color:var(--gray)}
+
+        /* Pages List */
+        .pages-list{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:.6rem}
+        .page-item{background:#fff;border-radius:var(--radius-sm);padding:1rem 1.2rem;box-shadow:var(--shadow);transition:.3s;display:flex;align-items:center;gap:.8rem;text-decoration:none;color:var(--dark);border:1px solid transparent}
+        .page-item:hover{transform:translateY(-2px);border-color:rgba(255,215,0,.2)}
+        .page-icon{width:40px;height:40px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:1rem;flex-shrink:0}
+        .page-item h4{font-size:.88rem;font-weight:700;margin-bottom:.1rem}
+        .page-item p{font-size:.72rem;color:var(--gray)}
+        .page-item .arrow{margin-right:auto;color:var(--gray-light);font-size:1rem;transition:.3s}
+        .page-item:hover .arrow{color:var(--primary-dark);transform:translateX(-3px)}
+
+        /* Tech Stack */
+        .tech-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(140px,1fr));gap:.6rem}
+        .tech-item{background:#fff;border-radius:var(--radius-sm);padding:1rem;text-align:center;box-shadow:var(--shadow);transition:.3s}
+        .tech-item:hover{transform:translateY(-2px)}
+        .tech-item .tech-icon{font-size:1.8rem;margin-bottom:.4rem}
+        .tech-item h4{font-size:.82rem;font-weight:700;margin-bottom:.1rem}
+        .tech-item p{font-size:.68rem;color:var(--gray)}
+
+        /* Timeline */
+        .timeline{position:relative;padding-right:2rem}
+        .timeline::before{content:'';position:absolute;right:8px;top:0;bottom:0;width:2px;background:var(--gray-lighter)}
+        .tl-item{position:relative;padding-bottom:1.2rem;padding-right:1.5rem}
+        .tl-item::before{content:'';position:absolute;right:-4px;top:4px;width:12px;height:12px;border-radius:50%;background:var(--primary);border:3px solid var(--primary-light);z-index:1}
+        .tl-item h4{font-size:.88rem;font-weight:700;margin-bottom:.15rem}
+        .tl-item p{font-size:.78rem;color:var(--gray);line-height:1.5}
+        .tl-item .tl-date{font-size:.68rem;color:var(--gray-light);margin-top:.2rem}
+
+        /* Chart */
+        .chart-card{background:#fff;border-radius:var(--radius);padding:1.5rem;box-shadow:var(--shadow)}
+        .chart-card h3{font-size:1rem;font-weight:800;margin-bottom:1rem;display:flex;align-items:center;gap:.5rem}
+        .chart-wrap{position:relative;height:250px}
+
+        /* Footer */
+        .footer{text-align:center;padding:2rem;color:var(--gray);font-size:.82rem}
+        .footer a{color:var(--primary-dark);font-weight:700;text-decoration:none}
+
+        @media(max-width:767px){
+            .stats-grid{grid-template-columns:repeat(2,1fr)}
+            .hero h1{font-size:1.6rem}
+        }
+        @media(max-width:575px){
+            .stats-grid{grid-template-columns:1fr 1fr}
+            .cards-grid{grid-template-columns:1fr}
+            .pages-list{grid-template-columns:1fr}
+            .tech-grid{grid-template-columns:repeat(3,1fr)}
+        }
+    </style>
+</head>
+<body>
+
+<!-- Hero -->
+<div class="hero">
+    <div class="hero-content">
+        <div class="hero-logo"><img src="assets/images/logo.jpg" alt="خليك مكانك"></div>
+        <h1>ملخص <span>المشروع</span></h1>
+        <p>خليك مكانك — منصة توصيل متكاملة في محافظة الفيوم، مصر</p>
+        <div class="hero-badges">
+            <span class="badge badge-gold"><i class="ri-calendar-line"></i> 2026</span>
+            <span class="badge badge-green"><i class="ri-checkbox-circle-line"></i> مكتمل</span>
+            <span class="badge badge-blue"><i class="ri-code-line"></i> Web App</span>
+        </div>
+    </div>
+</div>
+
+<div class="container content">
+
+    <!-- Overview Stats -->
+    <div class="stats-grid">
+        <div class="stat-card">
+            <div class="stat-icon" style="background:var(--primary-light);color:var(--primary-dark)"><i class="ri-file-list-3-line"></i></div>
+            <div class="stat-num" id="statPages">11</div>
+            <div class="stat-label">صفحة</div>
+        </div>
+        <div class="stat-card">
+            <div class="stat-icon" style="background:var(--blue-light);color:var(--blue)"><i class="ri-code-s-slash-line"></i></div>
+            <div class="stat-num" id="statFiles">15+</div>
+            <div class="stat-label">ملف كود</div>
+        </div>
+        <div class="stat-card">
+            <div class="stat-icon" style="background:var(--green-light);color:var(--green)"><i class="ri-function-line"></i></div>
+            <div class="stat-num">50+</div>
+            <div class="stat-label">ميزة</div>
+        </div>
+        <div class="stat-card">
+            <div class="stat-icon" style="background:var(--purple-light);color:var(--purple)"><i class="ri-user-3-line"></i></div>
+            <div class="stat-num">3</div>
+            <div class="stat-label">أدوار مستخدم</div>
+        </div>
+    </div>
+
+    <!-- Project Description -->
+    <div class="section">
+        <div class="section-header">
+            <div class="section-icon si-gold"><i class="ri-information-line"></i></div>
+            <h2 class="section-title">وصف المشروع</h2>
+        </div>
+        <div class="chart-card">
+            <p style="font-size:.92rem;line-height:1.8;color:var(--gray)">
+                <strong>خليك مكانك</strong> منصة توصيل إلكترونية متكاملة تخدم محافظة الفيوم بمصر. تتيح للمستخدمين طلب توصيل
+                <strong>طعام</strong> و<strong>طرود</strong> و<strong>منتجات</strong> من أي مكان في المحافظة.
+                تشمل المنصة لوحة تحكم إدارية كاملة، لوحة مندوب توصيل، وواجهة عميل احترافية — جميعها تعمل
+                على <strong>Firebase</strong> كباك إند(full-stack serverless).
+            </p>
+        </div>
+    </div>
+
+    <!-- Pages -->
+    <div class="section">
+        <div class="section-header">
+            <div class="section-icon si-blue"><i class="ri-pages-line"></i></div>
+            <h2 class="section-title">الصفحات</h2>
+        </div>
+        <div class="pages-list">
+            <a href="index.html" target="_blank" class="page-item">
+                <div class="page-icon" style="background:var(--primary-light);color:var(--primary-dark)"><i class="ri-home-5-line"></i></div>
+                <div><h4>الرئيسية</h4><p>صفحة الهبوط كاملة مع SEO</p></div>
+                <i class="ri-arrow-left-s-line arrow"></i>
+            </a>
+            <a href="order.html" target="_blank" class="page-item">
+                <div class="page-icon" style="background:#fff3e0;color:var(--orange)"><i class="ri-shopping-cart-2-line"></i></div>
+                <div><h4>طلب جديد</h4><p>3 خطوات: خدمة → بيانات → تأكيد</p></div>
+                <i class="ri-arrow-left-s-line arrow"></i>
+            </a>
+            <a href="track.html" target="_blank" class="page-item">
+                <div class="page-icon" style="background:var(--green-light);color:var(--green)"><i class="ri-search-eye-line"></i></div>
+                <div><h4>تتبع الطلب</h4><p>تتبع لحظي + Timeline</p></div>
+                <i class="ri-arrow-left-s-line arrow"></i>
+            </a>
+            <a href="auth.html" target="_blank" class="page-item">
+                <div class="page-icon" style="background:var(--blue-light);color:var(--blue)"><i class="ri-login-box-line"></i></div>
+                <div><h4>تسجيل الدخول</h4><p>Email + Google + نسيت كلمة المرور</p></div>
+                <i class="ri-arrow-left-s-line arrow"></i>
+            </a>
+            <a href="profile.html" target="_blank" class="page-item">
+                <div class="page-icon" style="background:var(--purple-light);color:var(--purple)"><i class="ri-user-3-line"></i></div>
+                <div><h4>حسابي</h4><p>طلباتي + تعديل البيانات</p></div>
+                <i class="ri-arrow-left-s-line arrow"></i>
+            </a>
+            <a href="admin/login.html" target="_blank" class="page-item">
+                <div class="page-icon" style="background:var(--red-light);color:var(--red)"><i class="ri-admin-line"></i></div>
+                <div><h4>دخول الإدارة</h4><p>لوحة تحكم المدير</p></div>
+                <i class="ri-arrow-left-s-line arrow"></i>
+            </a>
+            <a href="admin/dashboard.html" target="_blank" class="page-item">
+                <div class="page-icon" style="background:var(--red-light);color:var(--red)"><i class="ri-dashboard-line"></i></div>
+                <div><h4>لوحة التحكم</h4><p>إدارة الطلبات والعملاء والمناديب</p></div>
+                <i class="ri-arrow-left-s-line arrow"></i>
+            </a>
+            <a href="admin/reports.html" target="_blank" class="page-item">
+                <div class="page-icon" style="background:#fff3e0;color:var(--orange)"><i class="ri-bar-chart-grouped-line"></i></div>
+                <div><h4>التقارير</h4><p>إحصائيات + رسوم بيانية + تصدير</p></div>
+                <i class="ri-arrow-left-s-line arrow"></i>
+            </a>
+            <a href="driver/login.html" target="_blank" class="page-item">
+                <div class="page-icon" style="background:var(--blue-light);color:var(--blue)"><i class="ri-motorbike-line"></i></div>
+                <div><h4>دخول المندوب</h4><p>تسجيل دخول المندوب</p></div>
+                <i class="ri-arrow-left-s-line arrow"></i>
+            </a>
+            <a href="driver/dashboard.html" target="_blank" class="page-item">
+                <div class="page-icon" style="background:var(--blue-light);color:var(--blue)"><i class="ri-steering-line"></i></div>
+                <div><h4>لوحة المندوب</h4><p>إدارة الطلبات المتاحة والنشطة</p></div>
+                <i class="ri-arrow-left-s-line arrow"></i>
+            </a>
+            <a href="amp/index.html" target="_blank" class="page-item">
+                <div class="page-icon" style="background:var(--green-light);color:var(--green)"><i class="ri-flashlight-line"></i></div>
+                <div><h4>AMP</h4><p>نسخة سريعة للموبايل</p></div>
+                <i class="ri-arrow-left-s-line arrow"></i>
+            </a>
+        </div>
+    </div>
+
+    <!-- Features -->
+    <div class="section">
+        <div class="section-header">
+            <div class="section-icon si-green"><i class="ri-star-line"></i></div>
+            <h2 class="section-title">المميزات</h2>
+        </div>
+        <div class="cards-grid">
+            <div class="feature-card">
+                <div class="feature-card-header">
+                    <div class="feature-icon" style="background:var(--primary-light);color:var(--primary-dark)"><i class="ri-shopping-cart-2-line"></i></div>
+                    <div><h3>نظام الطلبات</h3></div>
+                </div>
+                <p class="f-desc">طلب توصيل في 3 خطوات — اختيار الخدمة، إدخال البيانات، التأكيد. generates رقم تتبع فريد ORD-XXXXX</p>
+                <div class="feature-tags"><span class="f-tag">Multi-step Form</span><span class="f-tag">Auto-fill</span><span class="f-tag">Validation</span></div>
+            </div>
+            <div class="feature-card">
+                <div class="feature-card-header">
+                    <div class="feature-icon" style="background:var(--green-light);color:var(--green)"><i class="ri-search-eye-line"></i></div>
+                    <div><h3>تتبع الطلب</h3></div>
+                </div>
+                <p class="f-desc">تتبع لحظي بـ Timeline — معلق → متأكد → استلمه المندوب → في الطريق → تم التوصيل</p>
+                <div class="feature-tags"><span class="f-tag">Real-time</span><span class="f-tag">Timeline</span><span class="f-tag">Driver Info</span></div>
+            </div>
+            <div class="feature-card">
+                <div class="feature-card-header">
+                    <div class="feature-icon" style="background:var(--blue-light);color:var(--blue)"><i class="ri-user-star-line"></i></div>
+                    <div><h3>نظام المستخدمين</h3></div>
+                </div>
+                <p class="f-desc">3 أدوار: عميل (طلب + تتبع)، مندوب (توصيل)، مدير (إدارة كاملة). تسجيل Email + Google</p>
+                <div class="feature-tags"><span class="f-tag">Firebase Auth</span><span class="f-tag">Google Sign-in</span><span class="f-tag">Roles</span></div>
+            </div>
+            <div class="feature-card">
+                <div class="feature-card-header">
+                    <div class="feature-icon" style="background:var(--red-light);color:var(--red)"><i class="ri-dashboard-line"></i></div>
+                    <div><h3>لوحة التحكم</h3></div>
+                </div>
+                <p class="f-desc">إدارة شاملة: الطلبات، العملاء، المناديب، الإعدادات. إحصائيات حية + رسوم بيانية Chart.js</p>
+                <div class="feature-tags"><span class="f-tag">CRUD</span><span class="f-tag">Charts</span><span class="f-tag">Real-time</span></div>
+            </div>
+            <div class="feature-card">
+                <div class="feature-card-header">
+                    <div class="feature-icon" style="background:var(--purple-light);color:var(--purple)"><i class="ri-bar-chart-grouped-line"></i></div>
+                    <div><h3>التقارير</h3></div>
+                </div>
+                <p class="f-desc">صفحة تقارير متكاملة — إحصائيات، 6 رسوم بيانية، أفضل المناديب والعملاء، تصدير CSV</p>
+                <div class="feature-tags"><span class="f-tag">Analytics</span><span class="f-tag">Export</span><span class="f-tag">Charts</span></div>
+            </div>
+            <div class="feature-card">
+                <div class="feature-card-header">
+                    <div class="feature-icon" style="background:#fff3e0;color:var(--orange)"><i class="ri-motorbike-line"></i></div>
+                    <div><h3>لوحة المندوب</h3></div>
+                </div>
+                <p class="f-desc">عرض الطلبات المتاحة، قبول/رفض، تحديث الحالة، تتبع الأرباح، تاريخ التوصيل</p>
+                <div class="feature-tags"><span class="f-tag">Accept/Reject</span><span class="f-tag">Status Flow</span><span class="f-tag">Earnings</span></div>
+            </div>
+            <div class="feature-card">
+                <div class="feature-card-header">
+                    <div class="feature-icon" style="background:var(--green-light);color:var(--green)"><i class="ri-profile-line"></i></div>
+                    <div><h3>حساب العميل</h3></div>
+                </div>
+                <p class="f-desc">صفحة شخصية احترافية — إحصائيات، فلتر الطلبات، تعديل البيانات، سجل الخروج</p>
+                <div class="feature-tags"><span class="f-tag">Profile</span><span class="f-tag">Filter</span><span class="f-tag">Edit</span></div>
+            </div>
+            <div class="feature-card">
+                <div class="feature-card-header">
+                    <div class="feature-icon" style="background:var(--blue-light);color:var(--blue)"><i class="ri-smartphone-line"></i></div>
+                    <div><h3>تصميم متجاوب</h3></div>
+                </div>
+                <p class="f-desc">تصميم Fully Responsive يشتغل على كل الأجهزة — موبايل، تابلت، كمبيوتر. Bottom Nav للجوال</p>
+                <div class="feature-tags"><span class="f-tag">Responsive</span><span class="f-tag">Mobile-first</span><span class="f-tag">Bottom Nav</span></div>
+            </div>
+            <div class="feature-card">
+                <div class="feature-card-header">
+                    <div class="feature-icon" style="background:var(--red-light);color:var(--red)"><i class="ri-shield-check-line"></i></div>
+                    <div><h3>أمان البيانات</h3></div>
+                </div>
+                <p class="f-desc">Firebase Auth للتحقق، Firestore Rules، تخزين آمن للبيانات على السحابة</p>
+                <div class="feature-tags"><span class="f-tag">Firebase Auth</span><span class="f-tag">Firestore</span><span class="f-tag">Security</span></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Tech Stack -->
+    <div class="section">
+        <div class="section-header">
+            <div class="section-icon si-purple"><i class="ri-code-s-slash-line"></i></div>
+            <h2 class="section-title">التقنيات المستخدمة</h2>
+        </div>
+        <div class="tech-grid">
+            <div class="tech-item">
+                <div class="tech-icon">🔥</div>
+                <h4>Firebase</h4>
+                <p>Backend كاملاً</p>
+            </div>
+            <div class="tech-item">
+                <div class="tech-icon">📦</div>
+                <h4>Firestore</h4>
+                <p>قاعدة بيانات</p>
+            </div>
+            <div class="tech-item">
+                <div class="tech-icon">🔐</div>
+                <h4>Firebase Auth</h4>
+                <p>المصادقة</p>
+            </div>
+            <div class="tech-item">
+                <div class="tech-icon">📊</div>
+                <h4>Chart.js</h4>
+                <p>الرسوم البيانية</p>
+            </div>
+            <div class="tech-item">
+                <div class="tech-icon">🎨</div>
+                <h4>Bootstrap 5</h4>
+                <p>التصميم</p>
+            </div>
+            <div class="tech-item">
+                <div class="tech-icon">✨</div>
+                <h4>AOS</h4>
+                <p>الحركات</p>
+            </div>
+            <div class="tech-item">
+                <div class="tech-icon">🎠</div>
+                <h4>Swiper</h4>
+                <p>Slider</p>
+            </div>
+            <div class="tech-item">
+                <div class="tech-icon">🔤</div>
+                <h4>Cairo Font</h4>
+                <p>الخط العربي</p>
+            </div>
+            <div class="tech-item">
+                <div class="tech-icon">🎭</div>
+                <h4>Remix Icon</h4>
+                <p>الأيقونات</p>
+            </div>
+            <div class="tech-item">
+                <div class="tech-icon">⚡</div>
+                <h4>AMP</h4>
+                <p>نسخة سريعة</p>
+            </div>
+            <div class="tech-item">
+                <div class="tech-icon">🌐</div>
+                <h4>HTML5/CSS3</h4>
+                <p>البنية الأساسية</p>
+            </div>
+            <div class="tech-item">
+                <div class="tech-icon">📜</div>
+                <h4>JavaScript</h4>
+                <p>البرمجة</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- User Roles -->
+    <div class="section">
+        <div class="section-header">
+            <div class="section-icon si-orange"><i class="ri-team-line"></i></div>
+            <h2 class="section-title">أدوار المستخدمين</h2>
+        </div>
+        <div class="cards-grid" style="grid-template-columns:repeat(3,1fr)">
+            <div class="feature-card" style="border-top:3px solid var(--primary)">
+                <div class="feature-card-header">
+                    <div class="feature-icon" style="background:var(--primary-light);color:var(--primary-dark)"><i class="ri-user-3-line"></i></div>
+                    <div><h3>العميل</h3></div>
+                </div>
+                <p class="f-desc">يطلب توصيل، يتتبع طلباته، يدير حسابه الشخصي</p>
+                <div class="feature-tags">
+                    <span class="f-tag">طلب جديد</span>
+                    <span class="f-tag">تتبع</span>
+                    <span class="f-tag">حسابي</span>
+                </div>
+            </div>
+            <div class="feature-card" style="border-top:3px solid var(--blue)">
+                <div class="feature-card-header">
+                    <div class="feature-icon" style="background:var(--blue-light);color:var(--blue)"><i class="ri-motorbike-line"></i></div>
+                    <div><h3>المندوب</h3></div>
+                </div>
+                <p class="f-desc">يستلم الطلبات، يوصّلها، يحدّث الحالة</p>
+                <div class="feature-tags">
+                    <span class="f-tag">قبول</span>
+                    <span class="f-tag">رفض</span>
+                    <span class="f-tag">تحديث</span>
+                </div>
+            </div>
+            <div class="feature-card" style="border-top:3px solid var(--red)">
+                <div class="feature-card-header">
+                    <div class="feature-icon" style="background:var(--red-light);color:var(--red)"><i class="ri-admin-line"></i></div>
+                    <div><h3>المدير</h3></div>
+                </div>
+                <p class="f-desc">يدير المنصة بالكامل — طلبات، عملاء، مناديب، تقارير</p>
+                <div class="feature-tags">
+                    <span class="f-tag">إدارة</span>
+                    <span class="f-tag">تقارير</span>
+                    <span class="f-tag">إعدادات</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Order Flow -->
+    <div class="section">
+        <div class="section-header">
+            <div class="section-icon si-gold"><i class="ri-flow-chart"></i></div>
+            <h2 class="section-title">سير العمل</h2>
+        </div>
+        <div class="chart-card">
+            <div class="timeline">
+                <div class="tl-item">
+                    <h4>العميل يطلب</h4>
+                    <p>يختار نوع الخدمة (طعام/طرود/منتجات)، يدخل بياناته، يؤكد الطلب</p>
+                    <div class="tl-date">order.html</div>
+                </div>
+                <div class="tl-item">
+                    <h4>الطلب يتحول للإدارة</h4>
+                    <p>يظهر في لوحة التحكم مع الحالة "معلق". المدير يتأكد أو يلغي</p>
+                    <div class="tl-date">admin/dashboard.html</div>
+                </div>
+                <div class="tl-item">
+                    <h4>المندوب يستلم</h4>
+                    <p>يظهر للمندوب في لوحته، يقبل الطلب ويبدأ التوصيل</p>
+                    <div class="tl-date">driver/dashboard.html</div>
+                </div>
+                <div class="tl-item">
+                    <h4>تتبع لحظي</h4>
+                    <p>العميل يتتبع حالة الطلب من صفحة التتبع بالرقم أو التليفون</p>
+                    <div class="tl-date">track.html</div>
+                </div>
+                <div class="tl-item">
+                    <h4>تم التوصيل</h4>
+                    <p>المندوب يحدّث الحالة لـ "مكتمل"، والعميل يشوف التحديث مباشرة</p>
+                    <div class="tl-date">Firestore Real-time</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Pricing -->
+    <div class="section">
+        <div class="section-header">
+            <div class="section-icon si-green"><i class="ri-money-pound-circle-line"></i></div>
+            <h2 class="section-title">التسعيرة</h2>
+        </div>
+        <div class="cards-grid" style="grid-template-columns:repeat(3,1fr)">
+            <div class="feature-card" style="text-align:center">
+                <div class="feature-icon" style="background:#fff3e0;color:var(--orange);width:56px;height:56px;margin:0 auto .8rem;border-radius:16px;display:flex;align-items:center;justify-content:center;font-size:1.3rem"><i class="ri-restaurant-line"></i></div>
+                <h3>توصيل طعام</h3>
+                <div style="font-size:2rem;font-weight:900;color:var(--primary-dark);margin:.5rem 0">15 <span style="font-size:.9rem;color:var(--gray)">ج.م</span></div>
+            </div>
+            <div class="feature-card" style="text-align:center;border-top:3px solid var(--primary)">
+                <div class="feature-icon" style="background:var(--blue-light);color:var(--blue);width:56px;height:56px;margin:0 auto .8rem;border-radius:16px;display:flex;align-items:center;justify-content:center;font-size:1.3rem"><i class="ri-archive-line"></i></div>
+                <h3>توصيل طرود</h3>
+                <div style="font-size:2rem;font-weight:900;color:var(--primary-dark);margin:.5rem 0">20 <span style="font-size:.9rem;color:var(--gray)">ج.م</span></div>
+            </div>
+            <div class="feature-card" style="text-align:center">
+                <div class="feature-icon" style="background:var(--green-light);color:var(--green);width:56px;height:56px;margin:0 auto .8rem;border-radius:16px;display:flex;align-items:center;justify-content:center;font-size:1.3rem"><i class="ri-shopping-bag-line"></i></div>
+                <h3>توصيل منتجات</h3>
+                <div style="font-size:2rem;font-weight:900;color:var(--primary-dark);margin:.5rem 0">25 <span style="font-size:.9rem;color:var(--gray)">ج.م</span></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Firestore Collections -->
+    <div class="section">
+        <div class="section-header">
+            <div class="section-icon si-blue"><i class="ri-database-2-line"></i></div>
+            <h2 class="section-title">قواعد البيانات (Firestore)</h2>
+        </div>
+        <div class="tech-grid" style="grid-template-columns:repeat(5,1fr)">
+            <div class="tech-item" style="border-left:3px solid var(--primary)">
+                <h4>orders</h4>
+                <p>الطلبات</p>
+            </div>
+            <div class="tech-item" style="border-left:3px solid var(--green)">
+                <h4>customers</h4>
+                <p>العملاء</p>
+            </div>
+            <div class="tech-item" style="border-left:3px solid var(--blue)">
+                <h4>drivers</h4>
+                <p>المناديب</p>
+            </div>
+            <div class="tech-item" style="border-left:3px solid var(--red)">
+                <h4>admins</h4>
+                <p>المديرين</p>
+            </div>
+            <div class="tech-item" style="border-left:3px solid var(--purple)">
+                <h4>settings</h4>
+                <p>الإعدادات</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <div class="footer">
+        <p>تم تطوير هذا المشروع بواسطة <a href="https://github.com/ohmedayman" target="_blank">Mohmed Ayman</a> — 2026</p>
+        <p style="margin-top:.3rem;font-size:.75rem;color:var(--gray-light)">خليك مكانك © جميع الحقوق محفوظة</p>
+    </div>
+</div>
+
+<script>
+    // Animate numbers on scroll
+    const observer = new IntersectionObserver(entries => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.style.opacity = '1';
+                entry.target.style.transform = 'translateY(0)';
+            }
+        });
+    }, { threshold: 0.1 });
+
+    document.querySelectorAll('.feature-card, .page-item, .tech-item, .stat-card').forEach(el => {
+        el.style.opacity = '0';
+        el.style.transform = 'translateY(20px)';
+        el.style.transition = 'all .5s ease';
+        observer.observe(el);
+    });
+</script>
+</body>
+</html>
