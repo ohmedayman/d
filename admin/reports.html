@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>التقارير | خليك مكانك</title>
+    <title>التقارير | راحتك</title>
     <link rel="icon" type="image/jpeg" href="../assets/images/logo.jpg">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -17,7 +17,7 @@
     <script src="../js/firebase-config.js"></script>
     <script>firebase.initializeApp(firebaseConfig);</script>
     <style>
-        :root{--primary:#FFD700;--primary-dark:#F5C400;--primary-light:#FFF8DC;--dark:#1A1A1A;--dark-2:#2D2D2D;--dark-3:#3A3A3A;--gray:#888;--gray-light:#aaa;--green:#22c55e;--green-light:#dcfce7;--blue:#3b82f6;--blue-light:#dbeafe;--red:#ef4444;--red-light:#fee2e2;--purple:#8b5cf6;--purple-light:#ede9fe;--orange:#f97316;--orange-light:#fff7ed;--wa:#25D366;--radius:16px;--radius-sm:10px;--radius-lg:24px;--shadow:0 2px 12px rgba(0,0,0,.08);--shadow-md:0 4px 20px rgba(0,0,0,.12);--shadow-lg:0 8px 40px rgba(0,0,0,.15);--transition:all .3s cubic-bezier(.4,0,.2,1)}
+        :root{--primary:#E31E24;--primary-dark:#C41A1F;--primary-light:#FFF0F0;--dark:#1A1A1A;--dark-2:#2D2D2D;--dark-3:#3A3A3A;--gray:#888;--gray-light:#aaa;--green:#22c55e;--green-light:#dcfce7;--blue:#3b82f6;--blue-light:#dbeafe;--red:#ef4444;--red-light:#fee2e2;--purple:#8b5cf6;--purple-light:#ede9fe;--orange:#f97316;--orange-light:#fff7ed;--wa:#25D366;--radius:16px;--radius-sm:10px;--radius-lg:24px;--shadow:0 2px 12px rgba(0,0,0,.08);--shadow-md:0 4px 20px rgba(0,0,0,.12);--shadow-lg:0 8px 40px rgba(0,0,0,.15);--transition:all .3s cubic-bezier(.4,0,.2,1)}
         *{margin:0;padding:0;box-sizing:border-box}
         body{font-family:'Cairo',sans-serif;background:#f0f2f5;color:var(--dark);line-height:1.6}
         a{text-decoration:none;color:inherit}
@@ -158,7 +158,7 @@
     <aside class="sidebar" id="sidebar">
         <div class="sidebar-brand">
             <img src="../assets/images/logo.jpg" alt="Logo">
-            <div><h3>خليك مكانك</h3><span>التقارير</span></div>
+            <div><h3>راحتك</h3><span>التقارير</span></div>
         </div>
         <nav>
             <a href="dashboard.html" class="nav-item"><i class="ri-dashboard-line"></i><span>الرئيسية</span></a>
@@ -317,7 +317,7 @@
 <script>
     const stL={pending:'معلق',confirmed:'مؤكد',picked:'تم الاستلام',delivering:'في الطريق',completed:'مكتمل',cancelled:'ملغي'};
     const stC={pending:'badge-pending',confirmed:'badge-confirmed',picked:'badge-picked',delivering:'badge-delivering',completed:'badge-completed',cancelled:'badge-cancelled'};
-    const svcL={food:'طعام',package:'طرود',product:'منتجات'};
+    const svcL={online:'أونلاين',personal:'أفراد',documents:'مستندات'};
 
     let allOrders=[], allCustomers=[], allDrivers=[];
     let currentRange='all';

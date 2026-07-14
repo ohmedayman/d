@@ -1,4 +1,4 @@
-:root{--primary:#FFD700;--primary-dark:#F5C400;--primary-light:#FFF8DC;--primary-glow:rgba(255,215,0,.25);--dark:#1A1A1A;--dark-2:#2D2D2D;--gray:#666;--gray-light:#999;--white:#fff;--green:#22c55e;--blue:#3b82f6;--red:#ef4444;--purple:#8b5cf6;--orange:#f97316;--sidebar-w:260px;--transition:all .3s cubic-bezier(.4,0,.2,1);--shadow:0 2px 12px rgba(0,0,0,.06);--shadow-lg:0 8px 30px rgba(0,0,0,.12)}
+:root{--primary:#E31E24;--primary-dark:#C41A1F;--primary-light:#FFF0F0;--primary-glow:rgba(227,30,36,.25);--dark:#1A1A1A;--dark-2:#2D2D2D;--gray:#666;--gray-light:#999;--white:#fff;--green:#22c55e;--blue:#3b82f6;--red:#ef4444;--purple:#8b5cf6;--orange:#f97316;--sidebar-w:260px;--transition:all .3s cubic-bezier(.4,0,.2,1);--shadow:0 2px 12px rgba(0,0,0,.06);--shadow-lg:0 8px 30px rgba(0,0,0,.12)}
 *{margin:0;padding:0;box-sizing:border-box}
 body{font-family:'Cairo',sans-serif;background:#f5f6fa;color:var(--dark);overflow-x:hidden}
 

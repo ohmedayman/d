@@ -3,11 +3,11 @@
    ======================================== */
 
 :root {
-    --primary: #FFD700;
-    --primary-dark: #F5C400;
-    --primary-darker: #D4A800;
-    --primary-light: #FFF8DC;
-    --primary-glow: rgba(255, 215, 0, 0.3);
+    --primary: #E31E24;
+    --primary-dark: #C41A1F;
+    --primary-darker: #A01518;
+    --primary-light: #FFF0F0;
+    --primary-glow: rgba(227, 30, 36, 0.3);
     --dark: #1A1A1A;
     --dark-2: #2D2D2D;
     --gray: #666;

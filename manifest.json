@@ -1,11 +1,11 @@
 {
-  "name": "خليك مكانك - خدمة توصيل في الفيوم",
-  "short_name": "خليك مكانك",
-  "description": "أسرع خدمة توصيل في الفيوم - توصيل طعام وطرود ومنتجات",
+  "name": "راحتك - خدمة توصيل في الفيوم",
+  "short_name": "راحتك",
+  "description": "أسرع خدمة توصيل في الفيوم - توصيل أونلاين وأفراد ومستندات",
   "start_url": "/d/",
   "display": "standalone",
   "background_color": "#1a1a2e",
-  "theme_color": "#FFD700",
+  "theme_color": "#E31E24",
   "orientation": "portrait",
   "lang": "ar",
   "dir": "rtl",
@@ -31,7 +31,7 @@
       "sizes": "512x512",
       "type": "image/jpeg",
       "form_factor": "narrow",
-      "label": "خليك مكانك"
+      "label": "راحتك"
     }
   ],
   "prefer_related_applications": false

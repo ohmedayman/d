@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>تتبع طلبك | خليك مكانك</title>
+    <title>تتبع طلبك | راحتك</title>
     <link rel="icon" type="image/jpeg" href="assets/images/logo.jpg">
     <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
@@ -13,7 +13,7 @@
     <script src="js/firebase-config.js"></script>
     <script>firebase.initializeApp(firebaseConfig);</script>
     <style>
-        :root{--primary:#FFD700;--primary-dark:#F5C400;--primary-light:#FFF8DC;--dark:#1A1A1A;--dark-2:#2D2D2D;--gray:#888;--green:#22c55e;--blue:#3b82f6;--purple:#8b5cf6;--wa:#25D366;--radius:16px}
+        :root{--primary:#E31E24;--primary-dark:#C41A1F;--primary-light:#FFF0F0;--dark:#1A1A1A;--dark-2:#2D2D2D;--gray:#888;--green:#22c55e;--blue:#3b82f6;--purple:#8b5cf6;--wa:#25D366;--radius:16px}
         *{margin:0;padding:0;box-sizing:border-box}
         body{font-family:'Cairo',sans-serif;background:linear-gradient(160deg,#1a1a2e 0%,#16213e 50%,#0f3460 100%);min-height:100vh;display:flex;align-items:center;justify-content:center;padding:1.5rem;position:relative;overflow-x:hidden}
         body::before{content:'';position:absolute;width:400px;height:400px;background:radial-gradient(circle,rgba(255,215,0,.08),transparent 70%);top:-100px;right:-100px;border-radius:50%}
@@ -143,7 +143,7 @@
 
 <div class="page-wrapper">
     <div class="header">
-        <div class="logo-wrap"><img src="assets/images/logo.jpg" alt="خليك مكانك"></div>
+        <div class="logo-wrap"><img src="assets/images/logo.jpg" alt="راحتك"></div>
         <h1>تتبع طلبك</h1>
         <p>ادخل رقم التتبع أو رقم التليفون</p>
     </div>
@@ -220,8 +220,8 @@
         </div>
 
         <div class="actions">
-            <a href="https://wa.me/201234567890" target="_blank" class="wa"><i class="fab fa-whatsapp"></i> واتساب</a>
-            <a href="tel:+201234567890" class="call"><i class="fas fa-phone-alt"></i> اتصل</a>
+            <a href="https://wa.me/20102004100667" target="_blank" class="wa"><i class="fab fa-whatsapp"></i> واتساب</a>
+            <a href="tel:+201093339983" class="call"><i class="fas fa-phone-alt"></i> اتصل</a>
             <a href="order.html" class="new-order"><i class="fas fa-plus"></i> طلب جديد</a>
         </div>
     </div>
@@ -229,7 +229,7 @@
     <div class="back"><a href="index.html"><i class="fas fa-arrow-right"></i> العودة للموقع</a></div>
 </div>
 
-<a href="https://wa.me/201234567890" class="whatsapp-float" target="_blank"><i class="fab fa-whatsapp"></i></a>
+<a href="https://wa.me/20102004100667" class="whatsapp-float" target="_blank"><i class="fab fa-whatsapp"></i></a>
 
 <script>
     const statusMap={pending:{text:'معلق — في انتظار التأكيد',icon:'fa-clock',cls:'pending'},confirmed:{text:'مؤكد — جاري التجهيز',icon:'fa-check',cls:'confirmed'},picked:{text:'تم الاستلام — المندوب استلم الطلب',icon:'fa-box-open',cls:'picked'},delivering:{text:'في الطريق — المندوب في السكة',icon:'fa-motorcycle',cls:'delivering'},completed:{text:'تم التوصيل — بالهنا والشفا',icon:'fa-check-circle',cls:'completed'},cancelled:{text:'تم الإلغاء',icon:'times-circle',cls:'cancelled'}};

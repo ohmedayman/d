@@ -1,5 +1,5 @@
 /* ========================================
-   خليك مكانك - Main JavaScript
+   راحتك - Main JavaScript
    ======================================== */
 
 document.addEventListener('DOMContentLoaded', function() {

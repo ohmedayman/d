@@ -7,11 +7,11 @@ async function seedDemoDataIfEmpty() {
         const now = Date.now();
 
         const demoOrders = [
-            { orderId:'ORD-001', customerName:'أحمد محمد', customerPhone:'01012345678', customerAddress:'الفيوم - شارع الجمهورية', serviceType:'food', deliveryFee:15, status:'completed', driverName:'محمد علي', driverPhone:'01123456789', notes:'توصيل سريع', createdAt:new Date(now-86400000*2).toISOString(), completedAt:new Date(now-86400000*2+3600000).toISOString() },
-            { orderId:'ORD-002', customerName:'سارة أحمد', customerPhone:'01234567890', customerAddress:'الفيوم - شارع الحرية', serviceType:'package', deliveryFee:20, status:'delivering', driverName:'حسن محمود', driverPhone:'01098765432', notes:'', createdAt:new Date(now-3600000*5).toISOString() },
-            { orderId:'ORD-003', customerName:'محمد حسن', customerPhone:'01155566677', customerAddress:'الفيوم - شارع المدارس', serviceType:'product', deliveryFee:25, status:'pending', driverName:'', driverPhone:'', notes:'هدايا عيد ميلاد', createdAt:new Date(now-3600000*2).toISOString() },
-            { orderId:'ORD-004', customerName:'فاطمة علي', customerPhone:'01088899900', customerAddress:'الفيوم - حي الغردقة', serviceType:'food', deliveryFee:15, status:'confirmed', driverName:'', driverPhone:'', notes:'', createdAt:new Date(now-3600000).toISOString() },
-            { orderId:'ORD-005', customerName:'عمر سعيد', customerPhone:'01512345678', customerAddress:'الفيوم - شارع بنك مصر', serviceType:'food', deliveryFee:15, status:'picked', driverName:'محمد علي', driverPhone:'01123456789', notes:'', createdAt:new Date(now-3600000*8).toISOString() },
+            { orderId:'ORD-001', customerName:'أحمد محمد', customerPhone:'01012345678', customerAddress:'الفيوم - شارع الجمهورية', serviceType:'online', deliveryFee:25, status:'completed', driverName:'محمد علي', driverPhone:'01123456789', notes:'توصيل سريع', createdAt:new Date(now-86400000*2).toISOString(), completedAt:new Date(now-86400000*2+3600000).toISOString() },
+            { orderId:'ORD-002', customerName:'سارة أحمد', customerPhone:'01234567890', customerAddress:'الفيوم - شارع الحرية', serviceType:'personal', deliveryFee:35, status:'delivering', driverName:'حسن محمود', driverPhone:'01098765432', notes:'', createdAt:new Date(now-3600000*5).toISOString() },
+            { orderId:'ORD-003', customerName:'محمد حسن', customerPhone:'01155566677', customerAddress:'الفيوم - شارع المدارس', serviceType:'documents', deliveryFee:20, status:'pending', driverName:'', driverPhone:'', notes:'مستندات مهمة', createdAt:new Date(now-3600000*2).toISOString() },
+            { orderId:'ORD-004', customerName:'فاطمة علي', customerPhone:'01088899900', customerAddress:'الفيوم - حي الغردقة', serviceType:'online', deliveryFee:25, status:'confirmed', driverName:'', driverPhone:'', notes:'', createdAt:new Date(now-3600000).toISOString() },
+            { orderId:'ORD-005', customerName:'عمر سعيد', customerPhone:'01512345678', customerAddress:'الفيوم - شارع بنك مصر', serviceType:'personal', deliveryFee:35, status:'picked', driverName:'محمد علي', driverPhone:'01123456789', notes:'', createdAt:new Date(now-3600000*8).toISOString() },
         ];
         demoOrders.forEach(o => {
             const ref = firebase.firestore().collection('orders').doc();

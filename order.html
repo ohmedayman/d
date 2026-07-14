@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>طلب جديد | خليك مكانك</title>
+    <title>طلب جديد | راحتك</title>
     <link rel="icon" type="image/jpeg" href="assets/images/logo.jpg">
     <meta name="theme-color" content="#0f3460">
     <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
@@ -15,7 +15,7 @@
     <script src="js/firebase-config.js"></script>
     <script>firebase.initializeApp(firebaseConfig);</script>
     <style>
-        :root{--primary:#FFD700;--primary-dark:#F5C400;--primary-light:#FFF8DC;--primary-glow:rgba(255,215,0,.3);--dark:#0f0f23;--dark-2:#16213e;--gray:#7a7a9a;--gray-light:#9a9aba;--gray-lighter:#e8e8f0;--green:#00d68f;--green-light:#d1fae5;--blue:#4f8cff;--blue-light:#dbeafe;--red:#ff4757;--red-light:#fee2e2;--purple:#a855f7;--purple-light:#ede9fe;--orange:#ff9f43;--wa:#25D366;--radius:20px;--radius-sm:14px;--radius-lg:28px;--shadow:0 4px 24px rgba(0,0,0,.08);--shadow-md:0 8px 40px rgba(0,0,0,.12);--shadow-glow:0 8px 40px var(--primary-glow);--transition:all .4s cubic-bezier(.4,0,.2,1)}
+        :root{--primary:#E31E24;--primary-dark:#C41A1F;--primary-light:#FFF0F0;--primary-glow:rgba(227,30,36,.3);--dark:#0f0f23;--dark-2:#16213e;--gray:#7a7a9a;--gray-light:#9a9aba;--gray-lighter:#e8e8f0;--green:#00d68f;--green-light:#d1fae5;--blue:#4f8cff;--blue-light:#dbeafe;--red:#ff4757;--red-light:#fee2e2;--purple:#a855f7;--purple-light:#ede9fe;--orange:#ff9f43;--wa:#25D366;--radius:20px;--radius-sm:14px;--radius-lg:28px;--shadow:0 4px 24px rgba(0,0,0,.08);--shadow-md:0 8px 40px rgba(0,0,0,.12);--shadow-glow:0 8px 40px var(--primary-glow);--transition:all .4s cubic-bezier(.4,0,.2,1)}
         *{margin:0;padding:0;box-sizing:border-box}
         body{font-family:'Cairo',sans-serif;background:#f0f2f8;color:var(--dark);min-height:100vh;overflow-x:hidden;-webkit-font-smoothing:antialiased}
 
@@ -221,26 +221,26 @@
                 </div>
                 <div class="services-grid">
                     <div class="svc-card svc-food">
-                        <input type="radio" name="service" id="svc-food" value="food" required>
+                        <input type="radio" name="service" id="svc-food" value="online" required>
                         <label for="svc-food">
-                            <div class="svc-icon"><i class="ri-restaurant-line"></i></div>
-                            <div><div class="svc-name">طعام</div><div class="svc-desc">مطاعم وأكل</div><div class="svc-price">15 ج.م</div></div>
+                            <div class="svc-icon"><i class="ri-shopping-cart-line"></i></div>
+                            <div><div class="svc-name">أونلاين</div><div class="svc-desc">طلب من أي محل</div><div class="svc-price">25 ج.م</div></div>
                         </label>
                         <div class="svc-check"><i class="ri-check-line"></i></div>
                     </div>
                     <div class="svc-card svc-package">
-                        <input type="radio" name="service" id="svc-package" value="package">
+                        <input type="radio" name="service" id="svc-package" value="personal">
                         <label for="svc-package">
-                            <div class="svc-icon"><i class="ri-archive-line"></i></div>
-                            <div><div class="svc-name">طرود</div><div class="svc-desc">توصيل أي حاجة</div><div class="svc-price">20 ج.م</div></div>
+                            <div class="svc-icon"><i class="ri-user-heart-line"></i></div>
+                            <div><div class="svc-name">أفراد</div><div class="svc-desc">توصيل أغراض وهدايا</div><div class="svc-price">35 ج.م</div></div>
                         </label>
                         <div class="svc-check"><i class="ri-check-line"></i></div>
                     </div>
                     <div class="svc-card svc-product">
-                        <input type="radio" name="service" id="svc-product" value="product">
+                        <input type="radio" name="service" id="svc-product" value="documents">
                         <label for="svc-product">
-                            <div class="svc-icon"><i class="ri-shopping-bag-line"></i></div>
-                            <div><div class="svc-name">منتجات</div><div class="svc-desc">منتجات متنوعة</div><div class="svc-price">25 ج.م</div></div>
+                            <div class="svc-icon"><i class="ri-file-text-line"></i></div>
+                            <div><div class="svc-name">مستندات</div><div class="svc-desc">توصيل أوراق</div><div class="svc-price">20 ج.م</div></div>
                         </label>
                         <div class="svc-check"><i class="ri-check-line"></i></div>
                     </div>
@@ -346,8 +346,8 @@
 </nav>
 
 <script>
-    const svcLabels={food:'توصيل طعام',package:'توصيل طرود',product:'توصيل منتجات'};
-    const svcFees={food:15, package:20, product:25};
+    const svcLabels={online:'توصيل أونلاين',personal:'توصيل أفراد',documents:'توصيل مستندات'};
+    const svcFees={online:25, personal:35, documents:20};
     let step=1, data={};
     let isLoggedIn=false, customerProfile=null;
 
