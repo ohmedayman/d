@@ -125,7 +125,18 @@
     const driverName = localStorage.getItem('driver_name');
     const driverPhone = localStorage.getItem('driver_phone');
 
+    /* ===== REAL-TIME LISTENER ===== */
+    let unsubscribeOrders = null;
+
+    function startRealtime() {
+        unsubscribeOrders = firebase.firestore().collection('orders').orderBy('createdAt','desc')
+            .onSnapshot(async snap => {
+                await render();
+            }, err => console.log('Realtime error:', err));
+    }
+
     async function logout() {
+        if (unsubscribeOrders) unsubscribeOrders();
         localStorage.removeItem('driver_logged_in');
         localStorage.removeItem('driver_id');
         localStorage.removeItem('driver_name');
@@ -341,7 +352,7 @@
 
     /* ===== INIT ===== */
     render();
-    setInterval(render, 8000);
+    startRealtime();
     </script>
 </body>
 </html>
