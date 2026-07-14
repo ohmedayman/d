@@ -98,9 +98,9 @@
         .order-card-body{display:flex;justify-content:space-between;align-items:center}
         .order-details{display:flex;align-items:center;gap:.8rem}
         .order-svc-icon{width:40px;height:40px;border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:1rem;flex-shrink:0}
-        .si-food{background:#fff3e0;color:#e65100}
-        .si-package{background:#e3f2fd;color:#1565c0}
-        .si-product{background:var(--green-light);color:#065f46}
+        .si-online{background:#fff3e0;color:#e65100}
+        .si-personal{background:#e3f2fd;color:#1565c0}
+        .si-documents{background:var(--green-light);color:#065f46}
         .order-meta{display:flex;flex-direction:column;gap:.1rem}
         .order-svc-name{font-weight:700;font-size:.85rem;color:var(--dark)}
         .order-date{font-size:.72rem;color:var(--gray)}
@@ -427,8 +427,8 @@
     /* ===== RENDER ORDERS ===== */
     function renderOrders() {
         const stL = { pending:'معلق', confirmed:'مؤكد', picked:'تم الاستلام', delivering:'في الطريق', completed:'مكتمل', cancelled:'ملغي' };
-        const svcL = { food:'توصيل طعام', package:'توصيل طرود', product:'توصيل منتجات' };
-        const svcI = { food:'ri-restaurant-line', package:'ri-archive-line', product:'ri-shopping-bag-line' };
+        const svcL = { online:'توصيل أونلاين', personal:'توصيل أفراد', documents:'توصيل مستندات' };
+        const svcI = { online:'ri-shopping-line', personal:'ri-user-line', documents:'ri-file-text-line' };
         const list = document.getElementById('ordersList');
         const empty = document.getElementById('emptyOrders');
 
@@ -453,7 +453,7 @@
                 </div>
                 <div class="order-card-body">
                     <div class="order-details">
-                        <div class="order-svc-icon si-${o.serviceType||'food'}"><i class="${svcI[o.serviceType]||svcI.food}"></i></div>
+                        <div class="order-svc-icon si-${o.serviceType||'online'}"><i class="${svcI[o.serviceType]||svcI.online}"></i></div>
                         <div class="order-meta">
                             <span class="order-svc-name">${svcL[o.serviceType] || '-'}</span>
                             <span class="order-date">${d} • ${t}</span>

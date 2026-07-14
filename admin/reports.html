@@ -406,11 +406,11 @@
     }
 
     function renderServiceChart(orders){
-        const counts={food:0,package:0,product:0};
+        const counts={online:0,personal:0,documents:0};
         orders.forEach(o=>{if(counts[o.serviceType]!==undefined)counts[o.serviceType]++});
         if(charts.service)charts.service.destroy();
         charts.service=new Chart(document.getElementById('serviceChart'),{
-            type:'doughnut',data:{labels:['طعام','طرود','منتجات'],datasets:[{data:[counts.food,counts.package,counts.product],backgroundColor:['#f59e0b','#3b82f6','#22c55e'],borderWidth:0}]},
+            type:'doughnut',data:{labels:['أونلاين','أفراد','مستندات'],datasets:[{data:[counts.online,counts.personal,counts.documents],backgroundColor:['#E31E24','#3b82f6','#22c55e'],borderWidth:0}]},
             options:{responsive:true,maintainAspectRatio:false,cutout:'65%',plugins:{legend:{position:'bottom',labels:{padding:15,usePointStyle:true}}}}
         });
     }
@@ -422,7 +422,7 @@
         const data=labels.map(l=>revByDay[l]);
         if(charts.revenue)charts.revenue.destroy();
         charts.revenue=new Chart(document.getElementById('revenueChart'),{
-            type:'line',data:{labels,datasets:[{label:'الإيرادات',data,borderColor:'#FFD700',backgroundColor:'rgba(255,215,0,.1)',fill:true,tension:.4,pointRadius:4,pointBackgroundColor:'#FFD700'}]},
+            type:'line',data:{labels,datasets:[{label:'الإيرادات',data,borderColor:'#E31E24',backgroundColor:'rgba(227,30,36,.1)',fill:true,tension:.4,pointRadius:4,pointBackgroundColor:'#E31E24'}]},
             options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false}},scales:{y:{beginAtZero:true}}}
         });
     }

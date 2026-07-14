@@ -111,7 +111,7 @@
         <section class="page-section" id="sec-settings">
             <div class="row g-4">
                 <div class="col-lg-6"><div class="card-custom"><div class="card-custom-header"><h3><i class="fas fa-store"></i> الشركة</h3></div><div class="card-custom-body"><form id="settingsForm">                    <div class="mb-3"><label class="form-label-custom">الاسم</label><input type="text" class="form-input-custom" id="setCompanyName" value="راحتك"></div><div class="mb-3"><label class="form-label-custom">التليفون</label><input type="tel" class="form-input-custom" id="setPhone" value="01093339983"></div><div class="mb-3"><label class="form-label-custom">الواتساب</label><input type="tel" class="form-input-custom" id="setWhatsapp" value="20102004100667"></div><div class="mb-3"><label class="form-label-custom">العنوان</label><input type="text" class="form-input-custom" id="setAddress" value="منشاة الفيوم، الفيوم"></div><button type="submit" class="btn-add"><i class="fas fa-save"></i> حفظ</button></form></div></div></div>
-                <div class="col-lg-6"><div class="card-custom"><div class="card-custom-header"><h3><i class="fas fa-truck"></i> التسعيرة</h3></div><div class="card-custom-body"><form id="pricingForm">                    <div class="mb-3"><label class="form-label-custom">أونلاين (ج.م)</label><input type="number" class="form-input-custom" id="setFeeFood" value="25"></div><div class="mb-3"><label class="form-label-custom">أفراد (ج.م)</label><input type="number" class="form-input-custom" id="setFeePackage" value="35"></div><div class="mb-3"><label class="form-label-custom">مستندات (ج.م)</label><input type="number" class="form-input-custom" id="setFeeProduct" value="20"></div><button type="submit" class="btn-add"><i class="fas fa-save"></i> حفظ</button></form></div></div></div>
+                <div class="col-lg-6"><div class="card-custom"><div class="card-custom-header"><h3><i class="fas fa-truck"></i> التسعيرة</h3></div><div class="card-custom-body"><form id="pricingForm">                    <div class="mb-3"><label class="form-label-custom">أونلاين (ج.م)</label><input type="number" class="form-input-custom" id="setFeeOnline" value="25"></div><div class="mb-3"><label class="form-label-custom">أفراد (ج.م)</label><input type="number" class="form-input-custom" id="setFeePersonal" value="35"></div><div class="mb-3"><label class="form-label-custom">مستندات (ج.م)</label><input type="number" class="form-input-custom" id="setFeeDocuments" value="20"></div><button type="submit" class="btn-add"><i class="fas fa-save"></i> حفظ</button></form></div></div></div>
             </div>
         </section>
     </main>
@@ -389,12 +389,12 @@
         const weekData = new Array(7).fill(0);
         allOrders.forEach(o => { if(!o.createdAt) return; const d=new Date(o.createdAt); if((now-d)/(864e5)<=7) weekData[d.getDay()]++; });
         if (window._c1) window._c1.destroy();
-        window._c1 = new Chart(document.getElementById('ordersChart'),{type:'line',data:{labels:days,datasets:[{label:'الطلبات',data:weekData,borderColor:'#FFD700',backgroundColor:'rgba(255,215,0,.1)',fill:true,tension:.4,pointBackgroundColor:'#FFD700',pointRadius:5}]},options:{responsive:true,plugins:{legend:{display:false}},scales:{y:{beginAtZero:true,ticks:{stepSize:1}}}}});
+        window._c1 = new Chart(document.getElementById('ordersChart'),{type:'line',data:{labels:days,datasets:[{label:'الطلبات',data:weekData,borderColor:'#E31E24',backgroundColor:'rgba(227,30,36,.1)',fill:true,tension:.4,pointBackgroundColor:'#E31E24',pointRadius:5}]},options:{responsive:true,plugins:{legend:{display:false}},scales:{y:{beginAtZero:true,ticks:{stepSize:1}}}}});
 
-        const types = {food:0,package:0,product:0};
+        const types = {online:0,personal:0,documents:0};
         allOrders.forEach(o => { if(types[o.serviceType]!==undefined) types[o.serviceType]++; });
         if (window._c2) window._c2.destroy();
-        window._c2 = new Chart(document.getElementById('typesChart'),{type:'doughnut',data:{labels:['طعام','طرود','منتجات'],datasets:[{data:[types.food,types.package,types.product],backgroundColor:['#FFD700','#3b82f6','#22c55e']}]},options:{responsive:true,plugins:{legend:{position:'bottom'}}}});
+        window._c2 = new Chart(document.getElementById('typesChart'),{type:'doughnut',data:{labels:['أونلاين','أفراد','مستندات'],datasets:[{data:[types.online,types.personal,types.documents],backgroundColor:['#E31E24','#3b82f6','#22c55e']}]},options:{responsive:true,plugins:{legend:{position:'bottom'}}}});
     }
 
     function renderReportStats() {
@@ -412,10 +412,10 @@
         const revData = new Array(7).fill(0);
         weekOrders.forEach(o=>{if(!o.createdAt)return;revData[new Date(o.createdAt).getDay()]+=(o.deliveryFee||0);});
         if(window._c3)window._c3.destroy();
-        window._c3=new Chart(document.getElementById('revenueChart'),{type:'bar',data:{labels:days,datasets:[{label:'الإيرادات',data:revData,backgroundColor:'rgba(255,215,0,.7)',borderColor:'#FFD700',borderWidth:1}]},options:{responsive:true,plugins:{legend:{display:false}},scales:{y:{beginAtZero:true}}}});
+        window._c3=new Chart(document.getElementById('revenueChart'),{type:'bar',data:{labels:days,datasets:[{label:'الإيرادات',data:revData,backgroundColor:'rgba(227,30,36,.7)',borderColor:'#E31E24',borderWidth:1}]},options:{responsive:true,plugins:{legend:{display:false}},scales:{y:{beginAtZero:true}}}});
 
         if(window._c4)window._c4.destroy();
-        window._c4=new Chart(document.getElementById('compareChart'),{type:'bar',data:{labels:['اليوم','أسبوع','الكل'],datasets:[{label:'الطلبات',data:[todayOrders.length,weekOrders.length,allOrders.length],backgroundColor:['#FFD700','#3b82f6','#22c55e']}]},options:{responsive:true,indexAxis:'y',plugins:{legend:{display:false}}}});
+        window._c4=new Chart(document.getElementById('compareChart'),{type:'bar',data:{labels:['اليوم','أسبوع','الكل'],datasets:[{label:'الطلبات',data:[todayOrders.length,weekOrders.length,allOrders.length],backgroundColor:['#E31E24','#3b82f6','#22c55e']}]},options:{responsive:true,indexAxis:'y',plugins:{legend:{display:false}}}});
     }
 
     /* ===== FORMS ===== */
@@ -473,9 +473,9 @@
             const psnap = await firebase.firestore().collection('settings').doc('pricing').get();
             if (psnap.exists) {
                 const p = psnap.data();
-                if(p.food) document.getElementById('setFeeFood').value = p.food;
-                if(p.package) document.getElementById('setFeePackage').value = p.package;
-                if(p.product) document.getElementById('setFeeProduct').value = p.product;
+                if(p.food) document.getElementById('setFeeOnline').value = p.food;
+                if(p.package) document.getElementById('setFeePersonal').value = p.package;
+                if(p.product) document.getElementById('setFeeDocuments').value = p.product;
             }
         } catch(e) { console.log('Settings load error', e); }
     }
@@ -494,9 +494,9 @@
     document.getElementById('pricingForm').addEventListener('submit', async e => {
         e.preventDefault();
         await firebase.firestore().collection('settings').doc('pricing').set({
-            food: parseFloat(document.getElementById('setFeeFood').value),
-            package: parseFloat(document.getElementById('setFeePackage').value),
-            product: parseFloat(document.getElementById('setFeeProduct').value),
+            food: parseFloat(document.getElementById('setFeeOnline').value),
+            package: parseFloat(document.getElementById('setFeePersonal').value),
+            product: parseFloat(document.getElementById('setFeeDocuments').value),
             updatedAt: new Date().toISOString()
         });
         toast('تم حفظ التسعيرة', 'success');

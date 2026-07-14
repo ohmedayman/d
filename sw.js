@@ -62,7 +62,7 @@ self.addEventListener('fetch', event => {
 
 self.addEventListener('push', event => {
   const data = event.data ? event.data.json() : {};
-  const title = data.title || 'خليك مكانك';
+  const title = data.title || 'راحتك';
   const options = {
     body: data.body || 'في تحديث جديد!',
     icon: '/d/assets/images/logo.jpg',

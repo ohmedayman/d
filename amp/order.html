@@ -73,7 +73,7 @@
 
 <div class="page">
     <div class="header">
-        <div class="logo-wrap"><img src="../assets/images/logo.jpg" alt="خليك مكانك"></div>
+        <div class="logo-wrap"><img src="../assets/images/logo.jpg" alt="راحتك"></div>
         <h1>اطلب توصيل</h1>
         <p>3 خطوات بسيطة وطلبك عندك</p>
     </div>
@@ -92,20 +92,20 @@
             <h3 style="font-size:1rem;font-weight:800;margin-bottom:1rem"><i class="fas fa-list-ul" style="color:var(--primary-dark)"></i> ايه اللي عايز توصيله؟</h3>
             <amp-selector name="service" id="serviceSelector" on="change:AMP.setState({service: event.value, step: 2})">
                 <div class="services">
-                    <div class="svc-item" option="food" selected>
-                        <i class="fas fa-utensils"></i>
-                        <span>طعام</span>
-                        <small>15 ج.م</small>
-                    </div>
-                    <div class="svc-item" option="package">
-                        <i class="fas fa-box"></i>
-                        <span>طرود</span>
-                        <small>20 ج.م</small>
-                    </div>
-                    <div class="svc-item" option="product">
-                        <i class="fas fa-shopping-bag"></i>
-                        <span>منتجات</span>
+                    <div class="svc-item" option="online" selected>
+                        <i class="fas fa-globe"></i>
+                        <span>أونلاين</span>
                         <small>25 ج.م</small>
+                    </div>
+                    <div class="svc-item" option="personal">
+                        <i class="fas fa-user"></i>
+                        <span>أفراد</span>
+                        <small>35 ج.م</small>
+                    </div>
+                    <div class="svc-item" option="documents">
+                        <i class="fas fa-file-alt"></i>
+                        <span>مستندات</span>
+                        <small>20 ج.م</small>
                     </div>
                 </div>
             </amp-selector>
