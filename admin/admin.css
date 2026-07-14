@@ -121,7 +121,9 @@ body{font-family:'Cairo',sans-serif;background:#f8fafc;color:var(--dark);overflo
 .card-custom-header{display:flex;justify-content:space-between;align-items:center;padding:1.2rem 1.4rem;border-bottom:1px solid #f1f5f9}
 .card-custom-header h3{font-size:1rem;font-weight:800;margin:0;display:flex;align-items:center;gap:.6rem}
 .card-custom-header h3 i{color:var(--primary);font-size:.95rem}
-.card-custom-body{padding:1.4rem}
+.card-custom-body{padding:1.4rem;position:relative}
+.card-custom-body canvas{max-height:280px!important;width:100%!important}
+.card-custom .row{margin:0}.card-custom .row .col-lg-8,.card-custom .row .col-lg-4{padding:0}
 
 /* ===== TABLES ===== */
 .table-custom{width:100%;border-collapse:separate;border-spacing:0}
