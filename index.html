@@ -141,6 +141,16 @@
             <div class="shape shape-1"></div>
             <div class="shape shape-2"></div>
             <div class="shape shape-3"></div>
+            <div class="shape shape-4"></div>
+            <div class="shape shape-5"></div>
+            <div class="particle p1"></div>
+            <div class="particle p2"></div>
+            <div class="particle p3"></div>
+            <div class="particle p4"></div>
+            <div class="particle p5"></div>
+            <div class="particle p6"></div>
+            <div class="particle p7"></div>
+            <div class="particle p8"></div>
         </div>
         <div class="container position-relative">
             <div class="row align-items-center min-vh-100">
@@ -181,22 +191,59 @@
                 </div>
                 <div class="col-lg-6" data-aos="fade-right" data-aos-delay="200">
                     <div class="hero-visual">
-                        <div class="hero-circle-main">
-                            <div class="hero-circle-inner">
+                        <!-- Outer rotating ring -->
+                        <div class="hero-ring ring-outer">
+                            <div class="ring-dot rd-1"></div>
+                            <div class="ring-dot rd-2"></div>
+                            <div class="ring-dot rd-3"></div>
+                            <div class="ring-dot rd-4"></div>
+                        </div>
+                        <!-- Middle rotating ring (reverse) -->
+                        <div class="hero-ring ring-middle">
+                            <div class="ring-dot rd-5"></div>
+                            <div class="ring-dot rd-6"></div>
+                            <div class="ring-dot rd-7"></div>
+                        </div>
+                        <!-- Pulse rings -->
+                        <div class="pulse-ring pulse-1"></div>
+                        <div class="pulse-ring pulse-2"></div>
+                        <div class="pulse-ring pulse-3"></div>
+                        <!-- Core -->
+                        <div class="hero-core">
+                            <div class="core-glow"></div>
+                            <div class="core-icon">
                                 <i class="fas fa-motorcycle"></i>
                             </div>
-                            <div class="floating-card fc-1 animate__animated animate__fadeInUp animate__delay-2s">
-                                <i class="fas fa-check-circle"></i>
-                                <span>تم التوصيل!</span>
+                            <div class="core-ring"></div>
+                        </div>
+                        <!-- Floating cards - glass morphism -->
+                        <div class="glass-card gc-1">
+                            <div class="gc-icon"><i class="fas fa-check-circle"></i></div>
+                            <div class="gc-text">
+                                <span class="gc-title">تم التوصيل!</span>
+                                <span class="gc-sub">طلب #ORD-8274</span>
                             </div>
-                            <div class="floating-card fc-2 animate__animated animate__fadeInUp animate__delay-2s">
-                                <i class="fas fa-map-marker-alt"></i>
-                                <span>في الطريق...</span>
+                        </div>
+                        <div class="glass-card gc-2">
+                            <div class="gc-icon"><i class="fas fa-map-marker-alt"></i></div>
+                            <div class="gc-text">
+                                <span class="gc-title">في الطريق...</span>
+                                <span class="gc-sub">15 دقيقة متبقية</span>
                             </div>
-                            <div class="floating-card fc-3 animate__animated animate__fadeInUp animate__delay-2s">
-                                <i class="fas fa-star"></i>
-                                <span>4.9 تقييم</span>
+                        </div>
+                        <div class="glass-card gc-3">
+                            <div class="gc-icon"><i class="fas fa-star"></i></div>
+                            <div class="gc-text">
+                                <span class="gc-title">4.9 تقييم</span>
+                                <span class="gc-sub">+2,500 تقييم</span>
                             </div>
+                        </div>
+                        <!-- Location pin -->
+                        <div class="floating-pin fp-1">
+                            <i class="fas fa-map-pin"></i>
+                        </div>
+                        <div class="floating-pin fp-2">
+                            <i class="fas fa-location-arrow"></i>
                         </div>
                     </div>
                 </div>
