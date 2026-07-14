@@ -2,7 +2,7 @@
 <html lang="ar" dir="rtl">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>تتبع طلبك | راحتك</title>
     <link rel="icon" type="image/jpeg" href="assets/images/logo.jpg">
     <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
@@ -13,223 +13,302 @@
     <script src="js/firebase-config.js"></script>
     <script>firebase.initializeApp(firebaseConfig);</script>
     <style>
-        :root{--primary:#E31E24;--primary-dark:#C41A1F;--primary-light:#FFF0F0;--dark:#1A1A1A;--dark-2:#2D2D2D;--gray:#888;--green:#22c55e;--blue:#3b82f6;--purple:#8b5cf6;--wa:#25D366;--radius:16px}
-        *{margin:0;padding:0;box-sizing:border-box}
-        body{font-family:'Cairo',sans-serif;background:linear-gradient(160deg,#1a1a2e 0%,#16213e 50%,#0f3460 100%);min-height:100vh;display:flex;align-items:center;justify-content:center;padding:1.5rem;position:relative;overflow-x:hidden}
-        body::before{content:'';position:absolute;width:400px;height:400px;background:radial-gradient(circle,rgba(255,215,0,.08),transparent 70%);top:-100px;right:-100px;border-radius:50%}
-        body::after{content:'';position:absolute;width:300px;height:300px;background:radial-gradient(circle,rgba(255,215,0,.05),transparent 70%);bottom:-50px;left:-50px;border-radius:50%}
+        :root{--primary:#E31E24;--primary-dark:#C41A1F;--primary-light:#FFF0F0;--dark:#0f172a;--dark-2:#1e293b;--gray:#94a3b8;--green:#22c55e;--blue:#3b82f6;--purple:#8b5cf6;--wa:#25D366;--radius:16px;--radius-lg:24px}
+        *{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+        body{font-family:'Cairo',sans-serif;background:var(--dark);min-height:100vh;min-height:100dvh;position:relative;overflow-x:hidden;color:#fff}
 
-        .page-wrapper{width:100%;max-width:520px;position:relative;z-index:1}
+        /* Background */
+        .bg-layer{position:fixed;inset:0;z-index:0}
+        .bg-gradient{position:absolute;width:100%;height:100%;background:linear-gradient(160deg,#0f172a 0%,#1e293b 40%,#0f172a 100%)}
+        .bg-orb{position:absolute;border-radius:50%;filter:blur(80px);opacity:.15}
+        .bg-orb-1{width:400px;height:400px;background:var(--primary);top:-150px;right:-100px;animation:orbFloat 20s ease-in-out infinite}
+        .bg-orb-2{width:300px;height:300px;background:#6366f1;bottom:-100px;left:-80px;animation:orbFloat 15s ease-in-out infinite reverse}
+        .bg-orb-3{width:200px;height:200px;background:var(--primary-dark);top:50%;left:50%;animation:orbFloat 18s ease-in-out infinite 3s}
+        @keyframes orbFloat{0%,100%{transform:translate(0,0)}33%{transform:translate(30px,-40px)}66%{transform:translate(-20px,30px)}}
 
-        .header{text-align:center;margin-bottom:1.8rem}
-        .logo-wrap{width:72px;height:72px;border-radius:18px;overflow:hidden;margin:0 auto 1rem;box-shadow:0 8px 30px rgba(255,215,0,.25);border:2px solid rgba(255,215,0,.2)}
-        .logo-wrap img{width:100%;height:100%;object-fit:cover}
-        .header h1{font-size:1.6rem;font-weight:900;color:#fff;margin-bottom:.3rem}
-        .header p{color:rgba(255,255,255,.45);font-size:.88rem}
+        .page{position:relative;z-index:1;min-height:100vh;min-height:100dvh;display:flex;flex-direction:column;align-items:center;padding:1.5rem 1rem 2rem}
+
+        /* Header */
+        .header{text-align:center;margin-bottom:1.5rem;padding-top:env(safe-area-inset-top,0)}
+        .logo-glow{width:80px;height:80px;margin:0 auto 1rem;position:relative}
+        .logo-glow::before{content:'';position:absolute;inset:-8px;background:radial-gradient(circle,rgba(227,30,36,.4),transparent 70%);border-radius:50%;animation:logoPulse 3s ease-in-out infinite}
+        .logo-img{width:80px;height:80px;border-radius:22px;object-fit:cover;position:relative;z-index:1;box-shadow:0 8px 32px rgba(227,30,36,.3);border:3px solid rgba(227,30,36,.3)}
+        @keyframes logoPulse{0%,100%{transform:scale(1);opacity:.6}50%{transform:scale(1.2);opacity:1}}
+
+        .header h1{font-size:1.7rem;font-weight:900;background:linear-gradient(135deg,#fff 0%,#cbd5e1 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;margin-bottom:.3rem}
+        .header p{color:var(--gray);font-size:.88rem;font-weight:400}
 
         /* Search Card */
-        .search-card{background:rgba(255,255,255,.95);backdrop-filter:blur(20px);border-radius:24px;padding:1.8rem;box-shadow:0 8px 32px rgba(0,0,0,.25);margin-bottom:1.2rem;border:1px solid rgba(255,255,255,.1)}
-        .search-card h2{font-size:1rem;font-weight:800;margin-bottom:1rem;display:flex;align-items:center;gap:.5rem;color:var(--dark)}
-        .search-card h2 i{background:linear-gradient(135deg,var(--primary),var(--primary-dark));-webkit-background-clip:text;-webkit-text-fill-color:transparent;font-size:.9rem}
-        .input-group-custom{display:flex;gap:.5rem}
-        .input-group-custom input{flex:1;padding:.8rem 1rem;border-radius:12px;border:2px solid #eee;font-family:'Cairo',sans-serif;font-size:.95rem;transition:.3s;background:#f8f9fa}
-        .input-group-custom input:focus{border-color:var(--primary);box-shadow:0 0 0 .2rem rgba(255,215,0,.1);outline:none;background:#fff}
-        .input-group-custom button{padding:.8rem 1.5rem;background:linear-gradient(135deg,var(--primary),var(--primary-dark));color:var(--dark);border:none;border-radius:12px;font-weight:800;font-family:'Cairo',sans-serif;font-size:.9rem;cursor:pointer;transition:.3s;white-space:nowrap;display:flex;align-items:center;gap:.4rem}
-        .input-group-custom button:hover{transform:translateY(-2px);box-shadow:0 4px 15px rgba(255,215,0,.4)}
+        .card{width:100%;max-width:480px;background:rgba(30,41,59,.8);backdrop-filter:blur(24px);-webkit-backdrop-filter:blur(24px);border-radius:var(--radius-lg);padding:1.5rem;border:1px solid rgba(255,255,255,.06);box-shadow:0 16px 48px rgba(0,0,0,.3)}
+        .card-title{font-size:.9rem;font-weight:700;color:rgba(255,255,255,.5);margin-bottom:1rem;display:flex;align-items:center;gap:.5rem}
+        .card-title i{color:var(--primary);font-size:.8rem}
 
-        .tab-hint{display:flex;gap:.5rem;margin-top:.7rem}
-        .tab-hint span{padding:.35rem .8rem;background:#f0f0f0;border-radius:8px;font-size:.78rem;color:var(--gray);cursor:pointer;transition:.3s;font-weight:600}
-        .tab-hint span.active{background:var(--primary-light);color:var(--primary-dark)}
+        .search-wrap{position:relative;margin-bottom:.8rem}
+        .search-input{width:100%;padding:1rem 1.2rem;padding-left:3.5rem;border-radius:14px;border:2px solid rgba(255,255,255,.08);background:rgba(255,255,255,.05);color:#fff;font-family:'Cairo',sans-serif;font-size:1rem;font-weight:600;transition:.3s;direction:ltr;text-align:center;letter-spacing:1px}
+        .search-input::placeholder{color:rgba(255,255,255,.2);direction:rtl;letter-spacing:0;text-align:right;font-weight:400}
+        .search-input:focus{outline:none;border-color:var(--primary);background:rgba(227,30,36,.05);box-shadow:0 0 0 4px rgba(227,30,36,.1)}
+        .search-icon{position:absolute;left:1rem;top:50%;transform:translateY(-50%);color:var(--gray);font-size:.9rem;pointer-events:none}
+
+        .search-btn{width:100%;padding:.9rem;border-radius:14px;border:none;background:linear-gradient(135deg,var(--primary),var(--primary-dark));color:#fff;font-family:'Cairo',sans-serif;font-size:1rem;font-weight:800;cursor:pointer;transition:.3s;display:flex;align-items:center;justify-content:center;gap:.5rem;box-shadow:0 4px 20px rgba(227,30,36,.3)}
+        .search-btn:hover{transform:translateY(-2px);box-shadow:0 8px 30px rgba(227,30,36,.4)}
+        .search-btn:active{transform:translateY(0)}
+
+        .tab-row{display:flex;gap:.5rem;margin-top:.8rem}
+        .tab-btn{flex:1;padding:.55rem;border-radius:10px;border:1.5px solid rgba(255,255,255,.08);background:transparent;color:var(--gray);font-family:'Cairo',sans-serif;font-size:.82rem;font-weight:600;cursor:pointer;transition:.3s;text-align:center}
+        .tab-btn.active{border-color:var(--primary);background:rgba(227,30,36,.1);color:var(--primary)}
+        .tab-btn:active{transform:scale(.97)}
 
         /* Loading */
-        .loading{text-align:center;padding:2.5rem;display:none}
-        .loading.show{display:block;animation:fadeUp .3s ease}
-        .spinner{width:40px;height:40px;border:4px solid #f0f0f0;border-top-color:var(--primary);border-radius:50%;animation:spin .8s linear infinite;margin:0 auto .8rem}
+        .loader{display:none;text-align:center;padding:2rem}
+        .loader.show{display:block;animation:fadeUp .3s ease}
+        .loader-ring{width:44px;height:44px;border:4px solid rgba(255,255,255,.08);border-top-color:var(--primary);border-radius:50%;margin:0 auto .8rem;animation:spin .7s linear infinite}
         @keyframes spin{to{transform:rotate(360deg)}}
+        .loader p{color:var(--gray);font-size:.88rem;font-weight:600}
 
         /* Not Found */
-        .not-found{text-align:center;padding:2.5rem;display:none;background:rgba(255,255,255,.95);backdrop-filter:blur(20px);border-radius:24px;box-shadow:0 8px 32px rgba(0,0,0,.25)}
+        .not-found{display:none;text-align:center;padding:2rem 1.5rem;margin-top:.8rem}
         .not-found.show{display:block;animation:fadeUp .4s ease}
-        .not-found .nf-icon{width:70px;height:70px;background:#f5f6fa;border-radius:50%;display:flex;align-items:center;justify-content:center;margin:0 auto .8rem}
-        .not-found .nf-icon i{font-size:1.8rem;color:#ccc}
-        .not-found h3{color:var(--dark);font-weight:800;font-size:1rem;margin-bottom:.2rem}
-        .not-found p{color:var(--gray);font-size:.85rem}
+        .nf-icon{width:64px;height:64px;background:rgba(255,255,255,.05);border-radius:50%;display:flex;align-items:center;justify-content:center;margin:0 auto .8rem;border:1px solid rgba(255,255,255,.06)}
+        .nf-icon i{font-size:1.5rem;color:rgba(255,255,255,.2)}
+        .not-found h3{font-size:.95rem;font-weight:700;color:#fff;margin-bottom:.2rem}
+        .not-found p{color:var(--gray);font-size:.82rem}
 
-        @keyframes fadeUp{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:translateY(0)}}
+        @keyframes fadeUp{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:translateY(0)}}
 
         /* Result */
-        .result{display:none;background:rgba(255,255,255,.95);backdrop-filter:blur(20px);border-radius:24px;padding:1.8rem;box-shadow:0 8px 32px rgba(0,0,0,.25);border:1px solid rgba(255,255,255,.1)}
-        .result.show{display:block;animation:fadeUp .4s ease}
+        .result{display:none;width:100%;max-width:480px;margin-top:.8rem}
+        .result.show{display:block;animation:fadeUp .5s ease}
 
-        .result-top{background:linear-gradient(135deg,var(--primary),var(--primary-dark));border-radius:var(--radius);padding:1.2rem;display:flex;justify-content:space-between;align-items:center;margin-bottom:1.2rem;position:relative;overflow:hidden}
-        .result-top::before{content:'';position:absolute;width:70px;height:70px;background:rgba(255,255,255,.12);border-radius:50%;top:-18px;left:-18px}
-        .result-top h3{font-size:.95rem;font-weight:800;margin:0;position:relative;z-index:1}
-        .result-top h3 i{margin-left:.4rem}
-        .order-badge{background:var(--dark);color:#fff;padding:.35rem 1rem;border-radius:50px;font-size:.78rem;font-weight:700;direction:ltr;display:inline-block;position:relative;z-index:1}
+        .result-header{background:linear-gradient(135deg,var(--primary),var(--primary-dark));border-radius:var(--radius-lg) var(--radius-lg) 0 0;padding:1.2rem 1.5rem;position:relative;overflow:hidden}
+        .result-header::before{content:'';position:absolute;width:120px;height:120px;background:rgba(255,255,255,.08);border-radius:50%;top:-40px;left:-40px}
+        .result-header::after{content:'';position:absolute;width:80px;height:80px;background:rgba(255,255,255,.05);border-radius:50%;bottom:-20px;right:20px}
+        .rh-top{display:flex;justify-content:space-between;align-items:center;position:relative;z-index:1;margin-bottom:.5rem}
+        .rh-top h3{font-size:1rem;font-weight:800}
+        .rh-badge{background:rgba(0,0,0,.3);color:#fff;padding:.3rem .9rem;border-radius:50px;font-size:.75rem;font-weight:700;direction:ltr;backdrop-filter:blur(8px)}
+        .status-pill{display:inline-flex;align-items:center;gap:.4rem;padding:.4rem 1rem;border-radius:50px;font-weight:700;font-size:.82rem;position:relative;z-index:1}
+        .status-pill i{font-size:.7rem}
+        .status-pill.pending{background:rgba(254,243,199,.2);color:#fbbf24}
+        .status-pill.confirmed{background:rgba(59,130,246,.2);color:#60a5fa}
+        .status-pill.picked{background:rgba(34,197,94,.2);color:#4ade80}
+        .status-pill.delivering{background:rgba(139,92,246,.2);color:#a78bfa}
+        .status-pill.completed{background:rgba(34,197,94,.2);color:#4ade80}
+        .status-pill.cancelled{background:rgba(239,68,68,.2);color:#f87171}
 
-        .status-badge-lg{display:inline-flex;align-items:center;gap:.4rem;padding:.4rem 1rem;border-radius:50px;font-weight:700;font-size:.82rem;margin-bottom:1.2rem}
-        .status-badge-lg i{font-size:.7rem}
-        .status-badge-lg.pending{background:#fef3c7;color:#92400e}
-        .status-badge-lg.confirmed{background:#dbeafe;color:#1e40af}
-        .status-badge-lg.picked{background:#dcfce7;color:#166534}
-        .status-badge-lg.delivering{background:#ede9fe;color:#5b21b6}
-        .status-badge-lg.completed{background:#dcfce7;color:#166534}
-        .status-badge-lg.cancelled{background:#fee2e2;color:#991b1b}
+        .result-body{background:rgba(30,41,59,.8);backdrop-filter:blur(24px);border-radius:0 0 var(--radius-lg) var(--radius-lg);padding:1.5rem;border:1px solid rgba(255,255,255,.06);border-top:none}
 
         /* Timeline */
-        .timeline{position:relative;padding-right:1.5rem;margin-bottom:1.5rem}
-        .tl-item{position:relative;padding-bottom:1.2rem;padding-right:2.2rem;opacity:.35;transition:.4s}
-        .tl-item.done,.tl-item.active{opacity:1}
-        .tl-dot{position:absolute;right:-1.5rem;top:2px;width:20px;height:20px;border-radius:50%;background:#e5e7eb;border:3px solid rgba(255,255,255,.9);z-index:1;transition:.4s}
-        .tl-item.done .tl-dot{background:var(--primary);border-color:var(--primary-light)}
-        .tl-item.active .tl-dot{background:var(--primary);animation:pulse 2s infinite;border-color:var(--primary-light)}
-        @keyframes pulse{0%,100%{transform:scale(1);box-shadow:0 0 0 0 rgba(255,215,0,.4)}50%{transform:scale(1.1);box-shadow:0 0 0 6px rgba(255,215,0,0)}}
-        .tl-line{position:absolute;right:-3.5px;top:22px;bottom:0;width:2px;background:#e5e7eb;transition:.4s}
-        .tl-item.done .tl-line{background:var(--primary)}
-        .tl-item:last-child{padding-bottom:0}
-        .tl-item:last-child .tl-line{display:none}
-        .tl-content h4{font-size:.88rem;font-weight:700;margin-bottom:.1rem;color:var(--dark)}
-        .tl-content p{font-size:.78rem;color:var(--gray);margin:0}
-        .tl-content .tl-time{font-size:.68rem;color:#aaa;margin-top:.15rem;font-weight:500}
+        .timeline{margin-bottom:1.5rem}
+        .tl-step{display:flex;gap:1rem;padding-bottom:1.2rem;position:relative;opacity:.3;transition:.4s}
+        .tl-step.done,.tl-step.active{opacity:1}
+        .tl-step:last-child{padding-bottom:0}
+        .tl-dot-wrap{display:flex;flex-direction:column;align-items:center;flex-shrink:0}
+        .tl-dot{width:22px;height:22px;border-radius:50%;background:rgba(255,255,255,.08);border:2px solid rgba(255,255,255,.1);display:flex;align-items:center;justify-content:center;transition:.4s;position:relative;z-index:1}
+        .tl-dot i{font-size:.6rem;color:transparent;transition:.3s}
+        .tl-step.done .tl-dot{background:var(--primary);border-color:var(--primary)}
+        .tl-step.done .tl-dot i{color:#fff}
+        .tl-step.active .tl-dot{background:var(--primary);border-color:var(--primary);animation:dotPulse 2s ease-in-out infinite}
+        .tl-step.active .tl-dot i{color:#fff}
+        @keyframes dotPulse{0%,100%{box-shadow:0 0 0 0 rgba(227,30,36,.4)}50%{box-shadow:0 0 0 8px rgba(227,30,36,0)}}
+        .tl-line{width:2px;flex:1;background:rgba(255,255,255,.08);margin-top:4px;border-radius:1px;transition:.4s}
+        .tl-step.done .tl-line{background:var(--primary)}
+        .tl-info{flex:1;padding-top:1px}
+        .tl-info h4{font-size:.88rem;font-weight:700;color:#fff;margin-bottom:.1rem}
+        .tl-info p{font-size:.78rem;color:var(--gray);margin:0;line-height:1.4}
+        .tl-info .tl-time{font-size:.7rem;color:rgba(255,255,255,.25);margin-top:.2rem;font-weight:500}
 
         /* Driver */
-        .driver-box{background:linear-gradient(135deg,var(--wa),#128C7E);border-radius:var(--radius);padding:1.2rem;color:#fff;display:none;margin-bottom:1.2rem;position:relative;overflow:hidden}
-        .driver-box::before{content:'';position:absolute;width:50px;height:50px;background:rgba(255,255,255,.1);border-radius:50%;top:-12px;left:-12px}
-        .driver-box.show{display:block;animation:fadeUp .4s ease}
-        .driver-box h4{font-size:.88rem;font-weight:700;margin-bottom:.8rem;display:flex;align-items:center;gap:.4rem;position:relative;z-index:1}
-        .driver-row{display:flex;align-items:center;gap:.8rem;position:relative;z-index:1}
-        .driver-avatar{width:48px;height:48px;background:rgba(255,255,255,.2);border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:1.2rem;flex-shrink:0}
-        .driver-text h5{margin:0;font-size:.92rem;font-weight:700}
-        .driver-text p{margin:0;opacity:.85;font-size:.82rem}
-        .btn-call-driver{background:#fff;color:var(--wa);border:none;padding:.5rem 1.2rem;border-radius:50px;font-weight:700;font-family:'Cairo',sans-serif;cursor:pointer;margin-top:.8rem;transition:.3s;font-size:.82rem;display:inline-flex;align-items:center;gap:.3rem}
-        .btn-call-driver:hover{transform:scale(1.03);box-shadow:0 4px 15px rgba(0,0,0,.15)}
+        .driver-card{display:none;background:linear-gradient(135deg,rgba(37,211,102,.1),rgba(18,140,126,.1));border:1px solid rgba(37,211,102,.15);border-radius:var(--radius);padding:1rem;margin-bottom:1.5rem}
+        .driver-card.show{display:block;animation:fadeUp .4s ease}
+        .dc-header{display:flex;align-items:center;gap:.6rem;margin-bottom:.8rem}
+        .dc-header i{color:var(--wa);font-size:.85rem}
+        .dc-header span{font-size:.85rem;font-weight:700;color:var(--wa)}
+        .dc-row{display:flex;align-items:center;gap:.8rem}
+        .dc-avatar{width:44px;height:44px;background:rgba(37,211,102,.15);border-radius:12px;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+        .dc-avatar i{color:var(--wa);font-size:1.1rem}
+        .dc-info{flex:1}
+        .dc-info h5{font-size:.88rem;font-weight:700;margin:0}
+        .dc-info p{font-size:.78rem;color:var(--gray);margin:0}
+        .dc-call{display:inline-flex;align-items:center;gap:.4rem;margin-top:.8rem;padding:.5rem 1.2rem;background:var(--wa);color:#fff;border:none;border-radius:50px;font-family:'Cairo',sans-serif;font-size:.82rem;font-weight:700;cursor:pointer;transition:.3s}
+        .dc-call:active{transform:scale(.95)}
 
-        /* Info */
-        .info-box{background:#f8f9fa;border-radius:var(--radius);padding:1.2rem;margin-bottom:1.2rem}
-        .info-box h4{font-size:.88rem;font-weight:800;margin-bottom:.8rem;display:flex;align-items:center;gap:.4rem;color:var(--dark)}
-        .info-box h4 i{background:linear-gradient(135deg,var(--primary),var(--primary-dark));-webkit-background-clip:text;-webkit-text-fill-color:transparent;font-size:.8rem}
-        .info-row{display:flex;justify-content:space-between;align-items:center;padding:.45rem 0;border-bottom:1px solid #eee}
-        .info-row:last-child{border-bottom:none}
-        .info-row .lbl{color:var(--gray);font-size:.82rem}
-        .info-row .val{font-weight:700;font-size:.82rem;text-align:right;max-width:55%}
+        /* Info Section */
+        .info-section{margin-bottom:1.5rem}
+        .info-title{font-size:.85rem;font-weight:700;color:rgba(255,255,255,.5);margin-bottom:.8rem;display:flex;align-items:center;gap:.5rem}
+        .info-title i{color:var(--primary);font-size:.8rem}
+        .info-grid{display:grid;gap:.1rem}
+        .info-item{display:flex;justify-content:space-between;align-items:center;padding:.65rem .8rem;background:rgba(255,255,255,.03);border-radius:10px}
+        .info-item:first-child{border-radius:10px 10px 0 0}
+        .info-item:last-child{border-radius:0 0 10px 10px}
+        .info-label{color:var(--gray);font-size:.8rem}
+        .info-value{font-weight:700;font-size:.82rem;color:#fff;text-align:right;max-width:60%}
 
         /* Actions */
-        .actions{display:flex;gap:.5rem}
-        .actions a{flex:1;padding:.7rem;border-radius:12px;font-weight:700;text-decoration:none;text-align:center;transition:.3s;display:flex;align-items:center;justify-content:center;gap:.4rem;font-size:.82rem}
-        .actions .wa{background:var(--wa);color:#fff}
-        .actions .wa:hover{background:#128C7E;transform:translateY(-2px);color:#fff}
-        .actions .call{background:var(--primary);color:var(--dark)}
-        .actions .call:hover{background:var(--primary-dark);transform:translateY(-2px)}
-        .actions .new-order{background:#f8f9fa;color:var(--dark);border:2px solid #eee}
-        .actions .new-order:hover{background:#eee;transform:translateY(-2px);color:var(--dark)}
+        .action-row{display:grid;grid-template-columns:1fr 1fr;gap:.6rem}
+        .action-row .full{grid-column:1/-1}
+        .act-btn{padding:.75rem;border-radius:12px;font-family:'Cairo',sans-serif;font-size:.85rem;font-weight:700;cursor:pointer;transition:.3s;display:flex;align-items:center;justify-content:center;gap:.4rem;text-decoration:none;border:none}
+        .act-btn:active{transform:scale(.97)}
+        .act-wa{background:var(--wa);color:#fff}
+        .act-call{background:var(--primary);color:#fff}
+        .act-new{background:rgba(255,255,255,.06);color:#fff;border:1px solid rgba(255,255,255,.08)}
 
-        .back{text-align:center;margin-top:1.2rem}
-        .back a{color:rgba(255,255,255,.4);text-decoration:none;font-weight:600;font-size:.85rem;transition:.3s}
-        .back a:hover{color:var(--primary)}
+        /* Bottom Link */
+        .bottom-link{text-align:center;margin-top:1.5rem}
+        .bottom-link a{color:rgba(255,255,255,.3);text-decoration:none;font-size:.82rem;font-weight:600;transition:.3s;display:inline-flex;align-items:center;gap:.4rem}
+        .bottom-link a:hover{color:var(--primary)}
 
-        .whatsapp-float{position:fixed;bottom:20px;left:20px;width:50px;height:50px;background:var(--wa);color:#fff;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:1.5rem;box-shadow:0 4px 20px rgba(37,211,102,.4);z-index:99;transition:.3s;text-decoration:none}
-        .whatsapp-float:hover{transform:scale(1.1);color:#fff}
+        /* WhatsApp Float */
+        .wa-float{position:fixed;bottom:20px;left:20px;width:52px;height:52px;background:var(--wa);color:#fff;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:1.5rem;box-shadow:0 4px 20px rgba(37,211,102,.4);z-index:99;text-decoration:none;transition:.3s}
+        .wa-float:active{transform:scale(.9)}
 
-        @media(max-width:575px){
-            body{padding:1rem}
-            .input-group-custom{flex-direction:column}
-            .actions{flex-direction:column}
-            .result-top{flex-direction:column;gap:.6rem;text-align:center;padding:1rem}
-            .search-card,.result{padding:1.3rem}
+        @media(min-width:768px){
+            .page{padding:3rem 2rem}
         }
     </style>
 </head>
 <body>
 
-<div class="page-wrapper">
+<div class="bg-layer">
+    <div class="bg-gradient"></div>
+    <div class="bg-orb bg-orb-1"></div>
+    <div class="bg-orb bg-orb-2"></div>
+    <div class="bg-orb bg-orb-3"></div>
+</div>
+
+<div class="page">
     <div class="header">
-        <div class="logo-wrap"><img src="assets/images/logo.jpg" alt="راحتك"></div>
+        <div class="logo-glow">
+            <img src="assets/images/logo.jpg" alt="راحتك" class="logo-img">
+        </div>
         <h1>تتبع طلبك</h1>
         <p>ادخل رقم التتبع أو رقم التليفون</p>
     </div>
 
-    <div class="search-card" id="searchCard">
-        <h2><i class="fas fa-search"></i> بحث</h2>
-        <div class="input-group-custom">
-            <input type="text" id="searchInput" placeholder="ORD-... أو رقم التليفون">
-            <button onclick="doSearch()"><i class="fas fa-search"></i> تتبع</button>
+    <div class="card" id="searchCard">
+        <div class="card-title"><i class="fas fa-search"></i> بحث سريع</div>
+        <div class="search-wrap">
+            <i class="fas fa-search search-icon"></i>
+            <input type="text" class="search-input" id="searchInput" placeholder="ادخل رقم الطلب هنا...">
         </div>
-        <div class="tab-hint">
-            <span class="active" onclick="setHint('ord')">رقم الطلب</span>
-            <span onclick="setHint('phone')">رقم التليفون</span>
+        <button class="search-btn" onclick="doSearch()">
+            <i class="fas fa-paper-plane"></i> تتبع دلوقتي
+        </button>
+        <div class="tab-row">
+            <button class="tab-btn active" onclick="setHint('ord',this)">رقم الطلب</button>
+            <button class="tab-btn" onclick="setHint('phone',this)">رقم التليفون</button>
         </div>
     </div>
 
-    <div class="loading" id="loading"><div class="spinner"></div><p style="font-weight:700;color:var(--gray)">جاري البحث...</p></div>
+    <div class="loader" id="loading">
+        <div class="loader-ring"></div>
+        <p>جاري البحث...</p>
+    </div>
 
     <div class="not-found" id="notFound">
         <div class="nf-icon"><i class="fas fa-search"></i></div>
-        <h3>لم نلاقي طلب بالبيانات دي</h3>
+        <h3>لم نلاقي طلب</h3>
         <p>تأكد من الرقم وحاول تاني</p>
     </div>
 
     <div class="result" id="result">
-        <div class="result-top">
-            <h3><i class="fas fa-box"></i> حالة الطلب</h3>
-            <span class="order-badge" id="rOrderId">ORD-XXXX</span>
-        </div>
-
-        <div class="status-badge-lg" id="statusBadge">
-            <i class="fas fa-clock"></i> <span id="statusText">معلق</span>
-        </div>
-
-        <div class="timeline" id="timeline">
-            <div class="tl-item" data-st="pending">
-                <div class="tl-dot"></div><div class="tl-line"></div>
-                <div class="tl-content"><h4>تم الاستلام</h4><p>طلبك وصلنا ومستنين نأكيده</p><div class="tl-time" id="tPending"></div></div>
+        <div class="result-header">
+            <div class="rh-top">
+                <h3><i class="fas fa-box"></i> حالة الطلب</h3>
+                <span class="rh-badge" id="rOrderId">ORD-XXXX</span>
             </div>
-            <div class="tl-item" data-st="confirmed">
-                <div class="tl-dot"></div><div class="tl-line"></div>
-                <div class="tl-content"><h4>تم التأكيد</h4><p>تم تأكيد طلبك وجاري التجهيز</p><div class="tl-time" id="tConfirmed"></div></div>
-            </div>
-            <div class="tl-item" data-st="picked">
-                <div class="tl-dot"></div><div class="tl-line"></div>
-                <div class="tl-content"><h4>تم الاستلام بالمندوب</h4><p>المندوب استلم طلبك</p><div class="tl-time" id="tPicked"></div></div>
-            </div>
-            <div class="tl-item" data-st="delivering">
-                <div class="tl-dot"></div><div class="tl-line"></div>
-                <div class="tl-content"><h4>في الطريق ليك</h4><p>المندوب في السكة، قرب يوصلك</p><div class="tl-time" id="tDelivering"></div></div>
-            </div>
-            <div class="tl-item" data-st="completed">
-                <div class="tl-dot"></div>
-                <div class="tl-content"><h4>تم التوصيل</h4><p>طلبك وصلك! بالهنا والشفا</p><div class="tl-time" id="tCompleted"></div></div>
+            <div class="status-pill" id="statusBadge">
+                <i class="fas fa-clock"></i> <span id="statusText">معلق</span>
             </div>
         </div>
-
-        <div class="driver-box" id="driverBox">
-            <h4><i class="fas fa-user"></i> المندوب بتاعك</h4>
-            <div class="driver-row">
-                <div class="driver-avatar"><i class="fas fa-motorcycle"></i></div>
-                <div class="driver-text"><h5 id="dName">-</h5><p id="dPhone">-</p></div>
+        <div class="result-body">
+            <div class="timeline" id="timeline">
+                <div class="tl-step" data-st="pending">
+                    <div class="tl-dot-wrap">
+                        <div class="tl-dot"><i class="fas fa-check"></i></div>
+                        <div class="tl-line"></div>
+                    </div>
+                    <div class="tl-info">
+                        <h4>تم الاستلام</h4>
+                        <p>طلبك وصلنا ومستنين نأكيده</p>
+                        <div class="tl-time" id="tPending"></div>
+                    </div>
+                </div>
+                <div class="tl-step" data-st="confirmed">
+                    <div class="tl-dot-wrap">
+                        <div class="tl-dot"><i class="fas fa-check"></i></div>
+                        <div class="tl-line"></div>
+                    </div>
+                    <div class="tl-info">
+                        <h4>تم التأكيد</h4>
+                        <p>تم تأكيد طلبك وجاري التجهيز</p>
+                        <div class="tl-time" id="tConfirmed"></div>
+                    </div>
+                </div>
+                <div class="tl-step" data-st="picked">
+                    <div class="tl-dot-wrap">
+                        <div class="tl-dot"><i class="fas fa-check"></i></div>
+                        <div class="tl-line"></div>
+                    </div>
+                    <div class="tl-info">
+                        <h4>تم الاستلام بالمندوب</h4>
+                        <p>المندوب استلم طلبك</p>
+                        <div class="tl-time" id="tPicked"></div>
+                    </div>
+                </div>
+                <div class="tl-step" data-st="delivering">
+                    <div class="tl-dot-wrap">
+                        <div class="tl-dot"><i class="fas fa-check"></i></div>
+                        <div class="tl-line"></div>
+                    </div>
+                    <div class="tl-info">
+                        <h4>في الطريق ليك</h4>
+                        <p>المندوب في السكة، قرب يوصلك</p>
+                        <div class="tl-time" id="tDelivering"></div>
+                    </div>
+                </div>
+                <div class="tl-step" data-st="completed">
+                    <div class="tl-dot-wrap">
+                        <div class="tl-dot"><i class="fas fa-check"></i></div>
+                    </div>
+                    <div class="tl-info">
+                        <h4>تم التوصيل</h4>
+                        <p>طلبك وصلك! بالهنا والشفا</p>
+                        <div class="tl-time" id="tCompleted"></div>
+                    </div>
+                </div>
             </div>
-            <button class="btn-call-driver" id="dCallBtn"><i class="fas fa-phone-alt"></i> اتصل بالمندوب</button>
-        </div>
 
-        <div class="info-box">
-            <h4><i class="fas fa-info-circle"></i> تفاصيل الطلب</h4>
-            <div class="info-row"><span class="lbl">الاسم</span><span class="val" id="iName">-</span></div>
-            <div class="info-row"><span class="lbl">التليفون</span><span class="val" id="iPhone">-</span></div>
-            <div class="info-row"><span class="lbl">العنوان</span><span class="val" id="iAddr">-</span></div>
-            <div class="info-row"><span class="lbl">الخدمة</span><span class="val" id="iSvc">-</span></div>
-            <div class="info-row"><span class="lbl">رسوم التوصيل</span><span class="val" id="iFee">-</span></div>
-        </div>
+            <div class="driver-card" id="driverBox">
+                <div class="dc-header"><i class="fas fa-motorcycle"></i> <span>المندوب بتاعك</span></div>
+                <div class="dc-row">
+                    <div class="dc-avatar"><i class="fas fa-user"></i></div>
+                    <div class="dc-info"><h5 id="dName">-</h5><p id="dPhone">-</p></div>
+                </div>
+                <button class="dc-call" id="dCallBtn"><i class="fas fa-phone-alt"></i> اتصل بالمندوب</button>
+            </div>
 
-        <div class="actions">
-            <a href="https://wa.me/20102004100667" target="_blank" class="wa"><i class="fab fa-whatsapp"></i> واتساب</a>
-            <a href="tel:+201093339983" class="call"><i class="fas fa-phone-alt"></i> اتصل</a>
-            <a href="order.html" class="new-order"><i class="fas fa-plus"></i> طلب جديد</a>
+            <div class="info-section">
+                <div class="info-title"><i class="fas fa-info-circle"></i> تفاصيل الطلب</div>
+                <div class="info-grid">
+                    <div class="info-item"><span class="info-label">الاسم</span><span class="info-value" id="iName">-</span></div>
+                    <div class="info-item"><span class="info-label">التليفون</span><span class="info-value" id="iPhone">-</span></div>
+                    <div class="info-item"><span class="info-label">العنوان</span><span class="info-value" id="iAddr">-</span></div>
+                    <div class="info-item"><span class="info-label">الخدمة</span><span class="info-value" id="iSvc">-</span></div>
+                    <div class="info-item"><span class="info-label">رسوم التوصيل</span><span class="info-value" id="iFee">-</span></div>
+                </div>
+            </div>
+
+            <div class="action-row">
+                <a href="https://wa.me/20102004100667" target="_blank" class="act-btn act-wa"><i class="fab fa-whatsapp"></i> واتساب</a>
+                <a href="tel:+201093339983" class="act-btn act-call"><i class="fas fa-phone-alt"></i> اتصل</a>
+                <a href="order.html" class="act-btn act-new full"><i class="fas fa-plus"></i> طلب جديد</a>
+            </div>
         </div>
     </div>
 
-    <div class="back"><a href="index.html"><i class="fas fa-arrow-right"></i> العودة للموقع</a></div>
+    <div class="bottom-link"><a href="index.html"><i class="fas fa-arrow-right"></i> العودة للموقع</a></div>
 </div>
 
-<a href="https://wa.me/20102004100667" class="whatsapp-float" target="_blank"><i class="fab fa-whatsapp"></i></a>
+<a href="https://wa.me/20102004100667" class="wa-float" target="_blank"><i class="fab fa-whatsapp"></i></a>
 
 <script>
     const statusMap={pending:{text:'معلق — في انتظار التأكيد',icon:'fa-clock',cls:'pending'},confirmed:{text:'مؤكد — جاري التجهيز',icon:'fa-check',cls:'confirmed'},picked:{text:'تم الاستلام — المندوب استلم الطلب',icon:'fa-box-open',cls:'picked'},delivering:{text:'في الطريق — المندوب في السكة',icon:'fa-motorcycle',cls:'delivering'},completed:{text:'تم التوصيل — بالهنا والشفا',icon:'fa-check-circle',cls:'completed'},cancelled:{text:'تم الإلغاء',icon:'times-circle',cls:'cancelled'}};
@@ -238,7 +317,13 @@
 
     function fmtTime(iso){if(!iso)return'';const d=new Date(iso);return d.toLocaleString('ar-EG',{hour:'2-digit',minute:'2-digit',day:'2-digit',month:'2-digit',year:'numeric'})}
 
-    window.setHint=function(type){document.querySelectorAll('.tab-hint span').forEach(s=>s.classList.remove('active'));event.target.classList.add('active');document.getElementById('searchInput').placeholder=type==='ord'?'ORD-...':'01xxxxxxxxx'};
+    window.setHint=function(type,el){
+        document.querySelectorAll('.tab-btn').forEach(b=>b.classList.remove('active'));
+        el.classList.add('active');
+        document.getElementById('searchInput').placeholder=type==='ord'?'ادخل رقم الطلب هنا...':'ادخل رقم التليفون هنا...';
+        document.getElementById('searchInput').value='';
+        document.getElementById('searchInput').focus();
+    };
 
     window.doSearch=async function(){
         const val=document.getElementById('searchInput').value.trim();
@@ -272,10 +357,10 @@
         document.getElementById('rOrderId').textContent=o.orderId||o.id.slice(-8).toUpperCase();
         const st=statusMap[o.status]||statusMap.pending;
         const badge=document.getElementById('statusBadge');
-        badge.className='status-badge-lg '+st.cls;
+        badge.className='status-pill '+st.cls;
         badge.innerHTML=`<i class="fas ${st.icon}"></i> <span>${st.text}</span>`;
         const idx=allStatuses.indexOf(o.status);
-        document.querySelectorAll('.tl-item').forEach((item,i)=>{item.classList.remove('done','active');if(i<idx)item.classList.add('done');if(i===idx)item.classList.add('active')});
+        document.querySelectorAll('.tl-step').forEach((item,i)=>{item.classList.remove('done','active');if(i<idx)item.classList.add('done');if(i===idx)item.classList.add('active')});
         if(o.createdAt)document.getElementById('tPending').textContent=fmtTime(o.createdAt);
         if(o.confirmedAt)document.getElementById('tConfirmed').textContent=fmtTime(o.confirmedAt);
         if(o.pickedAt)document.getElementById('tPicked').textContent=fmtTime(o.pickedAt);
@@ -288,6 +373,7 @@
         document.getElementById('iFee').textContent=o.deliveryFee?o.deliveryFee+' ج.م':'-';
         if((o.status==='delivering'||o.status==='picked')&&o.driverName){document.getElementById('driverBox').classList.add('show');document.getElementById('dName').textContent=o.driverName;document.getElementById('dPhone').textContent=o.driverPhone||'';document.getElementById('dCallBtn').onclick=()=>{window.location.href='tel:'+o.driverPhone}}
         else document.getElementById('driverBox').classList.remove('show');
+        document.getElementById('result').scrollIntoView({behavior:'smooth',block:'start'});
     }
 
     const urlParams=new URLSearchParams(window.location.search);
